@@ -2731,7 +2731,6 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 	if ( !control_WriteStringToBuffer(item[i]._iIName) )
 	{
 		strcpy(item[i]._iIName, AllItemsList[item[i].IDidx].iSName);
-		//MessageBox(NULL, item[i]._iIName, "LOOTED?", NULL);
 		if ( preidx != -1 )
 		{
 			sprintf(istr, "%s %s", PL_Prefix[preidx].PLName, item[i]._iIName);
@@ -3149,7 +3148,6 @@ void __fastcall SetupAllItems(int ii, int idx, int iseed, int lvl, int uper, int
 	SetupItem(ii);
 }
 
-
 void __fastcall SetupAllItems(int ii, int idx, int iseed, int lvl, int uper, int onlygood, int recreate, int pregen, bool inferno)
 {
 	int iblvl; // edi
@@ -3200,7 +3198,7 @@ void __fastcall SetupAllItems(int ii, int idx, int iseed, int lvl, int uper, int
 			iblvl = lvl + 4;
 		if (iblvl != -1)
 		{
-			if (inferno) { iblvl += 30; }
+			//if (inferno) { iblvl += 30; }
 			uid = CheckUnique(ii, iblvl, uper, recreate);
 			if (uid == -1)
 			{
@@ -3220,7 +3218,6 @@ void __fastcall SetupAllItems(int ii, int idx, int iseed, int lvl, int uper, int
 
 void __fastcall SpawnItem(int m, int x, int y, unsigned char sendmsg)
 {
-	//MessageBox(NULL, "SPAWN ITEM!", "WOOT", NULL);
 	int ii; // edi
 	int onlygood; // [esp+Ch] [ebp-Ch]
 	int idx; // [esp+14h] [ebp-4h]
@@ -3258,10 +3255,10 @@ LABEL_13:
 		itemactive[numitems] = ii;
 		itemavail[0] = itemavail[-numitems + 126];
 		if ( !monster[m]._uniqtype )
-			SetupAllItems(ii, idx, GetRndSeed(), monster[m].MData->mLevel, 1, onlygood, 0, 0,(IsInfernoEnabled() && gnDifficulty == DIFF_HELL));
+			SetupAllItems(ii, idx, GetRndSeed(), monster[m].MData->mLevel, 1, onlygood, 0, 0,IsInfernoEnabled());
 			//SetupAllItems(ii, idx, GetRndSeed(), monster[m].MData->mLevel, 1, onlygood, 0, 0, true);
 		else
-			SetupAllItems(ii, idx, GetRndSeed(), monster[m].MData->mLevel, 15, onlygood, 0, 0,(IsInfernoEnabled() && gnDifficulty == DIFF_HELL));
+			SetupAllItems(ii, idx, GetRndSeed(), monster[m].MData->mLevel, 15, onlygood, 0, 0,IsInfernoEnabled());
 			//SetupAllItems(ii, idx, GetRndSeed(), monster[m].MData->mLevel, 15, onlygood, 0, 0, true);
 
 		++numitems;
@@ -3317,7 +3314,7 @@ void __fastcall CreateRndItem(int x, int y, unsigned char onlygood, unsigned cha
 		GetSuperItemSpace(x, y, itemavail[0]);
 		itemactive[numitems] = ii;
 		itemavail[0] = itemavail[-numitems + 126];
-		SetupAllItems(ii, idx, GetRndSeed(), 2 * currlevel, 1, onlygood, 0, delta, (IsInfernoEnabled() && gnDifficulty == DIFF_HELL));
+		SetupAllItems(ii, idx, GetRndSeed(), 2 * currlevel, 1, onlygood, 0, delta, IsInfernoEnabled());
 
 		if ( sendmsg )
 			NetSendCmdDItem(0, ii);
@@ -4354,7 +4351,7 @@ void __cdecl DrawRareInfo()
 		}
 
 		if (curruitem.offs016C > 0) {
-			PrintItemPower(curruitem.offs016C, &curruitem);
+			PrintItemPower(curruitem.offs016C-1, &curruitem);
 			char special[260];
 			strcpy(special, "(+) ");
 			strcat(special, tempstr);
@@ -4446,7 +4443,6 @@ void __fastcall PrintItemMisc(ItemStruct *x)
 		AddPanelString(tempstr, 1);
 	}
 }
-
 void __fastcall PrintItemDetails(ItemStruct *x)
 {
 	ItemStruct *v1; // ebp
@@ -4498,7 +4494,6 @@ void __fastcall PrintItemDetails(ItemStruct *x)
 			AddPanelString(tempstr, 1);
 		}
 	}
-
 
 	if (tmpVar > 0)
 	{

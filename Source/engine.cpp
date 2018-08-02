@@ -1846,7 +1846,7 @@ int __cdecl GetRndSeed()
 
 bool IsInfernoEnabled() {
 	bool enabled = access("enable_inferno", 0) != -1;
-	return enabled;
+	return (enabled && gnDifficulty == DIFF_HELL);// || gbMaxPlayers == 1;
 }
 
 int __fastcall random(int idx, int v)
