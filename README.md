@@ -5,6 +5,7 @@ TODO:
 - Because the diabloui.dll hasn't been reverse-engineered, I've decided to use a trick to replace hell difficulty with a new one, to do it, create a file named `enable_inferno` in your Diablo folder and choose "hell" difficulty in the difficulty selection menu. [done]
 - Special items with 3 affixes can drop there. [done]
 - The third affix will only drop if the item has a suffix and a prefix. Additional affix doesn't follow the regular prefix/suffix rules, which mean that combinations that weren't possible before can occur. [done]
+- Full compatibility with vanilla diablo - you can move your character between Diablo and Infernity without any data loss! (Of course you won't see the third affix in normal diablo :D)
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
 - Fixing possible overflows in monster AC/to hit/etc. on difficulties above normal.
@@ -12,6 +13,14 @@ TODO:
 # Installing
 Put `Infernity.exe` in your Diablo folder. The following files from the original game patched to 1.09(b) need to be present: `DIABDAT.MPQ`, `DiabloUI.dll`, `SmackW32.dll`, `Standard.snp`, and `Storm.dll`.
 Additionally, Strange Bytes' [DirectDraw patch](http://www.strangebytes.com/index.php/projects/1-diablo-1-windows-7-vista-patch) is recommended to help fix compatibility issues and run the game in windowed mode.
+
+# Screenshots
+Some screenshots from the mod:
+
+![Screenshot 1: Inferno activated](https://cdn.discordapp.com/attachments/474387916043321364/474565168777658369/unknown.png "Inferno activated")
+
+![Screenshot 2: Three affixes](https://cdn.discordapp.com/attachments/474387916043321364/474426181106794516/unknown.png "Three affixes")
+You can find more screenshots on discord.
 
 # Credits
 https://github.com/diasurgical/devilution
