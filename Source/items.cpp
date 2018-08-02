@@ -3198,7 +3198,7 @@ void __fastcall SetupAllItems(int ii, int idx, int iseed, int lvl, int uper, int
 			iblvl = lvl + 4;
 		if (iblvl != -1)
 		{
-			//if (inferno) { iblvl += 30; }
+			if (inferno) { iblvl += 30; }
 			uid = CheckUnique(ii, iblvl, uper, recreate);
 			if (uid == -1)
 			{
