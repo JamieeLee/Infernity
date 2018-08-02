@@ -901,22 +901,42 @@ void __fastcall InitMonster(int i, int rd, int mtype, int x, int y)
 	}
 	if ( gnDifficulty == DIFF_HELL )
 	{
-		v26 = 4 * monster[v6].mMinDamage;
-		v27 = 4 * monster[v6]._mmaxhp + 192;
-		_LOBYTE(monster[v6].mLevel) += 30;
-		monster[v6]._mmaxhp = v27;
-		monster[v6]._mhitpoints = v27;
-		_LOWORD(v27) = monster[v6].mExp;
-		monster[v6].mHit += 120;
-		monster[v6].mHit2 += 120;
-		monster[v6].mExp = 4 * (v27 + 1000);
-		monster[v6].mMinDamage = v26 + 6;
-		monster[v6].mMaxDamage = 4 * monster[v6].mMaxDamage + 6;
-		monster[v6].mMinDamage2 = 4 * monster[v6].mMinDamage2 + 6;
-		v28 = 4 * monster[v6].mMaxDamage2 + 6;
-		monster[v6].mArmorClass += 80;
-		monster[v6].mMaxDamage2 = v28;
-		_LOWORD(monster[v6].mMagicRes) = v19->mMagicRes2;
+		if (IsInfernoEnabled()) {
+			v26 = 4 * monster[v6].mMinDamage;
+			v27 = 16 * monster[v6]._mmaxhp + 6400;
+			_LOBYTE(monster[v6].mLevel) += 50;
+			monster[v6]._mmaxhp = v27;
+			monster[v6]._mhitpoints = v27;
+			_LOWORD(v27) = monster[v6].mExp;
+			monster[v6].mHit = 255;
+			monster[v6].mHit2 = 255;
+			monster[v6].mExp = 4 * (v27 + 1000);
+			monster[v6].mMinDamage = v26*2 + 6;
+			monster[v6].mMaxDamage = 4 * monster[v6].mMaxDamage + 6;
+			monster[v6].mMinDamage2 = 4 * monster[v6].mMinDamage2 + 6;
+			v28 = 4 * monster[v6].mMaxDamage2 + 6;
+			monster[v6].mArmorClass = 255;
+			monster[v6].mMaxDamage2 = v28;
+			_LOWORD(monster[v6].mMagicRes) = v19->mMagicRes2;
+		}
+		else {
+			v26 = 4 * monster[v6].mMinDamage;
+			v27 = 4 * monster[v6]._mmaxhp + 192;
+			_LOBYTE(monster[v6].mLevel) += 30;
+			monster[v6]._mmaxhp = v27;
+			monster[v6]._mhitpoints = v27;
+			_LOWORD(v27) = monster[v6].mExp;
+			monster[v6].mHit += 120;
+			monster[v6].mHit2 += 120;
+			monster[v6].mExp = 4 * (v27 + 1000);
+			monster[v6].mMinDamage = v26 + 6;
+			monster[v6].mMaxDamage = 4 * monster[v6].mMaxDamage + 6;
+			monster[v6].mMinDamage2 = 4 * monster[v6].mMinDamage2 + 6;
+			v28 = 4 * monster[v6].mMaxDamage2 + 6;
+			monster[v6].mArmorClass += 80;
+			monster[v6].mMaxDamage2 = v28;
+			_LOWORD(monster[v6].mMagicRes) = v19->mMagicRes2;
+		}
 	}
 }
 // 679660: using guessed type char gbMaxPlayers;
@@ -1261,16 +1281,30 @@ LABEL_83:
 		}
 		if ( v30 == DIFF_HELL )
 		{
-			v33 = v3->_mmaxhp;
-			_LOBYTE(v3->mLevel) += 30;
-			v34 = 4 * v33 + 192;
-			v3->_mmaxhp = v34;
-			v3->_mhitpoints = v34;
-			v3->mExp = 4 * (v3->mExp + 1000);
-			v3->mMinDamage = 4 * v3->mMinDamage + 6;
-			v3->mMaxDamage = 4 * v3->mMaxDamage + 6;
-			v3->mMinDamage2 = 4 * v3->mMinDamage2 + 6;
-			v3->mMaxDamage2 = 4 * v3->mMaxDamage2 + 6;
+			if (IsInfernoEnabled()) {
+				v33 = v3->_mmaxhp;
+				_LOBYTE(v3->mLevel) += 50;
+				v34 = 16 * v33 + 6400;
+				v3->_mmaxhp = v34;
+				v3->_mhitpoints = v34;
+				v3->mExp = 8 * (v3->mExp + 2000);
+				v3->mMinDamage = 255;
+				v3->mMaxDamage = 255;
+				v3->mMinDamage2 = 255;
+				v3->mMaxDamage2 = 255;
+			}
+			else {
+				v33 = v3->_mmaxhp;
+				_LOBYTE(v3->mLevel) += 30;
+				v34 = 4 * v33 + 192;
+				v3->_mmaxhp = v34;
+				v3->_mhitpoints = v34;
+				v3->mExp = 4 * (v3->mExp + 1000);
+				v3->mMinDamage = 4 * v3->mMinDamage + 6;
+				v3->mMaxDamage = 4 * v3->mMaxDamage + 6;
+				v3->mMinDamage2 = 4 * v3->mMinDamage2 + 6;
+				v3->mMaxDamage2 = 4 * v3->mMaxDamage2 + 6;
+			}
 		}
 		sprintf(filestr, "Monsters\\Monsters\\%s.TRN", *(_DWORD *)(v17 + 8));
 		LoadFileWithMem(filestr, &pLightTbl[256 * (uniquetrans + 19)]);
@@ -8406,10 +8440,17 @@ void __fastcall PrintMonstHistory(int mt)
 			v3 = 3 * v3 + 1;
 			v4 = 3 * v4 + 1;
 		}
-		if ( gnDifficulty == DIFF_HELL )
+		if (gnDifficulty == DIFF_HELL)
 		{
-			v3 = 4 * v3 + 3;
-			v4 = 4 * v4 + 3;
+			if (IsInfernoEnabled()) {
+
+				v3 = 16 * v3 + 100;
+				v4 = 16 * v4 + 100;
+			}
+			else {
+				v3 = 4 * v3 + 3;
+				v4 = 4 * v4 + 3;
+			}
 		}
 		sprintf(tempstr, "Hit Points : %i-%i", v3, v4);
 		AddPanelString(tempstr, 1);

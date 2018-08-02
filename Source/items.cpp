@@ -1424,6 +1424,7 @@ void __fastcall SetPlrHandItem(ItemStruct *h, int idata)
 	h->_iIvalue = pAllItem->iValue;
 	h->IDidx = idata;
 	h->offs016C = -1;
+	h->offs002C = -1;
 }
 
 void __fastcall GetPlrHandSeed(ItemStruct *h)
@@ -2097,6 +2098,7 @@ void __fastcall GetItemAttrs(int i, int idata, int lvl)
 	item[i]._iPLMana = 0;
 	item[i]._iPLHP = 0;
 	item[i].offs016C = -1;
+	item[i].offs002C = -1;
 
 	if ( AllItemsList[idata].iMiscId == IMISC_BOOK )
 		GetBookSpell(i, lvl);
@@ -2110,8 +2112,14 @@ void __fastcall GetItemAttrs(int i, int idata, int lvl)
 
 		if ( gnDifficulty == DIFF_NIGHTMARE )
 			rndv = 5 * (currlevel + 16) + random(21, 10 * (currlevel + 16));
-		if ( gnDifficulty == DIFF_HELL )
-			rndv = 5 * (currlevel + 32) + random(21, 10 * (currlevel + 32));
+		if (gnDifficulty == DIFF_HELL) {
+			if (IsInfernoEnabled()) {
+				rndv = 10 * (currlevel + 36) + random(21, 12 * (currlevel + 48));
+			}
+			else {
+				rndv = 5 * (currlevel + 32) + random(21, 10 * (currlevel + 32));
+			}
+		}
 
 		if ( leveltype == DTYPE_HELL )
 			rndv += rndv >> 3;
@@ -2651,10 +2659,8 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 		}
 	}
 
-	if (prefIter > 0 && sufIter > 0) {
-
-
-		if (rand() % 2 == 0) {
+	if (prefIter > 0 && sufIter > 0 && item[i]._iCreateInfo & 0x20) {
+		if (random(23,2) == 0) {
 			//third affix is a prefix
 			int preidx2 = l[random(23, prefIter)];
 			SaveItemPower(
@@ -2668,6 +2674,7 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 			item[i].offs016C = PL_Prefix[preidx2].PLPower+1;
 		}
 		else {
+			//third affix is a suffix
 			int sufidx2 = l[random(23, sufIter)];
 			SaveItemPower(
 				i,
@@ -2686,6 +2693,7 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 	if ( !control_WriteStringToBuffer(item[i]._iIName) )
 	{
 		strcpy(item[i]._iIName, AllItemsList[item[i].IDidx].iSName);
+		//MessageBox(NULL, item[i]._iIName, "LOOTED?", NULL);
 		if ( preidx != -1 )
 		{
 			sprintf(istr, "%s %s", PL_Prefix[preidx].PLName, item[i]._iIName);
@@ -3103,8 +3111,77 @@ void __fastcall SetupAllItems(int ii, int idx, int iseed, int lvl, int uper, int
 	SetupItem(ii);
 }
 
+
+void __fastcall SetupAllItems(int ii, int idx, int iseed, int lvl, int uper, int onlygood, int recreate, int pregen, bool inferno)
+{
+	int iblvl; // edi
+	int uid; // eax
+
+	item[ii]._iSeed = iseed;
+	SetRndSeed(iseed);
+	GetItemAttrs(ii, idx, lvl >> 1);
+	item[ii]._iCreateInfo = lvl;
+
+	if (inferno) {
+		item[ii]._iCreateInfo |=  0x20;
+	}
+
+	if (pregen)
+		item[ii]._iCreateInfo = lvl | 0x8000;
+	if (onlygood)
+		item[ii]._iCreateInfo |= 0x40;
+
+	if (uper == 15)
+		item[ii]._iCreateInfo |= 0x80;
+	else if (uper == 1)
+		item[ii]._iCreateInfo |= 0x0100;
+
+	if (item[ii]._iMiscId == IMISC_UNIQUE)
+	{
+		if (item[ii]._iLoc != ILOC_UNEQUIPABLE)
+			GetUniqueItem(ii, iseed);
+	}
+	else
+	{
+		iblvl = -1;
+		if (random(32, 100) > 10 && random(33, 100) > lvl || (iblvl = lvl, lvl == -1))
+		{
+
+			if (item[ii]._iMiscId != IMISC_STAFF || (iblvl = lvl, lvl == -1))
+			{
+				if (item[ii]._iMiscId != IMISC_RING || (iblvl = lvl, lvl == -1))
+				{
+					if (item[ii]._iMiscId == IMISC_AMULET)
+						iblvl = lvl;
+				}
+			}
+		}
+		if (onlygood)
+			iblvl = lvl;
+		if (uper == 15)
+			iblvl = lvl + 4;
+		if (iblvl != -1)
+		{
+			uid = CheckUnique(ii, iblvl, uper, recreate);
+			if (uid == -1)
+			{
+				GetItemBonus(ii, idx, iblvl >> 1, iblvl, onlygood);
+			}
+			else
+			{
+				GetUniqueItem(ii, uid);
+				item[ii]._iCreateInfo |= 0x0200;
+			}
+		}
+		if (item[ii]._iMagical != 2)
+			ItemRndDur(ii);
+	}
+	SetupItem(ii);
+}
+
 void __fastcall SpawnItem(int m, int x, int y, unsigned char sendmsg)
 {
+	//MessageBox(NULL, "SPAWN ITEM!", "WOOT", NULL);
 	int ii; // edi
 	int onlygood; // [esp+Ch] [ebp-Ch]
 	int idx; // [esp+14h] [ebp-4h]
@@ -3143,9 +3220,11 @@ LABEL_13:
 		itemavail[0] = itemavail[-numitems + 126];
 
 		if ( !monster[m]._uniqtype )
-			SetupAllItems(ii, idx, GetRndSeed(), monster[m].MData->mLevel, 1, onlygood, 0, 0);
+			SetupAllItems(ii, idx, GetRndSeed(), monster[m].MData->mLevel, 1, onlygood, 0, 0,(IsInfernoEnabled() && gnDifficulty == DIFF_HELL));
+			//SetupAllItems(ii, idx, GetRndSeed(), monster[m].MData->mLevel, 1, onlygood, 0, 0, true);
 		else
-			SetupAllItems(ii, idx, GetRndSeed(), monster[m].MData->mLevel, 15, onlygood, 0, 0);
+			SetupAllItems(ii, idx, GetRndSeed(), monster[m].MData->mLevel, 15, onlygood, 0, 0,(IsInfernoEnabled() && gnDifficulty == DIFF_HELL));
+			//SetupAllItems(ii, idx, GetRndSeed(), monster[m].MData->mLevel, 15, onlygood, 0, 0, true);
 
 		++numitems;
 		if ( sendmsg )
@@ -4232,7 +4311,7 @@ void __cdecl DrawRareInfo()
 		
 		PrintItemPower(curruitem.offs016C, &curruitem);
 		char special[260];
-		strcpy(special, "(rare) ");
+		strcpy(special, "(+) ");
 		strcat(special, tempstr);
 		PrintUString(0, v2 + 4, 1, special, 0);
 

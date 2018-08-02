@@ -1843,6 +1843,12 @@ int __cdecl GetRndSeed()
 // 52B97C: using guessed type int sglGameSeed;
 // 52B998: using guessed type int SeedCount;
 
+
+bool IsInfernoEnabled() {
+	bool enabled = access("enable_inferno", 0) != -1;
+	return enabled;
+}
+
 int __fastcall random(int idx, int v)
 {
 	int v2; // esi

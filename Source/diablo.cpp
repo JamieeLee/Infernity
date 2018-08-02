@@ -1405,8 +1405,10 @@ LABEL_59:
 									AutomapRight();
 								return;
 							case VK_TAB:
+							{
 								DoAutoMap();
 								return;
+							}
 							case VK_SPACE:
 								if ( !chrflag )
 								{

@@ -57,6 +57,7 @@ void __fastcall GetUniqueItem(int i, int uid);
 void __fastcall SpawnUnique(int uid, int x, int y);
 void __fastcall ItemRndDur(int ii);
 void __fastcall SetupAllItems(int ii, int idx, int iseed, int lvl, int uper, int onlygood, int recreate, int pregen);
+void __fastcall SetupAllItems(int ii, int idx, int iseed, int lvl, int uper, int onlygood, int recreate, int pregen, bool inferno);
 void __fastcall SpawnItem(int m, int x, int y, unsigned char sendmsg);
 void __fastcall CreateItem(int uid, int x, int y);
 void __fastcall CreateRndItem(int x, int y, unsigned char onlygood, unsigned char sendmsg, int delta);
