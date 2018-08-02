@@ -1,10 +1,10 @@
 [Discord](https://discord.gg/rejUw5b)
 # Features
 TODO:
-- A new difficulty called Inferno.
-- Because the diabloui.dll hasn't been reverse-engineered, I've decided to use a trick to replace hell difficulty with a new one, to do it, create a file named `enable_inferno` in your Diablo folder and choose "hell" difficulty in the difficulty selection menu.
-- Special items with 3 affixes can drop there.
-- The third affix will only drop if the item has a suffix and a prefix. Additional affix doesn't follow the regular prefix/suffix rules, which mean that combinations that weren't possible before can occur.
+- A new difficulty called Inferno.[done]
+- Because the diabloui.dll hasn't been reverse-engineered, I've decided to use a trick to replace hell difficulty with a new one, to do it, create a file named `enable_inferno` in your Diablo folder and choose "hell" difficulty in the difficulty selection menu. [done]
+- Special items with 3 affixes can drop there. [done]
+- The third affix will only drop if the item has a suffix and a prefix. Additional affix doesn't follow the regular prefix/suffix rules, which mean that combinations that weren't possible before can occur. [done]
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
 - Fixing possible overflows in monster AC/to hit/etc. on difficulties above normal.
