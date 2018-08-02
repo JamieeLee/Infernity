@@ -22,7 +22,9 @@ Some screenshots from the mod (You can find more screenshots on discord):
 ![Screenshot 2: Three affixes](https://cdn.discordapp.com/attachments/474387916043321364/474426181106794516/unknown.png "Three affixes")
 
 # Credits
-https://github.com/diasurgical/devilution
+## https://github.com/diasurgical/devilution - for the code
+## RadTang - for the name
+## GainTrain - for the idea
 
 # Legal
 This software is being released to the Public Domain. No assets of Diablo are being provided. You must own a copy of Diablo and have access to the assets beforehand in order to use this software.
