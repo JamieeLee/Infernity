@@ -11,6 +11,7 @@ TO DO:
 - Fixing possible overflows in monster AC/to hit/etc. on difficulties above normal.
 
 # Installing
+[Click to download Infernity.exe](https://github.com/qndel/Infernity/tree/master/Source/Infernity.exe)
 Put `Infernity.exe` in your Diablo folder. The following files from the original game patched to 1.09(b) need to be present: `DIABDAT.MPQ`, `DiabloUI.dll`, `SmackW32.dll`, `Standard.snp`, and `Storm.dll`.
 Additionally, Strange Bytes' [DirectDraw patch](http://www.strangebytes.com/index.php/projects/1-diablo-1-windows-7-vista-patch) is recommended to help fix compatibility issues and run the game in windowed mode.
 
