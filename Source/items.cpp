@@ -1423,6 +1423,7 @@ void __fastcall SetPlrHandItem(ItemStruct *h, int idata)
 	h->_iMagical = 0;
 	h->_iIvalue = pAllItem->iValue;
 	h->IDidx = idata;
+	h->offs016C = -1;
 }
 
 void __fastcall GetPlrHandSeed(ItemStruct *h)
@@ -2095,6 +2096,7 @@ void __fastcall GetItemAttrs(int i, int idata, int lvl)
 	item[i]._iPLEnAc = 0;
 	item[i]._iPLMana = 0;
 	item[i]._iPLHP = 0;
+	item[i].offs016C = -1;
 
 	if ( AllItemsList[idata].iMiscId == IMISC_BOOK )
 		GetBookSpell(i, lvl);
@@ -2541,6 +2543,11 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 	int v11; // edx
 	int v14; // ecx
 	int l[256]; // [esp+4h] [ebp-494h]
+
+	int pref[256];
+	int suf[256];
+	int prefIter = 0;
+	int sufIter = 0;
 	char istr[128]; // [esp+404h] [ebp-94h]
 	int post; // [esp+488h] [ebp-10h]
 	int sufidx; // [esp+48Ch] [ebp-Ch]
@@ -2575,9 +2582,12 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 				{
 					if ( PL_Prefix[v14].PLMinLvl >= minlvl && PL_Prefix[v14].PLMinLvl <= maxlvl && (!onlygood || PL_Prefix[v14].PLOk) && (flgs != 256 || PL_Prefix[v14].PLPower != 15) )
 					{
+						pref[v11] = v14;
 						l[v11++] = v14;
-						if ( PL_Prefix[v14].PLDouble )
+						if (PL_Prefix[v14].PLDouble) {
+							pref[v11] = v14;
 							l[v11++] = v14;
+						}
 					}
 				}
 				v14++;
@@ -2585,6 +2595,7 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 			while ( PL_Prefix[v14].PLPower != -1 );
 			if ( v11 )
 			{
+				prefIter = v11;
 				preidx = l[random(23, v11)];
 				sprintf(istr, "%s %s", PL_Prefix[preidx].PLName, item[i]._iIName);
 				strcpy(item[i]._iIName, istr);
@@ -2612,14 +2623,17 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 			{
 				if ( flgs & PL_Suffix[v14].PLIType )
 				{
-					if ( PL_Suffix[v14].PLMinLvl >= minlvl && PL_Suffix[v14].PLMinLvl <= maxlvl && (goe | PL_Suffix[v14].PLGOE) != 0x11 && (!onlygood || PL_Suffix[v14].PLOk) )
+					if (PL_Suffix[v14].PLMinLvl >= minlvl && PL_Suffix[v14].PLMinLvl <= maxlvl && (goe | PL_Suffix[v14].PLGOE) != 0x11 && (!onlygood || PL_Suffix[v14].PLOk)) {
+						suf[v11] = v14;
 						l[v11++] = v14;
+					}
 				}
 				v14++;
 			}
 			while ( PL_Suffix[v14].PLPower != -1 );
 			if ( v11 )
 			{
+				sufIter = v11;
 				sufidx = l[random(23, v11)];
 				sprintf(istr, "%s of %s", item[i]._iIName, PL_Suffix[sufidx].PLName);
 				strcpy(item[i]._iIName, istr);
@@ -2636,6 +2650,39 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 			}
 		}
 	}
+
+	if (prefIter > 0 && sufIter > 0) {
+
+
+		if (rand() % 2 == 0) {
+			//third affix is a prefix
+			int preidx2 = l[random(23, prefIter)];
+			SaveItemPower(
+				i,
+				PL_Prefix[preidx2].PLPower,
+				PL_Prefix[preidx2].PLParam1,
+				PL_Prefix[preidx2].PLParam2,
+				PL_Prefix[preidx2].PLMinVal,
+				PL_Prefix[preidx2].PLMaxVal,
+				PL_Prefix[preidx2].PLMultVal);
+			item[i].offs016C = PL_Prefix[preidx2].PLPower+1;
+		}
+		else {
+			int sufidx2 = l[random(23, sufIter)];
+			SaveItemPower(
+				i,
+				PL_Suffix[sufidx2].PLPower,
+				PL_Suffix[sufidx2].PLParam1,
+				PL_Suffix[sufidx2].PLParam2,
+				PL_Suffix[sufidx2].PLMinVal,
+				PL_Suffix[sufidx2].PLMaxVal,
+				PL_Suffix[sufidx2].PLMultVal);
+			item[i].offs016C = PL_Suffix[sufidx2].PLPower+1;
+
+
+		}
+	}
+
 	if ( !control_WriteStringToBuffer(item[i]._iIName) )
 	{
 		strcpy(item[i]._iIName, AllItemsList[item[i].IDidx].iSName);
@@ -4162,6 +4209,36 @@ void __fastcall DrawULine(int y)
 	while ( v3 );
 }
 
+
+
+void __cdecl DrawRareInfo()
+{
+	int v2; // edi
+
+	if (!chrflag && !questlog)
+	{
+		//v0 = curruitem;
+		DrawUBack();
+		PrintUString(0, 2, 1, curruitem._iName, 3);
+		DrawULine(5);
+
+
+		PrintItemPower(curruitem._iPrePower, &curruitem);
+		v2 = 14 - 3;
+		PrintUString(0, v2, 1, tempstr, 0);
+
+		PrintItemPower(curruitem._iSufPower, &curruitem);
+		PrintUString(0, v2 + 2, 1, tempstr, 0);
+		
+		PrintItemPower(curruitem.offs016C, &curruitem);
+		char special[260];
+		strcpy(special, "(rare) ");
+		strcat(special, tempstr);
+		PrintUString(0, v2 + 4, 1, special, 0);
+
+	}
+}
+
 void __cdecl DrawUniqueInfo()
 {
 	int v0; // esi
@@ -4276,18 +4353,37 @@ void __fastcall PrintItemDetails(ItemStruct *x)
 		sprintf(tempstr, "Charges: %i/%i", v1->_iCharges, v1->_iMaxCharges);
 		AddPanelString(tempstr, 1);
 	}
-	v2 = v1->_iPrePower;
-	if ( v2 != -1 )
+
+	int tmpVar = v1->offs016C;
+	if (tmpVar <= 0)
 	{
-		PrintItemPower(v2, v1);
-		AddPanelString(tempstr, 1);
+
+
+		v2 = v1->_iPrePower;
+		if (v2 != -1)
+		{
+			PrintItemPower(v2, v1);
+			AddPanelString(tempstr, 1);
+		}
+		v3 = v1->_iSufPower;
+		if (v3 != -1)
+		{
+			PrintItemPower(v3, v1);
+			AddPanelString(tempstr, 1);
+		}
 	}
-	v3 = v1->_iSufPower;
-	if ( v3 != -1 )
+
+	if (tmpVar > 0)
 	{
-		PrintItemPower(v3, v1);
-		AddPanelString(tempstr, 1);
+		uitemflag = 2;
+		AddPanelString("rare item", 1);
+		qmemcpy(&curruitem, v1, sizeof(curruitem));
 	}
+
+
+
+
+
 	if ( v1->_iMagical == 2 )
 	{
 		AddPanelString("unique item", 1);

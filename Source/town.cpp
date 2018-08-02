@@ -1326,8 +1326,10 @@ void __fastcall T_DrawView(int StartX, int StartY)
 	{
 		DrawLevelUpIcon();
 	}
-	if ( uitemflag )
+	if ( uitemflag ==1 )
 		DrawUniqueInfo();
+	if (uitemflag == 2)
+		DrawRareInfo();
 	if ( qtextflag )
 		DrawQText();
 	if ( spselflag )

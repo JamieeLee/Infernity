@@ -85,6 +85,7 @@ void __cdecl DrawUBack();
 void __fastcall PrintUString(int x, int y, int cjustflag, char *str, int col);
 void __fastcall DrawULine(int y);
 void __cdecl DrawUniqueInfo();
+void __cdecl DrawRareInfo();
 void __fastcall PrintItemMisc(ItemStruct *x);
 void __fastcall PrintItemDetails(ItemStruct *x);
 void __fastcall PrintItemDur(ItemStruct *x);

@@ -2950,7 +2950,7 @@ LABEL_36:
 			_LOBYTE(infoclr) = 3;
 		}
 		strcpy(infostr, v2->_iName);
-		if ( v2->_iIdentified )
+		if (v2->_iIdentified)
 		{
 			strcpy(infostr, v2->_iIName);
 			PrintItemDetails(v2);
