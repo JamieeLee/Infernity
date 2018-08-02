@@ -1134,6 +1134,7 @@ void __cdecl LoadLevel()
 	LoadBuff = pfile_read(dst, &len);
 	tbuff = LoadBuff;
 
+
 	if ( leveltype )
 	{
 		for(i = 0; i < 112; i++)

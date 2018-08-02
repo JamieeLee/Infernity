@@ -219,6 +219,8 @@ LABEL_40:
 			LoadGame(1);
 LABEL_41:
 			IncProgress();
+			if (gnDifficulty == DIFF_HELL && IsInfernoEnabled())
+				InitDiabloMsg(2);
 			break;
 		default:
 			break;

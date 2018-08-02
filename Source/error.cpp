@@ -11,7 +11,7 @@ char *MsgStrings[44] =
 {
   &empty_string,
   "No automap available in town",
-  "No multiplayer functions in demo",
+  "Inferno has been activated.",
   "Direct Sound Creation Failed",
   "Not available in shareware version",
   "Not enough space to save",

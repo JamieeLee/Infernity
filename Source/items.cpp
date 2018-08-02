@@ -3162,6 +3162,7 @@ void __fastcall SetupAllItems(int ii, int idx, int iseed, int lvl, int uper, int
 			iblvl = lvl + 4;
 		if (iblvl != -1)
 		{
+			if (inferno) { iblvl += 30; }
 			uid = CheckUnique(ii, iblvl, uper, recreate);
 			if (uid == -1)
 			{
@@ -3218,7 +3219,6 @@ LABEL_13:
 		GetSuperItemSpace(x, y, itemavail[0]);
 		itemactive[numitems] = ii;
 		itemavail[0] = itemavail[-numitems + 126];
-
 		if ( !monster[m]._uniqtype )
 			SetupAllItems(ii, idx, GetRndSeed(), monster[m].MData->mLevel, 1, onlygood, 0, 0,(IsInfernoEnabled() && gnDifficulty == DIFF_HELL));
 			//SetupAllItems(ii, idx, GetRndSeed(), monster[m].MData->mLevel, 1, onlygood, 0, 0, true);
@@ -3279,7 +3279,7 @@ void __fastcall CreateRndItem(int x, int y, unsigned char onlygood, unsigned cha
 		GetSuperItemSpace(x, y, itemavail[0]);
 		itemactive[numitems] = ii;
 		itemavail[0] = itemavail[-numitems + 126];
-		SetupAllItems(ii, idx, GetRndSeed(), 2 * currlevel, 1, onlygood, 0, delta);
+		SetupAllItems(ii, idx, GetRndSeed(), 2 * currlevel, 1, onlygood, 0, delta, (IsInfernoEnabled() && gnDifficulty == DIFF_HELL));
 
 		if ( sendmsg )
 			NetSendCmdDItem(0, ii);
@@ -3390,6 +3390,7 @@ void __fastcall RecreateItem(int ii, int idx, unsigned short ic, int iseed, int 
 					recreate = 1;
 				if ( ic & 0x8000 )
 					pregen = 1;
+
 				SetupAllItems(ii, idx, iseed, ic & 0x3F, uper, onlygood, recreate, pregen);
 			}
 		}
@@ -5713,7 +5714,6 @@ void __fastcall CreateMagicItem(int x, int y, int imisc, int icurs, int sendmsg,
 	int ii; // esi
 	int idx; // ebx
 	bool done; // [esp+Ch] [ebp-4h]
-
 	done = 0;
 	if ( numitems < 127 )
 	{
