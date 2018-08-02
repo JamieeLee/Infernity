@@ -1326,7 +1326,7 @@ void __fastcall T_DrawView(int StartX, int StartY)
 	{
 		DrawLevelUpIcon();
 	}
-	if ( uitemflag ==1 )
+	if (uitemflag == 1)
 		DrawUniqueInfo();
 	if (uitemflag == 2)
 		DrawRareInfo();

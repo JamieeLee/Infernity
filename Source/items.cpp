@@ -1901,7 +1901,6 @@ LABEL_13:
 		item[v7]._iCurs = 86; // Black Book
 }
 // 679660: using guessed type char gbMaxPlayers;
-
 void __fastcall GetStaffPower(int i, int lvl, int bs, unsigned char onlygood)
 {
 	int v4; // esi
@@ -1917,7 +1916,6 @@ void __fastcall GetStaffPower(int i, int lvl, int bs, unsigned char onlygood)
 	char istr[128]; // [esp+40Ch] [ebp-84h]
 	int ia; // [esp+48Ch] [ebp-4h]
 	char *v17; // [esp+49Ch] [ebp+Ch]
-
 	v4 = lvl;
 	ia = i;
 	_LOBYTE(i) = 15;
@@ -1939,7 +1937,7 @@ void __fastcall GetStaffPower(int i, int lvl, int bs, unsigned char onlygood)
 				++v7;
 			}
 			while ( PL_Prefix[v7].PLPower != -1 );
-			if ( v6 )
+			if (v6)
 			{
 				_LOBYTE(v7) = 16;
 				v5 = l[random(v7, v6)];
@@ -1959,6 +1957,46 @@ void __fastcall GetStaffPower(int i, int lvl, int bs, unsigned char onlygood)
 					PL_Prefix[v5].PLMaxVal,
 					v11);
 				item[v9]._iPrePower = PL_Prefix[v5].PLPower;
+
+
+				//staff rare suffix
+				int suf[256];
+				int vv11 = 0;
+
+				if (item[i]._iCreateInfo & 0x20) {
+
+					if (PL_Suffix[0].PLPower != -1)
+					{
+						int vv14 = 0;
+						do
+						{
+							if (PL_Suffix[vv14].PLIType & 0x100)
+							{
+								if (PL_Suffix[vv14].PLMinLvl <= v4 && (!onlygood || PL_Suffix[vv14].PLOk)) {
+									suf[vv11++] = vv14;
+								}
+							}
+							vv14++;
+						} while (PL_Suffix[vv14].PLPower != -1);
+					}
+					if (v11 > 0) {
+
+				
+
+
+						int sufidx2 = suf[random(23, v11)];
+						SaveItemPower(
+							v10,
+							PL_Suffix[sufidx2].PLPower,
+							PL_Suffix[sufidx2].PLParam1,
+							PL_Suffix[sufidx2].PLParam2,
+							PL_Suffix[sufidx2].PLMinVal,
+							PL_Suffix[sufidx2].PLMaxVal,
+							PL_Suffix[sufidx2].PLMultVal);
+						item[v9].offs016C = PL_Suffix[sufidx2].PLPower + 1;
+					}
+				}
+					//staff rare suffix
 			}
 		}
 	}
@@ -4302,19 +4340,27 @@ void __cdecl DrawRareInfo()
 		PrintUString(0, 2, 1, curruitem._iName, 3);
 		DrawULine(5);
 
-
-		PrintItemPower(curruitem._iPrePower, &curruitem);
+		int offs = 0;
 		v2 = 14 - 3;
-		PrintUString(0, v2, 1, tempstr, 0);
+		if (curruitem._iPrePower >= 0) {
+			PrintItemPower(curruitem._iPrePower, &curruitem);
+			PrintUString(0, v2 + offs, 1, tempstr, 0);
+			offs += 2;
+		}
+		if (curruitem._iSufPower >= 0) {
+			PrintItemPower(curruitem._iSufPower, &curruitem);
+			PrintUString(0, v2 + offs, 1, tempstr, 0);
+			offs += 2;
+		}
 
-		PrintItemPower(curruitem._iSufPower, &curruitem);
-		PrintUString(0, v2 + 2, 1, tempstr, 0);
-		
-		PrintItemPower(curruitem.offs016C, &curruitem);
-		char special[260];
-		strcpy(special, "(+) ");
-		strcat(special, tempstr);
-		PrintUString(0, v2 + 4, 1, special, 0);
+		if (curruitem.offs016C > 0) {
+			PrintItemPower(curruitem.offs016C, &curruitem);
+			char special[260];
+			strcpy(special, "(+) ");
+			strcat(special, tempstr);
+			PrintUString(0, v2 + offs, 1, special, 0);
+			offs += 2;
+		}
 
 	}
 }
@@ -4452,6 +4498,7 @@ void __fastcall PrintItemDetails(ItemStruct *x)
 			AddPanelString(tempstr, 1);
 		}
 	}
+
 
 	if (tmpVar > 0)
 	{
