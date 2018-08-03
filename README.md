@@ -9,6 +9,8 @@ TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
 - Fixing possible overflows in monster AC/to hit/etc. on difficulties above normal.
+- Remove/change permanent negative shrines and Black Death hp decrease (In general, things permanently damaging your character)
+- 
 
 # Installing
 [Click to download Infernity.exe](https://github.com/qndel/Infernity/tree/master/Source/Infernity.exe)
