@@ -46,7 +46,25 @@ int __fastcall GetDirection(int x1, int y1, int x2, int y2);
 void __fastcall SetRndSeed(int s);
 int __cdecl GetRndSeed();
 int __fastcall random(int idx, int v);
+
+#include <string>
+#include <vector>
+#include <map>
+#include <sstream>
+#include <fstream>
 bool IsInfernoEnabled();
+void ReloadConfig();
+bool GetConfigBoolVariable(std::string s);
+int GetConfigIntVariable(std::string s);
+void HighlightItemsNameOnMap();
+void ReloadConfig();
+int GetTextWidth(char* s);
+void DrawTransparentBackground(int xPos, int yPos, int width, int height, int borderX, int borderY, uchar backgroundColor, uchar borderColor);
+template<typename T, typename... V> __forceinline T By(size_t i, T first, V... rest) { T val[] = { first, (T)rest... }; return val[i <= sizeof...(rest) ? i : sizeof...(rest)]; }
+extern std::map<std::string, bool> BoolConfig;
+extern std::map<std::string, int> IntConfig;
+
+
 void __cdecl engine_cpp_init_2();
 void __cdecl mem_init_mutex();
 void __cdecl mem_atexit_mutex();

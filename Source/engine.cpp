@@ -1843,6 +1843,67 @@ int __cdecl GetRndSeed()
 // 52B97C: using guessed type int sglGameSeed;
 // 52B998: using guessed type int SeedCount;
 
+using namespace std;
+
+
+void ReloadConfig() {
+	BoolConfig.clear();
+	IntConfig.clear();
+}
+
+bool GetConfigBoolVariable(std::string s) {
+	if (BoolConfig.find(s) != BoolConfig.end()) { return BoolConfig[s]; }
+	else {
+		string line;
+		ifstream myfile("infernity_config.ini");
+		if (myfile.is_open())
+		{
+			while (getline(myfile, line))
+			{
+				stringstream ss;
+				ss << s << " on";
+				stringstream ss2;
+				ss2 << s << " off";
+				std::size_t found = line.find(ss.str());
+				std::size_t found2 = line.find(ss2.str());
+				if (found != std::string::npos) { BoolConfig[s] = true; myfile.close(); return BoolConfig[s];}
+				else if (found2 != std::string::npos) { BoolConfig[s] = false; myfile.close(); return BoolConfig[s]; }
+			}
+			myfile.close();
+			BoolConfig[s] = false; return BoolConfig[s];
+		}
+		else { return false; }
+	}
+}
+
+
+void DrawTransparentBackground(int xPos, int yPos, int width, int height, int borderX, int borderY, uchar backgroundColor, uchar borderColor)
+{
+	int WorkingWidth = 768;// 640;
+	char* WorkingSurface = (char*)gpBuffer;
+
+	for (int y = 0; y < height; y++) {
+		for (int x = 0; x < width; x++) {
+			if (x < borderX || x + borderX >= width || y < borderY || y + borderY >= height /*|| y == 25*/) {
+				//WorkingSurface[ ((yPos - height) + y) * WorkingWidth + (xPos + x) ] = borderColor;
+			}
+			else {
+				//if( y & 1 && x & 1 || !(y & 1) && !(x & 1) )
+				WorkingSurface[((yPos - height) + y) * WorkingWidth + (xPos + x)] = backgroundColor;
+			}
+		}
+	}
+}
+
+
+int GetTextWidth(char* s)
+{
+	int l = 0;
+	while (*s) {
+		l += fontkern[fontframe[fontidx[*s++]]] + 1;
+	}
+	return l;
+}
 
 bool IsInfernoEnabled() {
 	bool enabled = access("enable_inferno", 0) != -1;

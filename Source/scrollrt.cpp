@@ -22,9 +22,7 @@ int (__fastcall *DrawPlrProc)(int player_num, int x, int y, int screen_x, int sc
 char cursor_draw_back_buffer[8192];
 int draw_monster_num; // weak
 int sgdwCursHgtOld; // idb
-
 int scrollrt_inf = 0x7F800000; // weak
-
 /* rdata */
 
 /* used in 1.00 debug */
@@ -479,6 +477,88 @@ void __fastcall DrawClippedPlayer(int pnum, int x, int y, int px, int py, int an
 // 4B8CC2: using guessed type char pcursplr;
 // 69BEF8: using guessed type int light_table_index;
 
+
+
+//qndel - drawing monster hp bar
+void DrawMonsterHealthBar(int monsterID) 
+{
+	MonsterStruct*  mon = &monster[monsterID];
+	int specialMonster = 0;
+	if (mon->_uniqtype) { specialMonster = 1; }
+	int currentLife = mon->_mhitpoints;
+	int maxLife = mon->_mmaxhp;
+
+	if (currentLife > maxLife) { maxLife = currentLife; }
+	float FilledPercent = (float)currentLife / (float)maxLife;
+	const int yPos = 180;
+	const int width = 250;
+	int ScreenWidth = 640;
+	int Screen_LeftBorder = 64;
+	const int xPos = (ScreenWidth) / 2 - Screen_LeftBorder;
+	const int height = 25;
+	const int xOffset = 0;
+	const int yOffset = 1;
+	int borderWidth = 2;
+	if (specialMonster == 1) { borderWidth = 2; } // 0 = normal, 1 = boss
+	int BorderColors[] = { 242/*undead*/,232/*demon*/,182/*beast*/ };
+	int borderColor =  BorderColors[mon->MData->mMonstClass]; //200; // pure golden, unique item style
+	int filledColor = 142; // optimum balance in bright red between dark and light
+	bool fillCorners = true;
+	int WorkingWidth = 768;// 640;
+
+	char* WorkingSurface = (char*)gpBuffer;
+
+	for (int j = 0; j < height; j++) {
+		for (int i = 0; i < (width*FilledPercent); i++) {
+			int tmpColor = filledColor;
+			int wtf = (yPos + j) * WorkingWidth + (xPos + i);
+			WorkingSurface[(yPos + j) * WorkingWidth + (xPos + i)] = tmpColor;
+		}
+	}
+
+
+
+	for (int j = 0; j < borderWidth; j++) {
+		for (int i = -xOffset - (fillCorners ? borderWidth : 0); i < width + xOffset + (fillCorners ? borderWidth : 0); i++) {
+			WorkingSurface[(yPos + j - yOffset - borderWidth) * WorkingWidth + (xPos + i)] = borderColor;
+		}
+	}
+
+	for (int j = 0; j < borderWidth; j++) {
+		for (int i = -xOffset; i < width + xOffset + (fillCorners ? borderWidth : 0); i++) {
+			WorkingSurface[(yPos + j + yOffset + height) * WorkingWidth + (xPos + i)] = borderColor;
+		}
+	}
+
+	for (int j = -yOffset; j < height + yOffset + (fillCorners ? borderWidth : 0); j++) {
+		for (int i = 0; i < borderWidth; i++) {
+			WorkingSurface[(yPos + j) * WorkingWidth + (xPos + i - xOffset - borderWidth)] = borderColor;
+		}
+	}
+
+	for (int j = -yOffset; j < height + yOffset + (fillCorners ? borderWidth : 0); j++) {
+		for (int i = 0; i < borderWidth; i++) {
+			WorkingSurface[(yPos + j) * WorkingWidth + (xPos + i + xOffset + width)] = borderColor;
+		}
+	}
+
+	int newX = xPos + Screen_LeftBorder;
+	int newY = yPos + height - 3;
+	std::stringstream name;
+	name << mon->mName;
+	int namecolor = COL_WHITE;
+	if (specialMonster == 1) { namecolor = COL_GOLD; }
+	PrintGameStr(newX - GetTextWidth((char*)name.str().c_str()) / 2, 30, (char*)name.str().c_str(), namecolor);
+	PrintGameStr(newX - GetTextWidth("/") / 2, 43, "/", COL_WHITE);
+	std::stringstream current;
+	current << (currentLife >> 6);
+	std::stringstream max;
+	max << (maxLife >> 6);
+	PrintGameStr(newX + GetTextWidth("/"), 43, (char*)max.str().c_str(), COL_WHITE);
+	PrintGameStr(newX - GetTextWidth((char*)current.str().c_str()) - GetTextWidth("/"), 43, (char*)current.str().c_str(), COL_WHITE);
+}
+
+
 void __fastcall DrawView(int StartX, int StartY)
 {
 	if ( zoomflag )
@@ -488,6 +568,11 @@ void __fastcall DrawView(int StartX, int StartY)
 
 	if ( automapflag )
 		DrawAutomap();
+
+	if (GetAsyncKeyState(VK_MENU) < 0) {
+		HighlightItemsNameOnMap();
+	}
+	//else HighlightedItem.ItemID = -1;
 
 	if ( invflag )
 		DrawInv();
@@ -529,6 +614,10 @@ void __fastcall DrawView(int StartX, int StartY)
 	DrawInfoBox();
 	DrawLifeFlask();
 	DrawManaFlask();
+
+	if (pcursmonst != -1 && GetConfigBoolVariable("drawHealthBar")) {
+		DrawMonsterHealthBar(pcursmonst);
+	}
 }
 // 4B84DC: using guessed type int dropGoldFlag;
 // 4B8968: using guessed type int sbookflag;
