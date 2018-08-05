@@ -2667,7 +2667,6 @@ void __fastcall miss_null_33(int mi, int sx, int sy, int dx, int dy, int midir, 
 	missile[v11]._miVar2 = sy;
 	PutMissile(v10);
 }
-
 void __fastcall AddTeleport(int mi, int sx, int sy, int dx, int dy, int midir, int mienemy, int id, int dam)
 {
 	int v9; // esi
