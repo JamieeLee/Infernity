@@ -10,12 +10,17 @@ TO DO:
 - Penalty to resistances/AC on Inferno difficulty.
 - Fixing possible overflows in monster AC/to hit/etc. on difficulties above normal.
 - Remove/change permanent negative shrines and Black Death hp decrease (In general, things permanently damaging your character)
-- 
 
 # Installing
 [Click to download Infernity.exe](https://github.com/qndel/Infernity/tree/master/Source/Infernity.exe)
 Put `Infernity.exe` in your Diablo folder. The following files from the original game patched to 1.09(b) need to be present: `DIABDAT.MPQ`, `DiabloUI.dll`, `SmackW32.dll`, `Standard.snp`, and `Storm.dll`.
 Additionally, Strange Bytes' [DirectDraw patch](http://www.strangebytes.com/index.php/projects/1-diablo-1-windows-7-vista-patch) is recommended to help fix compatibility issues and run the game in windowed mode.
+
+
+# Changelog
+- 1.00 - Added Inferno difficulty and 3 affix items.
+- 1.01 - Added health bar
+- 1.02 - Added alt highlighting items
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
