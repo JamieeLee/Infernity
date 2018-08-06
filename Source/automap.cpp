@@ -264,8 +264,12 @@ void HighlightItemsNameOnMap()
 			// add to drawing queue
 			//DrawLevelInfoText( x, y, textOnGround, By( item.MagicLevel, C_0_White, C_1_Blue, C_3_Gold, C_4_Orange) );
 			std::string t2(textOnGround);
-			
-			q.push_back(drawingQueue(x, y, centerXOffset * 2, 13, item_local._ix, item_local._iy, itemactive[i], item_local._iMagical, t2));
+
+			int mag = item_local._iMagical;
+			if (item_local.rareAffix > 0) {
+				mag = 3;
+			}
+			q.push_back(drawingQueue(x, y, centerXOffset * 2, 13, item_local._ix, item_local._iy, itemactive[i], mag, t2));
 		}
 	}
 	const int borderX = 5;
@@ -342,7 +346,7 @@ void HighlightItemsNameOnMap()
 
 
 			//DrawTransparentBackground(x3, y3, t.width + 1, t.height, 0, 0, bgcolor, bgcolor);
-			char color = By(t.magicLevel, COL_WHITE, COL_BLUE, COL_GOLD);
+			char color = By(t.magicLevel, COL_WHITE, COL_BLUE, COL_GOLD, COL_RED);
 			//DrawCustomText(t.new_x, t.new_y, 0, &t.text[0u], color);
 			int sx = t.new_x + 320 - t.width / 2;
 			int sy = t.new_y + 180;
