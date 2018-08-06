@@ -514,7 +514,7 @@ void __fastcall town_draw_clipped_town_2(int x, int y, int a3, int a4, int a5, i
 	}
 	if ( dFlags[0][v9] & 0x20 )
 	{
-		v20 = -1 - dPlayer[x][y-1]; // -1 - *((_BYTE *)&themeLoc[49].height + v9 + 3);
+			v20 = -1 - dPlayer[x][y]; // was dPlayer[x][y-1]// -1 - *((_BYTE *)&themeLoc[49].height + v9 + 3);
 		v21 = v20;
 		v22 = sy + plr[v21]._pyoff;
 		v23 = sx + plr[v21]._pxoff - plr[v21]._pAnimWidth2;

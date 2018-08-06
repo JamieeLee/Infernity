@@ -1872,7 +1872,7 @@ bool GetConfigBoolVariable(std::string s) {
 			myfile.close();
 			BoolConfig[s] = false; return BoolConfig[s];
 		}
-		else { return false; }
+		else { return true; }
 	}
 }
 

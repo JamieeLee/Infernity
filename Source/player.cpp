@@ -1059,7 +1059,9 @@ void __fastcall AddPlrMonstExper(int lvl, int exp, char pmask)
 	while ( v5 < 4 );
 	if ( v4 )
 	{
-		if ( (1 << myplr) & pmask )
+		//qndel - shared xp? 
+		//if ( (1 << myplr) & pmask )
+		v4 = 1;//xp not divided anymore
 			AddPlrExperience(myplr, v3, exp / v4);
 	}
 }
