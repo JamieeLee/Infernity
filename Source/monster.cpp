@@ -851,7 +851,7 @@ void __fastcall InitMonster(int i, int rd, int mtype, int x, int y)
 	monster[v6]._mgoalvar1 = 0;
 	monster[v6]._mgoalvar2 = 0;
 	monster[v6]._mgoalvar3 = 0;
-	monster[v6].field_18 = 0;
+	monster[v6].isActivated = 0;
 	monster[v6]._mDelFlag = 0;
 	monster[v6]._mRndSeed = GetRndSeed();
 	v18 = GetRndSeed();

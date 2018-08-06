@@ -1135,7 +1135,7 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 			}
 		}
 	}
-	if ( v50 & 0x10 && (v50 & 0x40 || plr[myplr]._pInfraFlag) && v41 < 0 )
+	if ( v50 & 0x10 && (v50 & 0x40 || plr[myplr]._pInfraFlag || (GetConfigBoolVariable("highlightMonstersInCombat") && monster[-1-v41].isActivated)) && v41 < 0 )
 	{
 		v23 = -1 - v41;
 		draw_monster_num = -1 - v41;
@@ -1149,7 +1149,7 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 				{
 					v26 = a5 + v24->_myoff;
 					v27 = a4 + v24->_mxoff - v25->flags_2;
-					if ( v23 == pcursmonst )
+					if ( v23 == pcursmonst || (GetConfigBoolVariable("highlightMonstersInCombat") && monster[v23].isActivated))
 					{
 						Cl2DecodeClrHL(233, v27, v26, (char *)v24->_mAFNum, v24->_mAnimFrame, v25->flags_1, 0, 8);
 						v23 = draw_monster_num;
@@ -1192,7 +1192,7 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 			}
 		}
 	}
-	if ( v40 > 0 && (v50 & 0x40 || plr[myplr]._pInfraFlag) )
+	if ( v40 > 0 && (v50 & 0x40 || plr[myplr]._pInfraFlag || (GetConfigBoolVariable("highlightMonstersInCombat") && monster[v40-1].isActivated)) )
 	{
 		v31 = v40 - 1;
 		draw_monster_num = v40 - 1;
@@ -1206,7 +1206,7 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 				{
 					v34 = a5 + v32->_myoff;
 					v35 = a4 + v32->_mxoff - v33->flags_2;
-					if ( v31 == pcursmonst )
+					if ( v31 == pcursmonst || (GetConfigBoolVariable("highlightMonstersInCombat") && monster[v31].isActivated))
 					{
 						Cl2DecodeClrHL(233, v35, v34, (char *)v32->_mAFNum, v32->_mAnimFrame, v33->flags_1, 0, 8);
 						v31 = draw_monster_num;

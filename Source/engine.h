@@ -58,6 +58,8 @@ bool GetConfigBoolVariable(std::string s);
 int GetConfigIntVariable(std::string s);
 void HighlightItemsNameOnMap();
 void ReloadConfig();
+bool CanRun(int pnum);
+int MonstersInCombat(int pnum);
 int GetTextWidth(char* s);
 void DrawTransparentBackground(int xPos, int yPos, int width, int height, int borderX, int borderY, uchar backgroundColor, uchar borderColor);
 template<typename T, typename... V> __forceinline T By(size_t i, T first, V... rest) { T val[] = { first, (T)rest... }; return val[i <= sizeof...(rest) ? i : sizeof...(rest)]; }
