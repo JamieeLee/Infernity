@@ -9,11 +9,15 @@
 - Running in town/dungeon 
 - Highlighting enemies in combat 
 - A config to enable or disable stuff
+- Fully shared xp - you don't need to poke or even be close! Seems in vanilla diablo the xp would be divided between the killers. In Infernity everyone gets 100% xp, so splitting to clear faster might be a good idea ;)
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
 - Fixing possible overflows in monster AC/to hit/etc. on difficulties above normal.
 - Remove/change permanent negative shrines and Black Death hp decrease (In general, things permanently damaging your character)
+- Fix friendly fire
+- Show other players on minimap
+- Share minimap discovery
 
 # Installing
 [Click to download exe+config v1.03](https://github.com/qndel/Infernity/releases/download/v.1.03/Infernity.7z)
