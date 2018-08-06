@@ -13,14 +13,17 @@ TO DO:
 
 # Installing
 [Click to download Infernity.exe](https://github.com/qndel/Infernity/tree/master/Source/Infernity.exe)
+You can download a bundle with config here
+[Click to download exe+config v1.03](https://github.com/qndel/Infernity/archive/v.1.03.zip)
 Put `Infernity.exe` in your Diablo folder. The following files from the original game patched to 1.09(b) need to be present: `DIABDAT.MPQ`, `DiabloUI.dll`, `SmackW32.dll`, `Standard.snp`, and `Storm.dll`.
 Additionally, Strange Bytes' [DirectDraw patch](http://www.strangebytes.com/index.php/projects/1-diablo-1-windows-7-vista-patch) is recommended to help fix compatibility issues and run the game in windowed mode.
 
 
 # Changelog
 - 1.00 - Added Inferno difficulty and 3 affix items.
-- 1.01 - Added health bar
+- 1.01 - Added health bar (can turn on/off in config)
 - 1.02 - Added alt highlighting items
+- 1.03 - Added running in town/dungeon and highlighting monsters in combat (something like infravision but you have to aggro monster to see it )(can turn on/off in config)
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
