@@ -20,7 +20,7 @@
 - Unpack the Infernity.7z and put the files in your diablo folder.
 - Launch `Infernity.exe` in your Diablo folder to play. The following files from the original game patched to 1.09 need to be present: `DIABDAT.MPQ`, `DiabloUI.dll`, `SmackW32.dll`, `Standard.snp`, and `Storm.dll`.
 - Additionally, Strange Bytes' [DirectDraw patch](http://www.strangebytes.com/index.php/projects/1-diablo-1-windows-7-vista-patch) is recommended to help fix compatibility issues and run the game in windowed mode.
-- You can always get the latest version of the exe [https://github.com/qndel/Infernity/blob/master/Source/Infernity.exe](here)
+- You can always get the latest version of the exe [here](https://github.com/qndel/Infernity/blob/master/Source/Infernity.exe)
 A new release version is updated when something changes in config/a major feature is added. For small upgraded just upgrade the exe.
 
 
