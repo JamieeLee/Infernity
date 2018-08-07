@@ -2718,7 +2718,7 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 	if (prefIter > 0 && sufIter > 0 && item[i]._iCreateInfo & 0x20) {
 		if (random(23,2) == 0) {
 			//third affix is a prefix
-			int preidx2 = l[random(23, prefIter)];
+			int preidx2 = pref[random(23, prefIter)];
 			SaveItemPower(
 				i,
 				PL_Prefix[preidx2].PLPower,
@@ -2731,7 +2731,7 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 		}
 		else {
 			//third affix is a suffix
-			int sufidx2 = l[random(23, sufIter)];
+			int sufidx2 = suf[random(23, sufIter)];
 			SaveItemPower(
 				i,
 				PL_Suffix[sufidx2].PLPower,
