@@ -57,6 +57,7 @@ void ReloadConfig();
 bool GetConfigBoolVariable(std::string s);
 int GetConfigIntVariable(std::string s);
 void HighlightItemsNameOnMap();
+void GenerateRareAffix(int i, int x, int y, int minlvl, int maxlvl, char prefPower, char sufPower, int forceSuffixPrefix/*0=prefix,1=suffix,2=random*/);
 void ReloadConfig();
 bool CanRun(int pnum);
 int MonstersInCombat(int pnum);

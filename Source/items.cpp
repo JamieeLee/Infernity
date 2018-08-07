@@ -103,6 +103,100 @@ PLStruct PL_Prefix[84] =
   { "Lightning", IPL_LIGHTDAM, 2, 20, 18, PLT_WEAP|PLT_STAFF, 0, 0, 1, 10000, 10000, 2 },
   { &empty_string, IPL_INVALID, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 };
+
+
+
+
+PLStruct PL_UPrefix[] =
+{
+	{ "Tin", IPL_TOHIT_CURSE, 6, 10, 3, PLT_WEAP | PLT_BOW | PLT_MISC, 0, 1, 0, 0, 0, -3 },
+{ "Brass", IPL_TOHIT_CURSE, 1, 5, 1, PLT_WEAP | PLT_BOW | PLT_MISC, 0, 1, 0, 0, 0, -2 },
+{ "Bronze", IPL_TOHIT, 1, 5, 1, PLT_WEAP | PLT_BOW | PLT_MISC, 0, 1, 1, 100, 500, 2 },
+{ "Iron", IPL_TOHIT, 6, 10, 4, PLT_WEAP | PLT_BOW | PLT_MISC, 0, 1, 1, 600, 1000, 3 },
+{ "Steel", IPL_TOHIT, 11, 15, 6, PLT_WEAP | PLT_BOW | PLT_MISC, 0, 1, 1, 1100, 1500, 5 },
+{ "Silver", IPL_TOHIT, 16, 20, 9, PLT_WEAP | PLT_BOW | PLT_MISC, 16, 1, 1, 1600, 2000, 7 },
+{ "Gold", IPL_TOHIT, 21, 30, 12, PLT_WEAP | PLT_BOW | PLT_MISC, 16, 1, 1, 2100, 3000, 9 },
+{ "Platinum", IPL_TOHIT, 31, 40, 16, PLT_WEAP | PLT_BOW, 16, 1, 1, 3100, 4000, 11 },
+{ "Mithril", IPL_TOHIT, 41, 60, 20, PLT_WEAP | PLT_BOW, 16, 1, 1, 4100, 6000, 13 },
+{ "Meteoric", IPL_TOHIT, 61, 80, 23, PLT_WEAP | PLT_BOW, 0, 1, 1, 6100, 10000, 15 },
+{ "Weird", IPL_TOHIT, 81, 100, 35, PLT_WEAP | PLT_BOW, 0, 1, 1, 10100, 14000, 17 },
+{ "Strange", IPL_TOHIT, 101, 150, 60, PLT_WEAP | PLT_BOW, 0, 1, 1, 14100, 20000, 20 },
+{ "Useless", IPL_DAMP_CURSE, 100, 100, 5, PLT_WEAP | PLT_BOW, 0, 1, 0, 0, 0, -8 },
+{ "Bent", IPL_DAMP_CURSE, 50, 75, 3, PLT_WEAP | PLT_BOW, 0, 1, 0, 0, 0, -4 },
+{ "Weak", IPL_DAMP_CURSE, 25, 45, 1, PLT_WEAP | PLT_BOW, 0, 1, 0, 0, 0, -3 },
+{ "Jagged", IPL_DAMP, 20, 35, 4, PLT_WEAP | PLT_BOW, 0, 1, 1, 250, 450, 3 },
+{ "Deadly", IPL_DAMP, 36, 50, 6, PLT_WEAP | PLT_BOW, 0, 1, 1, 500, 700, 4 },
+{ "Heavy", IPL_DAMP, 51, 65, 9, PLT_WEAP | PLT_BOW, 0, 1, 1, 750, 950, 5 },
+{ "Vicious", IPL_DAMP, 66, 80, 12, PLT_WEAP | PLT_BOW, 1, 1, 1, 1000, 1450, 8 },
+{ "Brutal", IPL_DAMP, 81, 95, 16, PLT_WEAP | PLT_BOW, 0, 1, 1, 1500, 1950, 10 },
+{ "Massive", IPL_DAMP, 96, 110, 20, PLT_WEAP | PLT_BOW, 0, 1, 1, 2000, 2450, 13 },
+{ "Savage", IPL_DAMP, 111, 125, 23, PLT_WEAP | PLT_BOW, 0, 1, 1, 2500, 3000, 15 },
+{ "Ruthless", IPL_DAMP, 126, 150, 35, PLT_WEAP | PLT_BOW, 0, 1, 1, 10100, 15000, 17 },
+{ "Merciless", IPL_DAMP, 151, 175, 60, PLT_WEAP | PLT_BOW, 0, 1, 1, 15000, 20000, 20 },
+{ "Clumsy", IPL_TOHIT_DAMP_CURSE, 50, 75, 5, PLT_WEAP | PLT_STAFF | PLT_BOW, 0, 1, 0, 0, 0, -7 },
+{ "Dull", IPL_TOHIT_DAMP_CURSE, 25, 45, 1, PLT_WEAP | PLT_STAFF | PLT_BOW, 0, 1, 0, 0, 0, -5 },
+{ "Sharp", IPL_TOHIT_DAMP, 20, 35, 1, PLT_WEAP | PLT_STAFF | PLT_BOW, 0, 1, 0, 350, 950, 5 },
+{ "Fine", IPL_TOHIT_DAMP, 36, 50, 6, PLT_WEAP | PLT_STAFF | PLT_BOW, 0, 1, 1, 1100, 1700, 7 },
+{ "Warrior's", IPL_TOHIT_DAMP, 51, 65, 10, PLT_WEAP | PLT_STAFF | PLT_BOW, 0, 1, 1, 1850, 2450, 13 },
+{ "Soldier's", IPL_TOHIT_DAMP, 66, 80, 15, PLT_WEAP | PLT_STAFF, 0, 1, 1, 2600, 3950, 17 },
+{ "Lord's", IPL_TOHIT_DAMP, 81, 95, 19, PLT_WEAP | PLT_STAFF, 0, 1, 1, 4100, 5950, 21 },
+{ "Knight's", IPL_TOHIT_DAMP, 96, 110, 23, PLT_WEAP | PLT_STAFF, 0, 1, 1, 6100, 8450, 26 },
+{ "Master's", IPL_TOHIT_DAMP, 111, 125, 28, PLT_WEAP | PLT_STAFF, 0, 1, 1, 8600, 13000, 30 },
+{ "Champion's", IPL_TOHIT_DAMP, 126, 150, 40, PLT_WEAP | PLT_STAFF, 0, 1, 1, 15200, 24000, 33 },
+{ "King's", IPL_TOHIT_DAMP, 151, 175, 28, PLT_WEAP | PLT_STAFF, 0, 1, 1, 24100, 35000, 38 },
+{ "Vulnerable", IPL_ACP_CURSE, 51, 100, 3, PLT_ARMO | PLT_SHLD, 0, 1, 0, 0, 0, -3 },
+{ "Rusted", IPL_ACP_CURSE, 25, 50, 1, PLT_ARMO | PLT_SHLD, 0, 1, 0, 0, 0, -2 },
+{ "Fine", IPL_ACP, 20, 30, 1, PLT_ARMO | PLT_SHLD, 0, 1, 1, 20, 100, 2 },
+{ "Strong", IPL_ACP, 31, 40, 3, PLT_ARMO | PLT_SHLD, 0, 1, 1, 120, 200, 3 },
+{ "Grand", IPL_ACP, 41, 55, 6, PLT_ARMO | PLT_SHLD, 0, 1, 1, 220, 300, 5 },
+{ "Valiant", IPL_ACP, 56, 70, 10, PLT_ARMO | PLT_SHLD, 0, 1, 1, 320, 400, 7 },
+{ "Glorious", IPL_ACP, 71, 90, 14, PLT_ARMO | PLT_SHLD, 16, 1, 1, 420, 600, 9 },
+{ "Blessed", IPL_ACP, 91, 110, 19, PLT_ARMO | PLT_SHLD, 16, 1, 1, 620, 800, 11 },
+{ "Saintly", IPL_ACP, 111, 130, 24, PLT_ARMO | PLT_SHLD, 16, 1, 1, 820, 1200, 13 },
+{ "Awesome", IPL_ACP, 131, 150, 28, PLT_ARMO | PLT_SHLD, 16, 1, 1, 1220, 2000, 15 },
+{ "Holy", IPL_ACP, 151, 170, 35, PLT_ARMO | PLT_SHLD, 16, 1, 1, 5200, 6000, 17 },
+{ "Godly", IPL_ACP, 171, 200, 60, PLT_ARMO | PLT_SHLD, 16, 1, 1, 6200, 7000, 20 },
+{ "Red", IPL_FIRERES, 10, 20, 4, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 500, 1500, 2 },
+{ "Crimson", IPL_FIRERES, 21, 30, 10, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 2100, 3000, 2 },
+{ "Crimson", IPL_FIRERES, 31, 40, 16, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 3100, 4000, 2 },
+{ "Garnet", IPL_FIRERES, 41, 50, 20, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 8200, 12000, 3 },
+{ "Ruby", IPL_FIRERES, 51, 60, 26, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 17100, 20000, 5 },
+{ "Blue", IPL_LIGHTRES, 10, 20, 4, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 500, 1500, 2 },
+{ "Azure", IPL_LIGHTRES, 21, 30, 10, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 2100, 3000, 2 },
+{ "Lapis", IPL_LIGHTRES, 31, 40, 16, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 3100, 4000, 2 },
+{ "Cobalt", IPL_LIGHTRES, 41, 50, 20, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 8200, 12000, 3 },
+{ "Sapphire", IPL_LIGHTRES, 51, 60, 26, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 17100, 20000, 5 },
+{ "White", IPL_MAGICRES, 10, 20, 4, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 500, 1500, 2 },
+{ "Pearl", IPL_MAGICRES, 21, 30, 10, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 2100, 3000, 2 },
+{ "Ivory", IPL_MAGICRES, 31, 40, 16, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 3100, 4000, 2 },
+{ "Crystal", IPL_MAGICRES, 41, 50, 20, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 8200, 12000, 3 },
+{ "Diamond", IPL_MAGICRES, 51, 60, 26, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 17100, 20000, 5 },
+{ "Topaz", IPL_ALLRES, 10, 15, 8, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 2000, 5000, 3 },
+{ "Amber", IPL_ALLRES, 16, 20, 12, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 7400, 10000, 3 },
+{ "Jade", IPL_ALLRES, 21, 30, 18, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 11000, 15000, 3 },
+{ "Obsidian", IPL_ALLRES, 31, 40, 24, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 24000, 40000, 4 },
+{ "Emerald", IPL_ALLRES, 41, 50, 31, PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW, 0, 0, 1, 61000, 75000, 7 },
+{ "Hyena's", IPL_MANA_CURSE, 11, 25, 4, PLT_STAFF | PLT_MISC, 0, 0, 0, 100, 1000, -2 },
+{ "Frog's", IPL_MANA_CURSE, 1, 10, 1, PLT_STAFF | PLT_MISC, 1, 0, 0, 0, 0, -2 },
+{ "Spider's", IPL_MANA, 10, 15, 1, PLT_STAFF | PLT_MISC, 1, 0, 1, 500, 1000, 2 },
+{ "Raven's", IPL_MANA, 15, 20, 5, PLT_STAFF | PLT_MISC, 0, 0, 1, 1100, 2000, 3 },
+{ "Snake's", IPL_MANA, 21, 30, 9, PLT_STAFF | PLT_MISC, 0, 0, 1, 2100, 4000, 5 },
+{ "Serpent's", IPL_MANA, 30, 40, 15, PLT_STAFF | PLT_MISC, 0, 0, 1, 4100, 6000, 7 },
+{ "Drake's", IPL_MANA, 41, 50, 21, PLT_STAFF | PLT_MISC, 0, 0, 1, 6100, 10000, 9 },
+{ "Dragon's", IPL_MANA, 51, 60, 27, PLT_STAFF | PLT_MISC, 0, 0, 1, 10100, 15000, 11 },
+{ "Wyrm's", IPL_MANA, 61, 80, 35, PLT_STAFF, 0, 0, 1, 15100, 19000, 12 },
+{ "Hydra's", IPL_MANA, 81, 100, 60, PLT_STAFF, 0, 0, 1, 19100, 30000, 13 },
+{ "Angel's", IPL_SPLLVLADD, 1, 1, 15, PLT_STAFF, 16, 0, 1, 25000, 25000, 2 },
+{ "Arch-Angel's", IPL_SPLLVLADD, 2, 2, 25, PLT_STAFF, 16, 0, 1, 50000, 50000, 3 },
+{ "Plentiful", IPL_CHARGES, 2, 2, 4, PLT_STAFF, 0, 0, 1, 2000, 2000, 2 },
+{ "Bountiful", IPL_CHARGES, 3, 3, 9, PLT_STAFF, 0, 0, 1, 3000, 3000, 3 },
+{ "Flaming", IPL_FIREDAM, 1, 10, 7, PLT_WEAP | PLT_STAFF, 0, 0, 1, 5000, 5000, 2 },
+{ "Lightning", IPL_LIGHTDAM, 2, 20, 18, PLT_WEAP | PLT_STAFF, 0, 0, 1, 10000, 10000, 2 },
+{ "Uniq_lifesteal", IPL_STEALLIFE, 5, 5, 25, 0, 0, 0, 1, 0, 0, 0},
+{ "Uniq_demondmgs", IPL_3XDAMVDEM, 35, 35, 25, 0, 0, 0, 1, 0, 0, 0 },
+{ &empty_string, IPL_INVALID, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+};
+
 PLStruct PL_Suffix[96] =
 {
   { "quality", IPL_DAMMOD, 1, 2, 2, PLT_WEAP|PLT_BOW, 0, 0, 1, 100, 200, 2 },
@@ -202,6 +296,112 @@ PLStruct PL_Suffix[96] =
   { "blocking", IPL_FASTBLOCK, 1, 1, 5, PLT_SHLD, 0, 0, 1, 4000, 4000, 4 },
   { &empty_string, IPL_INVALID, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 };
+
+
+
+PLStruct PL_USuffix[] =
+{
+	{ "quality", IPL_DAMMOD, 1, 2, 2, PLT_WEAP | PLT_BOW, 0, 0, 1, 100, 200, 2 },
+{ "maiming", IPL_DAMMOD, 3, 5, 7, PLT_WEAP | PLT_BOW, 0, 0, 1, 1300, 1500, 3 },
+{ "slaying", IPL_DAMMOD, 6, 8, 15, PLT_WEAP, 0, 0, 1, 2600, 3000, 5 },
+{ "gore", IPL_DAMMOD, 9, 12, 25, PLT_WEAP, 0, 0, 1, 4100, 5000, 8 },
+{ "carnage", IPL_DAMMOD, 13, 16, 35, PLT_WEAP, 0, 0, 1, 5100, 10000, 10 },
+{ "slaughter", IPL_DAMMOD, 17, 20, 60, PLT_WEAP, 0, 0, 1, 10100, 15000, 13 },
+{ "pain", IPL_GETHIT_CURSE, 2, 4, 4, PLT_ARMO | PLT_SHLD | PLT_MISC, 1, 0, 0, 0, 0, -4 },
+{ "tears", IPL_GETHIT_CURSE, 1, 1, 2, PLT_ARMO | PLT_SHLD | PLT_MISC, 1, 0, 0, 0, 0, -2 },
+{ "health", IPL_GETHIT, 1, 1, 2, PLT_ARMO | PLT_SHLD | PLT_MISC, 16, 0, 1, 200, 200, 2 },
+{ "protection", IPL_GETHIT, 2, 2, 6, PLT_ARMO | PLT_SHLD, 16, 0, 1, 400, 800, 4 },
+{ "absorption", IPL_GETHIT, 3, 3, 12, PLT_ARMO | PLT_SHLD, 16, 0, 1, 1001, 2500, 10 },
+{ "deflection", IPL_GETHIT, 4, 4, 20, PLT_ARMO, 16, 0, 1, 2500, 6500, 15 },
+{ "osmosis", IPL_GETHIT, 5, 6, 50, PLT_ARMO, 16, 0, 1, 7500, 10000, 20 },
+{ "frailty", IPL_STR_CURSE, 6, 10, 3, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_BOW | PLT_MISC, 1, 0, 0, 0, 0, -3 },
+{ "weakness", IPL_STR_CURSE, 1, 5, 1, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_BOW | PLT_MISC, 1, 0, 0, 0, 0, -2 },
+{ "strength", IPL_STR, 1, 5, 1, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_BOW | PLT_MISC, 0, 0, 1, 200, 1000, 2 },
+{ "might", IPL_STR, 6, 10, 5, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_BOW | PLT_MISC, 0, 0, 1, 1200, 2000, 3 },
+{ "power", IPL_STR, 11, 15, 11, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_BOW | PLT_MISC, 0, 0, 1, 2200, 3000, 4 },
+{ "giants", IPL_STR, 16, 20, 17, PLT_ARMO | PLT_WEAP | PLT_BOW | PLT_MISC, 0, 0, 1, 3200, 5000, 7 },
+{ "titans", IPL_STR, 21, 30, 23, PLT_WEAP | PLT_MISC, 0, 0, 1, 5200, 10000, 10 },
+{ "paralysis", IPL_DEX_CURSE, 6, 10, 3, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_BOW | PLT_MISC, 1, 0, 0, 0, 0, -3 },
+{ "atrophy", IPL_DEX_CURSE, 1, 5, 1, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_BOW | PLT_MISC, 1, 0, 0, 0, 0, -2 },
+{ "dexterity", IPL_DEX, 1, 5, 1, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_BOW | PLT_MISC, 0, 0, 1, 200, 1000, 2 },
+{ "skill", IPL_DEX, 6, 10, 5, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_BOW | PLT_MISC, 0, 0, 1, 1200, 2000, 3 },
+{ "accuracy", IPL_DEX, 11, 15, 11, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_BOW | PLT_MISC, 0, 0, 1, 2200, 3000, 4 },
+{ "precision", IPL_DEX, 16, 20, 17, PLT_ARMO | PLT_WEAP | PLT_BOW | PLT_MISC, 0, 0, 1, 3200, 5000, 7 },
+{ "perfection", IPL_DEX, 21, 30, 23, PLT_BOW | PLT_MISC, 0, 0, 1, 5200, 10000, 10 },
+{ "the fool", IPL_MAG_CURSE, 6, 10, 3, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 1, 0, 0, 0, 0, -3 },
+{ "dyslexia", IPL_MAG_CURSE, 1, 5, 1, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 1, 0, 0, 0, 0, -2 },
+{ "magic", IPL_MAG, 1, 5, 1, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 200, 1000, 2 },
+{ "the mind", IPL_MAG, 6, 10, 5, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 1200, 2000, 3 },
+{ "brilliance", IPL_MAG, 11, 15, 11, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 2200, 3000, 4 },
+{ "sorcery", IPL_MAG, 16, 20, 17, PLT_ARMO | PLT_WEAP | PLT_STAFF | PLT_BOW | PLT_MISC, 0, 0, 1, 3200, 5000, 7 },
+{ "wizardry", IPL_MAG, 21, 30, 23, PLT_STAFF | PLT_MISC, 0, 0, 1, 5200, 10000, 10 },
+{ "illness", IPL_VIT_CURSE, 6, 10, 3, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_BOW | PLT_MISC, 1, 0, 0, 0, 0, -3 },
+{ "disease", IPL_VIT_CURSE, 1, 5, 1, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_BOW | PLT_MISC, 1, 0, 0, 0, 0, -2 },
+{ "vitality", IPL_VIT, 1, 5, 1, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_BOW | PLT_MISC, 16, 0, 1, 200, 1000, 2 },
+{ "zest", IPL_VIT, 6, 10, 5, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_BOW | PLT_MISC, 16, 0, 1, 1200, 2000, 3 },
+{ "vim", IPL_VIT, 11, 15, 11, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_BOW | PLT_MISC, 16, 0, 1, 2200, 3000, 4 },
+{ "vigor", IPL_VIT, 16, 20, 17, PLT_ARMO | PLT_WEAP | PLT_BOW | PLT_MISC, 16, 0, 1, 3200, 5000, 7 },
+{ "life", IPL_VIT, 21, 30, 23, PLT_MISC, 16, 0, 1, 5200, 10000, 10 },
+{ "trouble", IPL_ATTRIBS_CURSE, 6, 10, 12, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_BOW | PLT_MISC, 1, 0, 0, 0, 0, -10 },
+{ "the pit", IPL_ATTRIBS_CURSE, 1, 5, 5, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_BOW | PLT_MISC, 1, 0, 0, 0, 0, -5 },
+{ "the sky", IPL_ATTRIBS, 1, 3, 5, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_BOW | PLT_MISC, 0, 0, 1, 800, 4000, 5 },
+{ "the moon", IPL_ATTRIBS, 4, 7, 11, PLT_ARMO | PLT_SHLD | PLT_WEAP | PLT_BOW | PLT_MISC, 0, 0, 1, 4800, 8000, 10 },
+{ "the stars", IPL_ATTRIBS, 8, 11, 17, PLT_ARMO | PLT_WEAP | PLT_BOW | PLT_MISC, 0, 0, 1, 8800, 12000, 15 },
+{ "the heavens", IPL_ATTRIBS, 12, 15, 25, PLT_WEAP | PLT_BOW | PLT_MISC, 0, 0, 1, 12800, 20000, 20 },
+{ "the zodiac", IPL_ATTRIBS, 16, 20, 30, PLT_MISC, 0, 0, 1, 20800, 40000, 30 },
+{ "the vulture", IPL_LIFE_CURSE, 11, 25, 4, PLT_ARMO | PLT_SHLD | PLT_MISC, 1, 0, 0, 0, 0, -4 },
+{ "the jackal", IPL_LIFE_CURSE, 1, 10, 1, PLT_ARMO | PLT_SHLD | PLT_MISC, 1, 0, 0, 0, 0, -2 },
+{ "the fox", IPL_LIFE, 10, 15, 1, PLT_ARMO | PLT_SHLD | PLT_MISC, 0, 0, 1, 100, 1000, 2 },
+{ "the jaguar", IPL_LIFE, 16, 20, 5, PLT_ARMO | PLT_SHLD | PLT_MISC, 0, 0, 1, 1100, 2000, 3 },
+{ "the eagle", IPL_LIFE, 21, 30, 9, PLT_ARMO | PLT_SHLD | PLT_MISC, 0, 0, 1, 2100, 4000, 5 },
+{ "the wolf", IPL_LIFE, 30, 40, 15, PLT_ARMO | PLT_SHLD | PLT_MISC, 0, 0, 1, 4100, 6000, 7 },
+{ "the tiger", IPL_LIFE, 41, 50, 21, PLT_ARMO | PLT_SHLD | PLT_MISC, 0, 0, 1, 6100, 10000, 9 },
+{ "the lion", IPL_LIFE, 51, 60, 27, PLT_ARMO | PLT_MISC, 0, 0, 1, 10100, 15000, 11 },
+{ "the mammoth", IPL_LIFE, 61, 80, 35, PLT_ARMO, 0, 0, 1, 15100, 19000, 12 },
+{ "the whale", IPL_LIFE, 81, 100, 60, PLT_ARMO, 0, 0, 1, 19100, 30000, 13 },
+{ "fragility", IPL_DUR_CURSE, 100, 100, 3, PLT_ARMO | PLT_SHLD | PLT_WEAP, 1, 0, 0, 0, 0, -4 },
+{ "brittleness", IPL_DUR_CURSE, 26, 75, 1, PLT_ARMO | PLT_SHLD | PLT_WEAP, 1, 0, 0, 0, 0, -2 },
+{ "sturdiness", IPL_DUR, 26, 75, 1, PLT_ARMO | PLT_SHLD | PLT_WEAP, 0, 0, 1, 100, 100, 2 },
+{ "craftsmanship", IPL_DUR, 51, 100, 6, PLT_ARMO | PLT_SHLD | PLT_WEAP, 0, 0, 1, 200, 200, 2 },
+{ "structure", IPL_DUR, 101, 200, 12, PLT_ARMO | PLT_SHLD | PLT_WEAP, 0, 0, 1, 300, 300, 2 },
+{ "the ages", IPL_INDESTRUCTIBLE, 0, 0, 25, PLT_ARMO | PLT_SHLD | PLT_WEAP, 0, 0, 1, 600, 600, 5 },
+{ "the dark", IPL_LIGHT_CURSE, 4, 4, 6, PLT_ARMO | PLT_WEAP | PLT_MISC, 1, 0, 0, 0, 0, -3 },
+{ "the night", IPL_LIGHT_CURSE, 2, 2, 3, PLT_ARMO | PLT_WEAP | PLT_MISC, 1, 0, 0, 0, 0, -2 },
+{ "light", IPL_LIGHT, 2, 2, 4, PLT_ARMO | PLT_WEAP | PLT_MISC, 16, 0, 1, 750, 750, 2 },
+{ "radiance", IPL_LIGHT, 4, 4, 8, PLT_ARMO | PLT_WEAP | PLT_MISC, 16, 0, 1, 1500, 1500, 3 },
+{ "flame", IPL_FIRE_ARROWS, 1, 3, 1, PLT_BOW, 0, 0, 1, 2000, 2000, 2 },
+{ "fire", IPL_FIRE_ARROWS, 1, 6, 11, PLT_BOW, 0, 0, 1, 4000, 4000, 4 },
+{ "burning", IPL_FIRE_ARROWS, 1, 16, 35, PLT_BOW, 0, 0, 1, 6000, 6000, 6 },
+{ "shock", IPL_LIGHT_ARROWS, 1, 6, 13, PLT_BOW, 0, 0, 1, 6000, 6000, 2 },
+{ "lightning", IPL_LIGHT_ARROWS, 1, 10, 21, PLT_BOW, 0, 0, 1, 8000, 8000, 4 },
+{ "thunder", IPL_LIGHT_ARROWS, 1, 20, 60, PLT_BOW, 0, 0, 1, 12000, 12000, 6 },
+{ "many", IPL_DUR, 100, 100, 3, PLT_BOW, 0, 0, 1, 750, 750, 2 },
+{ "plenty", IPL_DUR, 200, 200, 7, PLT_BOW, 0, 0, 1, 1500, 1500, 3 },
+{ "thorns", IPL_THORNS, 1, 3, 1, PLT_ARMO | PLT_SHLD, 0, 0, 1, 500, 500, 2 },
+{ "corruption", IPL_NOMANA, 0, 0, 5, PLT_ARMO | PLT_SHLD | PLT_WEAP, 1, 0, 0, -1000, -1000, 2 },
+{ "thieves", IPL_ABSHALFTRAP, 0, 0, 11, PLT_ARMO | PLT_SHLD | PLT_MISC, 0, 0, 1, 1500, 1500, 2 },
+{ "the bear", IPL_KNOCKBACK, 0, 0, 5, PLT_WEAP | PLT_STAFF | PLT_BOW, 1, 0, 1, 750, 750, 2 },
+{ "the bat", IPL_STEALMANA, 3, 3, 8, PLT_WEAP, 0, 0, 1, 7500, 7500, 3 },
+{ "vampires", IPL_STEALMANA, 5, 5, 19, PLT_WEAP, 0, 0, 1, 15000, 15000, 3 },
+{ "the leech", IPL_STEALLIFE, 3, 3, 8, PLT_WEAP, 0, 0, 1, 7500, 7500, 3 },
+{ "blood", IPL_STEALLIFE, 5, 5, 19, PLT_WEAP, 0, 0, 1, 15000, 15000, 3 },
+{ "piercing", IPL_TARGAC, 2, 6, 1, PLT_WEAP | PLT_BOW, 0, 0, 1, 1000, 1000, 3 },
+{ "puncturing", IPL_TARGAC, 4, 12, 9, PLT_WEAP | PLT_BOW, 0, 0, 1, 2000, 2000, 6 },
+{ "bashing", IPL_TARGAC, 8, 24, 17, PLT_WEAP, 0, 0, 1, 4000, 4000, 12 },
+{ "readiness", IPL_FASTATTACK, 1, 1, 1, PLT_WEAP | PLT_STAFF | PLT_BOW, 0, 0, 1, 2000, 2000, 2 },
+{ "swiftness", IPL_FASTATTACK, 2, 2, 10, PLT_WEAP | PLT_STAFF | PLT_BOW, 0, 0, 1, 4000, 4000, 4 },
+{ "speed", IPL_FASTATTACK, 3, 3, 19, PLT_WEAP | PLT_STAFF, 0, 0, 1, 8000, 8000, 8 },
+{ "haste", IPL_FASTATTACK, 4, 4, 27, PLT_WEAP | PLT_STAFF, 0, 0, 1, 16000, 16000, 16 },
+{ "balance", IPL_FASTRECOVER, 1, 1, 1, PLT_ARMO | PLT_MISC, 0, 0, 1, 2000, 2000, 2 },
+{ "stability", IPL_FASTRECOVER, 2, 2, 10, PLT_ARMO | PLT_MISC, 0, 0, 1, 4000, 4000, 4 },
+{ "harmony", IPL_FASTRECOVER, 3, 3, 20, PLT_ARMO | PLT_MISC, 0, 0, 1, 8000, 8000, 8 },
+{ "blocking", IPL_FASTBLOCK, 1, 1, 5, PLT_SHLD, 0, 0, 1, 4000, 4000, 4 },
+{ "Uniq_lifesteal", IPL_STEALLIFE, 5, 5, 25, 0, 0, 0, 1, 0, 0, 0 },
+{ "Uniq_demondmgs", IPL_3XDAMVDEM, 35, 35, 25, 0, 0, 0, 1, 0, 0, 0 },
+{ &empty_string, IPL_INVALID, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+};
+
+
 UItemStruct UniqueItemList[91] =
 {
   { "The Butcher's Cleaver", UITYPE_CLEAVER, 1u, 3u, 3650, IPL_STR, 10, 10, IPL_SETDAM, 4, 24, IPL_SETDUR, 10, 10, IPL_TOHIT, 0, 0, IPL_TOHIT, 0, 0, IPL_TOHIT, 0, 0 },
@@ -1965,47 +2165,8 @@ void __fastcall GetStaffPower(int i, int lvl, int bs, unsigned char onlygood,int
 
 
 				//staff rare suffix
-				int suf[256];
-				int vv11 = 0;
-
-				if (item[i]._iCreateInfo & 0x20) {
-
-					if (PL_Suffix[0].PLPower != -1)
-					{
-						int vv14 = 0;
-						do
-						{
-							if (PL_Suffix[vv14].PLIType & 0x100)
-							{
-								if (PL_Suffix[vv14].PLMinLvl <= v4 && (!onlygood || PL_Suffix[vv14].PLOk)) {
-									suf[vv11++] = vv14;
-								}
-							}
-							vv14++;
-						} while (PL_Suffix[vv14].PLPower != -1);
-					}
-					if (v11 > 0) {
-
-				
-
-
-						int sufidx2 = suf[random(23, v11)];
-						SaveItemPower(
-							v10,
-							PL_Suffix[sufidx2].PLPower,
-							PL_Suffix[sufidx2].PLParam1,
-							PL_Suffix[sufidx2].PLParam2,
-							PL_Suffix[sufidx2].PLMinVal,
-							PL_Suffix[sufidx2].PLMaxVal,
-							PL_Suffix[sufidx2].PLMultVal);
-						item[v9].rareAffix = PL_Suffix[sufidx2].PLPower + 1;
-
-						if (x >= 0 && y >= 0) {
-							AddMissile(x, y, x, y, 0, MIS_RESURRECTBEAM, 0, myplr, 0, 0);
-						}
-					}
-				}
-					//staff rare suffix
+				GenerateRareAffix(v10, x, y, lvl/2, lvl*2, PL_Prefix[v5].PLPower, -1, 1);
+			    //staff rare suffix
 			}
 		}
 	}
@@ -2607,11 +2768,6 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 	int v11; // edx
 	int v14; // ecx
 	int l[256]; // [esp+4h] [ebp-494h]
-
-	int pref[256];
-	int suf[256];
-	int prefIter = 0;
-	int sufIter = 0;
 	char istr[128]; // [esp+404h] [ebp-94h]
 	int post; // [esp+488h] [ebp-10h]
 	int sufidx; // [esp+48Ch] [ebp-Ch]
@@ -2626,6 +2782,7 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 		else
 			pre = 0;
 	}
+
 	preidx = -1;
 	sufidx = -1;
 	goe = 0;
@@ -2646,10 +2803,8 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 				{
 					if ( PL_Prefix[v14].PLMinLvl >= minlvl && PL_Prefix[v14].PLMinLvl <= maxlvl && (!onlygood || PL_Prefix[v14].PLOk) && (flgs != 256 || PL_Prefix[v14].PLPower != 15) )
 					{
-						pref[v11] = v14;
 						l[v11++] = v14;
 						if (PL_Prefix[v14].PLDouble) {
-							pref[v11] = v14;
 							l[v11++] = v14;
 						}
 					}
@@ -2659,7 +2814,6 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 			while ( PL_Prefix[v14].PLPower != -1 );
 			if ( v11 )
 			{
-				prefIter = v11;
 				preidx = l[random(23, v11)];
 				sprintf(istr, "%s %s", PL_Prefix[preidx].PLName, item[i]._iIName);
 				strcpy(item[i]._iIName, istr);
@@ -2688,7 +2842,6 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 				if ( flgs & PL_Suffix[v14].PLIType )
 				{
 					if (PL_Suffix[v14].PLMinLvl >= minlvl && PL_Suffix[v14].PLMinLvl <= maxlvl && (goe | PL_Suffix[v14].PLGOE) != 0x11 && (!onlygood || PL_Suffix[v14].PLOk)) {
-						suf[v11] = v14;
 						l[v11++] = v14;
 					}
 				}
@@ -2697,7 +2850,6 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 			while ( PL_Suffix[v14].PLPower != -1 );
 			if ( v11 )
 			{
-				sufIter = v11;
 				sufidx = l[random(23, v11)];
 				sprintf(istr, "%s of %s", item[i]._iIName, PL_Suffix[sufidx].PLName);
 				strcpy(item[i]._iIName, istr);
@@ -2715,38 +2867,8 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 		}
 	}
 
-	if (prefIter > 0 && sufIter > 0 && item[i]._iCreateInfo & 0x20) {
-		if (random(23,2) == 0) {
-			//third affix is a prefix
-			int preidx2 = pref[random(23, prefIter)];
-			SaveItemPower(
-				i,
-				PL_Prefix[preidx2].PLPower,
-				PL_Prefix[preidx2].PLParam1,
-				PL_Prefix[preidx2].PLParam2,
-				PL_Prefix[preidx2].PLMinVal,
-				PL_Prefix[preidx2].PLMaxVal,
-				PL_Prefix[preidx2].PLMultVal);
-			item[i].rareAffix = PL_Prefix[preidx2].PLPower+1;
-		}
-		else {
-			//third affix is a suffix
-			int sufidx2 = suf[random(23, sufIter)];
-			SaveItemPower(
-				i,
-				PL_Suffix[sufidx2].PLPower,
-				PL_Suffix[sufidx2].PLParam1,
-				PL_Suffix[sufidx2].PLParam2,
-				PL_Suffix[sufidx2].PLMinVal,
-				PL_Suffix[sufidx2].PLMaxVal,
-				PL_Suffix[sufidx2].PLMultVal);
-			item[i].rareAffix = PL_Suffix[sufidx2].PLPower+1;
-
-
-		}
-		if (x >= 0 && y >= 0) {
-			AddMissile(x, y, x, y, 0, MIS_RESURRECTBEAM, 0, myplr, 0, 0);
-		}
+	if (!pre && post && item[i]._iCreateInfo & 0x20) {
+		GenerateRareAffix(i, x, y, minlvl,maxlvl, PL_Prefix[preidx].PLPower, PL_Suffix[sufidx].PLPower, 2);
 	}
 
 	if ( !control_WriteStringToBuffer(item[i]._iIName) )
@@ -4464,7 +4586,7 @@ void __fastcall PrintItemDetails(ItemStruct *x)
 		}
 	}
 
-	if (tmpVar > 0)
+	else
 	{
 		uitemflag = 2;
 		AddPanelString("rare item", 1);
