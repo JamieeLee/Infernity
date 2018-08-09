@@ -1871,41 +1871,50 @@ void ColorPixel(int x, int y, int color) {
 
 void DrawXpBar()
 {
-	PlayerStruct player = plr[myplr]; // eax@1
-	int charLevel; // ecx@1
-	unsigned int curXp; // edx@2
-	unsigned int prevXp; // ecx@2
-	unsigned int prevXpDelta; // edx@2
-	unsigned int prevXpDelta_1; // eax@2
-	size_t barSize; // eax@3
-	int count; // ecx@3
-	uchar *barStart; // edx@3
-	int WorkingWidth = 768;// 640;
-	char* WorkingSurface = (char*)gpBuffer;
-	int ScreenHeight = 480;
-	int GUI_Height = 0;
-	int ScreenWidth = 640;
-	int GUI_Width = 0;
+	PlayerStruct *player = &plr[myplr];
+	int charLevel; 
+	unsigned int curXp; 
+	unsigned int prevXp; 
+	unsigned int prevXpDelta;
+	unsigned int prevXpDelta_1; 
+	int barSize = 306;
+	int visibleBar = 0;
+	int offset = 3;
+	int barRows = 3;
+	int yPos = 632;
+	int barColor = 182;/*242white, 142red, 200yellow, 182blue*/
+	int frameColor = 242;
 
-	/*
-	charLevel = player._pLevel;
+
+
+	PrintGameStr(145, 476, "XP", COL_WHITE);
+	charLevel = player->_pLevel;
 	if (charLevel != 50) {
 		curXp = ExpLvlsTbl[charLevel];
 		prevXp = ExpLvlsTbl[charLevel - 1];
 		prevXpDelta = curXp - prevXp;
-		prevXpDelta_1 = player._pExperience - prevXp;
-		if (player._pExperience > prevXp) {
-			barSize = 286 * (unsigned __int64)prevXpDelta_1 / prevXpDelta;
-			count = 1;
-			barStart = &WorkingSurface[(int)gpBuffer->row[618 + ScreenHeight - GUI_Height].col_unused_1 + 244 + (ScreenWidth - GUI_Width) / 2];
-			do {
-				memset(barStart, 200, barSize);
-				barStart += 768;
-			} while (--count - 1 >= 0);
+		prevXpDelta_1 = player->_pExperience - prevXp;
+		if (player->_pExperience > prevXp) {
+			visibleBar = barSize * (unsigned __int64)prevXpDelta_1 / prevXpDelta;
+			//draw frame
+			//horizontal
+			for (int i = -1; i <= barSize; ++i) {
+				ColorPixel((768 - barSize) / 2 + i + offset, yPos - barRows / 2 -1, frameColor);
+				ColorPixel((768 - barSize) / 2 + i + offset, yPos + barRows / 2 + 1, frameColor);
+			}
+			//vertical
+			for (int i = 0; i < barRows; ++i) {
+				ColorPixel((768 - barSize) / 2 -1 + offset, yPos - barRows / 2 + i, frameColor);
+				ColorPixel((768 - barSize) / 2 + barSize + offset, yPos - barRows / 2 + i, frameColor);
+			}
+			//draw frame
+			for (int i = 0; i < visibleBar; ++i) {
+				for (int j = 0; j < barRows; ++j) {
+					ColorPixel((768 - barSize) / 2 + i + offset, yPos - barRows/2+j, barColor);
+				}
+			}
 		}
-	}*/
-
-
+	}
 }
 
 void GenerateRareAffix(int i,int x, int y, int minlvl, int maxlvl, char prefPower, char sufPower, int forceSufPref) {

@@ -527,7 +527,7 @@ void DrawMonsterHealthBar(int monsterID)
 
 	for (int j = -yOffset; j < height + yOffset + (fillCorners ? borderWidth : 0); j++) {
 		for (int i = 0; i < borderWidth; i++) {
-			ColorPixel(xPos + i - xOffset - borderWidth + i, yPos + j, borderColor);
+			ColorPixel(xPos + i - xOffset - borderWidth, yPos + j, borderColor);
 		}
 	}
 
@@ -613,7 +613,6 @@ void __fastcall DrawView(int StartX, int StartY)
 	if (pcursmonst != -1 && GetConfigBoolVariable("drawHealthBar")) {
 		DrawMonsterHealthBar(pcursmonst);
 	}
-	DrawXpBar();
 }
 // 4B84DC: using guessed type int dropGoldFlag;
 // 4B8968: using guessed type int sbookflag;
@@ -3457,6 +3456,7 @@ void __cdecl DrawAndBlit()
 			DrawCtrlPan();
 		if ( drawsbarflag )
 			DrawInvBelt();
+		DrawXpBar();
 		if ( talkflag )
 		{
 			DrawTalkPan();
