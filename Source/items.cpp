@@ -2871,7 +2871,7 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 
 	
 	if (!pre && post && ShouldItemBeRare(item[i].isRare)) {
-		//GenerateRareAffix(i, x, y, minlvl,maxlvl, PL_Prefix[preidx].PLPower, PL_Suffix[sufidx].PLPower, 2);
+		GenerateRareAffix(i, x, y, minlvl,maxlvl, PL_Prefix[preidx].PLPower, PL_Suffix[sufidx].PLPower, 2);
 	}
 	
 
@@ -3293,7 +3293,7 @@ void __fastcall SetupAllItems(int ii, int idx, int iseed, int lvl, int uper, int
 			iblvl = lvl + 4;
 		if (iblvl != -1)
 		{
-			//if (inferno) { iblvl += 30; }
+			if (inferno) { iblvl += 30; }
 			uid = CheckUnique(ii, iblvl, uper, recreate);
 			if (uid == -1)
 			{
@@ -3496,7 +3496,7 @@ void __fastcall RecreateItem(int ii, int idx, unsigned short ic, int iseed, int 
 	{
 		if ( ic )
 		{
-			if ((ic & 0x7C00))// && (ic & 0x7C00 != 0xC00))
+			if ((ic & 0x7C00))
 			{
 				RecreateTownItem(ii, idx, ic, iseed, ivalue);
 			}
@@ -3521,12 +3521,13 @@ void __fastcall RecreateItem(int ii, int idx, unsigned short ic, int iseed, int 
 				if ( ic & 0x8000 )
 					pregen = 1;
 
-				//if (ic & 0x7C00 != 0xC00) {
+				if (ShouldItemBeRare(item[ii].isRare)) {
+					SetupAllItems(ii, idx, iseed, ic & 0x3F, uper, onlygood, recreate, pregen, true, -1,-1);
+				}
+				else {
 					SetupAllItems(ii, idx, iseed, ic & 0x3F, uper, onlygood, recreate, pregen);
-				//}
-				//else {
-					SetupAllItems(ii, idx, iseed, ic & 0x3F, uper, onlygood, recreate, pregen,true,-1,-1);
-				//}
+				}
+
 			}
 		}
 		else
