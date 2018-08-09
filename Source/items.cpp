@@ -4612,7 +4612,7 @@ void __fastcall PrintItemDetails(ItemStruct *x)
 
 	if ( v1->_iMagical == 2 )
 	{
-		if (IsItemRare(v1->isRare, v1->rareAffix)) {
+		if (ShouldItemBeRare(v1->isRare)) {
 			AddPanelString("superunique item", 1);
 		}
 		else {
