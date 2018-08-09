@@ -1850,6 +1850,18 @@ void ReloadConfig() {
 	BoolConfig.clear();
 	IntConfig.clear();
 }
+void PlayRareSound() {
+	PlaySFX_priv(&sgSFX[12], 0, 0, 0);
+}
+
+bool IsItemRare(int isRare, char specialAffix) {
+	return ShouldItemBeRare(isRare) && specialAffix > 0;
+}
+
+bool ShouldItemBeRare(int isRare) {
+	//return (itemInfo & 0x400 && itemInfo & 0x800);
+	return isRare==1;// & 0x7C00) == 0xC00);
+}
 
 void GenerateRareAffix(int i,int x, int y, int minlvl, int maxlvl, char prefPower, char sufPower, int forceSufPref) {
 	int sufPref = forceSufPref;
@@ -1922,6 +1934,7 @@ void GenerateRareAffix(int i,int x, int y, int minlvl, int maxlvl, char prefPowe
 	}
 	if (x >= 0 && y >= 0) {
 		AddMissile(x, y, x, y, 0, MIS_RESURRECTBEAM, 0, myplr, 0, 0);
+		PlayRareSound();
 	}
 }
 

@@ -2943,11 +2943,12 @@ LABEL_36:
 		v8 = v2->_iMagical;
 		if ( v8 == 1 )
 		{
-			_LOBYTE(infoclr) = 1;
+			infoclr = COL_BLUE;
+			if (IsItemRare(v2->isRare, v2->rareAffix)) { infoclr = COL_RED; }
 		}
 		else if ( v8 == 2 )
 		{
-			_LOBYTE(infoclr) = 3;
+			infoclr = COL_GOLD;
 		}
 		strcpy(infostr, v2->_iName);
 		if (v2->_iIdentified)

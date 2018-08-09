@@ -3516,7 +3516,8 @@ LABEL_23:
 								}
 								v16 = &plr[v7]._pHPBase;
 								v27 = v22 - 64;
-								plr[v7]._pMaxHPBase = v22 - 64;
+								//plr[v7]._pMaxHPBase = v22 - 64;
+								//black death hp decrease disabled
 								if ( plr[v7]._pHPBase > v22 - 64 )
 								{
 									*v16 = v27;
@@ -4765,7 +4766,6 @@ void __fastcall MAI_Zombie(int i)
 	int md; // [esp+Ch] [ebp-Ch]
 	int v14; // [esp+10h] [ebp-8h]
 	int arglist; // [esp+14h] [ebp-4h]
-
 	v1 = i;
 	arglist = i;
 	if ( (unsigned int)i >= 0xC8 )

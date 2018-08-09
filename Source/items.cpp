@@ -1624,7 +1624,7 @@ void __fastcall SetPlrHandItem(ItemStruct *h, int idata)
 	h->_iIvalue = pAllItem->iValue;
 	h->IDidx = idata;
 	h->rareAffix = -1;
-	h->offs002C = -1;
+	h->isRare = -1;
 }
 
 void __fastcall GetPlrHandSeed(ItemStruct *h)
@@ -2165,7 +2165,10 @@ void __fastcall GetStaffPower(int i, int lvl, int bs, unsigned char onlygood,int
 
 
 				//staff rare suffix
-				GenerateRareAffix(v10, x, y, lvl/2, lvl*2, PL_Prefix[v5].PLPower, -1, 1);
+				
+				if (ShouldItemBeRare(item[v9].isRare)) {
+						GenerateRareAffix(v10, x, y, lvl / 2, lvl * 2, PL_Prefix[v5].PLPower, -1, 1);	
+				}
 			    //staff rare suffix
 			}
 		}
@@ -2309,7 +2312,7 @@ void __fastcall GetItemAttrs(int i, int idata, int lvl)
 	item[i]._iPLMana = 0;
 	item[i]._iPLHP = 0;
 	item[i].rareAffix = -1;
-	item[i].offs002C = -1;
+	item[i].isRare = -1;
 
 	if ( AllItemsList[idata].iMiscId == IMISC_BOOK )
 		GetBookSpell(i, lvl);
@@ -2782,7 +2785,6 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 		else
 			pre = 0;
 	}
-
 	preidx = -1;
 	sufidx = -1;
 	goe = 0;
@@ -2867,9 +2869,11 @@ void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygo
 		}
 	}
 
-	if (!pre && post && item[i]._iCreateInfo & 0x20) {
-		GenerateRareAffix(i, x, y, minlvl,maxlvl, PL_Prefix[preidx].PLPower, PL_Suffix[sufidx].PLPower, 2);
+	
+	if (!pre && post && ShouldItemBeRare(item[i].isRare)) {
+		//GenerateRareAffix(i, x, y, minlvl,maxlvl, PL_Prefix[preidx].PLPower, PL_Suffix[sufidx].PLPower, 2);
 	}
+	
 
 	if ( !control_WriteStringToBuffer(item[i]._iIName) )
 	{
@@ -3249,10 +3253,6 @@ void __fastcall SetupAllItems(int ii, int idx, int iseed, int lvl, int uper, int
 	GetItemAttrs(ii, idx, lvl >> 1);
 	item[ii]._iCreateInfo = lvl;
 
-	if (inferno) {
-		item[ii]._iCreateInfo |=  0x20;
-	}
-
 	if (pregen)
 		item[ii]._iCreateInfo = lvl | 0x8000;
 	if (onlygood)
@@ -3262,6 +3262,10 @@ void __fastcall SetupAllItems(int ii, int idx, int iseed, int lvl, int uper, int
 		item[ii]._iCreateInfo |= 0x80;
 	else if (uper == 1)
 		item[ii]._iCreateInfo |= 0x0100;
+
+	if (inferno) {
+		item[ii].isRare = 1;
+	}
 
 	if (item[ii]._iMiscId == IMISC_UNIQUE)
 	{
@@ -3289,7 +3293,7 @@ void __fastcall SetupAllItems(int ii, int idx, int iseed, int lvl, int uper, int
 			iblvl = lvl + 4;
 		if (iblvl != -1)
 		{
-			if (inferno) { iblvl += 30; }
+			//if (inferno) { iblvl += 30; }
 			uid = CheckUnique(ii, iblvl, uper, recreate);
 			if (uid == -1)
 			{
@@ -3492,7 +3496,7 @@ void __fastcall RecreateItem(int ii, int idx, unsigned short ic, int iseed, int 
 	{
 		if ( ic )
 		{
-			if ( ic & 0x7C00 )
+			if ((ic & 0x7C00))// && (ic & 0x7C00 != 0xC00))
 			{
 				RecreateTownItem(ii, idx, ic, iseed, ivalue);
 			}
@@ -3517,7 +3521,12 @@ void __fastcall RecreateItem(int ii, int idx, unsigned short ic, int iseed, int 
 				if ( ic & 0x8000 )
 					pregen = 1;
 
-				SetupAllItems(ii, idx, iseed, ic & 0x3F, uper, onlygood, recreate, pregen);
+				//if (ic & 0x7C00 != 0xC00) {
+					SetupAllItems(ii, idx, iseed, ic & 0x3F, uper, onlygood, recreate, pregen);
+				//}
+				//else {
+					SetupAllItems(ii, idx, iseed, ic & 0x3F, uper, onlygood, recreate, pregen,true,-1,-1);
+				//}
 			}
 		}
 		else
@@ -3839,10 +3848,15 @@ void __fastcall GetItemStr(int i)
 		else
 			strcpy(infostr, item[i]._iIName);
 
-		if ( item[i]._iMagical == 1 )
+		if (item[i]._iMagical == 1) {
 			infoclr = COL_BLUE;
-		if ( item[i]._iMagical == 2 )
+		}
+		if (item[i]._iMagical == 2) {
 			infoclr = COL_GOLD;
+		}
+		if (IsItemRare(item[i].isRare, item[i].rareAffix) && item[i]._iMagical == 1) {
+			infoclr = COL_RED;
+		}
 	}
 }
 // 4B883C: using guessed type int infoclr;
@@ -4566,11 +4580,8 @@ void __fastcall PrintItemDetails(ItemStruct *x)
 		sprintf(tempstr, "Charges: %i/%i", v1->_iCharges, v1->_iMaxCharges);
 		AddPanelString(tempstr, 1);
 	}
-
 	int tmpVar = v1->rareAffix;
-	if (tmpVar <= 0)
-	{
-
+	if (!IsItemRare(v1->isRare,tmpVar) && tmpVar <= 0){
 
 		v2 = v1->_iPrePower;
 		if (v2 != -1)
@@ -4584,6 +4595,7 @@ void __fastcall PrintItemDetails(ItemStruct *x)
 			PrintItemPower(v3, v1);
 			AddPanelString(tempstr, 1);
 		}
+		
 	}
 
 	else
@@ -4599,7 +4611,12 @@ void __fastcall PrintItemDetails(ItemStruct *x)
 
 	if ( v1->_iMagical == 2 )
 	{
-		AddPanelString("unique item", 1);
+		if (IsItemRare(v1->isRare, v1->rareAffix)) {
+			AddPanelString("superunique item", 1);
+		}
+		else {
+			AddPanelString("unique item", 1);
+		}
 		uitemflag = 1;
 		qmemcpy(&curruitem, v1, sizeof(curruitem));
 	}

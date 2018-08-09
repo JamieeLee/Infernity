@@ -121,6 +121,7 @@ void __fastcall PackItem(PkItemStruct *id, ItemStruct *is)
 			id->bMDur = is->_iMaxDur;
 			id->bCh = is->_iCharges;
 			id->bMCh = is->_iMaxCharges;
+			id->dwBuff = is->isRare;
 			if ( !is->IDidx )
 				id->wValue = is->_ivalue;
 		}
@@ -281,6 +282,7 @@ void __fastcall UnPackItem(PkItemStruct *is, ItemStruct *id)
 			item[127]._iMaxDur = (unsigned char)v2->bMDur;
 			item[127]._iCharges = (unsigned char)v2->bCh;
 			item[127]._iMaxCharges = (unsigned char)v2->bMCh;
+			item[127].isRare = v2->dwBuff;
 		}
 		qmemcpy(v3, &item[127], sizeof(ItemStruct));
 	}
