@@ -20,12 +20,11 @@
 - Share minimap discovery
 
 # Installing
-[Click to download exe+config v1.03](https://github.com/qndel/Infernity/releases/download/v.1.03/Infernity.7z)
-- Unpack the Infernity.7z and put the files in your diablo folder.
+Get `infernity.exe` [here](https://github.com/qndel/Infernity/blob/master/Source/Infernity.exe)
+Get `infernity_config.ini`  [here](https://github.com/qndel/Infernity/blob/master/Source/infernity_config.ini)
+Create a file named `enable_inferno` in your diablo folder.
 - Launch `Infernity.exe` in your Diablo folder to play. The following files from the original game patched to 1.09 need to be present: `DIABDAT.MPQ`, `DiabloUI.dll`, `SmackW32.dll`, `Standard.snp`, and `Storm.dll`.
 - Additionally, Strange Bytes' [DirectDraw patch](http://www.strangebytes.com/index.php/projects/1-diablo-1-windows-7-vista-patch) is recommended to help fix compatibility issues and run the game in windowed mode.
-- You can always get the latest version of the exe [here](https://github.com/qndel/Infernity/blob/master/Source/Infernity.exe)
-A new release version is updated when something changes in config/a major feature is added. For small upgraded just upgrade the exe.
 
 
 # Changelog
@@ -33,6 +32,7 @@ A new release version is updated when something changes in config/a major featur
 - 1.01 - Added health bar (can turn on/off in config)
 - 1.02 - Added alt highlighting items
 - 1.03 - Added running in town/dungeon and highlighting monsters in combat (something like infravision but you have to aggro monster to see it )(can turn on/off in config)
+- 1.04 - Restored compatibility with vanilla, changed affix generation system (IMPORTANT! All items from previous versions will go crazy :( But the item system is good now)
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
