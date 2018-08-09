@@ -1869,6 +1869,15 @@ void ColorPixel(int x, int y, int color) {
 	WorkingSurface[y*768+x] = color;
 }
 
+void RevealMapByOtherPlayers(int x, int y, int pnum) {
+	if (gbMaxPlayers == 1) {
+		return;
+	}
+
+	SetAutomapViewByOtherPlayer(x,y,pnum);
+	//void SetAutomapViewByOtherPlayer(int x, int y, int playerNum)
+}
+
 void DrawXpBar()
 {
 	PlayerStruct *player = &plr[myplr];

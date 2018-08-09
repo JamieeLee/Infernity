@@ -4877,6 +4877,14 @@ void __fastcall MakePlrPath(int pnum, int xx, int yy, unsigned char endspace)
 	v8 = plr[v6]._px;
 	plr[v6]._ptargx = v5;
 	plr[v6]._ptargy = yy;
+
+	RevealMapByOtherPlayers(plr[pnum]._px, plr[pnum]._py, pnum+1);
+	//std::stringstream ss;
+	//ss << "Player " << pnum << " walks to " << ((plr[pnum]._px - 16) >> 1) << " " << ((plr[pnum]._py - 16) >> 1);
+		//MessageBox(NULL, ss.str().c_str(), NULL, NULL);
+
+
+
 	if ( v8 != v5 || plr[v6]._py != yy )
 	{
 		v9 = FindPath(PosOkPlayer, a2, v8, plr[v6]._py, v5, yy, plr[v6].walkpath);

@@ -538,8 +538,9 @@ void __cdecl DrawAutomap()
 					do
 					{
 						v16 = GetAutomapType(v22 + v15, ty, 1);
-						if ( v16 )
-							DrawAutomapType(screen_x, v14, v16);
+						if (v16) {
+							DrawAutomapType(screen_x, v14, v16, GetAutomapTypeColor(v22 + v15, ty, 1));
+						}
 						screen_x += AutoMapPosBits;
 						++v15;
 						--ty;
@@ -556,8 +557,9 @@ void __cdecl DrawAutomap()
 					do
 					{
 						v18 = GetAutomapType(v22 + screen_xa, tya, 1);
-						if ( v18 )
-							DrawAutomapType(v17, screen_y, v18);
+						if (v18) {
+							DrawAutomapType(v17, screen_y, v18, GetAutomapTypeColor(v22 + screen_xa, tya, 1));
+						}
 						v17 += AutoMapPosBits;
 						++screen_xa;
 						--tya;
@@ -591,7 +593,7 @@ void __cdecl DrawAutomap()
 // 69BD04: using guessed type int questlog;
 // 69CF0C: using guessed type int screen_buf_end;
 
-void __fastcall DrawAutomapType(int screen_x, int screen_y, short automap_type)
+void __fastcall DrawAutomapType(int screen_x, int screen_y, short automap_type, char color)
 {
 	short v3; // al
 	int v4; // ebx
@@ -632,36 +634,44 @@ void __fastcall DrawAutomapType(int screen_x, int screen_y, short automap_type)
 	int automap_typef; // [esp+30h] [ebp+8h]
 	int automap_typeg; // [esp+30h] [ebp+8h]
 
+	int replace_200 = 200;
+	int replace_144 = 144;
+
+	if (color >= 1) {
+		replace_200 = 182; //142
+		replace_144 = 242; //232
+	}
+
 	v3 = automap_type;
 	v4 = screen_x;
 	v5 = screen_y;
 	v33 = _HIBYTE(automap_type);
 	if ( automap_type & 0x4000 )
 	{
-		ENG_set_pixel(screen_x, screen_y, 200);
-		ENG_set_pixel(v4 - AMPlayerX, v5 - AMPlayerY, 200);
-		ENG_set_pixel(v4 - AMPlayerX, AMPlayerY + v5, 200);
-		ENG_set_pixel(AMPlayerX + v4, v5 - AMPlayerY, 200);
-		ENG_set_pixel(AMPlayerX + v4, AMPlayerY + v5, 200);
-		ENG_set_pixel(v4 - AutoMapYPos, v5, 200);
-		ENG_set_pixel(AutoMapYPos + v4, v5, 200);
-		ENG_set_pixel(v4, v5 - AMPlayerX, 200);
-		ENG_set_pixel(v4, AMPlayerX + v5, 200);
-		ENG_set_pixel(v4 + AMPlayerX - AutoMapXPos, AMPlayerY + v5, 200);
-		ENG_set_pixel(v4 + AutoMapXPos - AMPlayerX, AMPlayerY + v5, 200);
-		ENG_set_pixel(v4 - AutoMapYPos, AMPlayerX + v5, 200);
-		ENG_set_pixel(AutoMapYPos + v4, AMPlayerX + v5, 200);
-		ENG_set_pixel(v4 - AMPlayerX, v5 + AutoMapYPos - AMPlayerY, 200);
-		ENG_set_pixel(AMPlayerX + v4, v5 + AutoMapYPos - AMPlayerY, 200);
-		ENG_set_pixel(v4, AutoMapYPos + v5, 200);
+		ENG_set_pixel(screen_x, screen_y, replace_200);
+		ENG_set_pixel(v4 - AMPlayerX, v5 - AMPlayerY, replace_200);
+		ENG_set_pixel(v4 - AMPlayerX, AMPlayerY + v5, replace_200);
+		ENG_set_pixel(AMPlayerX + v4, v5 - AMPlayerY, replace_200);
+		ENG_set_pixel(AMPlayerX + v4, AMPlayerY + v5, replace_200);
+		ENG_set_pixel(v4 - AutoMapYPos, v5, replace_200);
+		ENG_set_pixel(AutoMapYPos + v4, v5, replace_200);
+		ENG_set_pixel(v4, v5 - AMPlayerX, replace_200);
+		ENG_set_pixel(v4, AMPlayerX + v5, replace_200);
+		ENG_set_pixel(v4 + AMPlayerX - AutoMapXPos, AMPlayerY + v5, replace_200);
+		ENG_set_pixel(v4 + AutoMapXPos - AMPlayerX, AMPlayerY + v5, replace_200);
+		ENG_set_pixel(v4 - AutoMapYPos, AMPlayerX + v5, replace_200);
+		ENG_set_pixel(AutoMapYPos + v4, AMPlayerX + v5, replace_200);
+		ENG_set_pixel(v4 - AMPlayerX, v5 + AutoMapYPos - AMPlayerY, replace_200);
+		ENG_set_pixel(AMPlayerX + v4, v5 + AutoMapYPos - AMPlayerY, replace_200);
+		ENG_set_pixel(v4, AutoMapYPos + v5, replace_200);
 		v3 = automap_type;
 	}
 	if ( automap_type < 0 )
 	{
-		engine_draw_automap_pixels(v4 - AMPlayerX, v5 - AMPlayerX - AMPlayerY, v4 + AMPlayerX + AutoMapYPos, AMPlayerY + v5, 144);
-		engine_draw_automap_pixels(v4 - AutoMapYPos, v5 - AMPlayerX, AutoMapYPos + v4, AMPlayerX + v5, 144);
-		engine_draw_automap_pixels(v4 - AutoMapYPos - AMPlayerX, v5 - AMPlayerY, AMPlayerX + v4, v5 + AMPlayerX + AMPlayerY, 144);
-		engine_draw_automap_pixels(v4 - AutoMapXPos, v5, v4, v5 + AutoMapYPos, 144);
+		engine_draw_automap_pixels(v4 - AMPlayerX, v5 - AMPlayerX - AMPlayerY, v4 + AMPlayerX + AutoMapYPos, AMPlayerY + v5, replace_144);
+		engine_draw_automap_pixels(v4 - AutoMapYPos, v5 - AMPlayerX, AutoMapYPos + v4, AMPlayerX + v5, replace_144);
+		engine_draw_automap_pixels(v4 - AutoMapYPos - AMPlayerX, v5 - AMPlayerY, AMPlayerX + v4, v5 + AMPlayerX + AMPlayerY, replace_144);
+		engine_draw_automap_pixels(v4 - AutoMapXPos, v5, v4, v5 + AutoMapYPos, replace_144);
 		v3 = automap_type;
 	}
 	v31 = 0;
@@ -674,9 +684,9 @@ void __fastcall DrawAutomapType(int screen_x, int screen_y, short automap_type)
 			a1 = v4 - AutoMapYPos;
 			a2 = v5 - AutoMapYPos;
 			automap_typea = v5 - AMPlayerX;
-			engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 - AutoMapYPos, v5 - AMPlayerX, 200);
-			engine_draw_automap_pixels(v4, a2, a3, automap_typea, 200);
-			engine_draw_automap_pixels(v4, v5, a1, automap_typea, 200);
+			engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 - AutoMapYPos, v5 - AMPlayerX, replace_200);
+			engine_draw_automap_pixels(v4, a2, a3, automap_typea, replace_200);
+			engine_draw_automap_pixels(v4, v5, a1, automap_typea, replace_200);
 			v9 = v5;
 			v29 = automap_typea;
 			v28 = a3;
@@ -701,16 +711,16 @@ LABEL_8:
 				v11 = v4 - AutoMapYPos;
 				v12 = v5 - AutoMapYPos;
 				automap_typeb = v5 - AMPlayerX;
-				engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 - AMPlayerX, v5 - AutoMapYPos + AMPlayerY, 200);
-				engine_draw_automap_pixels(v10, v5, v10 + AMPlayerX, v5 - AMPlayerY, 200);
-				engine_draw_automap_pixels(v11, v12, v10, automap_typeb, 144);
-				engine_draw_automap_pixels(v11, v12, v4, automap_typeb, 144);
-				engine_draw_automap_pixels(v11, v5, v10, automap_typeb, 144);
-				engine_draw_automap_pixels(v11, v5, v4, automap_typeb, 144);
+				engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 - AMPlayerX, v5 - AutoMapYPos + AMPlayerY, replace_200);
+				engine_draw_automap_pixels(v10, v5, v10 + AMPlayerX, v5 - AMPlayerY, replace_200);
+				engine_draw_automap_pixels(v11, v12, v10, automap_typeb, replace_144);
+				engine_draw_automap_pixels(v11, v12, v4, automap_typeb, replace_144);
+				engine_draw_automap_pixels(v11, v5, v10, automap_typeb, replace_144);
+				engine_draw_automap_pixels(v11, v5, v4, automap_typeb, replace_144);
 			}
 			if ( v33 & 0x10 )
 			{
-				engine_draw_automap_pixels(v4 - AutoMapYPos, v5 - AMPlayerX, v4 - AutoMapXPos, v5, 200);
+				engine_draw_automap_pixels(v4 - AutoMapYPos, v5 - AMPlayerX, v4 - AutoMapXPos, v5, replace_200);
 				v33 |= 4u;
 			}
 			if ( v33 & 4 )
@@ -719,13 +729,13 @@ LABEL_8:
 				v14 = v4 - AutoMapYPos;
 				v15 = v5 - AutoMapYPos;
 				automap_typec = v5 - AMPlayerX;
-				engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 - AutoMapYPos, v5 - AMPlayerX, 200);
-				engine_draw_automap_pixels(v4, v15, v13, automap_typec, 200);
-				engine_draw_automap_pixels(v4, v5, v14, automap_typec, 200);
-				engine_draw_automap_pixels(v4, v5, v13, automap_typec, 200);
+				engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 - AutoMapYPos, v5 - AMPlayerX, replace_200);
+				engine_draw_automap_pixels(v4, v15, v13, automap_typec, replace_200);
+				engine_draw_automap_pixels(v4, v5, v14, automap_typec, replace_200);
+				engine_draw_automap_pixels(v4, v5, v13, automap_typec, replace_200);
 			}
 			if ( !(v33 & 0x15) )
-				engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 - AutoMapXPos, v5, 200);
+				engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 - AutoMapXPos, v5, replace_200);
 			if ( v31 )
 				goto LABEL_17;
 			goto LABEL_25;
@@ -738,16 +748,16 @@ LABEL_17:
 				v17 = v5 - AutoMapYPos;
 				v18 = v4 + AutoMapXPos;
 				automap_typed = v5 - AMPlayerX;
-				engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 + AMPlayerX, v5 - AutoMapYPos + AMPlayerY, 200);
-				engine_draw_automap_pixels(v18, v5, v18 - AMPlayerX, v5 - AMPlayerY, 200);
-				engine_draw_automap_pixels(v16, v17, v4, automap_typed, 144);
-				engine_draw_automap_pixels(v16, v17, v18, automap_typed, 144);
-				engine_draw_automap_pixels(v16, v5, v4, automap_typed, 144);
-				engine_draw_automap_pixels(v16, v5, v18, automap_typed, 144);
+				engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 + AMPlayerX, v5 - AutoMapYPos + AMPlayerY, replace_200);
+				engine_draw_automap_pixels(v18, v5, v18 - AMPlayerX, v5 - AMPlayerY, replace_200);
+				engine_draw_automap_pixels(v16, v17, v4, automap_typed, replace_144);
+				engine_draw_automap_pixels(v16, v17, v18, automap_typed, replace_144);
+				engine_draw_automap_pixels(v16, v5, v4, automap_typed, replace_144);
+				engine_draw_automap_pixels(v16, v5, v18, automap_typed, replace_144);
 			}
 			if ( v33 & 0x20 )
 			{
-				engine_draw_automap_pixels(AutoMapYPos + v4, v5 - AMPlayerX, v4 + AutoMapXPos, v5, 200);
+				engine_draw_automap_pixels(AutoMapYPos + v4, v5 - AMPlayerX, v4 + AutoMapXPos, v5, replace_200);
 				v33 |= 8u;
 			}
 			if ( v33 & 8 )
@@ -756,13 +766,13 @@ LABEL_17:
 				v20 = v4 - AutoMapYPos;
 				v21 = v5 - AutoMapYPos;
 				automap_typee = v5 - AMPlayerX;
-				engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 - AutoMapYPos, v5 - AMPlayerX, 200);
-				engine_draw_automap_pixels(v4, v21, v19, automap_typee, 200);
-				engine_draw_automap_pixels(v4, v5, v20, automap_typee, 200);
-				engine_draw_automap_pixels(v4, v5, v19, automap_typee, 200);
+				engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 - AutoMapYPos, v5 - AMPlayerX, replace_200);
+				engine_draw_automap_pixels(v4, v21, v19, automap_typee, replace_200);
+				engine_draw_automap_pixels(v4, v5, v20, automap_typee, replace_200);
+				engine_draw_automap_pixels(v4, v5, v19, automap_typee, replace_200);
 			}
 			if ( !(v33 & 0x2A) )
-				engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 + AutoMapXPos, v5, 200);
+				engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 + AutoMapXPos, v5, replace_200);
 LABEL_25:
 			if ( v30 )
 				goto LABEL_26;
@@ -780,16 +790,16 @@ LABEL_26:
 				v23 = v4 - AutoMapYPos;
 				v24 = AutoMapYPos + v5;
 				automap_typef = AMPlayerX + v5;
-				engine_draw_automap_pixels(v4, AutoMapYPos + v5, v4 - AMPlayerX, AutoMapYPos + v5 - AMPlayerY, 200);
-				engine_draw_automap_pixels(v22, v5, v22 + AMPlayerX, v5 + AMPlayerY, 200);
-				engine_draw_automap_pixels(v23, v24, v22, automap_typef, 144);
-				engine_draw_automap_pixels(v23, v24, v4, automap_typef, 144);
-				engine_draw_automap_pixels(v23, v5, v22, automap_typef, 144);
-				engine_draw_automap_pixels(v23, v5, v4, automap_typef, 144);
+				engine_draw_automap_pixels(v4, AutoMapYPos + v5, v4 - AMPlayerX, AutoMapYPos + v5 - AMPlayerY, replace_200);
+				engine_draw_automap_pixels(v22, v5, v22 + AMPlayerX, v5 + AMPlayerY, replace_200);
+				engine_draw_automap_pixels(v23, v24, v22, automap_typef, replace_144);
+				engine_draw_automap_pixels(v23, v24, v4, automap_typef, replace_144);
+				engine_draw_automap_pixels(v23, v5, v22, automap_typef, replace_144);
+				engine_draw_automap_pixels(v23, v5, v4, automap_typef, replace_144);
 			}
 			else
 			{
-				engine_draw_automap_pixels(v4, AutoMapYPos + v5, v4 - AutoMapXPos, v5, 200);
+				engine_draw_automap_pixels(v4, AutoMapYPos + v5, v4 - AutoMapXPos, v5, replace_200);
 			}
 LABEL_32:
 			if ( v32 )
@@ -801,12 +811,12 @@ LABEL_33:
 					v26 = AutoMapYPos + v5;
 					v27 = v4 + AutoMapXPos;
 					automap_typeg = AMPlayerX + v5;
-					engine_draw_automap_pixels(v4, AutoMapYPos + v5, v4 + AMPlayerX, AutoMapYPos + v5 - AMPlayerY, 200);
-					engine_draw_automap_pixels(v27, v5, v27 - AMPlayerX, v5 + AMPlayerY, 200);
-					engine_draw_automap_pixels(v25, v26, v4, automap_typeg, 144);
-					engine_draw_automap_pixels(v25, v26, v27, automap_typeg, 144);
-					engine_draw_automap_pixels(v25, v5, v4, automap_typeg, 144);
-					engine_draw_automap_pixels(v25, v5, v27, automap_typeg, 144);
+					engine_draw_automap_pixels(v4, AutoMapYPos + v5, v4 + AMPlayerX, AutoMapYPos + v5 - AMPlayerY, replace_200);
+					engine_draw_automap_pixels(v27, v5, v27 - AMPlayerX, v5 + AMPlayerY, replace_200);
+					engine_draw_automap_pixels(v25, v26, v4, automap_typeg, replace_144);
+					engine_draw_automap_pixels(v25, v26, v27, automap_typeg, replace_144);
+					engine_draw_automap_pixels(v25, v5, v4, automap_typeg, replace_144);
+					engine_draw_automap_pixels(v25, v5, v27, automap_typeg, replace_144);
 				}
 				else
 				{
@@ -814,7 +824,7 @@ LABEL_33:
 					v28 = v4 + AutoMapXPos;
 					v9 = AutoMapYPos + v5;
 LABEL_36:
-					engine_draw_automap_pixels(v4, v9, v28, v29, 200);
+					engine_draw_automap_pixels(v4, v9, v28, v29, replace_200);
 				}
 			}
 			break;
@@ -980,6 +990,55 @@ LABEL_25:
 // 4B8968: using guessed type int sbookflag;
 // 69BD04: using guessed type int questlog;
 
+short GetAutomapTypeColor(int tx, int ty, bool view)
+{
+	int v3; // edi
+	int v4; // esi
+	int v6; // eax
+	short v7; // bp
+
+	v3 = ty;
+	v4 = tx;
+	if (view)
+	{
+		if (tx == -1 && ty >= 0 && ty < 40 && automapview[0][ty])
+		{
+			tx = 0;
+			return automapview[tx][ty];
+		}
+		if (ty == -1)
+		{
+			if (tx < 0)
+				return 0;
+			if (tx < 40 && automapview[tx][0])
+			{
+				ty = 0;
+				return automapview[tx][0];
+			}
+		}
+	}
+	if (tx < 0)
+		return 0;
+	if (tx >= 40)
+		return 0;
+	if (ty < 0)
+		return 0;
+	if (ty >= 40)
+		return 0;
+	v6 = ty + 40 * tx;
+	if (!automapview[0][v6] && view)
+		return 0;
+	v7 = automaptype[(unsigned char)dungeon[0][v6]];
+	if (v7 == 7 && ((unsigned short)GetAutomapType(tx - 1, ty, 0) >> 8) & 8)
+	{
+		if (((unsigned short)GetAutomapType(v4, v3 - 1, 0) >> 8) & 4)
+			v7 = 1;
+	}
+	return automapview[tx][ty];
+}
+
+
+
 short __fastcall GetAutomapType(int tx, int ty, bool view)
 {
 	int v3; // edi
@@ -1063,6 +1122,134 @@ void __cdecl DrawAutomapGame()
 // 5CF31D: using guessed type char setlevel;
 // 679660: using guessed type char gbMaxPlayers;
 
+void SetAutomapViewByOtherPlayer(int x, int y, int playerNum)
+{
+	signed int v2; // esi
+	signed int v3; // edi
+	int v4; // ebx
+	short v5; // ax
+	short v6; // cx
+	int v7; // eax
+	int v8; // eax
+	int v9; // eax
+	int v10; // eax
+	short v11; // ax
+	int v12; // edi
+
+	v2 = (x - 16) >> 1;
+	v3 = (y - 16) >> 1;
+	if (v2 < 0 || v2 >= 40 || v3 < 0 || v3 >= 40)
+		return;
+	v4 = v3 + 40 * v2;
+	if (automapview[0][v4] < 1) {
+		automapview[0][v4] = playerNum;
+	}
+	v5 = GetAutomapType((x - 16) >> 1, (y - 16) >> 1, 0);
+	v6 = v5 & 0x4000;
+	v7 = (v5 & 0xF) - 2;
+	if (!v7)
+	{
+		if (v6)
+		{
+		LABEL_19:
+			if (GetAutomapType(v2, v3 + 1, 0) == 0x4007) {
+				if (automapview[0][v4 + 1] < 1) {
+					automapview[0][v4 + 1] = playerNum;
+				}
+			}
+			return;
+		}
+		goto LABEL_35;
+	}
+	v8 = v7 - 1;
+	if (!v8)
+	{
+		if (v6)
+		{
+			v11 = GetAutomapType(v2 + 1, v3, 0);
+		LABEL_32:
+			if (v11 == 0x4007) {
+				if (automapview[1][v4] < 1) {
+					automapview[1][v4] = playerNum;
+				}
+			}
+			return;
+		}
+	LABEL_14:
+		if (GetAutomapType(v2, v3 - 1, 0) & 0x4000) {
+			if (automapview[0][v4 - 1] < 1) {
+				automapview[0][v4 - 1] = playerNum; // AMbyte_4B7E4C[v4 + 31] = 1;
+			}
+		}
+		return;
+	}
+	v9 = v8 - 1;
+	if (v9)
+	{
+		v10 = v9 - 1;
+		if (v10)
+		{
+			if (v10 != 1)
+				return;
+			if (v6)
+			{
+				if (GetAutomapType(v2 - 1, v3, 0) & 0x4000) {
+					if (automapview[-1][v4] < 1) {
+						automapview[-1][v4] = playerNum; // *((_BYTE *)&AMdword_4B7E44 + v4) = 1;
+					}
+				}
+			LABEL_13:
+				v11 = GetAutomapType(v2 + 1, v3, 0);
+				goto LABEL_32;
+			}
+			goto LABEL_14;
+		}
+		if (v6)
+		{
+			if (GetAutomapType(v2, v3 - 1, 0) & 0x4000) {
+				if (automapview[0][v4 - 1] < 1) {
+					automapview[0][v4 - 1] = playerNum; // AMbyte_4B7E4C[v4 + 31] = 1;
+				}
+			}
+			goto LABEL_19;
+		}
+	LABEL_35:
+		if (GetAutomapType(v2 - 1, v3, 0) & 0x4000) {
+			if (automapview[-1][v4] < 1) {
+				automapview[-1][v4] = playerNum; // *((_BYTE *)&AMdword_4B7E44 + v4) = 1;
+			}
+		}
+		return;
+	}
+	if (v6)
+	{
+		if (GetAutomapType(v2, v3 + 1, 0) == 0x4007) {
+			if (automapview[0][v4 + 1] < 1) {
+				automapview[0][v4 + 1] = playerNum;
+			}
+		}
+		goto LABEL_13;
+	}
+	if (GetAutomapType(v2 - 1, v3, 0) & 0x4000) {
+		if (automapview[-1][v4] < 1) {
+			automapview[-1][v4] = playerNum; // *((_BYTE *)&AMdword_4B7E44 + v4) = 1;
+		}
+	}
+	v12 = v3 - 1;
+	if (GetAutomapType(v2, v12, 0) & 0x4000) {
+		if (automapview[0][v4 - 1] < 1) {
+			automapview[0][v4 - 1] = playerNum; // AMbyte_4B7E4C[v4 + 31] = 1;
+		}
+	}
+	if (GetAutomapType(v2 - 1, v12, 0) & 0x4000) {
+		if (automapview[-1][v4 - 1] < 1) {
+			automapview[-1][v4 - 1] = playerNum; /* *((_BYTE *)&AMdword_4B7E40 + v4 + 3) = 1; fix */
+		}
+	}
+}
+
+
+
 void __fastcall SetAutomapView(int x, int y)
 {
 	signed int v2; // esi
@@ -1082,7 +1269,9 @@ void __fastcall SetAutomapView(int x, int y)
 	if ( v2 < 0 || v2 >= 40 || v3 < 0 || v3 >= 40 )
 		return;
 	v4 = v3 + 40 * v2;
-	automapview[0][v4] = 1;
+	if (automapview[0][v4] < 1) {
+		automapview[0][v4] = 1;
+	}
 	v5 = GetAutomapType((x - 16) >> 1, (y - 16) >> 1, 0);
 	v6 = v5 & 0x4000;
 	v7 = (v5 & 0xF) - 2;
@@ -1091,8 +1280,11 @@ void __fastcall SetAutomapView(int x, int y)
 		if ( v6 )
 		{
 LABEL_19:
-			if ( GetAutomapType(v2, v3 + 1, 0) == 0x4007 )
-				automapview[0][v4 + 1] = 1;
+			if (GetAutomapType(v2, v3 + 1, 0) == 0x4007) {
+				if (automapview[0][v4 + 1] < 1) {
+					automapview[0][v4 + 1] = 1;
+				}
+			}
 			return;
 		}
 		goto LABEL_35;
@@ -1104,57 +1296,84 @@ LABEL_19:
 		{
 			v11 = GetAutomapType(v2 + 1, v3, 0);
 LABEL_32:
-			if ( v11 == 0x4007 )
-				automapview[1][v4] = 1;
+			if (v11 == 0x4007) {
+				if (automapview[1][v4] < 1) {
+					automapview[1][v4] = 1;
+				}
+			}
 			return;
 		}
 LABEL_14:
-		if ( GetAutomapType(v2, v3 - 1, 0) & 0x4000 )
-			automapview[0][v4 - 1] = 1; // AMbyte_4B7E4C[v4 + 31] = 1;
+		if (GetAutomapType(v2, v3 - 1, 0) & 0x4000) {
+			if (automapview[0][v4 - 1] < 1) {
+				automapview[0][v4 - 1] = 1; // AMbyte_4B7E4C[v4 + 31] = 1;
+			}
+		}
 		return;
 	}
 	v9 = v8 - 1;
-	if ( v9 )
+	if (v9)
 	{
 		v10 = v9 - 1;
-		if ( v10 )
+		if (v10)
 		{
-			if ( v10 != 1 )
+			if (v10 != 1)
 				return;
-			if ( v6 )
+			if (v6)
 			{
-				if ( GetAutomapType(v2 - 1, v3, 0) & 0x4000 )
-					automapview[-1][v4] = 1; // *((_BYTE *)&AMdword_4B7E44 + v4) = 1;
-LABEL_13:
+				if (GetAutomapType(v2 - 1, v3, 0) & 0x4000) {
+					if (automapview[-1][v4] < 1) {
+						automapview[-1][v4] = 1; // *((_BYTE *)&AMdword_4B7E44 + v4) = 1;
+					}
+				}
+			LABEL_13:
 				v11 = GetAutomapType(v2 + 1, v3, 0);
 				goto LABEL_32;
 			}
 			goto LABEL_14;
 		}
-		if ( v6 )
+		if (v6)
 		{
-			if ( GetAutomapType(v2, v3 - 1, 0) & 0x4000 )
-				automapview[0][v4 - 1] = 1; // AMbyte_4B7E4C[v4 + 31] = 1;
+			if (GetAutomapType(v2, v3 - 1, 0) & 0x4000) {
+				if (automapview[0][v4 - 1] < 1) {
+					automapview[0][v4 - 1] = 1; // AMbyte_4B7E4C[v4 + 31] = 1;
+				}
+			}
 			goto LABEL_19;
 		}
-LABEL_35:
-		if ( GetAutomapType(v2 - 1, v3, 0) & 0x4000 )
+	LABEL_35:
+		if (GetAutomapType(v2 - 1, v3, 0) & 0x4000) {
+			if (automapview[-1][v4] < 1) {
 			automapview[-1][v4] = 1; // *((_BYTE *)&AMdword_4B7E44 + v4) = 1;
+			}
+		}
 		return;
 	}
 	if ( v6 )
 	{
-		if ( GetAutomapType(v2, v3 + 1, 0) == 0x4007 )
-			automapview[0][v4 + 1] = 1;
+		if (GetAutomapType(v2, v3 + 1, 0) == 0x4007) {
+			if (automapview[0][v4+1] < 1) {
+				automapview[0][v4 + 1] = 1;
+			}
+		}
 		goto LABEL_13;
 	}
-	if ( GetAutomapType(v2 - 1, v3, 0) & 0x4000 )
-		automapview[-1][v4] = 1; // *((_BYTE *)&AMdword_4B7E44 + v4) = 1;
+	if (GetAutomapType(v2 - 1, v3, 0) & 0x4000) {
+		if (automapview[-1][v4] < 1) {
+			automapview[-1][v4] = 1; // *((_BYTE *)&AMdword_4B7E44 + v4) = 1;
+		}
+	}
 	v12 = v3 - 1;
-	if ( GetAutomapType(v2, v12, 0) & 0x4000 )
-		automapview[0][v4 - 1] = 1; // AMbyte_4B7E4C[v4 + 31] = 1;
-	if ( GetAutomapType(v2 - 1, v12, 0) & 0x4000 )
-		automapview[-1][v4 - 1] = 1; /* *((_BYTE *)&AMdword_4B7E40 + v4 + 3) = 1; fix */
+	if (GetAutomapType(v2, v12, 0) & 0x4000) {
+		if (automapview[0][v4-1] < 1) {
+			automapview[0][v4 - 1] = 1; // AMbyte_4B7E4C[v4 + 31] = 1;
+		}
+	}
+	if (GetAutomapType(v2 - 1, v12, 0) & 0x4000) {
+		if (automapview[-1][v4-1] < 1) {
+			automapview[-1][v4 - 1] = 1; /* *((_BYTE *)&AMdword_4B7E40 + v4 + 3) = 1; fix */
+		}
+	}
 }
 // 4B7E40: using guessed type int AMdword_4B7E40;
 // 4B7E44: using guessed type int AMdword_4B7E44;
