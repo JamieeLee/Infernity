@@ -11,6 +11,7 @@
 - A config to enable or disable stuff
 - Fully shared xp - you don't need to poke or even be close! Seems in vanilla diablo the xp would be divided between the killers. In Infernity everyone gets 100% xp, so splitting to clear faster might be a good idea ;)
 - Black death doesn't permanently decrease health anymore!
+- Added xp bar
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
@@ -19,7 +20,6 @@
 - Fix friendly fire
 - Show other players on minimap
 - Share minimap discovery
-- Add xp bar
 
 # Installing
 - Get `infernity.exe` [here](https://github.com/qndel/Infernity/blob/master/Source/Infernity.exe)
@@ -34,7 +34,8 @@
 - 1.01 - Added health bar (can turn on/off in config)
 - 1.02 - Added alt highlighting items
 - 1.03 - Added running in town/dungeon and highlighting monsters in combat (something like infravision but you have to aggro monster to see it )(can turn on/off in config)
-- 1.04 - Restored compatibility with vanilla, changed affix generation system (IMPORTANT! All items from previous versions will go crazy :( But the item system is good now)
+- 1.04 - Restored compatibility with vanilla, changed affix generation system (IMPORTANT! All items from previous versions will go crazy :( But the item system is good now). Compatibility is vanilla->infernity only. At least it means you can start playing infernity with your items from vanilla :)
+- 1.05 - Added experience bar
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
