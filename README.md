@@ -5,7 +5,7 @@
 - Because the diabloui.dll hasn't been reverse-engineered, I've decided to use a trick to replace hell difficulty with a new one, to do it, create a file named `enable_inferno` in your Diablo folder and choose "hell" difficulty in the difficulty selection menu. 
 - Special items with 3 affixes can drop there. 
 - The third affix will only drop if the item has a suffix and a prefix. Additional affix doesn't follow the regular prefix/suffix rules, which mean that combinations that weren't possible before can occur. 
-- Full compatibility with vanilla diablo - you can move your character between Diablo and Infernity without any data loss! (Of course you won't see the third affix in normal diablo) 
+- Compatibility with vanilla, but sadly in one direction = you can move your vanilla character to infernity, but if you move character from infernity to vanilla, items will morph like crazy (This is because inferno items have increased level to enable them to get the "dead" affixes (the ones you could only get from Wirt)
 - Running in town/dungeon 
 - Highlighting enemies in combat 
 - A config to enable or disable stuff
