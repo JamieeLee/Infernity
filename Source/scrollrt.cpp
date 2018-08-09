@@ -504,41 +504,36 @@ void DrawMonsterHealthBar(int monsterID)
 	int borderColor =  BorderColors[mon->MData->mMonstClass]; //200; // pure golden, unique item style
 	int filledColor = 142; // optimum balance in bright red between dark and light
 	bool fillCorners = true;
-	int WorkingWidth = 768;// 640;
-
-	char* WorkingSurface = (char*)gpBuffer;
 
 	for (int j = 0; j < height; j++) {
 		for (int i = 0; i < (width*FilledPercent); i++) {
 			int tmpColor = filledColor;
-			int wtf = (yPos + j) * WorkingWidth + (xPos + i);
-			WorkingSurface[(yPos + j) * WorkingWidth + (xPos + i)] = tmpColor;
+			ColorPixel(xPos+i,yPos+j,tmpColor);
 		}
 	}
 
 
-
 	for (int j = 0; j < borderWidth; j++) {
 		for (int i = -xOffset - (fillCorners ? borderWidth : 0); i < width + xOffset + (fillCorners ? borderWidth : 0); i++) {
-			WorkingSurface[(yPos + j - yOffset - borderWidth) * WorkingWidth + (xPos + i)] = borderColor;
+			ColorPixel(xPos+i, yPos + j - yOffset - borderWidth,borderColor);
 		}
 	}
 
 	for (int j = 0; j < borderWidth; j++) {
 		for (int i = -xOffset; i < width + xOffset + (fillCorners ? borderWidth : 0); i++) {
-			WorkingSurface[(yPos + j + yOffset + height) * WorkingWidth + (xPos + i)] = borderColor;
+			ColorPixel(xPos + i, yPos + j + yOffset + height, borderColor);
 		}
 	}
 
 	for (int j = -yOffset; j < height + yOffset + (fillCorners ? borderWidth : 0); j++) {
 		for (int i = 0; i < borderWidth; i++) {
-			WorkingSurface[(yPos + j) * WorkingWidth + (xPos + i - xOffset - borderWidth)] = borderColor;
+			ColorPixel(xPos + i - xOffset - borderWidth + i, yPos + j, borderColor);
 		}
 	}
 
 	for (int j = -yOffset; j < height + yOffset + (fillCorners ? borderWidth : 0); j++) {
 		for (int i = 0; i < borderWidth; i++) {
-			WorkingSurface[(yPos + j) * WorkingWidth + (xPos + i + xOffset + width)] = borderColor;
+			ColorPixel(xPos + i + xOffset + width, yPos + j, borderColor);
 		}
 	}
 
@@ -618,6 +613,7 @@ void __fastcall DrawView(int StartX, int StartY)
 	if (pcursmonst != -1 && GetConfigBoolVariable("drawHealthBar")) {
 		DrawMonsterHealthBar(pcursmonst);
 	}
+	DrawXpBar();
 }
 // 4B84DC: using guessed type int dropGoldFlag;
 // 4B8968: using guessed type int sbookflag;

@@ -1863,6 +1863,51 @@ bool ShouldItemBeRare(int isRare) {
 	return isRare==1;// & 0x7C00) == 0xC00);
 }
 
+void ColorPixel(int x, int y, int color) {
+
+	char* WorkingSurface = (char*)gpBuffer;
+	WorkingSurface[y*768+x] = color;
+}
+
+void DrawXpBar()
+{
+	PlayerStruct player = plr[myplr]; // eax@1
+	int charLevel; // ecx@1
+	unsigned int curXp; // edx@2
+	unsigned int prevXp; // ecx@2
+	unsigned int prevXpDelta; // edx@2
+	unsigned int prevXpDelta_1; // eax@2
+	size_t barSize; // eax@3
+	int count; // ecx@3
+	uchar *barStart; // edx@3
+	int WorkingWidth = 768;// 640;
+	char* WorkingSurface = (char*)gpBuffer;
+	int ScreenHeight = 480;
+	int GUI_Height = 0;
+	int ScreenWidth = 640;
+	int GUI_Width = 0;
+
+	/*
+	charLevel = player._pLevel;
+	if (charLevel != 50) {
+		curXp = ExpLvlsTbl[charLevel];
+		prevXp = ExpLvlsTbl[charLevel - 1];
+		prevXpDelta = curXp - prevXp;
+		prevXpDelta_1 = player._pExperience - prevXp;
+		if (player._pExperience > prevXp) {
+			barSize = 286 * (unsigned __int64)prevXpDelta_1 / prevXpDelta;
+			count = 1;
+			barStart = &WorkingSurface[(int)gpBuffer->row[618 + ScreenHeight - GUI_Height].col_unused_1 + 244 + (ScreenWidth - GUI_Width) / 2];
+			do {
+				memset(barStart, 200, barSize);
+				barStart += 768;
+			} while (--count - 1 >= 0);
+		}
+	}*/
+
+
+}
+
 void GenerateRareAffix(int i,int x, int y, int minlvl, int maxlvl, char prefPower, char sufPower, int forceSufPref) {
 	int sufPref = forceSufPref;
 	if (sufPref == 2) { sufPref = random(23, 2); }

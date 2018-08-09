@@ -1348,6 +1348,7 @@ void __fastcall T_DrawView(int StartX, int StartY)
 	DrawInfoBox();
 	DrawLifeFlask();
 	DrawManaFlask();
+	DrawXpBar();
 }
 // 4B84DC: using guessed type int dropGoldFlag;
 // 4B8968: using guessed type int sbookflag;

@@ -56,6 +56,8 @@ bool IsInfernoEnabled();
 void ReloadConfig();
 bool GetConfigBoolVariable(std::string s);
 int GetConfigIntVariable(std::string s);
+void DrawXpBar();
+void ColorPixel(int x, int y, int color);
 void HighlightItemsNameOnMap();
 void GenerateRareAffix(int i, int x, int y, int minlvl, int maxlvl, char prefPower, char sufPower, int forceSuffixPrefix/*0=prefix,1=suffix,2=random*/);
 bool IsItemRare(int isRare, char specialAffix);
