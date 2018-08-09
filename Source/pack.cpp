@@ -275,7 +275,7 @@ void __fastcall UnPackItem(PkItemStruct *is, ItemStruct *id)
 		{
 			v5 = (unsigned short)is->wValue;
 			_LOWORD(v5) = v2->iCreateInfo;
-			RecreateItem(127, is->idx, v5, v2->iSeed, (unsigned short)v2->wValue);
+			RecreateItem(127, is->idx, v5, v2->iSeed, (unsigned short)v2->wValue,v2->dwBuff);
 			item[127]._iMagical = (unsigned char)v2->bId >> 1;
 			item[127]._iIdentified = v2->bId & 1;
 			item[127]._iDurability = (unsigned char)v2->bDur;

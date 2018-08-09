@@ -3487,6 +3487,11 @@ void __fastcall CreateTypeItem(int x, int y, unsigned char onlygood, int itype, 
 
 void __fastcall RecreateItem(int ii, int idx, unsigned short ic, int iseed, int ivalue)
 {
+	RecreateItem(ii, idx, ic, iseed, ivalue, 0);
+}
+
+void __fastcall RecreateItem(int ii, int idx, unsigned short ic, int iseed, int ivalue,int isRare)
+{
 	int uper; // esi
 	int onlygood; // edx
 	int recreate; // ebx
@@ -3520,13 +3525,7 @@ void __fastcall RecreateItem(int ii, int idx, unsigned short ic, int iseed, int 
 					recreate = 1;
 				if ( ic & 0x8000 )
 					pregen = 1;
-
-				if (ShouldItemBeRare(item[ii].isRare)) {
-					SetupAllItems(ii, idx, iseed, ic & 0x3F, uper, onlygood, recreate, pregen, true, -1,-1);
-				}
-				else {
-					SetupAllItems(ii, idx, iseed, ic & 0x3F, uper, onlygood, recreate, pregen);
-				}
+					SetupAllItems(ii, idx, iseed, ic & 0x3F, uper, onlygood, recreate, pregen, ShouldItemBeRare(isRare), -1,-1);
 
 			}
 		}

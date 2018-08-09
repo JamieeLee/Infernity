@@ -2800,7 +2800,7 @@ int __fastcall SyncPutItem(int pnum, int x, int y, int idx, int icreateinfo, int
 	}
 	else
 	{
-		RecreateItem(v25, idx, icreateinfo, iseed, ivalue);
+		RecreateItem(v25, idx, icreateinfo, iseed, ivalue,ibuff);
 		if ( Id )
 			item[ic]._iIdentified = 1;
 		v27 = ic;
@@ -2808,6 +2808,7 @@ int __fastcall SyncPutItem(int pnum, int x, int y, int idx, int icreateinfo, int
 		item[v27]._iMaxDur = mdur;
 		item[v27]._iCharges = ch;
 		item[v27]._iMaxCharges = mch;
+		item[v27].isRare = ibuff;
 	}
 	v28 = ic;
 	item[v28]._ix = v13;
