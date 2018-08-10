@@ -47,6 +47,7 @@ void __fastcall GetItemAttrs(int i, int idata, int lvl);
 int __fastcall RndPL(int param1, int param2);
 int __fastcall PLVal(int pv, int p1, int p2, int minv, int maxv);
 void __fastcall SaveItemPower(int i, int power, int param1, int param2, int minval, int maxval, int multval);
+void __fastcall SaveItemPower(int i, int power, int param1, int param2, int minval, int maxval, int multval, int rare);
 void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygood);
 void __fastcall GetItemPower(int i, int minlvl, int maxlvl, int flgs, int onlygood, int x, int y);
 void __fastcall GetItemBonus(int i, int idata, int minlvl, int maxlvl, int onlygood);

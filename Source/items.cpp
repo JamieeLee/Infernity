@@ -2366,6 +2366,11 @@ int __fastcall PLVal(int pv, int p1, int p2, int minv, int maxv)
 
 void __fastcall SaveItemPower(int i, int power, int param1, int param2, int minval, int maxval, int multval)
 {
+	SaveItemPower(i, power, param1, param2, minval, maxval, multval, -1);
+}
+
+void __fastcall SaveItemPower(int i, int power, int param1, int param2, int minval, int maxval, int multval, int rare)
+{
 	int v7; // edi
 	int v8; // esi
 	int v9; // eax
@@ -4093,6 +4098,10 @@ LABEL_11:
 				strcpy(tempstr, "spells are increased 1 level");
 			if ( v2->_iSplLvlAdd == 2 )
 				strcpy(tempstr, "spells are increased 2 levels");
+			if (v2->_iSplLvlAdd == 3)
+				strcpy(tempstr, "spells are increased 3 levels");
+			if (v2->_iSplLvlAdd == 4)
+				strcpy(tempstr, "spells are increased 4 levels");
 			if ( v2->_iSplLvlAdd < 1 )
 			{
 				v7 = "spells are decreased 1 level";

@@ -1587,7 +1587,7 @@ LABEL_89:
 // 4B8CBC: using guessed type int icursW;
 // 52571C: using guessed type int drawpanflag;
 
-void __fastcall CheckInvSwap(int pnum, int bLoc, int idx, int wCI, int seed, int bId)
+void __fastcall CheckInvSwap(int pnum, int bLoc, int idx, int wCI, int seed, int bId, int rare)
 {
 	unsigned char v6; // bl
 	PlayerStruct *v7; // eax
@@ -1595,7 +1595,7 @@ void __fastcall CheckInvSwap(int pnum, int bLoc, int idx, int wCI, int seed, int
 
 	v6 = bLoc;
 	p = pnum;
-	RecreateItem(127, idx, wCI, seed, 0);
+	RecreateItem(127, idx, wCI, seed, 0,rare);
 	v7 = &plr[p];
 	qmemcpy(&v7->HoldItem, &item[127], sizeof(v7->HoldItem));
 	if ( bId )

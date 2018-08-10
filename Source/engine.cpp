@@ -1874,8 +1874,11 @@ void RevealMapByOtherPlayers(int x, int y, int pnum) {
 		return;
 	}
 
-	SetAutomapViewByOtherPlayer(x,y,pnum);
-	//void SetAutomapViewByOtherPlayer(int x, int y, int playerNum)
+	for (int i = -7; i <= 7; ++i) {
+		for (int j = -7; j <= 7; ++j) {
+			SetAutomapViewByOtherPlayer(x+i, y+j, pnum);
+		}
+	}
 }
 
 void DrawXpBar()
@@ -1925,6 +1928,25 @@ void DrawXpBar()
 		}
 	}
 }
+#include <set>
+bool AreAffixesGood(char p1, char p2) {
+
+	map<int, set<int> > sadAffix;
+	sadAffix[IPL_ATTRIBS] = { IPL_STR,IPL_DEX,IPL_VIT,IPL_MAG};
+	sadAffix[IPL_ALLRES] = { IPL_FIRERES ,IPL_MAGICRES, IPL_LIGHTRES };
+	sadAffix[IPL_TOHIT] = { IPL_TOHIT_DAMP };
+	sadAffix[IPL_INDESTRUCTIBLE] = { IPL_DUR };
+
+	for (auto const& x : sadAffix) {
+		int tmpAffix = x.first;
+		set<int> tmpSet = x.second;
+		if ((tmpAffix == p1 && tmpSet.find(p2) != tmpSet.end()) || (tmpAffix == p2 && tmpSet.find(p1) != tmpSet.end())) {
+			return false;
+		}
+	}
+	return true;
+}
+
 
 void GenerateRareAffix(int i,int x, int y, int minlvl, int maxlvl, char prefPower, char sufPower, int forceSufPref) {
 	int sufPref = forceSufPref;
@@ -1937,7 +1959,9 @@ void GenerateRareAffix(int i,int x, int y, int minlvl, int maxlvl, char prefPowe
 		int prefIter = 0;
 		int local_pref_iter = 0;
 		do {
-			if (PL_UPrefix[prefIter].PLMinLvl >= minlvl && PL_UPrefix[prefIter].PLMinLvl <= maxlvl && PL_UPrefix[prefIter].PLOk)
+			bool prefGood = AreAffixesGood(prefPower, PL_UPrefix[prefIter].PLPower);
+			bool sufGood = AreAffixesGood(sufPower, PL_UPrefix[prefIter].PLPower);
+			if (PL_UPrefix[prefIter].PLMinLvl >= minlvl && PL_UPrefix[prefIter].PLMinLvl <= maxlvl && PL_UPrefix[prefIter].PLOk && prefGood && sufGood)
 			{
 				pref[local_pref_iter++] = prefIter;
 				if (PL_Prefix[prefIter].PLDouble) {
@@ -1968,7 +1992,9 @@ void GenerateRareAffix(int i,int x, int y, int minlvl, int maxlvl, char prefPowe
 		int sufIter = 0;
 		int local_suf_iter = 0;
 		do {
-			if (PL_USuffix[sufIter].PLMinLvl >= minlvl && PL_USuffix[sufIter].PLMinLvl <= maxlvl && PL_Suffix[sufIter].PLOk)
+			bool prefGood = AreAffixesGood(prefPower, PL_USuffix[sufIter].PLPower);
+			bool sufGood = AreAffixesGood(sufPower, PL_USuffix[sufIter].PLPower);
+			if (PL_USuffix[sufIter].PLMinLvl >= minlvl && PL_USuffix[sufIter].PLMinLvl <= maxlvl && PL_Suffix[sufIter].PLOk && prefGood && sufGood)
 			{
 				suf[local_suf_iter++] = sufIter;
 				if (PL_USuffix[sufIter].PLDouble) {
