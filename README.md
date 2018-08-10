@@ -12,6 +12,7 @@
 - Fully shared xp - you don't need to poke or even be close! Seems in vanilla diablo the xp would be divided between the killers. In Infernity everyone gets 100% xp, so splitting to clear faster might be a good idea ;)
 - Black death doesn't permanently decrease health anymore!
 - Added xp bar
+- Minimap is shared between players
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
@@ -19,7 +20,7 @@
 - Remove/change permanent negative shrines (In general, things permanently damaging your character)
 - Fix friendly fire
 - Show other players on minimap
-- Share minimap discovery
+- Shift clicking potions in inventory adds them to belt
 
 # Installing
 - Get `infernity.exe` [here](https://github.com/qndel/Infernity/blob/master/Source/Infernity.exe)
