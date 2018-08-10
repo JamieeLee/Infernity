@@ -37,6 +37,7 @@
 - 1.03 - Added running in town/dungeon and highlighting monsters in combat (something like infravision but you have to aggro monster to see it )(can turn on/off in config)
 - 1.04 - Restored compatibility with vanilla, changed affix generation system (IMPORTANT! All items from previous versions will go crazy :( But the item system is good now). Compatibility is vanilla->infernity only. At least it means you can start playing infernity with your items from vanilla :)
 - 1.05 - Added experience bar
+- 1.06 - Map shared between players, Uniques from Inferno will have an additional affix as well! They are called `Superuniques`
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
