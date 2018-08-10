@@ -1928,7 +1928,6 @@ void DrawXpBar()
 		}
 	}
 }
-#include <set>
 bool AreAffixesGood(char p1, char p2) {
 
 	map<int, set<int> > sadAffix;
@@ -1947,6 +1946,85 @@ bool AreAffixesGood(char p1, char p2) {
 	return true;
 }
 
+void GenerateRareUniqueAffix(int i, int x, int y, int minlvl, int maxlvl, std::set<char>powers) {
+	int sufPref = sufPref = random(23, 2); 
+	if (sufPref == 0) {
+		//third affix is a prefix
+
+
+		int pref[256];
+		int prefIter = 0;
+		int local_pref_iter = 0;
+		do {
+			bool allGood = true;
+			for (auto f : powers) {
+				if (!AreAffixesGood(f, PL_UPrefix[prefIter].PLPower)) { allGood = false; break; }
+			}
+			if (PL_UPrefix[prefIter].PLMinLvl >= minlvl && PL_UPrefix[prefIter].PLMinLvl <= maxlvl && PL_UPrefix[prefIter].PLOk && allGood)
+			{
+				pref[local_pref_iter++] = prefIter;
+				if (PL_Prefix[prefIter].PLDouble) {
+					pref[local_pref_iter++] = prefIter;
+				}
+			}
+			prefIter++;
+		} while (PL_UPrefix[prefIter].PLPower != -1);
+
+		int preidx2 = 0;
+		do {
+			preidx2 = pref[random(23, local_pref_iter)];
+		} while (powers.find(PL_UPrefix[preidx2].PLPower) != powers.end());
+		SaveItemPower(
+			i,
+			PL_UPrefix[preidx2].PLPower,
+			PL_UPrefix[preidx2].PLParam1,
+			PL_UPrefix[preidx2].PLParam2,
+			PL_UPrefix[preidx2].PLMinVal,
+			PL_UPrefix[preidx2].PLMaxVal,
+			PL_UPrefix[preidx2].PLMultVal);
+		item[i].rareAffix = PL_UPrefix[preidx2].PLPower + 1;
+	}
+	else {
+		//third affix is a suffix
+
+		int suf[256];
+		int sufIter = 0;
+		int local_suf_iter = 0;
+		do {
+			bool allGood = true;
+			for (auto f : powers) {
+				if (!AreAffixesGood(f, PL_USuffix[sufIter].PLPower)) { allGood = false; break; }
+			}
+			if (PL_USuffix[sufIter].PLMinLvl >= minlvl && PL_USuffix[sufIter].PLMinLvl <= maxlvl && PL_Suffix[sufIter].PLOk && allGood)
+			{
+				suf[local_suf_iter++] = sufIter;
+				if (PL_USuffix[sufIter].PLDouble) {
+					suf[local_suf_iter++] = sufIter;
+				}
+			}
+			sufIter++;
+		} while (PL_USuffix[sufIter].PLPower != -1);
+
+		int sufidx2 = 0;
+		do {
+			sufidx2 = suf[random(23, local_suf_iter)];
+		} while (powers.find(PL_USuffix[sufidx2].PLPower) != powers.end());
+
+		SaveItemPower(
+			i,
+			PL_USuffix[sufidx2].PLPower,
+			PL_USuffix[sufidx2].PLParam1,
+			PL_USuffix[sufidx2].PLParam2,
+			PL_USuffix[sufidx2].PLMinVal,
+			PL_USuffix[sufidx2].PLMaxVal,
+			PL_USuffix[sufidx2].PLMultVal);
+		item[i].rareAffix = PL_USuffix[sufidx2].PLPower + 1;
+	}
+	if (x >= 0 && y >= 0) {
+		AddMissile(x, y, x, y, 0, MIS_RESURRECTBEAM, 0, myplr, 0, 0);
+		PlayRareSound();
+	}
+}
 
 void GenerateRareAffix(int i,int x, int y, int minlvl, int maxlvl, char prefPower, char sufPower, int forceSufPref) {
 	int sufPref = forceSufPref;

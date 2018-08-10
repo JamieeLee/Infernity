@@ -49,6 +49,7 @@ int __fastcall random(int idx, int v);
 
 #include <string>
 #include <vector>
+#include <set>
 #include <map>
 #include <sstream>
 #include <fstream>
@@ -57,12 +58,13 @@ void ReloadConfig();
 bool GetConfigBoolVariable(std::string s);
 int GetConfigIntVariable(std::string s);
 void DrawXpBar();
-short GetAutomapTypeColor(int tx, int ty, bool view);
+char GetAutomapTypeColor(int tx, int ty, bool view);
 void SetAutomapViewByOtherPlayer(int x, int y, int playerNum);
 void RevealMapByOtherPlayers(int x,int y,int playerNum);
 void ColorPixel(int x, int y, int color);
 void HighlightItemsNameOnMap();
 void GenerateRareAffix(int i, int x, int y, int minlvl, int maxlvl, char prefPower, char sufPower, int forceSuffixPrefix/*0=prefix,1=suffix,2=random*/);
+void GenerateRareUniqueAffix(int i, int x, int y, int minlvl, int maxlvl, std::set<char>powers);
 bool IsItemRare(int isRare, char specialAffix);
 bool ShouldItemBeRare(int isRare);
 void PlayRareSound();

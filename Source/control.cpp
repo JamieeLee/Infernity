@@ -1899,10 +1899,12 @@ LABEL_32:
 				v5 = plr[v2].HoldItem._iName;
 			strcpy(infostr, v5);
 			v6 = plr[myplr].HoldItem._iMagical;
-			if ( v6 == 1 )
-				_LOBYTE(infoclr) = 1;
+			if (v6 == 1) {
+				infoclr = COL_BLUE;
+				if (IsItemRare(plr[myplr].HoldItem.isRare, plr[myplr].HoldItem.rareAffix)) { infoclr = COL_RED; }
+			}
 			if ( v6 == 2 )
-				_LOBYTE(infoclr) = 3;
+				_LOBYTE(infoclr) = COL_GOLD;
 		}
 		else
 		{

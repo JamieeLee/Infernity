@@ -59,6 +59,7 @@ int __cdecl RndAllItems();
 int __fastcall RndTypeItems(int itype, int imid);
 int __fastcall CheckUnique(int i, int lvl, int uper, bool recreate);
 void __fastcall GetUniqueItem(int i, int uid);
+void __fastcall GetUniqueItem(int i, int uid, int x, int y,int rare);
 void __fastcall SpawnUnique(int uid, int x, int y);
 void __fastcall ItemRndDur(int ii);
 void __fastcall SetupAllItems(int ii, int idx, int iseed, int lvl, int uper, int onlygood, int recreate, int pregen);

@@ -3180,8 +3180,11 @@ int __fastcall CheckUnique(int i, int lvl, int uper, bool recreate)
 }
 // 679660: using guessed type char gbMaxPlayers;
 // 421D41: using guessed type char var_84[128];
-
 void __fastcall GetUniqueItem(int i, int uid)
+{
+	GetUniqueItem(i, uid, -1,-1,-1);
+}
+void __fastcall GetUniqueItem(int i, int uid, int x, int y, int rare)
 {
 	UniqueItemFlag[uid] = 1;
 	SaveItemPower(i, UniqueItemList[uid].UIPower1, UniqueItemList[uid].UIParam1, UniqueItemList[uid].UIParam2, 0, 0, 1);
@@ -3206,6 +3209,21 @@ void __fastcall GetUniqueItem(int i, int uid)
 	item[i]._iCreateInfo |= 0x0200;
 	item[i]._iUid = uid;
 	item[i]._iMagical = 2;
+	if (rare) {
+		std::set<char> uniqPowers;
+		uniqPowers.insert(UniqueItemList[uid].UIPower1);
+		if (UniqueItemList[uid].UINumPL > 1)
+			uniqPowers.insert(UniqueItemList[uid].UIPower2);
+		if (UniqueItemList[uid].UINumPL > 2)
+			uniqPowers.insert(UniqueItemList[uid].UIPower3);
+		if (UniqueItemList[uid].UINumPL > 3)
+			uniqPowers.insert(UniqueItemList[uid].UIPower4);
+		if (UniqueItemList[uid].UINumPL > 4)
+			uniqPowers.insert(UniqueItemList[uid].UIPower5);
+		if (UniqueItemList[uid].UINumPL > 5)
+			uniqPowers.insert(UniqueItemList[uid].UIPower6);
+		GenerateRareUniqueAffix(i, x, y, 25, 100, uniqPowers);
+	}
 }
 
 void __fastcall SpawnUnique(int uid, int x, int y)
@@ -3306,7 +3324,7 @@ void __fastcall SetupAllItems(int ii, int idx, int iseed, int lvl, int uper, int
 			}
 			else
 			{
-				GetUniqueItem(ii, uid);
+				GetUniqueItem(ii, uid, x,y, inferno);
 				item[ii]._iCreateInfo |= 0x0200;
 			}
 		}
@@ -4517,6 +4535,16 @@ void __cdecl DrawUniqueInfo()
 			PrintItemPower(UniqueItemList[v1].UIPower6, &curruitem);
 			PrintUString(0, v2 + 10, 1, tempstr, 0);
 		}
+
+
+
+		if (curruitem.rareAffix > 0) {
+			PrintItemPower(curruitem.rareAffix - 1, &curruitem);
+			char special[260];
+			strcpy(special, "(+) ");
+			strcat(special, tempstr);
+			PrintUString(0, v2 + UniqueItemList[v1].UINumPL*2, 1, special, 0);
+		}
 	}
 }
 // 69BD04: using guessed type int questlog;
@@ -4609,13 +4637,13 @@ void __fastcall PrintItemDetails(ItemStruct *x)
 
 	else
 	{
-		uitemflag = 2;
-		AddPanelString("rare item", 1);
-		qmemcpy(&curruitem, v1, sizeof(curruitem));
+		if (v1->_iMagical == 2 && ShouldItemBeRare(v1->isRare)) {}
+		else {
+			uitemflag = 2;
+			AddPanelString("rare item", 1);
+			qmemcpy(&curruitem, v1, sizeof(curruitem));
+		}
 	}
-
-
-
 
 
 	if ( v1->_iMagical == 2 )
