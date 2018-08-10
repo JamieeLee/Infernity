@@ -13,6 +13,7 @@
 - Black death doesn't permanently decrease health anymore!
 - Added xp bar
 - Minimap is shared between players
+- Gold pile max size increased to 1m
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
@@ -21,6 +22,7 @@
 - Fix friendly fire
 - Show other players on minimap
 - Shift clicking potions in inventory adds them to belt
+- Expand inventory
 
 # Installing
 - Get `infernity.exe` [here](https://github.com/qndel/Infernity/blob/master/Source/Infernity.exe)
