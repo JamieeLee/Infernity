@@ -69,6 +69,8 @@ bool IsItemRare(int isRare, char specialAffix);
 bool ShouldItemBeRare(int isRare);
 void PlayRareSound();
 void ReloadConfig();
+bool CanPutToBelt();
+int FreeSlotOnBelt();
 bool CanRun(int pnum);
 int MonstersInCombat(int pnum);
 int GetTextWidth(char* s);
