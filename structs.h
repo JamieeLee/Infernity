@@ -314,7 +314,7 @@ struct ItemStruct
 	int _iAnimFrame;
 	int _iAnimWidth;
 	int _iAnimWidth2; // width 2?
-	int offs002C;
+	int isRare;
 	char _iSelFlag;
 	int _iPostDraw;
 	int _iIdentified;
@@ -370,7 +370,7 @@ struct ItemStruct
 	char _iMinDex;
 	int _iStatFlag;
 	int IDidx;
-	int offs016C;
+	int rareAffix;
 };
 
 struct DeadStruct
@@ -511,7 +511,7 @@ struct MonsterStruct
 	int _mgoalvar1;
 	int _mgoalvar2;
 	int _mgoalvar3;
-	int field_18;
+	int isActivated;
 	int _pathcount;
 	int _mx;
 	int _my;
@@ -1302,6 +1302,7 @@ struct TCmdChItem
 	unsigned short wCI;
 	int dwSeed;
 	unsigned char bId;
+	int rare;
 };
 #pragma pack(pop)
 
