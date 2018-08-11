@@ -809,7 +809,7 @@ void __cdecl DeltaLoadLevel()
 						v17 = *(unsigned short *)((char *)&sgLevels[0].item[0].wValue + v13);
 						v18 = *(int *)((char *)&sgLevels[0].item[0].dwSeed + v13);
 						_LOWORD(v13) = *(short *)((char *)&sgLevels[0].item[0].wCI + v13);
-						RecreateItem(v14, v16, v13, v18, v17);
+						RecreateItem(v14, v16, v13, v18, v17, *(int *)((char *)&sgLevels[0].item[0].dwBuff + v13));
 						v19 = v8 + 4721 * currlevel;
 						if ( *(&sgLevels[0].item[0].bId + v19) )
 							item[v14]._iIdentified = 1;
@@ -820,6 +820,7 @@ void __cdecl DeltaLoadLevel()
 						v22 = *((unsigned char *)&sgLevels[0].item[0].bMCh + v19);
 						item[v20]._iCharges = v21;
 						item[v20]._iMaxCharges = v22;
+						item[v20].isRare = *(int *)((char *)&sgLevels[0].item[0].dwBuff + v19);
 					}
 					v23 = v8 + 4721 * currlevel;
 					v24 = *((unsigned char *)&sgLevels[0].item[0].x + v23);
@@ -1102,6 +1103,7 @@ void __fastcall NetSendCmdGItem(unsigned char bHiPri, unsigned char bCmd, unsign
 		v12 = item[v5]._ivalue;
 		cmd.bMCh = v11;
 		cmd.wValue = v12;
+		cmd.dwBuff = item[v5].isRare;
 	}
 	if ( bHiPri )
 		NetSendHiPri((unsigned char *)&cmd, 0x1Eu);
@@ -1227,6 +1229,7 @@ void __fastcall NetSendCmdPItem(unsigned char bHiPri, unsigned char bCmd, unsign
 		v12 = plr[v4].HoldItem._ivalue;
 		cmd.bMCh = v11;
 		cmd.wValue = v12;
+		cmd.dwBuff = plr[v4].HoldItem.isRare;
 	}
 	if ( bHiPri )
 		NetSendHiPri((unsigned char *)&cmd, 0x16u);
@@ -1248,6 +1251,7 @@ void __fastcall NetSendCmdChItem(unsigned char bHiPri, unsigned char bLoc)
 	v3 = plr[myplr].HoldItem._iIdentified;
 	cmd.dwSeed = plr[myplr].HoldItem._iSeed;
 	cmd.bId = v3;
+	cmd.rare = plr[myplr].HoldItem.isRare;
 	if ( bHiPri )
 		NetSendHiPri((unsigned char *)&cmd, 0xBu);
 	else
@@ -1316,6 +1320,7 @@ void __fastcall NetSendCmdDItem(unsigned char bHiPri, int ii)
 		v10 = item[v2]._ivalue;
 		cmd.bMCh = v9;
 		cmd.wValue = v10;
+		//cmd.dwBuff = item[v2].isRare;
 	}
 	if ( bHiPri )
 		NetSendHiPri((unsigned char *)&cmd, 0x16u);
@@ -3357,7 +3362,7 @@ int __fastcall On_CHANGEPLRITEMS(struct TCmdChItem *pCmd, int pnum)
 		v4 = v3;
 		v5 = (unsigned short)pCmd->wIndx;
 		_LOBYTE(v5) = pCmd->bLoc;
-		CheckInvSwap(v2, v5, (unsigned short)pCmd->wIndx, v4, pCmd->dwSeed, (unsigned char)pCmd->bId);
+		CheckInvSwap(v2, v5, (unsigned short)pCmd->wIndx, v4, pCmd->dwSeed, (unsigned char)pCmd->bId, pCmd->rare);
 	}
 	return 11;
 }

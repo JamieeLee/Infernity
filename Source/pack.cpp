@@ -284,6 +284,34 @@ void __fastcall UnPackItem(PkItemStruct *is, ItemStruct *id)
 			item[127]._iMaxCharges = (unsigned char)v2->bMCh;
 			item[127].isRare = v2->dwBuff;
 		}
+
+
+		struct TSyncHeader
+{
+    unsigned char bCmd;
+    unsigned char bLevel;
+    unsigned short wLen;
+    unsigned char bObjId;
+    unsigned char bObjCmd;
+    unsigned char bItemI;
+    unsigned char bItemX;
+    unsigned char bItemY;
+    unsigned short wItemIndx;
+    unsigned short wItemCI;
+    int dwItemSeed;
+    unsigned char bItemId;
+    unsigned char bItemDur;
+    unsigned char bItemMDur;
+    unsigned char bItemCh;
+    unsigned char bItemMCh;
+    unsigned short wItemVal;
+    unsigned int dwItemBuff;
+    unsigned char bPInvLoc;
+    unsigned short wPInvIndx;
+    unsigned short wPInvCI;
+    int dwPInvSeed;
+    unsigned char bPInvId;
+};
 		qmemcpy(v3, &item[127], sizeof(ItemStruct));
 	}
 }

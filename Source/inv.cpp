@@ -806,10 +806,10 @@ LABEL_28:
 			v7 = &plr[v1].InvList[0]._ivalue;
 			while ( !v3 )
 			{
-				if ( *(v7 - 47) == 11 && *v7 < 5000 )
+				if ( *(v7 - 47) == 11 && *v7 < maxGoldPile)
 				{
 					v8 = plr[v1].HoldItem._ivalue + *v7;
-					if ( v8 <= 5000 )
+					if ( v8 <= maxGoldPile)
 					{
 						*v7 = v8;
 						if ( v8 < 2500 )
@@ -846,7 +846,7 @@ LABEL_28:
 			if ( *(v4 - 47) == 11 )
 			{
 				v5 = *v4 + plr[v1].HoldItem._ivalue;
-				if ( v5 <= 5000 )
+				if ( v5 <= maxGoldPile)
 				{
 					*v4 = v5;
 					if ( v5 < 2500 )
@@ -929,8 +929,13 @@ int __fastcall SwapItem(ItemStruct *a, ItemStruct *b)
 	qmemcpy(b, &h, sizeof(ItemStruct));
 	return v2 + 12;
 }
-
 void __fastcall CheckInvPaste(int pnum, int mx, int my)
+{
+	CheckInvPaste(pnum, mx, my, false);
+}
+
+
+void __fastcall CheckInvPaste(int pnum, int mx, int my, bool shift)
 {
 	int v3; // ebx
 	int v4; // edi
@@ -1296,7 +1301,7 @@ LABEL_149:
 								*v36 = plr[v3]._pNumInv;
 								v43 = plr[v3].HoldItem._ivalue;
 								plr[v3]._pGold += v43;
-								if ( v43 <= 5000 )
+								if ( v43 <= maxGoldPile)
 								{
 									if ( v43 < 2500 )
 									{
@@ -1316,7 +1321,7 @@ LABEL_149:
 							v38 = 368 * (*v36 - 1) + v3 * 21720;
 							v39 = *(int *)((char *)&plr[0].InvList[0]._ivalue + v38);
 							v40 = v37 + v39;
-							if ( v37 + v39 <= 5000 )
+							if ( v37 + v39 <= maxGoldPile)
 							{
 								*(int *)((char *)&plr[0].InvList[0]._ivalue + v38) = v40;
 								plr[v3]._pGold += plr[v3].HoldItem._ivalue;
@@ -1333,9 +1338,9 @@ LABEL_149:
 								}
 								goto LABEL_226;
 							}
-							plr[v3]._pGold += 5000 - v39;
-							plr[v3].HoldItem._ivalue = v37 - (5000 - v39);
-							*(int *)((char *)&plr[0].InvList[0]._ivalue + v38) = 5000;
+							plr[v3]._pGold += maxGoldPile - v39;
+							plr[v3].HoldItem._ivalue = v37 - (maxGoldPile - v39);
+							*(int *)((char *)&plr[0].InvList[0]._ivalue + v38) = maxGoldPile;
 							*(int *)((char *)&plr[0].InvList[0]._iCurs + v38) = 6;
 							v41 = plr[v3].HoldItem._ivalue;
 							if ( v41 >= 2500 )
@@ -1430,7 +1435,7 @@ LABEL_191:
 							v55 = *(int *)((char *)&plr[0].SpdList[0]._ivalue + v53);
 							v56 = plr[v3].HoldItem._ivalue;
 							v57 = v55 + v56;
-							if ( v55 + v56 <= 5000 )
+							if ( v55 + v56 <= maxGoldPile)
 							{
 								*(int *)((char *)&plr[0].SpdList[0]._ivalue + v53) = v57;
 								plr[v3]._pGold += plr[v3].HoldItem._ivalue;
@@ -1447,9 +1452,9 @@ LABEL_191:
 								}
 								goto LABEL_225;
 							}
-							plr[v3]._pGold += 5000 - v55;
-							plr[v3].HoldItem._ivalue = v56 - (5000 - v55);
-							*(int *)((char *)&plr[0].SpdList[0]._ivalue + v53) = 5000;
+							plr[v3]._pGold += maxGoldPile - v55;
+							plr[v3].HoldItem._ivalue = v56 - (maxGoldPile - v55);
+							*(int *)((char *)&plr[0].SpdList[0]._ivalue + v53) = maxGoldPile;
 							*(int *)((char *)&plr[0].SpdList[0]._iCurs + v53) = 6;
 							v58 = plr[v3].HoldItem._ivalue;
 							if ( v58 >= 2500 )
@@ -1476,8 +1481,14 @@ LABEL_226:
 					CalcPlrInv(p, 1u);
 					if ( v60 == myplr )
 					{
-						if ( cursor_ida == 1 )
-							SetCursorPos(MouseX + (cursW >> 1), MouseY + (cursH >> 1));
+						if (cursor_ida == 1) {
+							if (shift) {
+								//SetCursorPos(MouseX - (cursW >> 2), MouseY - (cursH >> 2));
+							}
+							else {
+								SetCursorPos(MouseX + (cursW >> 1), MouseY + (cursH >> 1));
+							}
+						}
 						SetCursor(cursor_ida);
 					}
 					return;
@@ -1616,7 +1627,11 @@ void __fastcall CheckInvSwap(int pnum, int bLoc, int idx, int wCI, int seed, int
 	CalcPlrInv(p, 1u);
 }
 
-void __fastcall CheckInvCut(int pnum, int mx, int my)
+void __fastcall CheckInvCut(int pnum, int mx, int my) {
+	CheckInvCut(pnum, mx, my, false);
+}
+
+void __fastcall CheckInvCut(int pnum, int mx, int my, bool shift)
 {
 	int v3; // ebp
 	signed int v4; // ecx
@@ -1785,7 +1800,9 @@ LABEL_60:
 		{
 			PlaySFX(IS_IGRAB);
 			SetCursor(plr[v3].HoldItem._iCurs + 12);
-			SetCursorPos(v21 - (cursW >> 1), MouseY - (cursH >> 1));
+			if (!shift) {
+				SetCursorPos(v21 - (cursW >> 1), MouseY - (cursH >> 1));
+			}
 		}
 	}
 }
@@ -1807,58 +1824,56 @@ void __fastcall inv_update_rem_item(int pnum, int iv)
 void __fastcall RemoveInvItem(int pnum, int iv)
 {
 	int v2; // edx
-	signed int v3; // ecx
-	int v4; // ebx
-	char *v5; // eax
-	int v6; // esi
-	int v7; // edx
-	int v8; // eax
-	signed int v9; // edi
-	char *v10; // esi
-	int v11; // eax
-	int p; // [esp+Ch] [ebp-4h]
+signed int v3; // ecx
+int v4; // ebx
+char *v5; // eax
+int v6; // esi
+int v7; // edx
+int v8; // eax
+signed int v9; // edi
+char *v10; // esi
+int v11; // eax
+int p; // [esp+Ch] [ebp-4h]
 
-	p = pnum;
-	v2 = iv + 1;
-	v3 = 0;
-	v4 = p;
+p = pnum;
+v2 = iv + 1;
+v3 = 0;
+v4 = p;
+do
+{
+	v5 = &plr[v4].InvGrid[v3];
+	v6 = *v5;
+	if (v6 == v2 || v6 == -v2)
+		*v5 = 0;
+	++v3;
+} while (v3 < 40);
+v7 = v2 - 1;
+v8 = --plr[v4]._pNumInv;
+if (v8 > 0 && v8 != v7)
+{
+	qmemcpy((char *)&plr[0].InvList[v7] + v4 * 21720, (char *)&plr[0].InvList[v8] + v4 * 21720, 0x170u);
+	v9 = 0;
 	do
 	{
-		v5 = &plr[v4].InvGrid[v3];
-		v6 = *v5;
-		if ( v6 == v2 || v6 == -v2 )
-			*v5 = 0;
-		++v3;
-	}
-	while ( v3 < 40 );
-	v7 = v2 - 1;
-	v8 = --plr[v4]._pNumInv;
-	if ( v8 > 0 && v8 != v7 )
+		v10 = &plr[v4].InvGrid[v9];
+		if (*v10 == plr[v4]._pNumInv + 1)
+			*v10 = v7 + 1;
+		if (*v10 == -1 - plr[v4]._pNumInv)
+			*v10 = -1 - v7;
+		++v9;
+	} while (v9 < 40);
+}
+CalcPlrScrolls(p);
+if (_LOBYTE(plr[v4]._pRSplType) == 2)
+{
+	v11 = plr[v4]._pRSpell;
+	if (v11 != -1)
 	{
-		qmemcpy((char *)&plr[0].InvList[v7] + v4 * 21720, (char *)&plr[0].InvList[v8] + v4 * 21720, 0x170u);
-		v9 = 0;
-		do
-		{
-			v10 = &plr[v4].InvGrid[v9];
-			if ( *v10 == plr[v4]._pNumInv + 1 )
-				*v10 = v7 + 1;
-			if ( *v10 == -1 - plr[v4]._pNumInv )
-				*v10 = -1 - v7;
-			++v9;
-		}
-		while ( v9 < 40 );
+		if (!(plr[v4]._pScrlSpells[1] & (1 << (v11 - 1) >> 31) | plr[v4]._pScrlSpells[0] & (1 << (v11 - 1))))
+			plr[v4]._pRSpell = -1;
+		drawpanflag = 255;
 	}
-	CalcPlrScrolls(p);
-	if ( _LOBYTE(plr[v4]._pRSplType) == 2 )
-	{
-		v11 = plr[v4]._pRSpell;
-		if ( v11 != -1 )
-		{
-			if ( !(plr[v4]._pScrlSpells[1] & (1 << (v11 - 1) >> 31) | plr[v4]._pScrlSpells[0] & (1 << (v11 - 1))) )
-				plr[v4]._pRSpell = -1;
-			drawpanflag = 255;
-		}
-	}
+}
 }
 // 52571C: using guessed type int drawpanflag;
 
@@ -1870,22 +1885,54 @@ void __fastcall RemoveSpdBarItem(int pnum, int iv)
 	v2 = pnum;
 	plr[pnum].SpdList[iv]._itype = -1;
 	CalcPlrScrolls(pnum);
-	if ( _LOBYTE(plr[v2]._pRSplType) == 2 )
+	if (_LOBYTE(plr[v2]._pRSplType) == 2)
 	{
 		v3 = plr[v2]._pRSpell;
-		if ( v3 != -1 && !(plr[v2]._pScrlSpells[1] & (1 << (v3 - 1) >> 31) | plr[v2]._pScrlSpells[0] & (1 << (v3 - 1))) )
+		if (v3 != -1 && !(plr[v2]._pScrlSpells[1] & (1 << (v3 - 1) >> 31) | plr[v2]._pScrlSpells[0] & (1 << (v3 - 1))))
 			plr[v2]._pRSpell = -1;
 	}
 	drawpanflag = 255;
 }
 // 52571C: using guessed type int drawpanflag;
 
+
+bool CanPutToBelt()
+{
+	PlayerStruct& player = plr[myplr];
+	ItemStruct& item = plr[myplr].HoldItem;
+	std::set<int> canPutToBelt = { IMISC_FULLHEAL ,IMISC_HEAL ,IMISC_MANA,IMISC_FULLMANA,IMISC_REJUV,IMISC_FULLREJUV,IMISC_SCROLL,IMISC_SCROLLT };
+	return canPutToBelt.find(item._iMiscId) != canPutToBelt.end();
+}
+
+int FreeSlotOnBelt() {
+
+	PlayerStruct& player = plr[myplr];
+	//int countOfItems = 0;
+	for (int beltIndex = 0; beltIndex < 8; beltIndex++) {
+		if (player.SpdList[beltIndex]._itype == ITYPE_NONE) {
+			return beltIndex;
+			//++countOfItems;
+		}
+	}
+	return -1;//!(countOfItems==8);
+}
+
 void __cdecl CheckInvItem()
 {
-	if ( pcurs < CURSOR_FIRSTITEM )
-		CheckInvCut(myplr, MouseX, MouseY);
-	else
+	if (pcurs < CURSOR_FIRSTITEM) {
+		if (GetAsyncKeyState(VK_SHIFT) < 0 && plr[myplr].HoldItem._itype != ITYPE_NONE && CanPutToBelt() && MouseY <= 340 && FreeSlotOnBelt() != -1) {
+			if (FreeSlotOnBelt() != -1 && plr[myplr]._pmode <= PM_WALK3){
+				CheckInvCut(myplr, MouseX, MouseY,true);
+				CheckInvPaste(myplr, 200+ FreeSlotOnBelt()*30,359,true);
+			}
+		}
+		else {
+			CheckInvCut(myplr, MouseX, MouseY);
+		}
+	}
+	else {
 		CheckInvPaste(myplr, MouseX, MouseY);
+	}
 }
 
 void __cdecl CheckInvScrn()

@@ -19,6 +19,7 @@ int AMPlayerY; // weak
 
 std::map<std::string, bool> BoolConfig;
 std::map<std::string, int> IntConfig; //config variables
+int maxGoldPile = 10000000;
 
 void __cdecl InitAutomapOnce()
 {
@@ -637,7 +638,7 @@ void __fastcall DrawAutomapType(int screen_x, int screen_y, short automap_type, 
 	int replace_200 = 200;
 	int replace_144 = 144;
 
-	if (color >= 1) {
+	if ((int)color != myplr+2 && (int)color != 1 && (int)color != 0) {
 		replace_200 = 182; //142
 		replace_144 = 242; //232
 	}
@@ -990,7 +991,7 @@ LABEL_25:
 // 4B8968: using guessed type int sbookflag;
 // 69BD04: using guessed type int questlog;
 
-short GetAutomapTypeColor(int tx, int ty, bool view)
+char GetAutomapTypeColor(int tx, int ty, bool view)
 {
 	int v3; // edi
 	int v4; // esi
@@ -1013,7 +1014,7 @@ short GetAutomapTypeColor(int tx, int ty, bool view)
 			if (tx < 40 && automapview[tx][0])
 			{
 				ty = 0;
-				return automapview[tx][0];
+				return automapview[tx][ty];
 			}
 		}
 	}
@@ -1034,7 +1035,7 @@ short GetAutomapTypeColor(int tx, int ty, bool view)
 		if (((unsigned short)GetAutomapType(v4, v3 - 1, 0) >> 8) & 4)
 			v7 = 1;
 	}
-	return automapview[tx][ty];
+	return automapview[tx][ty-1];
 }
 
 
@@ -1272,6 +1273,8 @@ void __fastcall SetAutomapView(int x, int y)
 	if (automapview[0][v4] < 1) {
 		automapview[0][v4] = 1;
 	}
+
+
 	v5 = GetAutomapType((x - 16) >> 1, (y - 16) >> 1, 0);
 	v6 = v5 & 0x4000;
 	v7 = (v5 & 0xF) - 2;
@@ -1374,6 +1377,7 @@ LABEL_14:
 			automapview[-1][v4 - 1] = 1; /* *((_BYTE *)&AMdword_4B7E40 + v4 + 3) = 1; fix */
 		}
 	}
+
 }
 // 4B7E40: using guessed type int AMdword_4B7E40;
 // 4B7E44: using guessed type int AMdword_4B7E44;

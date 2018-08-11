@@ -2337,8 +2337,8 @@ void __fastcall GetItemAttrs(int i, int idata, int lvl)
 
 		if ( leveltype == DTYPE_HELL )
 			rndv += rndv >> 3;
-		if ( rndv > 5000 )
-			rndv = 5000;
+		if ( rndv > maxGoldPile)
+			rndv = maxGoldPile;
 
 		item[i]._ivalue = rndv;
 

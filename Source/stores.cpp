@@ -2598,7 +2598,7 @@ void __fastcall TakePlrsMoney(int cost)
 		{
 			v6 = (unsigned int *)((char *)&plr[0].SpdList[0]._ivalue + v5);
 			v7 = *(int *)((char *)&plr[0].SpdList[0]._ivalue + v5);
-			if ( v7 != 5000 )
+			if ( v7 != maxGoldPile)
 			{
 				if ( v1 >= v7 )
 				{
@@ -2703,7 +2703,7 @@ LABEL_26:
 				{
 					v15 = (unsigned int *)((char *)&plr[0].InvList[0]._ivalue + v14);
 					v16 = *(int *)((char *)&plr[0].InvList[0]._ivalue + v14);
-					if ( v16 != 5000 )
+					if ( v16 != maxGoldPile)
 					{
 						if ( v1 >= v16 )
 						{
@@ -2878,6 +2878,7 @@ void __cdecl S_SPBuyEnter()
 	int v9; // esi
 	char v10; // cl
 
+
 	if ( stextsel == 22 )
 	{
 		StartStore(STORE_SMITH);
@@ -2954,8 +2955,8 @@ bool __fastcall StoreGoldFit(int idx)
 	int numsqrs; // [esp+Ch] [ebp-4h]
 
 	cost = storehold[idx]._iIvalue;
-	sz = cost / 5000;
-	if ( cost % 5000 )
+	sz = cost / maxGoldPile;
+	if ( cost % maxGoldPile)
 		sz++;
 
 	SetCursor(storehold[idx]._iCurs + 12);
@@ -2973,18 +2974,18 @@ bool __fastcall StoreGoldFit(int idx)
 
 	for(i = 0; i < plr[myplr]._pNumInv; i++)
 	{
-		if ( plr[myplr].InvList[i]._itype == ITYPE_GOLD && plr[myplr].InvList[i]._ivalue != 5000 )
+		if ( plr[myplr].InvList[i]._itype == ITYPE_GOLD && plr[myplr].InvList[i]._ivalue != maxGoldPile)
 		{
 			cost += plr[myplr].InvList[i]._ivalue;
-			if ( cost > 5000 )
-				cost -= 5000;
+			if ( cost > maxGoldPile)
+				cost -= maxGoldPile;
 			else
 				cost = 0;
 		}
 	}
 
-	sz = cost / 5000;
-	if ( cost % 5000 )
+	sz = cost / maxGoldPile;
+	if ( cost % maxGoldPile)
 		sz++;
 	return numsqrs >= sz;
 }
@@ -3059,13 +3060,13 @@ void __cdecl StoreSellItem()
 LABEL_15:
 		if ( cost > 0 )
 		{
-			if ( cost > 5000 )
+			if ( cost > maxGoldPile)
 			{
-				v12 = (cost - 5001) / 5000 + 1;
-				cost += -5000 * v12;
+				v12 = (cost - maxGoldPile - 1) / maxGoldPile + 1;
+				cost += -maxGoldPile * v12;
 				do
 				{
-					PlaceStoreGold(5000);
+					PlaceStoreGold(maxGoldPile);
 					--v12;
 				}
 				while ( v12 );
@@ -3078,13 +3079,13 @@ LABEL_15:
 		v10 = &plr[myplr].InvList[0]._ivalue;
 		while ( cost > 0 )
 		{
-			if ( *(v10 - 47) == ITYPE_GOLD && *v10 != 5000 )
+			if ( *(v10 - 47) == ITYPE_GOLD && *v10 != maxGoldPile)
 			{
 				v11 = cost + *v10;
-				if ( v11 > 5000 )
+				if ( v11 > maxGoldPile)
 				{
-					*v10 = 5000;
-					cost = v11 - 5000;
+					*v10 = maxGoldPile;
+					cost = v11 - maxGoldPile;
 					SetGoldCurs(myplr, v8);
 				}
 				else
@@ -3488,7 +3489,6 @@ void __cdecl HealerBuyItem()
 	ItemStruct *v8; // edx
 	ItemStruct *v9; // edi
 	bool v10; // zf
-
 	idx = stextvhold + ((stextlhold - stextup) >> 2);
 	if ( gbMaxPlayers == 1 )
 	{
@@ -3654,7 +3654,7 @@ void __cdecl StoryIdItem()
 void __cdecl S_ConfirmEnter()
 {
 	char v0; // cl
-
+	bool forceSelection = false;
 	if ( stextsel == 18 )
 	{
 		if ( stextshold > STORE_WRECHARGE )
@@ -3666,15 +3666,31 @@ void __cdecl S_ConfirmEnter()
 					break;
 				case STORE_HBUY:
 					HealerBuyItem();
+					forceSelection = true;
 					break;
 				case STORE_SIDENTIFY:
 					StoryIdItem();
 					v0 = STORE_IDSHOW;
 LABEL_20:
 					StartStore(v0);
+					if (forceSelection) {
+						stextsel = stextlhold;
+						stextsval = stextvhold;//making the selection stay after buying an item
+						if (stextsval >= 1) {
+							STextUp();
+							STextUp();
+							STextUp();
+							STextUp();
+							STextDown();
+							STextDown();
+							STextDown();
+							STextDown();
+						}
+					}
 					return;
 				case STORE_SPBUY:
 					SmithBuyPItem();
+					forceSelection = true;
 					break;
 			}
 		}
@@ -3687,6 +3703,7 @@ LABEL_20:
 					break;
 				case STORE_SBUY:
 					SmithBuyItem();
+					forceSelection = true;
 					break;
 				case STORE_SSELL:
 					goto LABEL_27;
@@ -3695,6 +3712,7 @@ LABEL_20:
 					break;
 				case STORE_WBUY:
 					WitchBuyItem();
+					forceSelection = true;
 					break;
 				case STORE_WSELL:
 LABEL_27:

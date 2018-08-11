@@ -2573,7 +2573,7 @@ void __fastcall DropHalfPlayersGold(int pnum)
 		if ( *(int *)((char *)&plr[0].SpdList[0]._itype + v4) == ITYPE_GOLD )
 		{
 			v5 = *(int *)((char *)&plr[0].SpdList[0]._ivalue + v4);
-			if ( v5 != 5000 )
+			if ( v5 != maxGoldPile)
 			{
 				if ( v3 >= v5 )
 				{
@@ -2698,7 +2698,7 @@ LABEL_28:
 				if ( *(int *)((char *)&plr[0].InvList[0]._itype + v9) == ITYPE_GOLD )
 				{
 					v10 = *(int *)((char *)&plr[0].InvList[0]._ivalue + v9);
-					if ( v10 != 5000 )
+					if ( v10 != maxGoldPile)
 					{
 						if ( v3 >= v10 )
 						{
@@ -4623,8 +4623,8 @@ void __cdecl ValidatePlayer()
 		{
 			if ( *(v5 - 47) == 11 )
 			{
-				if ( *v5 > 5000 )
-					*v5 = 5000;
+				if ( *v5 > maxGoldPile)
+					*v5 = maxGoldPile;
 				v4 += *v5;
 			}
 			++v0;
@@ -4877,13 +4877,9 @@ void __fastcall MakePlrPath(int pnum, int xx, int yy, unsigned char endspace)
 	v8 = plr[v6]._px;
 	plr[v6]._ptargx = v5;
 	plr[v6]._ptargy = yy;
-
-	RevealMapByOtherPlayers(plr[pnum]._px, plr[pnum]._py, pnum+1);
-	//std::stringstream ss;
-	//ss << "Player " << pnum << " walks to " << ((plr[pnum]._px - 16) >> 1) << " " << ((plr[pnum]._py - 16) >> 1);
-		//MessageBox(NULL, ss.str().c_str(), NULL, NULL);
-
-
+	if (pnum != myplr) {
+		RevealMapByOtherPlayers(plr[pnum]._px, plr[pnum]._py, pnum + 2);
+	}
 
 	if ( v8 != v5 || plr[v6]._py != yy )
 	{

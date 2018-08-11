@@ -76,6 +76,7 @@ void DrawTransparentBackground(int xPos, int yPos, int width, int height, int bo
 template<typename T, typename... V> __forceinline T By(size_t i, T first, V... rest) { T val[] = { first, (T)rest... }; return val[i <= sizeof...(rest) ? i : sizeof...(rest)]; }
 extern std::map<std::string, bool> BoolConfig;
 extern std::map<std::string, int> IntConfig;
+extern int maxGoldPile;
 
 
 void __cdecl engine_cpp_init_2();

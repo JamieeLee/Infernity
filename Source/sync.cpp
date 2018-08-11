@@ -221,6 +221,7 @@ char __fastcall SyncPlrInv(TSyncHeader *pItem)
 			_HIBYTE(pItem->dwItemSeed) = item[v3]._iMaxDur;
 			pItem->bItemId = item[v3]._iCharges;
 			pItem->bItemDur = item[v3]._iMaxCharges;
+			pItem->dwItemBuff = item[v3].isRare;
 			if ( !item[v3].IDidx )
 				*(_WORD *)&pItem->bItemMDur = item[v3]._ivalue;
 		}
