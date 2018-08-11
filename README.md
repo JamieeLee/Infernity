@@ -21,14 +21,16 @@ I will order a pizza and think about you while eating ;)
 - Gold pile max size increased to 1m
 - Shop selection stays after buying item (it used to reset to first top item before)
 - Shift clicking potions in inventory adds them to belt
+- Remove/change permanent negative shrines (In general, things permanently damaging your character)
+- Show shrine effect in the description
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
 - Fixing possible overflows in monster AC/to hit/etc. on difficulties above normal.
-- Remove/change permanent negative shrines (In general, things permanently damaging your character)
 - Fix friendly fire
 - Show other players on minimap
 - Expand inventory
+- Make the map revealed by the shrine have a different color
 
 # Installing
 - Get `infernity.exe` [here](https://github.com/qndel/Infernity/blob/master/Source/Infernity.exe)
@@ -45,6 +47,7 @@ I will order a pizza and think about you while eating ;)
 - 1.05 - Added experience bar
 - 1.06 - Map shared between players, Uniques from Inferno will have an additional affix as well! They are called `Superuniques`
 - 1.07 - Gold pile max size increased from 5k to 1m, shift+clicking a scroll/potion in inventory will add it to belt, shop selection stays after buying, some fixes for spells
+- 1.08 - Shrines display their effect in description (goat shrines and cauldron't still don't), removed permanent mana decrease from shrines = we got rid of all stuff that could permanently damage the character! So it's safe to use goat shrines/cauldrons
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
@@ -52,6 +55,8 @@ Some screenshots from the mod (You can find more screenshots on discord):
 ![Screenshot 1: Inferno activated](https://cdn.discordapp.com/attachments/474387916043321364/474565168777658369/unknown.png "Inferno activated")
 
 ![Screenshot 2: Three affixes](https://cdn.discordapp.com/attachments/474387916043321364/474426181106794516/unknown.png "Three affixes")
+
+![Screenshot 3: Shrines revealed](https://media.discordapp.net/attachments/474387916043321364/477974757116215306/unknown.png?width=460&height=936 "Shrines revealed!")
 
 # Credits
 ## https://github.com/diasurgical/devilution - for the code
