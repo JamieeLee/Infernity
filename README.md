@@ -1,23 +1,50 @@
+# Discord!
 [Discord](https://discord.gg/rejUw5b)  <----- Don't miss this link! A lot of cool stuff on the discord, screenshots etc. You can even suggest stuff to add and have a cool chat with me : )
 # Pay me :D
 If you like my work, you can donate
 `Paypal:` stefan551@o2.pl
 I will order a pizza and think about you while eating ;)
 # Features
-TO DO:
-- A new difficulty called Inferno.[done]
-- Because the diabloui.dll hasn't been reverse-engineered, I've decided to use a trick to replace hell difficulty with a new one, to do it, create a file named `enable_inferno` in your Diablo folder and choose "hell" difficulty in the difficulty selection menu. [done]
-- Special items with 3 affixes can drop there. [done]
-- The third affix will only drop if the item has a suffix and a prefix. Additional affix doesn't follow the regular prefix/suffix rules, which mean that combinations that weren't possible before can occur. [done]
-- Full compatibility with vanilla diablo - you can move your character between Diablo and Infernity without any data loss! (Of course you won't see the third affix in normal diablo) [done]
+## DONE:
+- A new difficulty called Inferno.
+- Because the diabloui.dll hasn't been reverse-engineered, I've decided to use a trick to replace hell difficulty with a new one, to do it, create a file named `enable_inferno` in your Diablo folder and choose "hell" difficulty in the difficulty selection menu.     
+- Special items with 3 affixes can drop there. 
+- The third affix will only drop if the item has a suffix and a prefix. Additional affix doesn't follow the regular prefix/suffix rules, which mean that combinations that weren't possible before can occur. 
+- Compatibility with vanilla, but sadly in one direction = you can move your vanilla character to infernity, but if you move character from infernity to vanilla, items will morph like crazy (This is because inferno items have increased level to enable them to get the "dead" affixes (the ones you could only get from Wirt)
+- Running in town/dungeon 
+- Highlighting enemies in combat 
+- A config to enable or disable stuff
+- Fully shared xp - you don't need to poke or even be close! Seems in vanilla diablo the xp would be divided between the killers. In Infernity everyone gets 100% xp, so splitting to clear faster might be a good idea ;)
+- Black death doesn't permanently decrease health anymore!
+- Added xp bar
+- Minimap is shared between players
+- Gold pile max size increased to 1m
+- Shop selection stays after buying item (it used to reset to first top item before)
+- Shift clicking potions in inventory adds them to belt
+## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
 - Fixing possible overflows in monster AC/to hit/etc. on difficulties above normal.
+- Remove/change permanent negative shrines (In general, things permanently damaging your character)
+- Fix friendly fire
+- Show other players on minimap
+- Expand inventory
 
 # Installing
-[Click to download Infernity.exe](https://github.com/qndel/Infernity/tree/master/Source/Infernity.exe)
-Put `Infernity.exe` in your Diablo folder. The following files from the original game patched to 1.09(b) need to be present: `DIABDAT.MPQ`, `DiabloUI.dll`, `SmackW32.dll`, `Standard.snp`, and `Storm.dll`.
-Additionally, Strange Bytes' [DirectDraw patch](http://www.strangebytes.com/index.php/projects/1-diablo-1-windows-7-vista-patch) is recommended to help fix compatibility issues and run the game in windowed mode.
+- Get `infernity.exe` [here](https://github.com/qndel/Infernity/blob/master/Source/Infernity.exe)
+- Get `infernity_config.ini`  [here](https://github.com/qndel/Infernity/blob/master/Source/infernity_config.ini)
+- Create a file named `enable_inferno` in your diablo folder.
+- Launch `Infernity.exe` in your Diablo folder to play. The following files from the original game patched to 1.09 need to be present: `DIABDAT.MPQ`, `DiabloUI.dll`, `SmackW32.dll`, `Standard.snp`, and `Storm.dll`.
+- Additionally, Strange Bytes' [DirectDraw patch](http://www.strangebytes.com/index.php/projects/1-diablo-1-windows-7-vista-patch) is recommended to help fix compatibility issues and run the game in windowed mode.
+ # Changelog
+- 1.00 - Added Inferno difficulty and 3 affix items.
+- 1.01 - Added health bar (can turn on/off in config)
+- 1.02 - Added alt highlighting items
+- 1.03 - Added running in town/dungeon and highlighting monsters in combat (something like infravision but you have to aggro monster to see it )(can turn on/off in config)
+- 1.04 - Restored compatibility with vanilla, changed affix generation system (IMPORTANT! All items from previous versions will go crazy :( But the item system is good now). Compatibility is vanilla->infernity only. At least it means you can start playing infernity with your items from vanilla :)
+- 1.05 - Added experience bar
+- 1.06 - Map shared between players, Uniques from Inferno will have an additional affix as well! They are called `Superuniques`
+- 1.07 - Gold pile max size increased from 5k to 1m, shift+clicking a scroll/potion in inventory will add it to belt, shop selection stays after buying, some fixes for spells
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
