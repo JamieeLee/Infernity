@@ -1743,7 +1743,7 @@ LABEL_26:
 
 
 
-				if (GetAsyncKeyState(VK_SHIFT) & 0x8000 && CanPutToBelt() && FreeSlotOnBelt() != -1)
+				if (GetAsyncKeyState(VK_SHIFT) & 0x8000 && CanPutToBelt())
 				{
 					int freeSlot = FreeSlotOnBelt();
 					if (freeSlot != -1) {
@@ -1756,6 +1756,7 @@ LABEL_26:
 						{
 							PlaySFX(IS_IGRAB);
 						}
+						return;
 					}
 				}
 				qmemcpy(&plr[v3].HoldItem, (char *)&plr[0].InvList[v13] + v3 * 21720, sizeof(plr[v3].HoldItem));

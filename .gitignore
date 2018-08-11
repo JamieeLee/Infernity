@@ -83,8 +83,6 @@ artifacts/
 # StyleCop
 StyleCopReport.xml
 
-# Readme
-README.md
 # Files built by Visual Studio
 *_i.c
 *_p.c

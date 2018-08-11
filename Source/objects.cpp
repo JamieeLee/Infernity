@@ -322,6 +322,39 @@ char *shrinestrs[26] =
   "Glimmering",
   "Tainted"
 };
+
+
+char *shrinedesc[26] =
+{
+	"+5 to one attribute, -1 to others",
+	"-10 dura to one item, +10 to others",
+	"+2ac to items, -1 dmg to weapon",
+	"weapon damage +1",
+	"cast mana shield",
+	"recharge staves",
+	"repair all items",
+	"-1 to random spell level, +1 to others",
+	"refill chests",
+	"firebolt level +2",
+	"refill mana",
+	"cast mana shield",
+	"potions become rejuvenation",
+	"+2 to magic",
+	"get 2 potions",
+	"cast phasing",
+	"holy bolt level +2",
+	"fill inventory with gold",
+	"refill hp/mana for other players",
+	"+2 to dexterity",
+	"+2 to strength",
+	"+2 to vitality",
+	"reveal the map",
+	"holy bolt level +2",
+	"identify all items",
+	"+/- 1 to stats"
+};
+
+
 unsigned char shrinemin[26] =
 {
 	1,   1,   1,   1,   1,   1,   1,   1,   1,   1,
@@ -4960,7 +4993,9 @@ void __fastcall OperateShrine(int pnum, int i, int sType)
 		v7 = object[v3]._oVar1;
 		switch ( v7 )
 		{
-			case 0:
+			case 0://Mysterious	+5 points to one random attribute
+				//-1 point to other three attributes
+				//	"Some are weakened as one grows strong."
 				if ( !v5 && arglist == myplr )
 				{
 					ModifyPlrStr(arglist, -1);
@@ -4998,7 +5033,9 @@ void __fastcall OperateShrine(int pnum, int i, int sType)
 					goto LABEL_221;
 				}
 				return;
-			case 1:
+			case 1://Hidden
+				//-10 max durability to one equipped item, +10 durability to the others.	
+				//"New strength is forged through destruction."
 				v12 = 0;
 				if ( v5 || arglist != myplr )
 					return;
@@ -5087,7 +5124,9 @@ void __fastcall OperateShrine(int pnum, int i, int sType)
 LABEL_47:
 				_LOBYTE(v7) = 13;
 				goto LABEL_221;
-			case 2:
+			case 2://Gloomy
+					//+ 2 AC to equipped shield, helm, and armor.- 1 to equipped weapon's max damage.
+				    //"Those who defend seldom attack."
 				if ( v5 )
 					return;
 				if ( arglist != myplr )
@@ -5134,7 +5173,9 @@ LABEL_47:
 					goto LABEL_73;
 				v7 = (int)&plr[v26].InvList[0]._iAC;
 				break;
-			case 3:
+			case 3://Weird
+					//Adds + 1 to all weapons max damage(Until next new game created)	
+				 //"The sword of justice is swift and sharp."
 				if ( v5 )
 					return;
 				if ( arglist != myplr )
@@ -5162,8 +5203,10 @@ LABEL_47:
 				}
 				_LOBYTE(v7) = 15;
 				goto LABEL_221;
-			case 4:
-			case 11:
+			case 4://Magical
+			case 11://Magical	
+				//Casts mana shield on the player. (No effect if mana shield already active.)	
+				//"While the spirit is vigilant the body thrives."
 				if ( v5 )
 					return;
 				AddMissile(
@@ -5181,7 +5224,9 @@ LABEL_47:
 					return;
 				_LOBYTE(v7) = 16;
 				goto LABEL_221;
-			case 5:
+			case 5://Stone	
+				//Recharges all staves equipped and in inventory.	
+				//"The powers of mana refocused renews."
 				if ( v5 )
 					return;
 				if ( arglist != myplr )
@@ -5222,7 +5267,9 @@ LABEL_47:
 				while ( v44 );
 				v7 = 17;
 				goto LABEL_221;
-			case 6:
+			case 6://Religious	
+				//Repairs all items	
+				//"Time cannot diminish the power of steel."
 				if ( v5 )
 					return;
 				if ( arglist != myplr )
@@ -5260,7 +5307,9 @@ LABEL_47:
 				while ( v51 );
 				v7 = 18;
 				goto LABEL_221;
-			case 7:
+			case 7://Enchanted	
+				//-1 to one random spell level, +1 to all others. (Bug: Chain Lightning is usually the -1 in Diablo.)	
+				//"Magic is not always what it seems to be."
 				if ( v5 || arglist != myplr )
 					return;
 				sfx_ida = 0;
@@ -5313,7 +5362,9 @@ LABEL_47:
 				}
 				_LOBYTE(v7) = 19;
 				goto LABEL_221;
-			case 8:
+			case 8://Thaumaturgic
+					//Refills all chests on the current level.	
+				//"What once was opened now is closed."
 				for ( j = 0; j < nobjects; ++j )
 				{
 					v63 = objectactive[j];
@@ -5333,7 +5384,9 @@ LABEL_47:
 					goto LABEL_280;
 				_LOBYTE(v7) = 20;
 				goto LABEL_221;
-			case 9:
+			case 9: //Fascinating	
+				//+2 to Firebolt skill, -10% maximum mana (permanent).
+				//	"Intensity comes at the cost of wisdom."
 				if ( v5 || arglist != myplr )
 					return;
 				v7 = 21720 * arglist;
@@ -5347,6 +5400,8 @@ LABEL_47:
 				v68 = plr[0]._pSplLvl[v7 + 1];
 				if ( v68 < 15 )
 					plr[0]._pSplLvl[v7 + 1] = v68 + 1;
+
+				/*
 				v69 = *(int *)((char *)&plr[0]._pMaxManaBase + v7);
 				v70 = *(int *)((char *)&plr[0]._pManaBase + v7);
 				v71 = *(int *)((char *)&plr[0]._pMana + v7) - v70;
@@ -5369,10 +5424,12 @@ LABEL_47:
 				{
 					*(int *)((char *)&plr[0]._pMaxManaBase + v7) = 0;
 					*(int *)((char *)&plr[0]._pMaxMana + v7) = v73;
-				}
+				}*/
 				_LOBYTE(v7) = 21;
 				goto LABEL_221;
-			case 10:
+			case 10://Cryptic	
+				//Mana bulb refill and casts a Nova spell.	
+				//"Arcane power brings destruction."
 				if ( v5 )
 					return;
 				v77 = arglist;
@@ -5393,7 +5450,9 @@ LABEL_47:
 				plr[v77]._pMana = plr[v77]._pMaxMana;
 				plr[v77]._pManaBase = plr[v77]._pMaxManaBase;
 				goto LABEL_221;
-			case 12:
+			case 12://Eldritch	
+				//All health and mana potions become rejuvenation potions of the same quality.	
+				//"Crimson and Azure become as the sun."
 				if ( v5 )
 					return;
 				if ( arglist != myplr )
@@ -5469,14 +5528,18 @@ LABEL_47:
 				while ( !v56 );
 				_LOBYTE(v7) = 24;
 				goto LABEL_221;
-			case 13:
+			case 13://Eerie
+				//+2 magic.
+				//"Knowledge and wisdom at the cost of self."
 				if ( v5 || arglist != myplr )
 					return;
 				ModifyPlrMag(arglist, 2);
 				CheckStats(arglist);
 				_LOBYTE(v7) = 25;
 				goto LABEL_221;
-			case 14:
+			case 14://Divine	
+				//Drops 2 full rejuvenation potions -or- 1 full mana and 1 full healing. Also refills life and mana bulbs.	
+				//"Drink and be refreshed."
 				if ( v5 || arglist != myplr )
 					return;
 				v85 = object[v3]._ox;
@@ -5499,7 +5562,9 @@ LABEL_47:
 				plr[v87]._pHPBase = v7;
 				_LOBYTE(v7) = 26;
 				goto LABEL_221;
-			case 15:
+			case 15://Holy	
+				//Activates a phasing spell(Teleport to random location on screen.)	
+				//"Wherever you go, there you are."
 				if ( v5 )
 					return;
 				v88 = 0;
@@ -5529,7 +5594,9 @@ LABEL_47:
 					return;
 				_LOBYTE(v7) = 27;
 				goto LABEL_221;
-			case 16:
+			case 16://Sacred	
+				//Charged bolt +2 levels; lose 10% max mana	
+				//"Energy comes at the cost of wisdom."
 				if ( v5 || arglist != myplr )
 					return;
 				v7 = 21720 * arglist;
@@ -5543,6 +5610,7 @@ LABEL_47:
 				v97 = plr[0]._pSplLvl[v7 + 30];
 				if ( v97 < 15 )
 					plr[0]._pSplLvl[v7 + 30] = v97 + 1;
+				/*
 				v98 = *(int *)((char *)&plr[0]._pMaxManaBase + v7);
 				v99 = *(int *)((char *)&plr[0]._pManaBase + v7);
 				v100 = *(int *)((char *)&plr[0]._pMana + v7) - v99;
@@ -5565,10 +5633,12 @@ LABEL_47:
 				{
 					*(int *)((char *)&plr[0]._pMaxManaBase + v7) = 0;
 					*(int *)((char *)&plr[0]._pMaxMana + v7) = v102;
-				}
+				}*/
 				_LOBYTE(v7) = 28;
 				goto LABEL_221;
-			case 17:
+			case 17://Spiritual	
+				//Fills all empty inventory slots with small amounts of gold.	
+				//"Riches abound when least expected."
 				if ( v5 || arglist != myplr )
 					return;
 				sfx_idd = 0;
@@ -5593,7 +5663,10 @@ LABEL_47:
 				while ( sfx_idd < 40 );
 				_LOBYTE(v7) = 29;
 				goto LABEL_221;
-			case 18:
+			case 18://Spooky	
+				//Full rejuvenation potions for other players - seems it refills hp/mana here
+			//You : "Where avarice fails, patience gains reward."
+				//Others : "Blessed by a benevolent companion!"
 				if ( v5 )
 					return;
 				if ( arglist == myplr )
@@ -5609,7 +5682,9 @@ LABEL_47:
 				plr[v110]._pMana = plr[v110]._pMaxMana;
 				plr[v110]._pManaBase = plr[v110]._pMaxManaBase;
 				goto LABEL_280;
-			case 19:
+			case 19://Abandoned 
+				//+ 2 Dexterity	
+				//"The hands of men may be guided by fate."
 				if ( v5 || arglist != myplr )
 					return;
 				ModifyPlrDex(arglist, 2);
@@ -5618,7 +5693,9 @@ LABEL_47:
 					goto LABEL_280;
 				_LOBYTE(v7) = 32;
 				goto LABEL_221;
-			case 20:
+			case 20://Creepy	
+				//+2 Strength	
+				//"Strength is bolstered by heavenly faith."
 				if ( v5 || arglist != myplr )
 					return;
 				ModifyPlrStr(arglist, 2);
@@ -5627,7 +5704,9 @@ LABEL_47:
 					goto LABEL_280;
 				_LOBYTE(v7) = 33;
 				goto LABEL_221;
-			case 21:
+			case 21://Quiet	
+				//Add +2 to Vitality	
+				//"The essence of life flows from within."
 				if ( v5 || arglist != myplr )
 					return;
 				ModifyPlrVit(arglist, 2);
@@ -5636,7 +5715,9 @@ LABEL_47:
 					goto LABEL_280;
 				_LOBYTE(v7) = 34;
 				goto LABEL_221;
-			case 22:
+			case 22://Secluded	
+				//Completes the auto-map of the current level	
+				//"The way is made clear when viewed from above"
 				if ( v5 )
 					return;
 				if ( arglist != myplr )
@@ -5658,7 +5739,9 @@ LABEL_47:
 				while ( v7 < 40 );
 				_LOBYTE(v7) = 35;
 				goto LABEL_221;
-			case 23:
+			case 23://Ornate	
+					//+2 Holy Bolt spell level, -10% max mana (permanent)	
+				//"Salvation comes at the cost of wisdom."
 				if ( v5 || arglist != myplr )
 					return;
 				v7 = 21720 * arglist;
@@ -5672,6 +5755,7 @@ LABEL_47:
 				v116 = plr[0]._pSplLvl[v7 + 31];
 				if ( v116 < 15 )
 					plr[0]._pSplLvl[v7 + 31] = v116 + 1;
+				/*
 				v117 = *(int *)((char *)&plr[0]._pMaxManaBase + v7);
 				v118 = *(int *)((char *)&plr[0]._pManaBase + v7);
 				v119 = *(int *)((char *)&plr[0]._pMana + v7) - v118;
@@ -5695,9 +5779,12 @@ LABEL_47:
 					*(int *)((char *)&plr[0]._pMaxManaBase + v7) = 0;
 					*(int *)((char *)&plr[0]._pMaxMana + v7) = v121;
 				}
+				*/
 				_LOBYTE(v7) = 36;
 				goto LABEL_221;
-			case 24:
+			case 24://Glimmering	
+				//Identifies all unidentified items in inventory.	
+				//"Mysteries are revealed in the light of reason."
 				if ( v5 || arglist != myplr )
 					return;
 				v125 = arglist;
@@ -5736,7 +5823,9 @@ LABEL_47:
 				while ( v131 );
 				v7 = 37;
 				goto LABEL_221;
-			case 25:
+			case 25://Tainted	
+				//+1 to a random stat of the player touching the shrine, -1 to all stats of the other players in the game.
+			//You : "Those who are last may yet be first.",Others : "Generosity brings its own rewards."
 				if ( v5 )
 					return;
 				if ( arglist == myplr )
@@ -7213,6 +7302,7 @@ void __fastcall GetObjectStr(int i)
 		case OBJ_SHRINER:
 			sprintf(tempstr, "%s Shrine", shrinestrs[object[v1]._oVar1]);
 			strcpy(infostr, tempstr);
+			AddPanelString(shrinedesc[object[v1]._oVar1], 1);
 			break;
 		case OBJ_SKELBOOK:
 			strcpy(infostr, "Skeleton Tome");
