@@ -14,6 +14,8 @@
 - Added xp bar
 - Minimap is shared between players
 - Gold pile max size increased to 1m
+- Shop selection stays after buying item (it used to reset to first top item before)
+- Shift clicking potions in inventory adds them to belt
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
@@ -21,7 +23,6 @@
 - Remove/change permanent negative shrines (In general, things permanently damaging your character)
 - Fix friendly fire
 - Show other players on minimap
-- Shift clicking potions in inventory adds them to belt
 - Expand inventory
 
 # Installing
@@ -40,6 +41,7 @@
 - 1.04 - Restored compatibility with vanilla, changed affix generation system (IMPORTANT! All items from previous versions will go crazy :( But the item system is good now). Compatibility is vanilla->infernity only. At least it means you can start playing infernity with your items from vanilla :)
 - 1.05 - Added experience bar
 - 1.06 - Map shared between players, Uniques from Inferno will have an additional affix as well! They are called `Superuniques`
+- 1.07 - Gold pile max size increased from 5k to 1m, shift+clicking a scroll/potion in inventory will add it to belt, shop selection stays after buying, some fixes for spells
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
