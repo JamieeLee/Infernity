@@ -1,4 +1,8 @@
-[Discord](https://discord.gg/rejUw5b)
+[Discord](https://discord.gg/rejUw5b)  <----- Don't miss this link! A lot of cool stuff on the discord, screenshots etc. You can even suggest stuff to add and have a cool chat with me : )
+# Pay me :D
+If you like my work, you can donate
+`Paypal:` stefan551@o2.pl
+I will order a pizza and think about you while eating ;)
 # Features
 TO DO:
 - A new difficulty called Inferno.[done]
