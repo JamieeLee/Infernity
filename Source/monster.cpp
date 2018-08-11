@@ -8754,12 +8754,7 @@ int __fastcall M_SpawnSkel(int x, int y, int dir)
 {
 	CMonster *v3; // ebx
 	CMonster *v4; // esi
-<<<<<<< HEAD
-	int v5=0; // edx
-	int v6; // ecx
-=======
 	int v5; // edx
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 	int v7; // esi
 	//int v8; // edx
 	int v9; // eax
@@ -8923,13 +8918,8 @@ bool __fastcall SpawnSkeleton(int ii, int x, int y)
 
 int __cdecl PreSpawnSkeleton()
 {
-<<<<<<< HEAD
-	int skeltypes=0; // edx
-	int j; // edx
-=======
 	int skeltypes; // edx // should be i/j
 	int j; // edx // remove
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 	int skel; // eax
 	int i; // [esp+10h] [ebp-4h] // should be skeltypes
 

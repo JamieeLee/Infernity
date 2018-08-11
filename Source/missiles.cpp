@@ -1230,12 +1230,6 @@ bool __fastcall MonsterTrapHit(int m, int mindam, int maxdam, int dist, int t, i
 	int v8; // ecx
 	int v9; // eax
 	int v10; // edi
-<<<<<<< HEAD
-			 //int v11; // eax
-	int v12; // ecx
-=======
-	//int v11; // eax
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 	int v13; // eax
 	int v14; // [esp+Ch] [ebp-10h]
 	int v15; // [esp+10h] [ebp-Ch]
@@ -1281,14 +1275,8 @@ bool __fastcall MonsterTrapHit(int m, int mindam, int maxdam, int dist, int t, i
 	if (v14 >= v10 && monster[v6]._mmode != MM_STONE)
 		return 0;
 #endif
-<<<<<<< HEAD
-	_LOBYTE(v12) = 68;
-	v13 = v15 + random(v12, maxdam - v15 + 1);
-	if (!(_BYTE)shift)
-=======
 	v13 = v15 + random(68, maxdam - v15 + 1);
 	if ( !(_BYTE)shift )
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 		v13 <<= 6;
 	if (v16)
 		monster[v6]._mhitpoints -= v13 >> 2;
@@ -1338,12 +1326,6 @@ bool __fastcall MonsterMHit(int pnum, int m, int mindam, int maxdam, int dist, i
 	int v13; // ebx
 	char v14; // al
 	int v15; // eax
-<<<<<<< HEAD
-			 //int v16; // eax
-	int v17; // ecx
-=======
-	//int v16; // eax
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 	int v19; // ebx
 	int v20; // ebx
 	int v21; // edx
@@ -1642,30 +1624,17 @@ LABEL_50:
 		}
 		else
 		{
-<<<<<<< HEAD
-			_LOBYTE(v11) = 75;
-			if ((_BYTE)shift)
-			{
-				v23 = mind + random(v11, maxd - mind + 1);
-				if (v34 == -1 && plr[v9]._pIFlags & 0x10000000)
-=======
 			if ( (_BYTE)shift )
 			{
 				v23 = mind + random(75, maxd - mind + 1);
 				if ( v34 == -1 && plr[v9]._pIFlags & 0x10000000 )
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 					v23 >>= 1;
 				v21 = plr[v9]._pIGetHit + v23;
 			}
 			else
 			{
-<<<<<<< HEAD
-				v22 = (mind << 6) + random(v11, (maxd - mind + 1) << 6);
-				if (v34 == -1 && plr[v9]._pIFlags & 0x10000000)
-=======
 				v22 = (mind << 6) + random(75, (maxd - mind + 1) << 6);
 				if ( v34 == -1 && plr[v9]._pIFlags & 0x10000000 )
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 					v22 >>= 1;
 				v21 = (plr[v9]._pIGetHit << 6) + v22;
 			}
@@ -1800,11 +1769,7 @@ bool __fastcall Plr2PlrMHit(int pnum, int p, int mindam, int maxdam, int dist, i
 	v27 = v9;
 LABEL_14:
 	v23 = random(69, 100);
-<<<<<<< HEAD
-	if (missiledata[mtype].mType)
-=======
 	if ( missiledata[mtype].mType )
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 	{
 		v10 = v26;
 		v12 = 2 * plr[v7]._pLevel;
@@ -1865,14 +1830,8 @@ LABEL_14:
 		}
 		else
 		{
-<<<<<<< HEAD
-			_LOBYTE(v16) = 70;
-			v17 = mindam + random(v16, maxdam - mindam + 1);
-			if (!missiledata[v22].mType)
-=======
 			v17 = mindam + random(70, maxdam - mindam + 1);
 			if ( !missiledata[v22].mType )
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 				v17 += plr[v10]._pIBonusDamMod + plr[v10]._pDamageMod + v17 * plr[v10]._pIBonusDam / 100;
 			v16 = dista;
 			if (!(_BYTE)shift)
@@ -2528,23 +2487,12 @@ void __fastcall AddRndTeleport(int mi, int sx, int sy, int dx, int dy, int midir
 	while (++v22 <= 500)
 	{
 		v9 = random(58, 3);
-<<<<<<< HEAD
-		_LOBYTE(v10) = 58;
-=======
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 		v11 = v9 + 4;
 		v12 = random(58, 3);
 		v14 = v12 + 4;
-<<<<<<< HEAD
-		if (random(v13, 2) == 1)
-			v11 = -v11;
-		_LOBYTE(v15) = 58;
-		if (random(v15, 2) == 1)
-=======
 		if ( random(58, 2) == 1 )
 			v11 = -v11;
 		if ( random(58, 2) == 1 )
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 			v14 = -v14;
 		mi = 4 * (sy + v14 + 112 * (v11 + v20));
 		if (!nSolidTable[dPiece[0][mi / 4u]] && !dObject[v11 + v20][sy + v14] && !dMonster[0][mi / 4u])
@@ -2789,12 +2737,7 @@ void __fastcall AddFirewall(int mi, int sx, int sy, int dx, int dy, int midir, i
 	i = mi;
 	v11 = i;
 	v12 = random(53, 10);
-<<<<<<< HEAD
-	_LOBYTE(v13) = 53;
-	missile[v11]._midam = 16 * (random(v13, 10) + v12 + plr[id]._pLevel + 2) >> 1;
-=======
 	missile[v11]._midam = 16 * (random(53, 10) + v12 + plr[id]._pLevel + 2) >> 1;
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 	GetMissileVel(i, v9, sy, dx, dy, 16);
 	v14 = missile[i]._mispllvl;
 	missile[v11]._mirange = 10;
@@ -2838,12 +2781,7 @@ void __fastcall AddFireball(int mi, int sx, int sy, int dx, int dy, int midir, i
 	else
 	{
 		v10 = random(60, 10);
-<<<<<<< HEAD
-		_LOBYTE(v11) = 60;
-		v12 = 2 * (plr[id]._pLevel + random(v11, 10) + v10) + 4;
-=======
 		v12 = 2 * (plr[id]._pLevel + random(60, 10) + v10) + 4;
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 		v13 = missile[i]._mispllvl;
 		missile[i]._midam = v12;
 		if (v13 > 0)
@@ -2910,11 +2848,7 @@ void __fastcall AddLightning(int mi, int sx, int sy, int dx, int dy, int midir, 
 		missile[v9]._mityoff = missile[midir]._mityoff;
 	}
 	missile[v9]._miAnimFrame = random(52, 8) + 1;
-<<<<<<< HEAD
-	if (midir < 0)
-=======
 	if ( midir < 0 )
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 		goto LABEL_9;
 	if ((_BYTE)mienemy == 1)
 	{
@@ -3892,11 +3826,7 @@ void __fastcall AddHeal(int mi, int sx, int sy, int dx, int dy, int midir, int m
 	v9 = id;
 	v10 = 0;
 	v12 = (random(57, 10) + 1) << 6;
-<<<<<<< HEAD
-	if (plr[id]._pLevel > 0)
-=======
 	if ( plr[id]._pLevel > 0 )
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 	{
 		do
 		{
@@ -3959,12 +3889,7 @@ void __fastcall AddElement(int mi, int sx, int sy, int dx, int dy, int midir, in
 		v10 = YDirAdd[midir] + dy;
 	}
 	v11 = random(60, 10);
-<<<<<<< HEAD
-	_LOBYTE(v12) = 60;
-	v13 = 2 * (plr[id]._pLevel + random(v12, 10) + v11) + 4;
-=======
 	v13 = 2 * (plr[id]._pLevel + random(60, 10) + v11) + 4;
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 	v14 = i;
 	v15 = missile[i]._mispllvl;
 	missile[i]._midam = v13;
@@ -4143,16 +4068,9 @@ void __fastcall AddNova(int mi, int sx, int sy, int dx, int dy, int midir, int m
 	v9 = mi;
 	missile[v9]._miVar1 = dx;
 	missile[v9]._miVar2 = dy;
-<<<<<<< HEAD
-	if (id == -1)
-	{
-		v25 = random(66, 3);
-		_LOBYTE(v26) = 66;
-=======
 	if ( id == -1 )
 	{
 		v25 = random(66, 3);
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 		v27 = v25;
 		v28 = random(66, 3);
 		missile[v9]._midam = ((unsigned int)currlevel >> 1) + random(66, 3) + v28 + v27;
@@ -4160,10 +4078,6 @@ void __fastcall AddNova(int mi, int sx, int sy, int dx, int dy, int midir, int m
 	else
 	{
 		v10 = random(66, 6);
-<<<<<<< HEAD
-		_LOBYTE(v11) = 66;
-=======
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 		v12 = v10;
 		v13 = random(66, 6);
 		v15 = v13 + v12;
@@ -4292,15 +4206,9 @@ void __fastcall AddFlame(int mi, int sx, int sy, int dx, int dy, int midir, int 
 	if ((_BYTE)mienemy)
 	{
 		missile[v9]._midam = (unsigned char)monster[id].mMinDamage
-<<<<<<< HEAD
-			+ random(
-				v10,
-				(unsigned char)monster[id].mMaxDamage - (unsigned char)monster[id].mMinDamage + 1);
-=======
 						   + random(
 								 77,
 								 (unsigned char)monster[id].mMaxDamage - (unsigned char)monster[id].mMinDamage + 1);
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 	}
 	else
 	{
@@ -4351,11 +4259,7 @@ void __fastcall AddCbolt(int mi, int sx, int sy, int dx, int dy, int midir, int 
 	i = mi;
 	v9 = mi;
 	x = sx;
-<<<<<<< HEAD
-	if ((_BYTE)micaster)
-=======
 	if ( (_BYTE)micaster )
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 	{
 		v13 = random(63, 15);
 		missile[v9]._midam = 15;
@@ -4364,10 +4268,6 @@ void __fastcall AddCbolt(int mi, int sx, int sy, int dx, int dy, int midir, int 
 	else
 	{
 		v10 = random(63, 15);
-<<<<<<< HEAD
-		_LOBYTE(v11) = 68;
-=======
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 		v12 = plr[id]._pMagic;
 		missile[v9]._mirnd = v10 + 1;
 		missile[v9]._midam = random(68, v12 >> 2) + 1;
@@ -5041,21 +4941,6 @@ void __fastcall MI_Firebolt(int i)
 	}
 	switch (missile[v2]._mitype)
 	{
-<<<<<<< HEAD
-	case 1:
-		_LOBYTE(v8) = 75;
-		v10 = (plr[v9]._pMagic >> 3) + random(v8, 10) + missile[v2]._mispllvl + 1;
-		break;
-	case 0x18:
-		v10 = (plr[v9]._pMagic >> 1) + 3 * missile[v2]._mispllvl - (plr[v9]._pMagic >> 3);
-		break;
-	case 0x3F:
-		v10 = 0;
-		break;
-	default:
-		v10 = v21;
-		break;
-=======
 		case 1:
 			v10 = (plr[v9]._pMagic >> 3) + random(75, 10) + missile[v2]._mispllvl + 1;
 			break;
@@ -5068,7 +4953,6 @@ void __fastcall MI_Firebolt(int i)
 		default:
 			v10 = v21;
 			break;
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 	}
 LABEL_19:
 	v14 = missile[v2]._mix;
@@ -5473,13 +5357,8 @@ void __fastcall MI_Lightctrl(int i)
 	else if (missile[v1]._micaster)
 	{
 		v5 = 2
-<<<<<<< HEAD
-			* ((unsigned char)monster[v2].mMinDamage
-				+ random(80, (unsigned char)monster[v2].mMaxDamage - (unsigned char)monster[v2].mMinDamage + 1));
-=======
 		   * ((unsigned char)monster[v2].mMinDamage
 			+ random(80, (unsigned char)monster[v2].mMaxDamage - (unsigned char)monster[v2].mMinDamage + 1));
->>>>>>> a336c38226bb5d6d9e3608e79c5dfe3421b45aca
 	}
 	else
 	{
