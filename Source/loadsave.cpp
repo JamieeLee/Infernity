@@ -61,13 +61,20 @@ void __fastcall LoadGame(bool firstflag)
 	tbuff = ptr;
 	int sig = ILoad_2();
 	if (sig != 'RETL') {
-		if (sig != 'IFTY') {
+		 if(sig != 'IFTY') {
 			TermMsg("Invalid save file");
 		}
 		else {
-			SaveVersion = ILoad();
+			SaveVersion = CurVersion;
 		}
-	}else { SaveVersion = 0; }
+	}
+	else {
+		//if (GetConfigBoolVariable("convertCharactersToInfernity") == true) {
+			SaveVersion = 0;
+		//} else{
+			//SaveVersion = 0;// ILoad();
+		//}
+	}
 
 	setlevel = OLoad();
 	setlvlnum = ILoad();
@@ -590,8 +597,15 @@ void __cdecl SaveGame()
 	ptr = DiabloAllocPtr(v0);
 	tbuff = ptr;
 	SaveVersion = CurVersion; // for buffer save/load 
-	ISave_2('IFTY'); // RETL
-	ISave(CurVersion);
+
+	//if (GetConfigBoolVariable("convertCharactersToInfernity") == true) {
+	//	ISave_2('IFTY'); // RETL
+	//}
+	//else {
+		ISave_2('RETL'); // RETL
+		//ISave(CurVersion);
+	//}
+	//ISave(CurVersion);
 	OSave(setlevel);
 	ISave((unsigned char)setlvlnum);
 	ISave(currlevel);

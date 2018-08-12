@@ -42,8 +42,8 @@
     <IntDir>.\Source/WinRel\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>.\Source/WinDebug\</OutDir>
-    <IntDir>.\Source/WinDebug\</IntDir>
+    <OutDir>.\Source\WinDebug</OutDir>
+    <IntDir>.\Source\WinDebug</IntDir>
     <TargetName>Infernity</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -116,7 +116,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <OutputFile>.\Source/WinDebug\Infernity.exe</OutputFile>
+      <OutputFile>.\Source/DiabloGame\Infernity.exe</OutputFile>
       <AdditionalDependencies>DiabloUI/WinDebug/DiabloUI.lib;3rdParty/Storm/Source/WinDebug/Storm.lib;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <DataExecutionPrevention>false</DataExecutionPrevention>
     </Link>

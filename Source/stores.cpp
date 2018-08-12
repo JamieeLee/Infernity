@@ -3673,7 +3673,7 @@ void __cdecl S_ConfirmEnter()
 					v0 = STORE_IDSHOW;
 LABEL_20:
 					StartStore(v0);
-					if (forceSelection) {
+					if (forceSelection && GetConfigBoolVariable("rememberScrollPosition")) {
 						stextsel = stextlhold;
 						stextsval = stextvhold;//making the selection stay after buying an item
 						if (stextsval >= 1) {
