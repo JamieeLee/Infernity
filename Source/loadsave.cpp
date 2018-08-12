@@ -465,22 +465,6 @@ void __fastcall LoadPlayer(int i)
 
 	memcpy(&plr[i], tbuff, StructSize<PlayerStruct>());
 	tbuff = (char *)tbuff + StructSize<PlayerStruct>();
-
-	/*
-	if (SaveVersion == 0) {
-		memset(&plr[i].InvListExpanded, 0, sizeof(PlayerStruct)- StructSize<PlayerStruct>());
-	}
-	else {
-		size_t savedPlayerSize = StructSize<PlayerStruct>();
-		size_t readSize = savedPlayerSize - readed - (offsetof(Player, Player::goldFind) - offsetof(Player, Player::StayAnimCel));
-		//if( (int)readSize < 0 ) __debugbreak();
-		ReadSaveData(&player.goldFind, readSize);
-		if (sizeof(Player) > savedPlayerSize) {
-			memset((char*)&player.goldFind + readSize, 0, sizeof(Player) - savedPlayerSize);
-		}
-	}*/
-
-
 }
 
 void __fastcall LoadMonster(int i)
@@ -510,15 +494,15 @@ void __fastcall LoadItem(int i)
 	int v1; // edi
 
 	v1 = i;
-	memcpy(&item[i], tbuff, 0x170u);
-	tbuff = (char *)tbuff + 368;
+	memcpy(&item[i], tbuff, StructSize<ItemStruct>());
+	tbuff = (char *)tbuff + StructSize<ItemStruct>();
 	GetItemFrm(v1);
 }
 
 void __fastcall LoadPremium(int i)
 {
-	memcpy(&premiumitem[i], tbuff, 0x170u);
-	tbuff = (char *)tbuff + 368;
+	memcpy(&premiumitem[i], tbuff, StructSize<ItemStruct>());
+	tbuff = (char *)tbuff + StructSize<ItemStruct>();
 }
 
 void __fastcall LoadQuest(int i)
@@ -980,14 +964,14 @@ void __fastcall SaveObject(int i)
 
 void __fastcall SaveItem(int i)
 {
-	memcpy(tbuff, &item[i], 0x170u);
-	tbuff = (char *)tbuff + 368;
+	memcpy(tbuff, &item[i], StructSize<ItemStruct>());
+	tbuff = (char *)tbuff + StructSize<ItemStruct>();
 }
 
 void __fastcall SavePremium(int i)
 {
-	memcpy(tbuff, &premiumitem[i], 0x170u);
-	tbuff = (char *)tbuff + 368;
+	memcpy(tbuff, &premiumitem[i], StructSize<ItemStruct>());
+	tbuff = (char *)tbuff + StructSize<ItemStruct>();
 }
 
 void __fastcall SaveQuest(int i)

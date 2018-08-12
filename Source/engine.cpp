@@ -1887,7 +1887,7 @@ void RevealMapByOtherPlayers(int x, int y, int pnum) {
 }
 
 void PrintDebugInfo() {
-	if (true) {
+	if (false) {
 		std::stringstream ss;
 		ss << "debuginfo: " <<MouseX << " " << MouseY << " " << (plr[myplr].HoldItem._itype == ITYPE_NONE);
 		PrintGameStr(200, 200, (char*)ss.str().c_str(), COL_WHITE);

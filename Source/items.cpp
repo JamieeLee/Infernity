@@ -1450,7 +1450,7 @@ void __fastcall CalcSelfItems(int pnum)
 					}
 				}
 			}
-			v8 += 368;
+			v8 += StructSize<ItemStruct>();
 			--v10;
 		}
 		while ( v10 );
@@ -1595,7 +1595,7 @@ void __fastcall SetPlrHandItem(ItemStruct *h, int idata)
 	ItemDataStruct *pAllItem; // edi
 
 	pAllItem = &AllItemsList[idata];
-	memset(h, 0, 0x170u);
+	memset(h, 0, StructSize<ItemStruct>());
 	h->_itype = pAllItem->itype;
 	h->_iCurs = pAllItem->iCurs;
 	strcpy(h->_iName, pAllItem->iName);
@@ -1771,7 +1771,7 @@ LABEL_14:
 	plr[v1].HoldItem._iCurs = 4;
 	plr[v1].HoldItem._ivalue = 100;
 	plr[v1]._pGold = 100;
-	qmemcpy((char *)&plr[0].InvList[plr[v1]._pNumInv++] + v1 * StructSize<PlayerStruct>(), &plr[v1].HoldItem, 0x170u);
+	qmemcpy((char *)&plr[0].InvList[plr[v1]._pNumInv++] + v1 * StructSize<PlayerStruct>(), &plr[v1].HoldItem, StructSize<ItemStruct>());
 	plr[v1].InvGrid[30] = plr[v1]._pNumInv;
 	CalcPlrItemVals(player_numa, 0);
 }

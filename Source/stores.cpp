@@ -719,7 +719,7 @@ void __fastcall S_ScrollSBuy(int idx)
 			AddSTextVal(v2, *((_DWORD *)v3 + 35));
 			PrintStoreItem((ItemStruct *)(v3 - 60), v2 + 1, iclr);
 			stextdown = v2;
-			v3 += 368;
+			v3 += StructSize<ItemStruct>();
 		}
 		v2 += 4;
 	}
@@ -911,7 +911,7 @@ void __fastcall S_ScrollSPBuy(int idx)
 			stextdown = v2;
 		}
 		v2 += 4;
-		v6 += 368;
+		v6 += StructSize<ItemStruct>();
 	}
 	while ( v2 < 20 );
 	if ( !stext[stextsel]._ssel && stextsel != 22 )
@@ -1023,7 +1023,7 @@ void __fastcall S_ScrollSSell(int idx)
 		}
 		++v5;
 		v2 += 4;
-		v3 += 368;
+		v3 += StructSize<ItemStruct>();
 	}
 	while ( v2 < 20 );
 	stextsmax = storenumh - 4;
@@ -1287,7 +1287,7 @@ void __fastcall S_ScrollWBuy(int idx)
 			AddSTextVal(v2, *((_DWORD *)v3 + 35));
 			PrintStoreItem((ItemStruct *)(v3 - 60), v2 + 1, iclr);
 			stextdown = v2;
-			v3 += 368;
+			v3 += StructSize<ItemStruct>();
 		}
 		v2 += 4;
 	}
@@ -2593,7 +2593,7 @@ void __fastcall TakePlrsMoney(int cost)
 	plr[myplr]._pGold = v2 - v1;
 	while ( v1 > 0 )
 	{
-		v5 = 368 * v4 + StructSize<PlayerStruct>() * v3;
+		v5 = StructSize<ItemStruct>() * v4 + StructSize<PlayerStruct>() * v3;
 		if ( *(int *)((char *)&plr[0].SpdList[0]._itype + v5) == ITYPE_GOLD )
 		{
 			v6 = (unsigned int *)((char *)&plr[0].SpdList[0]._ivalue + v5);
@@ -2624,7 +2624,7 @@ void __fastcall TakePlrsMoney(int cost)
 				{
 					if ( v1 <= 0 )
 						break;
-					v9 = 368 * v8 + StructSize<PlayerStruct>() * v3;
+					v9 = StructSize<ItemStruct>() * v8 + StructSize<PlayerStruct>() * v3;
 					if ( *(int *)((char *)&plr[0].SpdList[0]._itype + v9) == ITYPE_GOLD )
 					{
 						v10 = (unsigned int *)((char *)&plr[0].SpdList[0]._ivalue + v9);
@@ -2668,7 +2668,7 @@ LABEL_26:
 					{
 						if ( v1 <= 0 )
 							break;
-						v19 = 368 * v17 + v18;
+						v19 = StructSize<ItemStruct>() * v17 + v18;
 						if ( *(int *)((char *)&plr[0].InvList[0]._itype + v19) == ITYPE_GOLD )
 						{
 							v20 = (unsigned int *)((char *)&plr[0].InvList[0]._ivalue + v19);
@@ -2698,7 +2698,7 @@ LABEL_26:
 		{
 			while ( v1 > 0 )
 			{
-				v14 = 368 * v12 + v13;
+				v14 = StructSize<ItemStruct>() * v12 + v13;
 				if ( *(int *)((char *)&plr[0].InvList[0]._itype + v14) == ITYPE_GOLD )
 				{
 					v15 = (unsigned int *)((char *)&plr[0].InvList[0]._ivalue + v14);
@@ -3050,7 +3050,7 @@ void __cdecl StoreSellItem()
 	{
 		v6 = v2 - idx;
 		qmemcpy(&storehidx[idx], &storehidx[idx + 1], v6);
-		qmemcpy(&storehold[idx], &storehold[idx + 1], 4 * (368 * v6 >> 2));
+		qmemcpy(&storehold[idx], &storehold[idx + 1], 4 * (StructSize<ItemStruct>() * v6 >> 2));
 	}
 	v8 = 0;
 	v13 = 0;

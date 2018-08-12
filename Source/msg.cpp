@@ -593,7 +593,7 @@ void __fastcall DeltaAddItem(int ii)
 						return;
 				}
 				v4->item[0].bCmd = 0;
-				v9 = 368 * v1;
+				v9 = StructSize<ItemStruct>() * v1;
 				v10 = *((_BYTE *)&item[0]._ix + v9);
 				sgbDeltaChanged = 1;
 				v4->item[0].x = v10;

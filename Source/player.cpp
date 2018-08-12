@@ -879,6 +879,15 @@ LABEL_28:
 	plr[v4].currentInventoryIndex = 0;
 	memset(plr[v4].InvGridExpanded, 0, sizeof(char) * 40);
 	memset(plr[v4].InvListExpanded, 0, sizeof(ItemStruct) * 40);
+	for (int i = 0; i < 4; ++i) {
+		plr[v4].NumInvExpanded[i] = 0;
+		for (int j = 0; j < 40; ++j) {
+			plr[v4].InvListExpanded[i][j]._itype = -1;
+			plr[v4].InvGridExpanded[i][j] = 0;
+		}
+	}
+	plr[v4].NumInvExpanded[0] = 2;
+
 	{
 		std::ofstream outfile;
 		outfile.open("test.txt", std::ios_base::app);
@@ -2298,7 +2307,7 @@ void __fastcall RespawnDeadItem(ItemStruct *itm, int x, int y)
 		dItem[x][y] = _LOBYTE(itemavail[0]) + 1;
 		//v6 = 4 * numitems;
 		itemactive[numitems] = v4;
-		v4 *= 368;
+		v4 *= StructSize<ItemStruct>();
 		itemavail[0] = itemavail[-numitems + 126]; /* double check */
 		qmemcpy((char *)item + v4, v3, sizeof(ItemStruct));
 		*(int *)((char *)&item[0]._ix + v4) = x;
@@ -2575,7 +2584,7 @@ void __fastcall DropHalfPlayersGold(int pnum)
 	i = 0;
 	while ( v3 > 0 )
 	{
-		v4 = 368 * i + v2 * StructSize<PlayerStruct>();
+		v4 = StructSize<ItemStruct>() * i + v2 * StructSize<PlayerStruct>();
 		v14 = v4;
 		if ( *(int *)((char *)&plr[0].SpdList[0]._itype + v4) == ITYPE_GOLD )
 		{
@@ -2615,7 +2624,7 @@ void __fastcall DropHalfPlayersGold(int pnum)
 				{
 					if ( v3 <= 0 )
 						break;
-					v6 = 368 * ia + v2 * StructSize<PlayerStruct>();
+					v6 = StructSize<ItemStruct>() * ia + v2 * StructSize<PlayerStruct>();
 					v15 = v6;
 					if ( *(int *)((char *)&plr[0].SpdList[0]._itype + v6) == ITYPE_GOLD )
 					{
@@ -2665,7 +2674,7 @@ LABEL_28:
 				{
 					if ( v3 <= 0 )
 						break;
-					v12 = 368 * v11 + v2 * StructSize<PlayerStruct>();
+					v12 = StructSize<ItemStruct>() * v11 + v2 * StructSize<PlayerStruct>();
 					v17 = v12;
 					if ( *(int *)((char *)&plr[0].InvList[0]._itype + v12) == ITYPE_GOLD )
 					{
@@ -2700,7 +2709,7 @@ LABEL_28:
 		{
 			while ( v3 > 0 )
 			{
-				v9 = 368 * v8 + v2 * StructSize<PlayerStruct>();
+				v9 = StructSize<ItemStruct>() * v8 + v2 * StructSize<PlayerStruct>();
 				v16 = v9;
 				if ( *(int *)((char *)&plr[0].InvList[0]._itype + v9) == ITYPE_GOLD )
 				{

@@ -193,3 +193,198 @@ UNPACK ALMOST END ver 1!
 unpack SAVE VER: 1 INV INDEX: 0
 UNPACK END!
 READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+NEW PLAYER!
+UI SAVE CREATE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+NEW PLAYER!
+UI SAVE CREATE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+NEW PLAYER!
+UI SAVE CREATE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct!
+pfile read hero end - version = 0!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+NEW PLAYER!
+UI SAVE CREATE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+NEW PLAYER!
+UI SAVE CREATE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+pfile read hero end - version = 0!
+NEW PLAYER!
+UI SAVE CREATE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+NEW PLAYER!
+UI SAVE CREATE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+READ PLAYER FROM SAVE!

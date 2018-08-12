@@ -1,0 +1,12 @@
+8/12 21:20:04.750  Connecting to Battle.net...
+8/12 21:20:04.783      querying gateway
+8/12 21:20:04.799      searching for the fastest server
+8/12 21:20:05.010      connected to server
+8/12 21:20:05.018  Connected to server 104.153.105.203
+8/12 21:20:05.018      Validating ID
+8/12 21:20:05.018  Checking for the latest version
+8/12 21:20:05.351      client acknowledged
+8/12 21:20:05.558      logon acknowledged
+8/12 21:20:05.558      requesting latest version
+8/12 21:20:05.777  Disconnecting from server
+8/12 21:20:05.788  Could not connect to Battle.net

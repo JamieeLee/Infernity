@@ -88,16 +88,19 @@ void __fastcall PackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool manashi
 
 
 	for (int j = 0; j < 4; ++j) {
-		for (i = 0; i < 40; i++)
+		pPack->NumInvExpanded[j]= pPlayer->NumInvExpanded[j];
+		for (i = 0; i < 40; i++) {
 			pPack->InvGridExpanded[j][i] = pPlayer->InvGridExpanded[j][i];
+		}
 	}
 
 	for (int j = 0; j < 4; ++j) {
-		pki = &pPack->InvListExpanded[j][0];
-		pi = &pPlayer->InvListExpanded[j][0];
+		//pki = &pPack->InvListExpanded[j][0];
+		//pi = &pPlayer->InvListExpanded[j][0];
 
 		for (i = 0; i < 40; i++) {
-			PackItem(pki++, pi++);
+			//PackItem(pki++, pi++);
+			PackItem(&pPack->InvListExpanded[j][i], &pPlayer->InvListExpanded[j][i]);
 		}
 	}
 
@@ -268,14 +271,15 @@ void __fastcall UnPackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool killo
 		pPlayer->currentInventoryIndex = pPack->currentInventoryIndex;
 
 		for (int j = 0; j < 4; ++j) {
+			 pPlayer->NumInvExpanded[j]= pPack->NumInvExpanded[j];
 			for (i = 0; i < 40; i++)
 				pPlayer->InvGridExpanded[j][i] = pPack->InvGridExpanded[j][i];
 		}
 
 
 		for (int j = 0; j < 4; ++j) {
-			pki = &pPack->InvListExpanded[j][0];
-			pi = &pPlayer->InvListExpanded[j][0];
+			//pki = &pPack->InvListExpanded[j][0];
+			//pi = &pPlayer->InvListExpanded[j][0];
 
 			for (i = 0; i < 40; i++) {
 				//UnPackItem(pki++, pi++);

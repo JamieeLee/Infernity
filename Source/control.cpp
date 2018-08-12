@@ -2407,20 +2407,25 @@ void __cdecl DrawLevelUpIcon()
 // 6AA705: using guessed type char stextflag;
 
 bool SwitchInvTab(int newTab) {
-	if (pcurs < CURSOR_FIRSTITEM) {
+	//if (pcurs < CURSOR_FIRSTITEM) {
 		if (newTab != plr[myplr].currentInventoryIndex) {
+			CalcPlrInv(myplr, 1);
+			CheckItemStats(myplr);
 			qmemcpy(&plr[myplr].InvListExpanded[plr[myplr].currentInventoryIndex], &plr[myplr].InvList, sizeof(ItemStruct) * 40);
 			qmemcpy(&plr[myplr].InvList, &plr[myplr].InvListExpanded[newTab], sizeof(ItemStruct) * 40);
 
 			qmemcpy(&plr[myplr].InvGridExpanded[plr[myplr].currentInventoryIndex], &plr[myplr].InvGrid, sizeof(char) * 40);
 			qmemcpy(&plr[myplr].InvGrid, &plr[myplr].InvGridExpanded[newTab], sizeof(char) * 40);
 
+			plr[myplr].NumInvExpanded[plr[myplr].currentInventoryIndex] = plr[myplr]._pNumInv;
+			plr[myplr]._pNumInv = plr[myplr].NumInvExpanded[newTab];
+
 			plr[myplr].currentInventoryIndex = newTab;
-			CalcPlrInv(myplr, 1u);
+			CalcPlrInv(myplr, 1);
 			CheckItemStats(myplr);
 			return true;
 		}
-	}
+	//}
 	return false;
 }
 

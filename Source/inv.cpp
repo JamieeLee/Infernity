@@ -439,7 +439,7 @@ void __cdecl DrawInv()
 			v41 = v40 - 1;
 			invtest[v38] = 1;
 			v42 = v41;
-			v43 = 368 * v41 + v39;
+			v43 = StructSize<ItemStruct>() * v41 + v39;
 			v44 = *(int *)((char *)&plr[0].InvList[0]._iCurs + v43) + 12;
 			screen_ye = InvItemWidth[v44];
 			if ( pcursinvitem == v41 + 7 )
@@ -553,7 +553,7 @@ void __cdecl DrawInvBelt()
 				}
 			}
 			++v11;
-			v0 += 368;
+			v0 += StructSize<ItemStruct>();
 			v13 = v0;
 		}
 		while ( v11 < 8 );
@@ -806,8 +806,8 @@ LABEL_28:
 				v10 = &plr[0].InvGrid[10 * (v9 / 10) + v1 * StructSize<PlayerStruct>() + v9 % 10];
 				if ( !*v10 )
 				{
-					v11 = v1 * StructSize<PlayerStruct>() + 368 * plr[v1]._pNumInv;
-					qmemcpy((char *)plr[0].InvList + v11, &plr[v1].HoldItem, 0x170u);
+					v11 = v1 * StructSize<PlayerStruct>() + StructSize<ItemStruct>() * plr[v1]._pNumInv;
+					qmemcpy((char *)plr[0].InvList + v11, &plr[v1].HoldItem, StructSize<ItemStruct>());
 					++plr[v1]._pNumInv;
 					*v10 = plr[v1]._pNumInv;
 					v12 = plr[v1].HoldItem._ivalue;
@@ -1318,8 +1318,8 @@ LABEL_149:
 							v36 = &plr[0].InvGrid[10 * ((v68 - 25) / 10) + v3 * StructSize<PlayerStruct>() + (v68 - 25) % 10];
 							if ( *v36 <= 0 )
 							{
-								v42 = 368 * plr[v3]._pNumInv + v3 * StructSize<PlayerStruct>();
-								qmemcpy((char *)plr[0].InvList + v42, &plr[v3].HoldItem, 0x170u);
+								v42 = StructSize<ItemStruct>() * plr[v3]._pNumInv + v3 * StructSize<PlayerStruct>();
+								qmemcpy((char *)plr[0].InvList + v42, &plr[v3].HoldItem, StructSize<ItemStruct>());
 								++plr[v3]._pNumInv;
 								*v36 = plr[v3]._pNumInv;
 								v43 = plr[v3].HoldItem._ivalue;
@@ -1341,7 +1341,7 @@ LABEL_149:
 								goto LABEL_226;
 							}
 							v37 = plr[v3].HoldItem._ivalue;
-							v38 = 368 * (*v36 - 1) + v3 * StructSize<PlayerStruct>();
+							v38 = StructSize<ItemStruct>() * (*v36 - 1) + v3 * StructSize<PlayerStruct>();
 							v39 = *(int *)((char *)&plr[0].InvList[0]._ivalue + v38);
 							v40 = v37 + v39;
 							if ( v37 + v39 <= maxGoldPile)
@@ -1377,7 +1377,7 @@ LABEL_149:
 					}
 					else if ( !v66 )
 					{
-						qmemcpy((char *)&plr[0].InvList[plr[v3]._pNumInv++] + v3 * StructSize<PlayerStruct>(), &plr[v3].HoldItem, 0x170u);
+						qmemcpy((char *)&plr[0].InvList[plr[v3]._pNumInv++] + v3 * StructSize<PlayerStruct>(), &plr[v3].HoldItem, StructSize<ItemStruct>());
 						v66 = plr[v3]._pNumInv;
 LABEL_191:
 						v48 = v67;
@@ -1435,12 +1435,12 @@ LABEL_191:
 					while ( v45 < 40 );
 					goto LABEL_191;
 				case ILOC_BELT:
-					v53 = v3 * StructSize<PlayerStruct>() + 368 * (v68 - 65);
+					v53 = v3 * StructSize<PlayerStruct>() + StructSize<ItemStruct>() * (v68 - 65);
 					if ( plr[v3].HoldItem._itype != ITYPE_GOLD )
 					{
 						if ( *(int *)((char *)&plr[0].SpdList[0]._itype + v53) == ITYPE_NONE )
 						{
-							qmemcpy((char *)plr[0].SpdList + v53, &plr[v3].HoldItem, 0x170u);
+							qmemcpy((char *)plr[0].SpdList + v53, &plr[v3].HoldItem, StructSize<ItemStruct>());
 						}
 						else
 						{
@@ -1495,7 +1495,7 @@ LABEL_191:
 						cursor_ida = v59;
 						goto LABEL_225;
 					}
-					qmemcpy((char *)plr[0].SpdList + v53, &plr[v3].HoldItem, 0x170u);
+					qmemcpy((char *)plr[0].SpdList + v53, &plr[v3].HoldItem, StructSize<ItemStruct>());
 					plr[v3]._pGold += plr[v3].HoldItem._ivalue;
 LABEL_225:
 					drawsbarflag = 1;
@@ -1794,7 +1794,7 @@ LABEL_26:
 					qmemcpy(
 						(char *)&plr[0].InvList[v13] + v3 * StructSize<PlayerStruct>(),
 						(char *)&plr[0].InvList[v14] + v3 * StructSize<PlayerStruct>(),
-						0x170u);
+						StructSize<ItemStruct>());
 					v15 = 0;
 					do
 					{
@@ -1812,7 +1812,7 @@ LABEL_26:
 		}
 		if ( v5 >= 65 )
 		{
-			v17 = v3 * StructSize<PlayerStruct>() + 368 * (v5 - 65);
+			v17 = v3 * StructSize<PlayerStruct>() + StructSize<ItemStruct>() * (v5 - 65);
 			if ( *(int *)((char *)&plr[0].SpdList[0]._itype + v17) != -1 )
 			{
 				qmemcpy(&plr[v3].HoldItem, (char *)plr[0].SpdList + v17, sizeof(plr[v3].HoldItem));
@@ -1882,7 +1882,7 @@ v7 = v2 - 1;
 v8 = --plr[v4]._pNumInv;
 if (v8 > 0 && v8 != v7)
 {
-	qmemcpy((char *)&plr[0].InvList[v7] + v4 * StructSize<PlayerStruct>(), (char *)&plr[0].InvList[v8] + v4 * StructSize<PlayerStruct>(), 0x170u);
+	qmemcpy((char *)&plr[0].InvList[v7] + v4 * StructSize<PlayerStruct>(), (char *)&plr[0].InvList[v8] + v4 * StructSize<PlayerStruct>(), StructSize<ItemStruct>());
 	v9 = 0;
 	do
 	{
@@ -2974,7 +2974,7 @@ int __cdecl CheckInvHLight()
 				goto LABEL_36;
 			v5 = v0 - 65;
 			drawsbarflag = 1;
-			result = 368 * v5;
+			result = StructSize<ItemStruct>() * v5;
 			v2 = &v3->SpdList[v5];
 			if ( v3->SpdList[v5]._itype != -1 )
 			{
@@ -3219,14 +3219,14 @@ int __fastcall UseInvItem(int pnum, int cii)
 				return result;
 			v4 = cii - 47;
 			v14 = 1;
-			v5 = 368 * (cii - 47) + v2 * StructSize<PlayerStruct>();
+			v5 = StructSize<ItemStruct>() * (cii - 47) + v2 * StructSize<PlayerStruct>();
 			v6 = (_DWORD *)((char *)plr[0].SpdList + v5);
 		}
 		else
 		{
 			v4 = cii - 7;
 			v14 = 0;
-			v5 = 368 * (cii - 7) + v2 * StructSize<PlayerStruct>();
+			v5 = StructSize<ItemStruct>() * (cii - 7) + v2 * StructSize<PlayerStruct>();
 			v6 = (_DWORD *)((char *)plr[0].InvList + v5);
 		}
 		if ( v6[90] == 17 )

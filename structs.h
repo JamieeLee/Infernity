@@ -720,6 +720,7 @@ struct PkPlayerStruct2:PkPlayerStruct
 {
 	PkItemStruct InvListExpanded[4][40];
 	char InvGridExpanded[4][40];
+	int NumInvExpanded[4];
 	int currentInventoryIndex;
 };
 #pragma pack(pop)
@@ -948,6 +949,7 @@ struct PlayerStruct
 	unsigned int version;
 	ItemStruct InvListExpanded[4][40];
 	char InvGridExpanded[4][40];
+	int NumInvExpanded[4];
 	int currentInventoryIndex;
 };
 

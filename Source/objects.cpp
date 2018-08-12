@@ -5099,7 +5099,7 @@ void __fastcall OperateShrine(int pnum, int i, int sType)
 					if ( !v18 )
 						goto LABEL_47;
 					v21 = random(0, 7);
-					v7 = v13 * StructSize<PlayerStruct>() + 368 * v21;
+					v7 = v13 * StructSize<PlayerStruct>() + StructSize<ItemStruct>() * v21;
 					if ( *(int *)((char *)&plr[0].InvBody[0]._itype + v7) != -1 )
 					{
 						v7 = *(int *)((char *)&plr[0].InvBody[0]._iMaxDur + v7);
@@ -5110,7 +5110,7 @@ void __fastcall OperateShrine(int pnum, int i, int sType)
 						}
 					}
 				}
-				v22 = 368 * v21 + v13 * StructSize<PlayerStruct>();
+				v22 = StructSize<ItemStruct>() * v21 + v13 * StructSize<PlayerStruct>();
 				v23 = (int *)((char *)&plr[0].InvBody[0]._iDurability + v22);
 				v7 = (int)&plr[0].InvBody[0]._iMaxDur + v22;
 				*v23 -= 20;
@@ -5197,7 +5197,7 @@ LABEL_47:
 						if ( v37 > 0 && (v37 <= 4 || v37 == 10) )
 							++*(_DWORD *)v7;
 						++v36;
-						v7 += 368;
+						v7 += StructSize<ItemStruct>();
 					}
 					while ( v36 < plr[v34]._pNumInv );
 				}
@@ -5474,7 +5474,7 @@ LABEL_47:
 								GetPlrHandSeed(&plr[v78].HoldItem);
 								v79 = v140;
 								plr[v78].HoldItem._iStatFlag = 1;
-								qmemcpy(v140 - 55, &plr[v78].HoldItem, 0x170u);
+								qmemcpy(v140 - 55, &plr[v78].HoldItem, StructSize<ItemStruct>());
 							}
 							if ( *v79 == IMISC_FULLHEAL || *v79 == IMISC_FULLMANA )
 							{
@@ -5483,7 +5483,7 @@ LABEL_47:
 								GetPlrHandSeed(&plr[v78].HoldItem);
 								v79 = v140;
 								plr[v78].HoldItem._iStatFlag = 1;
-								qmemcpy(v140 - 55, &plr[v78].HoldItem, 0x170u);
+								qmemcpy(v140 - 55, &plr[v78].HoldItem, StructSize<ItemStruct>());
 							}
 						}
 						++sfx_idb;
@@ -5517,7 +5517,7 @@ LABEL_47:
 							GetPlrHandSeed(&plr[v78].HoldItem);
 							v82 = sfx_idc;
 							plr[v78].HoldItem._iStatFlag = 1;
-							qmemcpy(sfx_idc - 55, &plr[v78].HoldItem, 0x170u);
+							qmemcpy(sfx_idc - 55, &plr[v78].HoldItem, StructSize<ItemStruct>());
 							v7 = 0;
 						}
 					}
@@ -5649,8 +5649,8 @@ LABEL_47:
 					{
 						v107 = 5 * (unsigned char)leveltype + random(160, 10 * (unsigned char)leveltype);
 						v108 = plr[v106]._pNumInv;
-						v109 = v106 * StructSize<PlayerStruct>() + 368 * v108;
-						qmemcpy((char *)plr[0].InvList + v109, &golditem, 0x170u);
+						v109 = v106 * StructSize<PlayerStruct>() + StructSize<ItemStruct>() * v108;
+						qmemcpy((char *)plr[0].InvList + v109, &golditem, StructSize<ItemStruct>());
 						*(int *)((char *)&plr[0].InvList[0]._iSeed + v109) = GetRndSeed();
 						++plr[v106]._pNumInv;
 						plr[v106].InvGrid[sfx_idd] = plr[v106]._pNumInv;
@@ -5874,7 +5874,7 @@ LABEL_70:
 			}
 LABEL_72:
 			++v31;
-			v7 += 368;
+			v7 += StructSize<ItemStruct>();
 			if ( v31 >= plr[v26]._pNumInv )
 			{
 LABEL_73:
