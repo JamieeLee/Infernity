@@ -23,6 +23,7 @@ I will order a pizza and think about you while eating ;)
 - Shift clicking potions in inventory adds them to belt
 - Remove/change permanent negative shrines (In general, things permanently damaging your character)
 - Show shrine effect in the description
+- Expand inventory (4tabs, switch by clicking on the icon or shift+1/2/3/4)
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
@@ -48,6 +49,7 @@ I will order a pizza and think about you while eating ;)
 - 1.06 - Map shared between players, Uniques from Inferno will have an additional affix as well! They are called `Superuniques`
 - 1.07 - Gold pile max size increased from 5k to 1m, shift+clicking a scroll/potion in inventory will add it to belt, shop selection stays after buying, some fixes for spells
 - 1.08 - Shrines display their effect in description (goat shrines and cauldron't still don't), removed permanent mana decrease from shrines = we got rid of all stuff that could permanently damage the character! So it's safe to use goat shrines/cauldrons
+- 1.09 - The most important update so far, adds 4 tabs to inventory. You can switch by clicking or shift+1/2/3/4
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
