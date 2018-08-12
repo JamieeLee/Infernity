@@ -13,6 +13,8 @@ cmd.bat
 
 # PE executable.
 #*.exe
+#Screenshots
+*.png
 
 # GCC dependency file.
 *.d
