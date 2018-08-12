@@ -3457,6 +3457,7 @@ void __cdecl DrawAndBlit()
 		if ( drawsbarflag )
 			DrawInvBelt();
 		DrawXpBar();
+		PrintDebugInfo();
 		if ( talkflag )
 		{
 			DrawTalkPan();

@@ -302,7 +302,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	srand(GetTickCount());
 	encrypt_init_lookup_table();
 	exception_get_filter();
-	if ( !diablo_find_window("DIABLO") && diablo_get_not_running() )
+	if ( !diablo_find_window("INFERNITY") && diablo_get_not_running() )
 	{
 		diablo_init_screen();
 		diablo_parse_flags(lpCmdLine);
@@ -910,6 +910,8 @@ bool __fastcall LeftMouseDown(int a1)
 	}
 	if ( invflag && MouseX > 320 )
 	{
+		CheckInvSwitchButtons();
+
 		if ( !dropGoldFlag )
 			CheckInvItem();
 		return 0;
@@ -928,7 +930,7 @@ LABEL_48:
 		SetCursor(CURSOR_HAND);
 		return 0;
 	}
-	v3 = 21720 * myplr;
+	v3 = StructSize<PlayerStruct>() * myplr;
 	if ( plr[myplr]._pStatPts && !spselflag )
 		CheckLvlBtn();
 	if ( lvlbtndown )
@@ -1095,7 +1097,7 @@ LABEL_26:
 				if ( pcursplr == -1 )
 				{
 					v4 = GetSpellLevel(myplr, v1);
-					v5 = 21720 * myplr;
+					v5 = StructSize<PlayerStruct>() * myplr;
 					_LOWORD(v5) = plr[myplr]._pTSpell;
 					NetSendCmdLocParam2(1u, CMD_TSPELLXY, cursmx, cursmy, v5, v4);
 				}
@@ -1406,6 +1408,9 @@ LABEL_59:
 								return;
 							case VK_TAB:
 							{
+								//std::stringstream ss;
+								//ss << sizeof(PlayerStruct);
+								//MessageBox(NULL, ss.str().c_str(), NULL, NULL);
 								DoAutoMap();
 								return;
 							}
@@ -1522,6 +1527,11 @@ void __fastcall PressChar(int vkey)
 			{
 				case '!':
 				case '1':
+					if (GetAsyncKeyState(VK_SHIFT) & 0x8000)
+					{
+						SwitchInvTab(0);
+						return;
+					}
 					v9 = myplr;
 					v10 = plr[myplr].SpdList[0]._itype;
 					if ( v10 != -1 && v10 != 11 )
@@ -1532,6 +1542,11 @@ void __fastcall PressChar(int vkey)
 					return;
 				case '#':
 				case '3':
+					if (GetAsyncKeyState(VK_SHIFT) & 0x8000)
+						{
+							SwitchInvTab(2);
+							return;
+						}
 					v9 = myplr;
 					v12 = plr[myplr].SpdList[2]._itype;
 					if ( v12 != -1 && v12 != 11 )
@@ -1542,6 +1557,11 @@ void __fastcall PressChar(int vkey)
 					return;
 				case '$':
 				case '4':
+					if (GetAsyncKeyState(VK_SHIFT) & 0x8000)
+						{
+							SwitchInvTab(3);
+							return;
+						}
 					v9 = myplr;
 					v13 = plr[myplr].SpdList[3]._itype;
 					if ( v13 != -1 && v13 != 11 )
@@ -1599,6 +1619,11 @@ void __fastcall PressChar(int vkey)
 					return;
 				case '2':
 				case '@':
+					if (GetAsyncKeyState(VK_SHIFT) & 0x8000)
+						{
+							SwitchInvTab(1);
+							return;
+						}
 					v9 = myplr;
 					v11 = plr[myplr].SpdList[1]._itype;
 					if ( v11 != -1 && v11 != 11 )

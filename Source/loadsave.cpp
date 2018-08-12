@@ -59,8 +59,16 @@ void __fastcall LoadGame(bool firstflag)
 	pfile_get_game_name(dst);
 	ptr = pfile_read(dst, &len);
 	tbuff = ptr;
-	if ( ILoad_2() != 'RETL' )
-		TermMsg("Invalid save file");
+	int sig = ILoad_2();
+	if (sig != 'RETL') {
+		if (sig != 'IFTY') {
+			TermMsg("Invalid save file");
+		}
+		else {
+			SaveVersion = ILoad();
+		}
+	}else { SaveVersion = 0; }
+
 	setlevel = OLoad();
 	setlvlnum = ILoad();
 	currlevel = ILoad();
@@ -451,8 +459,28 @@ bool __cdecl OLoad()
 
 void __fastcall LoadPlayer(int i)
 {
+	/*
 	memcpy(&plr[i], tbuff, 0x54B0u);
-	tbuff = (char *)tbuff + 21680;
+	tbuff = (char *)tbuff + 21680;*/
+
+	memcpy(&plr[i], tbuff, StructSize<PlayerStruct>());
+	tbuff = (char *)tbuff + StructSize<PlayerStruct>();
+
+	/*
+	if (SaveVersion == 0) {
+		memset(&plr[i].InvListExpanded, 0, sizeof(PlayerStruct)- StructSize<PlayerStruct>());
+	}
+	else {
+		size_t savedPlayerSize = StructSize<PlayerStruct>();
+		size_t readSize = savedPlayerSize - readed - (offsetof(Player, Player::goldFind) - offsetof(Player, Player::StayAnimCel));
+		//if( (int)readSize < 0 ) __debugbreak();
+		ReadSaveData(&player.goldFind, readSize);
+		if (sizeof(Player) > savedPlayerSize) {
+			memset((char*)&player.goldFind + readSize, 0, sizeof(Player) - savedPlayerSize);
+		}
+	}*/
+
+
 }
 
 void __fastcall LoadMonster(int i)
@@ -573,10 +601,13 @@ void __cdecl SaveGame()
 	void *ptr; // [esp+110h] [ebp-8h]
 	int v47; // [esp+114h] [ebp-4h]
 
-	v0 = codec_get_encoded_len(262147); /* FILEBUFF */
+	//v0 = codec_get_encoded_len(262147); /* FILEBUFF */
+	v0 = codec_get_encoded_len(262147 + sizeof(PlayerStruct) - 21720); /* FILEBUFF */
 	ptr = DiabloAllocPtr(v0);
 	tbuff = ptr;
-	ISave_2('RETL');
+	SaveVersion = CurVersion; // for buffer save/load 
+	ISave_2('IFTY'); // RETL
+	ISave(CurVersion);
 	OSave(setlevel);
 	ISave((unsigned char)setlvlnum);
 	ISave(currlevel);
@@ -921,8 +952,12 @@ void __fastcall OSave(unsigned char v)
 
 void __fastcall SavePlayer(int i)
 {
+	/*
 	memcpy(tbuff, &plr[i], 0x54B0u);
-	tbuff = (char *)tbuff + 21680;
+	tbuff = (char *)tbuff + 21680;*/
+
+	memcpy(tbuff, &plr[i], StructSize<PlayerStruct>());
+	tbuff = (char *)tbuff + StructSize<PlayerStruct>();
 }
 
 void __fastcall SaveMonster(int i)
@@ -997,8 +1032,10 @@ void __cdecl SaveLevel()
 
 	if ( !currlevel )
 		glSeedTbl[0] = GetRndSeed();
-	v0 = codec_get_encoded_len(262147); /* FILEBUFF */
+	//v0 = codec_get_encoded_len(262147); /* FILEBUFF */
+	v0 = codec_get_encoded_len(262147+sizeof(PlayerStruct)- 21720); /* FILEBUFF */
 	SaveBuff = DiabloAllocPtr(v0);
+	SaveVersion = CurVersion; // for buffer save/load 
 	tbuff = SaveBuff;
 	if ( leveltype )
 	{

@@ -6,7 +6,7 @@ char gbSomebodyWonGameKludge; // weak
 char pkdata_6761C0[4100];
 char szPlayerDescript[128];
 short sgwPackPlrOffsetTbl[4];
-PkPlayerStruct pkplr[4];
+LATEST_PKPLAYER_STRUCT pkplr[4];
 char sgbPlayerTurnBitTbl[4];
 char sgbPlayerLeftGameTbl[4];
 int multi_cpp_init_value; // weak
@@ -845,7 +845,8 @@ int __fastcall NetInit(int bSinglePlayer, int *pfExitProgram)
 		memset(sgbPlayerLeftGameTbl, 0, 4u);
 		memset(sgdwPlayerLeftReasonTbl, 0, 0x10u);
 		memset(sgbSendDeltaTbl, 0, 4u);
-		memset(plr, 0, 0x15360u);
+		//memset(plr, 0, 0x15360u);
+		memset(plr, 0, StructSize<PlayerStruct>()*4);
 		memset(sgwPackPlrOffsetTbl, 0, 8u);
 		SNetSetBasePlayer(0);
 		if ( v14 )
@@ -918,13 +919,13 @@ void __fastcall multi_send_pinfo(int pnum, TCmdPlrInfoHdr *cmd)
 	char v2; // bl
 	int v3; // esi
 	int v4; // edx
-	PkPlayerStruct pkplr; // [esp+8h] [ebp-4F4h]
+	LATEST_PKPLAYER_STRUCT pkplr; // [esp+8h] [ebp-4F4h]
 
 	v2 = (char)cmd;
 	v3 = pnum;
 	PackPlayer(&pkplr, myplr, 1);
 	_LOBYTE(v4) = v2;
-	dthread_send_delta(v3, v4, &pkplr, 1266);
+	dthread_send_delta(v3, v4, &pkplr, sizeof(LATEST_PKPLAYER_STRUCT));
 }
 
 int __fastcall InitNewSeed(int newseed)
@@ -1114,7 +1115,8 @@ void __fastcall multi_player_joins(int pnum, TCmdPlrInfoHdr *cmd, int a3)
 			}
 			memcpy((char *)&pkplr[v3] + (unsigned short)v4->wOffset, &v4[1], (unsigned short)v4->wBytes);
 			*v5 += v4->wBytes;
-			if ( *v5 == 1266 )
+			//if ( *v5 == 1266 )
+			if(*v5 == sizeof(LATEST_PKPLAYER_STRUCT))
 			{
 				*v5 = 0;
 				multi_player_left_msg(v3, 0);

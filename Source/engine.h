@@ -69,17 +69,34 @@ bool IsItemRare(int isRare, char specialAffix);
 bool ShouldItemBeRare(int isRare);
 void PlayRareSound();
 void ReloadConfig();
-bool CanPutToBelt();
+bool CanPutToBelt(int miscId);
 int FreeSlotOnBelt();
 bool CanRun(int pnum);
 int MonstersInCombat(int pnum);
 int GetTextWidth(char* s);
+void PrintDebugInfo();
+void CheckInvSwitchButtons();
+bool SwitchInvTab(int newTab);
 void DrawTransparentBackground(int xPos, int yPos, int width, int height, int borderX, int borderY, uchar backgroundColor, uchar borderColor);
 template<typename T, typename... V> __forceinline T By(size_t i, T first, V... rest) { T val[] = { first, (T)rest... }; return val[i <= sizeof...(rest) ? i : sizeof...(rest)]; }
+
+
+
 extern std::map<std::string, bool> BoolConfig;
 extern std::map<std::string, int> IntConfig;
 extern int maxGoldPile;
+extern uint SaveVersion;
+extern uint CurVersion;
 
+// try versioning struct size
+#define countof( a ) __crt_countof( a ) 
+template<typename T> size_t StructSize(int version = -1) { return sizeof(T); }
+#define SS(T, ...) template<> inline size_t StructSize<T>(int version) { static const size_t s[] = { __VA_ARGS__ }; if( version = -1 ) version = SaveVersion; size_t size = sizeof(T); \
+	for( int i = 0; i < countof(s); i+=2 ) if( size_t(version) > s[i] ) return size; else size = s[i+1]; return size; }
+
+SS(ItemStruct, 0, 368);
+SS(PlayerStruct, 1, 80764, 0, 21720); // 21944 = wtf?
+#undef SS
 
 void __cdecl engine_cpp_init_2();
 void __cdecl mem_init_mutex();

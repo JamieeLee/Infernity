@@ -4126,7 +4126,7 @@ LABEL_17:
 			{
 				if ( setlvlnum == SL_BONECHAMB )
 				{
-					v7 = 21720 * myplr;
+					v7 = StructSize<PlayerStruct>() * myplr;
 					v8 = plr[myplr]._pMemSpells;
 					*((_BYTE *)v8 + 1) |= 0x10u;
 					v8[1] = v8[1];
@@ -5099,7 +5099,7 @@ void __fastcall OperateShrine(int pnum, int i, int sType)
 					if ( !v18 )
 						goto LABEL_47;
 					v21 = random(0, 7);
-					v7 = v13 * 21720 + 368 * v21;
+					v7 = v13 * StructSize<PlayerStruct>() + 368 * v21;
 					if ( *(int *)((char *)&plr[0].InvBody[0]._itype + v7) != -1 )
 					{
 						v7 = *(int *)((char *)&plr[0].InvBody[0]._iMaxDur + v7);
@@ -5110,7 +5110,7 @@ void __fastcall OperateShrine(int pnum, int i, int sType)
 						}
 					}
 				}
-				v22 = 368 * v21 + v13 * 21720;
+				v22 = 368 * v21 + v13 * StructSize<PlayerStruct>();
 				v23 = (int *)((char *)&plr[0].InvBody[0]._iDurability + v22);
 				v7 = (int)&plr[0].InvBody[0]._iMaxDur + v22;
 				*v23 -= 20;
@@ -5389,7 +5389,7 @@ LABEL_47:
 				//	"Intensity comes at the cost of wisdom."
 				if ( v5 || arglist != myplr )
 					return;
-				v7 = 21720 * arglist;
+				v7 = StructSize<PlayerStruct>() * arglist;
 				v65 = plr[arglist]._pMemSpells;
 				v66 = plr[arglist]._pMemSpells[1];
 				*v65 |= 1u;
@@ -5599,7 +5599,7 @@ LABEL_47:
 				//"Energy comes at the cost of wisdom."
 				if ( v5 || arglist != myplr )
 					return;
-				v7 = 21720 * arglist;
+				v7 = StructSize<PlayerStruct>() * arglist;
 				v94 = plr[arglist]._pMemSpells;
 				v95 = plr[arglist]._pMemSpells[1];
 				*((_BYTE *)v94 + 3) |= 0x20u;
@@ -5649,7 +5649,7 @@ LABEL_47:
 					{
 						v107 = 5 * (unsigned char)leveltype + random(160, 10 * (unsigned char)leveltype);
 						v108 = plr[v106]._pNumInv;
-						v109 = v106 * 21720 + 368 * v108;
+						v109 = v106 * StructSize<PlayerStruct>() + 368 * v108;
 						qmemcpy((char *)plr[0].InvList + v109, &golditem, 0x170u);
 						*(int *)((char *)&plr[0].InvList[0]._iSeed + v109) = GetRndSeed();
 						++plr[v106]._pNumInv;
@@ -5744,7 +5744,7 @@ LABEL_47:
 				//"Salvation comes at the cost of wisdom."
 				if ( v5 || arglist != myplr )
 					return;
-				v7 = 21720 * arglist;
+				v7 = StructSize<PlayerStruct>() * arglist;
 				v113 = plr[arglist]._pMemSpells;
 				v114 = plr[arglist]._pMemSpells[1];
 				*((_BYTE *)v113 + 3) |= 0x40u;

@@ -1547,8 +1547,8 @@ void __fastcall CalcPlrBookVals(int p)
 				v7 = *v6;
 				v8 = spelldata[*v6].sMinInt;
 				*((_BYTE *)v6 + 129) = v8;
-				v13 = plr[0]._pSplLvl[v7 + v5 * 21720];
-				if ( plr[0]._pSplLvl[v7 + v5 * 21720] )
+				v13 = plr[0]._pSplLvl[v7 + v5 * StructSize<PlayerStruct>()];
+				if ( plr[0]._pSplLvl[v7 + v5 * StructSize<PlayerStruct>()] )
 				{
 					do
 					{
@@ -1771,7 +1771,7 @@ LABEL_14:
 	plr[v1].HoldItem._iCurs = 4;
 	plr[v1].HoldItem._ivalue = 100;
 	plr[v1]._pGold = 100;
-	qmemcpy((char *)&plr[0].InvList[plr[v1]._pNumInv++] + v1 * 21720, &plr[v1].HoldItem, 0x170u);
+	qmemcpy((char *)&plr[0].InvList[plr[v1]._pNumInv++] + v1 * StructSize<PlayerStruct>(), &plr[v1].HoldItem, 0x170u);
 	plr[v1].InvGrid[30] = plr[v1]._pNumInv;
 	CalcPlrItemVals(player_numa, 0);
 }

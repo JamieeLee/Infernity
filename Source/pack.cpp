@@ -16,14 +16,15 @@ struct pack_cpp_init
 // 47F168: using guessed type int pack_inf;
 // 67D7C8: using guessed type int pack_cpp_init_value;
 
-void __fastcall PackPlayer(PkPlayerStruct *pPack, int pnum, bool manashield)
+void __fastcall PackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool manashield)
 {
 	PlayerStruct *pPlayer; // edi
 	int i; // [esp+8h] [ebp-Ch]
 	ItemStruct *pi; // [esp+Ch] [ebp-8h]
 	PkItemStruct *pki; // [esp+10h] [ebp-4h]
 
-	memset(pPack, 0, 0x4F2);
+	//memset(pPack, 0, 0x4F2);
+	memset(pPack, 0, sizeof(LATEST_PKPLAYER_STRUCT));
 	pPlayer = &plr[pnum];
 	pPack->destAction = pPlayer->destAction;
 	pPack->destParam1 = pPlayer->destParam1;
@@ -81,6 +82,26 @@ void __fastcall PackPlayer(PkPlayerStruct *pPack, int pnum, bool manashield)
 		pPack->pManaShield = pPlayer->pManaShield;
 	else
 		pPack->pManaShield = 0;
+
+	pPack->version = CurVersion;	
+	pPack->currentInventoryIndex=pPlayer->currentInventoryIndex;
+
+
+	for (int j = 0; j < 4; ++j) {
+		for (i = 0; i < 40; i++)
+			pPack->InvGridExpanded[j][i] = pPlayer->InvGridExpanded[j][i];
+	}
+
+	for (int j = 0; j < 4; ++j) {
+		pki = &pPack->InvListExpanded[j][0];
+		pi = &pPlayer->InvListExpanded[j][0];
+
+		for (i = 0; i < 40; i++) {
+			PackItem(pki++, pi++);
+		}
+	}
+
+	
 }
 // 679660: using guessed type char gbMaxPlayers;
 
@@ -152,7 +173,7 @@ void __fastcall VerifyGoldSeeds(PlayerStruct *pPlayer)
 	}
 }
 
-void __fastcall UnPackPlayer(PkPlayerStruct *pPack, int pnum, bool killok)
+void __fastcall UnPackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool killok)
 {
 	PlayerStruct *pPlayer; // esi
 	signed int v6; // eax
@@ -233,13 +254,39 @@ void __fastcall UnPackPlayer(PkPlayerStruct *pPack, int pnum, bool killok)
 			witchitem[i]._itype = -1;
 	}
 
-	CalcPlrInv(pnum, 0);
+
+	//CalcPlrInv(pnum, 0);
 	pPlayer->pTownWarps = 0;
 	pPlayer->pDungMsgs = 0;
 	pPlayer->pLvlLoad = 0;
 	pPlayer->pDiabloKillLevel = pPack->pDiabloKillLevel;
 	pPlayer->pBattleNet = pPack->pBattleNet;
 	pPlayer->pManaShield = pPack->pManaShield;
+	pPlayer->version = pPack->version;
+	SaveVersion = pPlayer->version;
+	if (pPlayer->version > 0) {
+		pPlayer->currentInventoryIndex = pPack->currentInventoryIndex;
+
+		for (int j = 0; j < 4; ++j) {
+			for (i = 0; i < 40; i++)
+				pPlayer->InvGridExpanded[j][i] = pPack->InvGridExpanded[j][i];
+		}
+
+
+		for (int j = 0; j < 4; ++j) {
+			pki = &pPack->InvListExpanded[j][0];
+			pi = &pPlayer->InvListExpanded[j][0];
+
+			for (i = 0; i < 40; i++) {
+				//UnPackItem(pki++, pi++);
+				UnPackItem(&pPack->InvListExpanded[j][i], &pPlayer->InvListExpanded[j][i]);
+			}
+		}
+		//SwitchInvTab(pPack->currentInventoryIndex);
+	}
+	CalcPlrInv(pnum, 0);
+
+
 }
 
 void __fastcall UnPackItem(PkItemStruct *is, ItemStruct *id)

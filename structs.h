@@ -668,6 +668,8 @@ struct PkItemStruct
 
 /* __declspec(align(2)) */
 #pragma pack(push, 1)
+
+#define LATEST_PKPLAYER_STRUCT PkPlayerStruct2
 struct PkPlayerStruct
 {
 	FILETIME archiveTime;
@@ -706,10 +708,19 @@ struct PkPlayerStruct
 	char pLvlLoad;
 	char pBattleNet;
 	char pManaShield;
-	char bReserved[3];
+	char bReserved[2];
+	char version;
 	short wReserved[8];
 	int pDiabloKillLevel;
 	int dwReserved[7];
+};
+
+
+struct PkPlayerStruct2:PkPlayerStruct
+{
+	PkItemStruct InvListExpanded[4][40];
+	char InvGridExpanded[4][40];
+	int currentInventoryIndex;
 };
 #pragma pack(pop)
 
@@ -934,7 +945,10 @@ struct PlayerStruct
 	void *_pHData;
 	void *_pDData;
 	void *_pBData;
-	int unused_54D4;
+	unsigned int version;
+	ItemStruct InvListExpanded[4][40];
+	char InvGridExpanded[4][40];
+	int currentInventoryIndex;
 };
 
 struct QuestStruct

@@ -20,7 +20,7 @@ int init_inf = 0x7F800000; // weak
 /* rdata */
 
 char gszVersionNumber[260] = "internal version unknown";
-char gszProductName[260] = "Infernity v1.08";
+char gszProductName[260] = "Infernity v1.09";
 
 struct init_cpp_init
 {
@@ -185,8 +185,8 @@ void __fastcall init_create_window(int nCmdShow)
 	wcex.hIcon = LoadIconA(ghInst, (LPCSTR)0x65);
 	wcex.hCursor = LoadCursorA(0, (LPCSTR)0x7F00);
 	wcex.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
-	wcex.lpszMenuName = "DIABLO";
-	wcex.lpszClassName = "DIABLO";
+	wcex.lpszMenuName = "INFERNITY";
+	wcex.lpszClassName = "INFERNITY";
 	wcex.hIconSm = (HICON)LoadImageA(ghInst, (LPCSTR)0x65, IMAGE_ICON, 16, 16, LR_DEFAULTCOLOR);
 	if ( !RegisterClassExA(&wcex) )
 		TermMsg("Unable to register window class");
@@ -198,7 +198,7 @@ void __fastcall init_create_window(int nCmdShow)
 		nHeight = GetSystemMetrics(SM_CYSCREEN);
 	else
 		nHeight = 480;
-	hWnd = CreateWindowExA(0, "DIABLO", "DIABLO", WS_POPUP, 0, 0, nWidth, nHeight, NULL, NULL, ghInst, NULL);
+	hWnd = CreateWindowExA(0, "INFERNITY", "INFERNITY", WS_POPUP, 0, 0, nWidth, nHeight, NULL, NULL, ghInst, NULL);
 	if ( !hWnd )
 		TermMsg("Unable to create main window");
 	ShowWindow(hWnd, SW_SHOWNORMAL); // nCmdShow used only in beta: ShowWindow(hWnd, nCmdShow)

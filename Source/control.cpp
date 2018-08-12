@@ -2406,6 +2406,41 @@ void __cdecl DrawLevelUpIcon()
 // 4B851C: using guessed type int lvlbtndown;
 // 6AA705: using guessed type char stextflag;
 
+bool SwitchInvTab(int newTab) {
+	if (pcurs < CURSOR_FIRSTITEM) {
+		if (newTab != plr[myplr].currentInventoryIndex) {
+			qmemcpy(&plr[myplr].InvListExpanded[plr[myplr].currentInventoryIndex], &plr[myplr].InvList, sizeof(ItemStruct) * 40);
+			qmemcpy(&plr[myplr].InvList, &plr[myplr].InvListExpanded[newTab], sizeof(ItemStruct) * 40);
+
+			qmemcpy(&plr[myplr].InvGridExpanded[plr[myplr].currentInventoryIndex], &plr[myplr].InvGrid, sizeof(char) * 40);
+			qmemcpy(&plr[myplr].InvGrid, &plr[myplr].InvGridExpanded[newTab], sizeof(char) * 40);
+
+			plr[myplr].currentInventoryIndex = newTab;
+			CalcPlrInv(myplr, 1u);
+			CheckItemStats(myplr);
+			return true;
+		}
+	}
+	return false;
+}
+
+void CheckInvSwitchButtons() {
+	if (MouseX >= 320 && MouseX <= 335) {
+		if (MouseY >= 225 && MouseY <= 245) {
+			SwitchInvTab(0);
+		}
+		else if(MouseY >= 255 && MouseY <= 275) {
+			SwitchInvTab(1);
+		}
+		else if (MouseY >= 285 && MouseY <= 305) {
+			SwitchInvTab(2);
+		}
+		else if (MouseY >= 315 && MouseY <= 345) {
+			SwitchInvTab(3);
+		}
+	}
+}
+
 void __cdecl CheckChrBtns()
 {
 	int v0; // esi
@@ -2711,7 +2746,7 @@ int __fastcall GetSBookTrans(int ii, unsigned char townok)
 	{
 		if ( !CheckSpell(myplr, ii, 1, 1) )
 			v6 = 4;
-		result = 21720 * myplr;
+		result = StructSize<PlayerStruct>() * myplr;
 		if ( (char)(plr[myplr]._pISplLvlAdd + plr[myplr]._pSplLvl[v2]) <= 0 )
 			v6 = 4;
 	}
@@ -3019,7 +3054,7 @@ void __fastcall control_remove_gold(int pnum, int gold_index)
 	if ( gold_index > 46 )
 	{
 		v6 = gold_index - 47;
-		v7 = (unsigned int *)((char *)&plr[0].SpdList[v6]._ivalue + v3 * 21720);
+		v7 = (unsigned int *)((char *)&plr[0].SpdList[v6]._ivalue + v3 * StructSize<PlayerStruct>());
 		*v7 -= dropGoldValue;
 		if ( *v7 <= 0 )
 			RemoveSpdBarItem(pnum, v6);
@@ -3029,7 +3064,7 @@ void __fastcall control_remove_gold(int pnum, int gold_index)
 	else
 	{
 		v4 = gold_index - 7;
-		v5 = (unsigned int *)((char *)&plr[0].InvList[v4]._ivalue + v3 * 21720);
+		v5 = (unsigned int *)((char *)&plr[0].InvList[v4]._ivalue + v3 * StructSize<PlayerStruct>());
 		*v5 -= dropGoldValue;
 		if ( *v5 <= 0 )
 			RemoveInvItem(pnum, v4);
@@ -3132,7 +3167,7 @@ LABEL_10:
 		while ( v10 == myplr )
 		{
 LABEL_21:
-			a1 += 21720;
+			a1 += StructSize<PlayerStruct>();
 			++v10;
 			if ( (signed int)a1 >= (signed int)&plr[4]._pName )
 				return;

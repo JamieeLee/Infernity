@@ -694,7 +694,7 @@ void __fastcall ClearPlrRVars(PlayerStruct *pPlayer)
 {
 	pPlayer->bReserved[0] = 0;
 	pPlayer->bReserved[1] = 0;
-	pPlayer->bReserved[2] = 0;
+	//pPlayer->bReserved[2] = 0;
 	pPlayer->wReserved[0] = 0;
 	pPlayer->wReserved[1] = 0;
 	pPlayer->wReserved[2] = 0;
@@ -874,6 +874,17 @@ LABEL_28:
 	plr[v4].pManaShield = 0;
 	InitDungMsgs(arglist);
 	CreatePlrItems(arglist);
+
+	plr[v4].version = CurVersion;
+	plr[v4].currentInventoryIndex = 0;
+	memset(plr[v4].InvGridExpanded, 0, sizeof(char) * 40);
+	memset(plr[v4].InvListExpanded, 0, sizeof(ItemStruct) * 40);
+	{
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "NEW PLAYER!\n";
+		outfile.close();
+	}
 	SetRndSeed(0);
 }
 
@@ -2321,16 +2332,16 @@ void __fastcall StartPlayerKill(int pnum, int earflag)
 	struct ItemStruct *itm; // [esp+180h] [ebp-4h]
 
 	v2 = pnum;
-	v3 = 21720 * pnum;
+	v3 = StructSize<PlayerStruct>() * pnum;
 	itm = (struct ItemStruct *)earflag;
-	if ( plr[pnum]._pHitPoints <= 0 && plr[v3 / 0x54D8]._pmode == PM_DEATH )
+	if ( plr[pnum]._pHitPoints <= 0 && plr[v3 / StructSize<PlayerStruct>()]._pmode == PM_DEATH )
 		return;
 	if ( myplr == pnum )
 		NetSendCmdParam1(1u, CMD_PLRDEAD, earflag);
-	v20 = (unsigned char)gbMaxPlayers > 1u && plr[v3 / 0x54D8].plrlevel == 16;
+	v20 = (unsigned char)gbMaxPlayers > 1u && plr[v3 / StructSize<PlayerStruct>()].plrlevel == 16;
 	if ( v2 >= 4 )
 		TermMsg("StartPlayerKill: illegal player %d", v2);
-	v4 = plr[v3 / 0x54D8]._pClass;
+	v4 = plr[v3 / StructSize<PlayerStruct>()]._pClass;
 	if ( v4 )
 	{
 		if ( v4 == 1 )
@@ -2343,30 +2354,30 @@ void __fastcall StartPlayerKill(int pnum, int earflag)
 				goto LABEL_18;
 			v5 = PS_MAGE71;
 		}
-		PlaySfxLoc(v5, plr[v3 / 0x54D8].WorldX, plr[v3 / 0x54D8].WorldY);
+		PlaySfxLoc(v5, plr[v3 / StructSize<PlayerStruct>()].WorldX, plr[v3 / StructSize<PlayerStruct>()].WorldY);
 		goto LABEL_18;
 	}
-	PlaySfxLoc(PS_DEAD, plr[v3 / 0x54D8].WorldX, plr[v3 / 0x54D8].WorldY); /* BUG_FIX: uses wrong sound, should use PS_WARR71 */
+	PlaySfxLoc(PS_DEAD, plr[v3 / StructSize<PlayerStruct>()].WorldX, plr[v3 / StructSize<PlayerStruct>()].WorldY); /* BUG_FIX: uses wrong sound, should use PS_WARR71 */
 LABEL_18:
-	if ( plr[v3 / 0x54D8]._pgfxnum )
+	if ( plr[v3 / StructSize<PlayerStruct>()]._pgfxnum )
 	{
-		plr[v3 / 0x54D8]._pgfxnum = 0;
-		plr[v3 / 0x54D8]._pGFXLoad = 0;
+		plr[v3 / StructSize<PlayerStruct>()]._pgfxnum = 0;
+		plr[v3 / StructSize<PlayerStruct>()]._pGFXLoad = 0;
 		SetPlrAnims(v2);
 	}
-	if ( SLOBYTE(plr[v3 / 0x54D8]._pGFXLoad) >= 0 )
+	if ( SLOBYTE(plr[v3 / StructSize<PlayerStruct>()]._pGFXLoad) >= 0 )
 		LoadPlrGFX(v2, 128);
-	v6 = plr[v3 / 0x54D8]._pDWidth;
-	NewPlrAnim(v2, plr[0]._pDAnim[plr[v3 / 0x54D8]._pdir + v3 / 4], plr[v3 / 0x54D8]._pDFrames, 1, v6);
-	plr[v3 / 0x54D8]._pBlockFlag = 0;
-	plr[v3 / 0x54D8]._pmode = PM_DEATH;
-	plr[v3 / 0x54D8]._pInvincible = 1;
+	v6 = plr[v3 / StructSize<PlayerStruct>()]._pDWidth;
+	NewPlrAnim(v2, plr[0]._pDAnim[plr[v3 / StructSize<PlayerStruct>()]._pdir + v3 / 4], plr[v3 / StructSize<PlayerStruct>()]._pDFrames, 1, v6);
+	plr[v3 / StructSize<PlayerStruct>()]._pBlockFlag = 0;
+	plr[v3 / StructSize<PlayerStruct>()]._pmode = PM_DEATH;
+	plr[v3 / StructSize<PlayerStruct>()]._pInvincible = 1;
 	SetPlayerHitPoints(v2, 0);
 	v7 = v2 == myplr;
-	plr[v3 / 0x54D8]._pVar8 = 1;
+	plr[v3 / StructSize<PlayerStruct>()]._pVar8 = 1;
 	if ( !v7 && !itm && !v20 )
 	{
-		v8 = &plr[v3 / 0x54D8].InvBody[0]._itype;
+		v8 = &plr[v3 / StructSize<PlayerStruct>()].InvBody[0]._itype;
 		v9 = 7;
 		do
 		{
@@ -2377,11 +2388,11 @@ LABEL_18:
 		while ( v9 );
 		CalcPlrInv(v2, 0);
 	}
-	if ( plr[v3 / 0x54D8].plrlevel == currlevel )
+	if ( plr[v3 / StructSize<PlayerStruct>()].plrlevel == currlevel )
 	{
-		FixPlayerLocation(v2, plr[v3 / 0x54D8]._pdir);
+		FixPlayerLocation(v2, plr[v3 / StructSize<PlayerStruct>()]._pdir);
 		RemovePlrFromMap(v2);
-		v10 = &dFlags[plr[v3 / 0x54D8].WorldX][plr[v3 / 0x54D8].WorldY];
+		v10 = &dFlags[plr[v3 / StructSize<PlayerStruct>()].WorldX][plr[v3 / StructSize<PlayerStruct>()].WorldY];
 		*v10 |= 4u;
 		SetPlayerOld(v2);
 		if ( v2 == myplr )
@@ -2390,7 +2401,7 @@ LABEL_18:
 			deathdelay = 30;
 			if ( pcurs >= CURSOR_FIRSTITEM )
 			{
-				PlrDeadItem(v2, &plr[v3 / 0x54D8].HoldItem, 0, 0);
+				PlrDeadItem(v2, &plr[v3 / StructSize<PlayerStruct>()].HoldItem, 0, 0);
 				SetCursor(CURSOR_HAND);
 			}
 			if ( !v20 )
@@ -2401,8 +2412,8 @@ LABEL_18:
 					if ( itm )
 					{
 						SetPlrHandItem(&ear, IDI_EAR);
-						sprintf(ear._iName, "Ear of %s", plr[v3 / 0x54D8]._pName);
-						v11 = plr[v3 / 0x54D8]._pClass;
+						sprintf(ear._iName, "Ear of %s", plr[v3 / StructSize<PlayerStruct>()]._pName);
+						v11 = plr[v3 / StructSize<PlayerStruct>()]._pClass;
 						if ( v11 == 2 )
 						{
 							ear._iCurs = 19;
@@ -2417,23 +2428,23 @@ LABEL_18:
 							ear._iCurs = 20;
 						}
 						_LOBYTE(v12) = 0;
-						_HIBYTE(v12) = plr[v3 / 0x54D8]._pName[0];
-						v13 = v12 | plr[v3 / 0x54D8]._pName[1];
-						v14 = plr[v3 / 0x54D8]._pName[3];
+						_HIBYTE(v12) = plr[v3 / StructSize<PlayerStruct>()]._pName[0];
+						v13 = v12 | plr[v3 / StructSize<PlayerStruct>()]._pName[1];
+						v14 = plr[v3 / StructSize<PlayerStruct>()]._pName[3];
 						ear._iCreateInfo = v13;
-						v15 = plr[v3 / 0x54D8]._pName[5] | ((plr[v3 / 0x54D8]._pName[4] | ((v14 | (plr[v3 / 0x54D8]._pName[2] << 8)) << 8)) << 8);
-						ear._ivalue = plr[v3 / 0x54D8]._pLevel;
+						v15 = plr[v3 / StructSize<PlayerStruct>()]._pName[5] | ((plr[v3 / StructSize<PlayerStruct>()]._pName[4] | ((v14 | (plr[v3 / StructSize<PlayerStruct>()]._pName[2] << 8)) << 8)) << 8);
+						ear._ivalue = plr[v3 / StructSize<PlayerStruct>()]._pLevel;
 						ear._iSeed = v15;
 						if ( FindGetItem(IDI_EAR, *(int *)&ear._iCreateInfo, v15) == -1 )
 							PlrDeadItem(v2, &ear, 0, 0);
 					}
 					else
 					{
-						itm = plr[v3 / 0x54D8].InvBody;
+						itm = plr[v3 / StructSize<PlayerStruct>()].InvBody;
 						v17 = 7;
 						do
 						{
-							v18 = ((_BYTE)--v17 + (unsigned char)plr[v3 / 0x54D8]._pdir) & 7;
+							v18 = ((_BYTE)--v17 + (unsigned char)plr[v3 / StructSize<PlayerStruct>()]._pdir) & 7;
 							PlrDeadItem(v2, itm, offset_x[v18], offset_y[v18]);
 							++itm;
 						}
@@ -2564,7 +2575,7 @@ void __fastcall DropHalfPlayersGold(int pnum)
 	i = 0;
 	while ( v3 > 0 )
 	{
-		v4 = 368 * i + v2 * 21720;
+		v4 = 368 * i + v2 * StructSize<PlayerStruct>();
 		v14 = v4;
 		if ( *(int *)((char *)&plr[0].SpdList[0]._itype + v4) == ITYPE_GOLD )
 		{
@@ -2604,7 +2615,7 @@ void __fastcall DropHalfPlayersGold(int pnum)
 				{
 					if ( v3 <= 0 )
 						break;
-					v6 = 368 * ia + v2 * 21720;
+					v6 = 368 * ia + v2 * StructSize<PlayerStruct>();
 					v15 = v6;
 					if ( *(int *)((char *)&plr[0].SpdList[0]._itype + v6) == ITYPE_GOLD )
 					{
@@ -2654,7 +2665,7 @@ LABEL_28:
 				{
 					if ( v3 <= 0 )
 						break;
-					v12 = 368 * v11 + v2 * 21720;
+					v12 = 368 * v11 + v2 * StructSize<PlayerStruct>();
 					v17 = v12;
 					if ( *(int *)((char *)&plr[0].InvList[0]._itype + v12) == ITYPE_GOLD )
 					{
@@ -2689,7 +2700,7 @@ LABEL_28:
 		{
 			while ( v3 > 0 )
 			{
-				v9 = 368 * v8 + v2 * 21720;
+				v9 = 368 * v8 + v2 * StructSize<PlayerStruct>();
 				v16 = v9;
 				if ( *(int *)((char *)&plr[0].InvList[0]._itype + v9) == ITYPE_GOLD )
 				{
@@ -4933,7 +4944,7 @@ void __fastcall CheckPlrSpell()
 		TermMsg("CheckPlrSpell: illegal player %d", myplr);
 		v0 = myplr;
 	}
-	v1 = 21720 * v0;
+	v1 = StructSize<PlayerStruct>() * v0;
 	v2 = plr[v0]._pRSpell;
 	if ( v2 != -1 )
 	{
@@ -5011,7 +5022,7 @@ LABEL_36:
 			{
 				v8 = GetDirection(plr[myplr].WorldX, plr[myplr].WorldY, cursmx, cursmy);
 				v9 = GetSpellLevel(myplr, plr[myplr]._pRSpell);
-				v10 = 21720 * myplr;
+				v10 = StructSize<PlayerStruct>() * myplr;
 				_LOWORD(v10) = plr[myplr]._pRSpell;
 				NetSendCmdLocParam3(1u, CMD_SPELLXYD, cursmx, cursmy, v10, v8, v9);
 			}
@@ -5020,7 +5031,7 @@ LABEL_36:
 				if ( pcursplr == -1 )
 				{
 					v13 = GetSpellLevel(myplr, v7);
-					v14 = 21720 * myplr;
+					v14 = StructSize<PlayerStruct>() * myplr;
 					_LOWORD(v14) = plr[myplr]._pRSpell;
 					NetSendCmdLocParam2(1u, CMD_SPELLXY, cursmx, cursmy, v14, v13);
 				}

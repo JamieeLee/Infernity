@@ -12,7 +12,7 @@ void __cdecl pfile_init_save_directory();
 void __fastcall pfile_check_available_space(char *pszDir);
 void __cdecl pfile_write_hero();
 int __fastcall pfile_get_save_num_from_name(char *name);
-void __fastcall pfile_encode_hero(PkPlayerStruct *pPack);
+void __fastcall pfile_encode_hero(LATEST_PKPLAYER_STRUCT *pPack);
 bool __fastcall pfile_open_archive(bool a1, int save_num);
 void __fastcall pfile_get_save_path(char *pszBuf, int dwBufSize, int save_num);
 void __fastcall pfile_flush(bool is_single_player, int save_num);
@@ -23,7 +23,7 @@ void __fastcall game_2_ui_player(PlayerStruct *p, _uiheroinfo *heroinfo, bool bH
 char __fastcall game_2_ui_class(PlayerStruct *p);
 bool __stdcall pfile_ui_set_hero_infos(void (__stdcall *ui_add_hero_info)(_uiheroinfo *));
 char *__fastcall GetSaveDirectory(char *dst, int dst_size, int save_num);
-bool __fastcall pfile_read_hero(void *archive, PkPlayerStruct *pPack);
+bool __fastcall pfile_read_hero(void *archive, LATEST_PKPLAYER_STRUCT *pPack);
 void *__fastcall pfile_open_save_archive(int *unused, int save_num);
 void __fastcall pfile_SFileCloseArchive(void *hsArchive);
 bool __fastcall pfile_archive_contains_game(void *hsArchive);

@@ -24,6 +24,11 @@ struct engine_cpp_init_1
 // 47A474: using guessed type int engine_inf;
 // 52B968: using guessed type int engine_cpp_init_value;
 
+uint SaveVersion = -1;
+uint CurVersion = 1;
+
+
+
 void __fastcall CelDrawDatOnly(char *pDecodeTo, char *pRLEBytes, int dwRLESize, int dwRLEWdt)
 {
 	char *v4; // esi
@@ -1878,6 +1883,14 @@ void RevealMapByOtherPlayers(int x, int y, int pnum) {
 		for (int j = -7; j <= 7; ++j) {
 			SetAutomapViewByOtherPlayer(x+i, y+j, pnum);
 		}
+	}
+}
+
+void PrintDebugInfo() {
+	if (true) {
+		std::stringstream ss;
+		ss << "debuginfo: " <<MouseX << " " << MouseY << " " << (plr[myplr].HoldItem._itype == ITYPE_NONE);
+		PrintGameStr(200, 200, (char*)ss.str().c_str(), COL_WHITE);
 	}
 }
 

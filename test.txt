@@ -1,0 +1,195 @@
+pfile read hero begin!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+UNPACK BEGIN ver 1!
+UNPACK END!
+SET HERO INFOS!
+pfile read hero begin!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+UNPACK BEGIN ver 1!
+UNPACK END!
+READ PLAYER FROM SAVE!
+PACK BEGIN!
+pack SAVE VER: 1 INV INDEX: 0
+PACK END!
+MULTI SEND PINFO!
+pfile read hero begin!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+UNPACK BEGIN ver 1!
+UNPACK MID ver 1!
+UNPACK ALMOST END ver 1!
+unpack SAVE VER: 1 INV INDEX: 2
+UNPACK END!
+SET HERO INFOS!
+pfile read hero begin!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+UNPACK BEGIN ver 1!
+UNPACK MID ver 1!
+UNPACK ALMOST END ver 1!
+unpack SAVE VER: 1 INV INDEX: 2
+UNPACK END!
+READ PLAYER FROM SAVE!
+PACK BEGIN!
+pack SAVE VER: 1 INV INDEX: 2
+PACK END!
+MULTI SEND PINFO!
+pfile read hero begin!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+UNPACK BEGIN ver 1!
+UNPACK MID ver 1!
+UNPACK ALMOST END ver 1!
+unpack SAVE VER: 1 INV INDEX: 2
+UNPACK END!
+READ PLAYER FROM SAVE!
+pfile read hero begin!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+UNPACK BEGIN ver 1!
+UNPACK MID ver 1!
+UNPACK ALMOST END ver 1!
+unpack SAVE VER: 1 INV INDEX: 0
+UNPACK END!
+SET HERO INFOS!
+pfile read hero begin!
+dwbytes == pkplayerstruct!
+pfile read hero end - version = 0!
+UNPACK BEGIN ver 0!
+UNPACK MID ver 0!
+UNPACK ALMOST END ver 0!
+UNPACK END!
+SET HERO INFOS!
+pfile read hero begin!
+dwbytes == pkplayerstruct!
+pfile read hero end - version = 0!
+UNPACK BEGIN ver 0!
+UNPACK MID ver 0!
+UNPACK ALMOST END ver 0!
+UNPACK END!
+SET HERO INFOS!
+pfile read hero begin!
+dwbytes == pkplayerstruct!
+pfile read hero end - version = 0!
+UNPACK BEGIN ver 0!
+UNPACK MID ver 0!
+UNPACK ALMOST END ver 0!
+UNPACK END!
+READ PLAYER FROM SAVE!
+pfile read hero begin!
+dwbytes == pkplayerstruct!
+pfile read hero end - version = 0!
+UNPACK BEGIN ver 0!
+UNPACK MID ver 0!
+UNPACK ALMOST END ver 0!
+UNPACK END!
+READ PLAYER FROM SAVE!
+PACK BEGIN!
+pack SAVE VER: 1 INV INDEX: 0
+PACK END!
+MULTI SEND PINFO!
+PACK BEGIN!
+pack SAVE VER: 1 INV INDEX: 0
+PACK END!
+PFILE WRITE HERO!
+PACK BEGIN!
+pack SAVE VER: 1 INV INDEX: 0
+PACK END!
+PFILE WRITE HERO!
+pfile read hero begin!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+UNPACK BEGIN ver 1!
+UNPACK MID ver 1!
+UNPACK ALMOST END ver 1!
+unpack SAVE VER: 1 INV INDEX: 0
+UNPACK END!
+READ PLAYER FROM SAVE!
+pfile read hero begin!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+UNPACK BEGIN ver 1!
+UNPACK MID ver 1!
+UNPACK ALMOST END ver 1!
+unpack SAVE VER: 1 INV INDEX: 0
+UNPACK END!
+READ PLAYER FROM SAVE!
+PACK BEGIN!
+pack SAVE VER: 1 INV INDEX: 0
+PACK END!
+MULTI SEND PINFO!
+PACK BEGIN!
+pack SAVE VER: 1 INV INDEX: 1
+PACK END!
+PFILE WRITE HERO!
+pfile read hero begin!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+UNPACK BEGIN ver 1!
+UNPACK MID ver 1!
+UNPACK ALMOST END ver 1!
+unpack SAVE VER: 1 INV INDEX: 1
+UNPACK END!
+READ PLAYER FROM SAVE!
+pfile read hero begin!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+UNPACK BEGIN ver 1!
+UNPACK MID ver 1!
+UNPACK ALMOST END ver 1!
+unpack SAVE VER: 1 INV INDEX: 1
+UNPACK END!
+READ PLAYER FROM SAVE!
+PACK BEGIN!
+pack SAVE VER: 1 INV INDEX: 1
+PACK END!
+MULTI SEND PINFO!
+PACK BEGIN!
+pack SAVE VER: 1 INV INDEX: 2
+PACK END!
+PFILE WRITE HERO!
+pfile read hero begin!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+UNPACK BEGIN ver 1!
+UNPACK MID ver 1!
+UNPACK ALMOST END ver 1!
+unpack SAVE VER: 1 INV INDEX: 2
+UNPACK END!
+READ PLAYER FROM SAVE!
+pfile read hero begin!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+UNPACK BEGIN ver 1!
+UNPACK MID ver 1!
+UNPACK ALMOST END ver 1!
+unpack SAVE VER: 1 INV INDEX: 2
+UNPACK END!
+READ PLAYER FROM SAVE!
+PACK BEGIN!
+pack SAVE VER: 1 INV INDEX: 2
+PACK END!
+MULTI SEND PINFO!
+PACK BEGIN!
+pack SAVE VER: 1 INV INDEX: 3
+PACK END!
+PFILE WRITE HERO!
+PACK BEGIN!
+pack SAVE VER: 1 INV INDEX: 3
+PACK END!
+PFILE WRITE HERO!
+PACK BEGIN!
+pack SAVE VER: 1 INV INDEX: 0
+PACK END!
+PFILE WRITE HERO!
+pfile read hero begin!
+dwbytes == pkplayerstruct2!
+pfile read hero end - version = 1!
+UNPACK BEGIN ver 1!
+UNPACK MID ver 1!
+UNPACK ALMOST END ver 1!
+unpack SAVE VER: 1 INV INDEX: 0
+UNPACK END!
+READ PLAYER FROM SAVE!

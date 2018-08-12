@@ -73,7 +73,7 @@ void __cdecl pfile_write_hero()
 	int v0; // eax
 	int v1; // esi
 	//int v2; // eax
-	PkPlayerStruct pkplr; // [esp+4h] [ebp-4F4h]
+	LATEST_PKPLAYER_STRUCT pkplr; // [esp+4h] [ebp-4F4h]
 
 	v0 = pfile_get_save_num_from_name(plr[myplr]._pName);
 	v1 = v0;
@@ -107,7 +107,7 @@ int __fastcall pfile_get_save_num_from_name(char *name)
 	return v2;
 }
 
-void __fastcall pfile_encode_hero(PkPlayerStruct *pPack)
+void __fastcall pfile_encode_hero(LATEST_PKPLAYER_STRUCT *pPack)
 {
 	int v1; // ebx
 	void *v2; // edi
@@ -121,10 +121,11 @@ void __fastcall pfile_encode_hero(PkPlayerStruct *pPack)
 	password[15] = 0;
 	if ( (unsigned char)gbMaxPlayers > 1u )
 		strcpy(password, "szqnlsk1");
-	v1 = codec_get_encoded_len(1266);
+	v1 = codec_get_encoded_len(sizeof(LATEST_PKPLAYER_STRUCT));
 	v2 = DiabloAllocPtr(v1);
-	memcpy(v2, v4, 0x4F2u);
-	codec_encode(v2, 1266, v1, password);
+	//memcpy(v2, v4, 0x4F2u);
+	memcpy(v2, v4, sizeof(LATEST_PKPLAYER_STRUCT));
+	codec_encode(v2, sizeof(LATEST_PKPLAYER_STRUCT), v1, password);
 	mpqapi_write_file("hero", (char *)v2, v1);
 	mem_free_dbg(v2);
 }
@@ -231,7 +232,7 @@ int __fastcall pfile_create_save_file(char *name_1, char *name_2)
 	v7 = plr[0]._pName;
 	while ( _strcmpi(v3, v7) )
 	{
-		v7 += 21720;
+		v7 += StructSize<PlayerStruct>();
 		++v4;
 		if ( v7 == plr[4]._pName )
 			return 0;
@@ -303,7 +304,7 @@ bool __stdcall pfile_ui_set_hero_infos(void (__stdcall *ui_add_hero_info)(_uiher
 	void *v8; // edi
 	//int v9; // eax
 	bool v10; // al
-	PkPlayerStruct pkplr; // [esp+Ch] [ebp-7BCh]
+	LATEST_PKPLAYER_STRUCT pkplr; // [esp+Ch] [ebp-7BCh]
 	struct _OFSTRUCT ReOpenBuff; // [esp+500h] [ebp-2C8h]
 	char FileName[260]; // [esp+588h] [ebp-240h]
 	char NewFileName[260]; // [esp+68Ch] [ebp-13Ch]
@@ -410,7 +411,7 @@ char *__fastcall GetSaveDirectory(char *dst, int dst_size, int save_num)
 }
 // 679660: using guessed type char gbMaxPlayers;
 
-bool __fastcall pfile_read_hero(void *archive, PkPlayerStruct *pPack)
+bool __fastcall pfile_read_hero(void *archive, LATEST_PKPLAYER_STRUCT *pPack)
 {
 	BOOL v2; // eax
 	int dwSize; // eax
@@ -460,10 +461,28 @@ bool __fastcall pfile_read_hero(void *archive, PkPlayerStruct *pPack)
 					{
 						dwBytes = codec_decode(v6, v4, password);
 LABEL_11:
-						if ( dwBytes == 1266 )
+						if ( dwBytes == sizeof(PkPlayerStruct))
 						{
-							memcpy(v11, v6, 0x4F2u);
+							memcpy(v11, v6, sizeof(PkPlayerStruct));
 							v13 = 1;
+							{
+								std::ofstream outfile;
+								outfile.open("test.txt", std::ios_base::app);
+								outfile << "dwbytes == pkplayerstruct!\n";
+								outfile.close();
+							}
+						}
+
+						else if (dwBytes == sizeof(PkPlayerStruct2))
+						{
+							memcpy(v11, v6, sizeof(PkPlayerStruct2));
+							v13 = 1;
+							{
+								std::ofstream outfile;
+								outfile.open("test.txt", std::ios_base::app);
+								outfile << "dwbytes == pkplayerstruct2!\n";
+								outfile.close();
+							}
 						}
 						goto LABEL_13;
 					}
@@ -476,6 +495,13 @@ LABEL_13:
 LABEL_15:
 		SFileCloseFile(file);
 		v2 = v13;
+	}
+
+	{
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "pfile read hero end - version = " << (int)pPack->version << "!\n";
+		outfile.close();
 	}
 	return v2;
 }
@@ -542,7 +568,7 @@ bool __stdcall pfile_ui_save_create(_uiheroinfo *heroinfo)
 	char *v2; // eax
 	//int v3; // eax
 	char v5; // al
-	PkPlayerStruct pkplr; // [esp+8h] [ebp-4F4h]
+	LATEST_PKPLAYER_STRUCT pkplr; // [esp+8h] [ebp-4F4h]
 
 	v1 = pfile_get_save_num_from_name(heroinfo->name);
 	if ( v1 == 10 )
@@ -571,6 +597,12 @@ bool __stdcall pfile_ui_save_create(_uiheroinfo *heroinfo)
 	strncpy(plr[0]._pName, heroinfo->name, 0x20u);
 	plr[0]._pName[31] = 0;
 	PackPlayer(&pkplr, 0, 1);
+	{
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "UI SAVE CREATE!\n";
+		outfile.close();
+	}
 	pfile_encode_hero(&pkplr);
 	game_2_ui_player(plr, heroinfo, 0);
 	pfile_flush(1, v1);
@@ -638,7 +670,7 @@ void __cdecl pfile_read_player_from_save()
 	int dwChar; // edi
 	void *v1; // esi
 	//int v2; // eax
-	PkPlayerStruct pkplr; // [esp+8h] [ebp-4F4h]
+	LATEST_PKPLAYER_STRUCT pkplr; // [esp+8h] [ebp-4F4h]
 
 	dwChar = pfile_get_save_num_from_name(chr_name_str);
 	v1 = pfile_open_save_archive(0, dwChar);
@@ -648,6 +680,12 @@ void __cdecl pfile_read_player_from_save()
 	if ( !pfile_read_hero(v1, &pkplr) )
 		TermMsg("Unable to load character");
 	UnPackPlayer(&pkplr, myplr, 0);
+	{
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "READ PLAYER FROM SAVE!\n";
+		outfile.close();
+	}
 	*(_DWORD *)&gbValidSaveFile = pfile_archive_contains_game(v1);
 	pfile_SFileCloseArchive(v1);
 }
