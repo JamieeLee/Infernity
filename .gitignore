@@ -12,7 +12,7 @@ cmd.bat
 *.dll
 
 # PE executable.
-*.exe
+#*.exe
 
 # GCC dependency file.
 *.d
