@@ -967,7 +967,7 @@ void __fastcall CalcPlrItemVals(int p, bool Loadgfx)
 	int v9; // eax
 	int v10; // edx
 	int v11; // eax
-	int *v12; // ecx
+	int *moreAction; // ecx
 	int *v13; // eax
 	int v14; // eax
 	int v15; // eax
@@ -1137,9 +1137,9 @@ void __fastcall CalcPlrItemVals(int p, bool Loadgfx)
 	}
 	plr[v5]._pStrength = v53 + plr[v5]._pBaseStr;
 	v11 = myplr;
-	v12 = &plr[myplr]._pStrength;
-	if ( *v12 <= 0 )
-		*v12 = 0;
+	moreAction = &plr[myplr]._pStrength;
+	if ( *moreAction <= 0 )
+		*moreAction = 0;
 	plr[v5]._pMagic = v60 + plr[v5]._pBaseMag;
 	if ( plr[v11]._pMagic <= 0 )
 		plr[v11]._pMagic = 0;
@@ -1401,7 +1401,7 @@ void __fastcall CalcSelfItems(int pnum)
 	signed int v9; // [esp+Ch] [ebp-10h]
 	signed int v10; // [esp+10h] [ebp-Ch]
 	int v11; // [esp+14h] [ebp-8h]
-	signed int v12; // [esp+18h] [ebp-4h]
+	signed int moreAction; // [esp+18h] [ebp-4h]
 
 	v1 = &plr[pnum];
 	v2 = 0;
@@ -1436,14 +1436,14 @@ void __fastcall CalcSelfItems(int pnum)
 		{
 			if ( *((_DWORD *)v8 - 86) != -1 && *((_DWORD *)v8 + 1) )
 			{
-				v12 = 1;
+				moreAction = 1;
 				if ( v2 + v1->_pBaseStr < *v8 )
-					v12 = 0;
+					moreAction = 0;
 				if ( v3 + v1->_pBaseMag < (unsigned char)v8[1] )
-					v12 = 0;
+					moreAction = 0;
 				if ( v11 + v1->_pBaseDex < v8[2] )
-					v12 = 0;
-				if ( !v12 )
+					moreAction = 0;
+				if ( !moreAction )
 				{
 					v7 = *((_DWORD *)v8 - 74) == 0;
 					v9 = 1;
@@ -1501,7 +1501,7 @@ void __fastcall CalcPlrBookVals(int p)
 	unsigned char v8; // cl
 	unsigned char v9; // cl
 	int v10; // eax
-	int v12; // [esp+Ch] [ebp-Ch]
+	int moreAction; // [esp+Ch] [ebp-Ch]
 	int v13; // [esp+10h] [ebp-8h]
 	unsigned char v14; // [esp+17h] [ebp-1h]
 
@@ -1523,7 +1523,7 @@ void __fastcall CalcPlrBookVals(int p)
 		}
 	}
 	v5 = v1;
-	v12 = 0;
+	moreAction = 0;
 	if ( plr[v5]._pNumInv > 0 )
 	{
 		v6 = &plr[v5].InvList[0]._iSpell;
@@ -1554,10 +1554,10 @@ void __fastcall CalcPlrBookVals(int p)
 				}
 				v6[33] = ItemMinStats(&plr[v5], (ItemStruct *)(v6 - 56));
 			}
-			++v12;
+			++moreAction;
 			v6 += 92;
 		}
-		while ( v12 < plr[v5]._pNumInv );
+		while ( moreAction < plr[v5]._pNumInv );
 	}
 }
 
@@ -1823,7 +1823,7 @@ bool __fastcall GetItemSpace(int x, int y, char inum)
 	signed int v9; // esi
 	char (*v10)[3]; // eax
 	int v11; // ecx
-	int v12; // eax
+	int moreAction; // eax
 	int v14; // ecx
 	int v15; // edx
 	int v16; // eax
@@ -1878,18 +1878,18 @@ bool __fastcall GetItemSpace(int x, int y, char inum)
 		v5 = (char (*)[3])((char *)v5 + 4);
 	}
 	while ( (signed int)v5 < (signed int)&itemhold[3][0] );
-	v12 = random(13, 15) + 1;
+	moreAction = random(13, 15) + 1;
 	if ( !v9 )
 		return 0;
 	v14 = 0;
 	v15 = 0;
-	if ( v12 > 0 )
+	if ( moreAction > 0 )
 	{
 		while ( 1 )
 		{
 			if ( *(_DWORD *)&itemhold[0][4 * (v15 + 2 * v14 + v14)] )
-				--v12;
-			if ( v12 <= 0 )
+				--moreAction;
+			if ( moreAction <= 0 )
 				break;
 			if ( ++v14 == 3 )
 			{
@@ -1917,7 +1917,7 @@ void __fastcall GetSuperItemSpace(int x, int y, char inum)
 	int v9; // eax
 	int v10; // [esp+Ch] [ebp-10h]
 	int v11; // [esp+10h] [ebp-Ch]
-	signed int v12; // [esp+14h] [ebp-8h]
+	signed int moreAction; // [esp+14h] [ebp-8h]
 	signed int v13; // [esp+18h] [ebp-4h]
 
 	v11 = y;
@@ -1933,7 +1933,7 @@ void __fastcall GetSuperItemSpace(int x, int y, char inum)
 			{
 				while ( 2 )
 				{
-					v12 = v4;
+					moreAction = v4;
 					v6 = v5 + v11;
 					v7 = v4 + v10;
 					do
@@ -1946,10 +1946,10 @@ void __fastcall GetSuperItemSpace(int x, int y, char inum)
 							dItem[v7][v6] = inum + 1;
 							return;
 						}
-						++v12;
+						++moreAction;
 						++v7;
 					}
-					while ( v12 <= v13 );
+					while ( moreAction <= v13 );
 					if ( ++v5 <= v13 )
 						continue;
 					break;
@@ -2100,7 +2100,7 @@ void __fastcall GetStaffPower(int i, int lvl, int bs, unsigned char onlygood,int
 	int v9; // edi
 	int v10; // ecx
 	int v11; // ST14_4
-	int v12; // esi
+	int moreAction; // esi
 	char *v13; // edi
 	int l[256]; // [esp+Ch] [ebp-484h]
 	char istr[128]; // [esp+40Ch] [ebp-84h]
@@ -2156,11 +2156,11 @@ void __fastcall GetStaffPower(int i, int lvl, int bs, unsigned char onlygood,int
 			}
 		}
 	}
-	v12 = ia;
+	moreAction = ia;
 	v13 = item[ia]._iIName;
 	if ( !control_WriteStringToBuffer(item[ia]._iIName) )
 	{
-		strcpy(v13, AllItemsList[item[v12].IDidx].iSName);
+		strcpy(v13, AllItemsList[item[moreAction].IDidx].iSName);
 		if ( v5 != -1 )
 		{
 			sprintf(istr, "%s %s", PL_Prefix[v5].PLName, v13);
@@ -2168,8 +2168,8 @@ void __fastcall GetStaffPower(int i, int lvl, int bs, unsigned char onlygood,int
 		}
 		sprintf(istr, "%s of %s", v13, spelldata[bs].sNameText);
 		strcpy(v13, istr);
-		if ( !item[v12]._iMagical )
-			strcpy(item[v12]._iName, v13);
+		if ( !item[moreAction]._iMagical )
+			strcpy(item[moreAction]._iName, v13);
 	}
 	CalcItemValue(ia);
 }
@@ -2359,7 +2359,7 @@ void __fastcall SaveItemPower(int i, int power, int param1, int param2, int minv
 	int v9; // eax
 	int v10; // ebx
 	int *v11; // eax
-	int *v12; // eax
+	int *moreAction; // eax
 	int v13; // edi
 	int v14; // eax
 	int v15; // edi
@@ -2402,13 +2402,13 @@ void __fastcall SaveItemPower(int i, int power, int param1, int param2, int minv
 			v11 = &item[v8]._iPLToHit;
 			goto LABEL_115;
 		case IPL_TOHIT_CURSE:
-			v12 = &item[v8]._iPLToHit;
+			moreAction = &item[v8]._iPLToHit;
 			goto LABEL_62;
 		case IPL_DAMP:
 			v11 = &item[v8]._iPLDam;
 			goto LABEL_115;
 		case IPL_DAMP_CURSE:
-			v12 = &item[v8]._iPLDam;
+			moreAction = &item[v8]._iPLDam;
 			goto LABEL_62;
 		case IPL_TOHIT_DAMP:
 			v10 = RndPL(param1, param2);
@@ -2451,7 +2451,7 @@ void __fastcall SaveItemPower(int i, int power, int param1, int param2, int minv
 			v11 = &item[v8]._iPLAC;
 			goto LABEL_115;
 		case IPL_ACP_CURSE:
-			v12 = &item[v8]._iPLAC;
+			moreAction = &item[v8]._iPLAC;
 			goto LABEL_62;
 		case IPL_FIRERES:
 			v11 = &item[v8]._iPLFR;
@@ -2498,25 +2498,25 @@ void __fastcall SaveItemPower(int i, int power, int param1, int param2, int minv
 			v11 = &item[v8]._iPLStr;
 			goto LABEL_115;
 		case IPL_STR_CURSE:
-			v12 = &item[v8]._iPLStr;
+			moreAction = &item[v8]._iPLStr;
 			goto LABEL_62;
 		case IPL_MAG:
 			v11 = &item[v8]._iPLMag;
 			goto LABEL_115;
 		case IPL_MAG_CURSE:
-			v12 = &item[v8]._iPLMag;
+			moreAction = &item[v8]._iPLMag;
 			goto LABEL_62;
 		case IPL_DEX:
 			v11 = &item[v8]._iPLDex;
 			goto LABEL_115;
 		case IPL_DEX_CURSE:
-			v12 = &item[v8]._iPLDex;
+			moreAction = &item[v8]._iPLDex;
 			goto LABEL_62;
 		case IPL_VIT:
 			v11 = &item[v8]._iPLVit;
 			goto LABEL_115;
 		case IPL_VIT_CURSE:
-			v12 = &item[v8]._iPLVit;
+			moreAction = &item[v8]._iPLVit;
 			goto LABEL_62;
 		case IPL_ATTRIBS:
 			v26 = v8;
@@ -2536,7 +2536,7 @@ void __fastcall SaveItemPower(int i, int power, int param1, int param2, int minv
 			v11 = &item[v8]._iPLGetHit;
 			goto LABEL_115;
 		case IPL_GETHIT:
-			v12 = &item[v8]._iPLGetHit;
+			moreAction = &item[v8]._iPLGetHit;
 			goto LABEL_62;
 		case IPL_LIFE:
 			v28 = v9 << 6;
@@ -2724,9 +2724,9 @@ LABEL_119:
 				*v42 = 0;
 			break;
 		case IPL_AC_CURSE:
-			v12 = &item[v8]._iAC;
+			moreAction = &item[v8]._iAC;
 LABEL_62:
-			*v12 -= v10;
+			*moreAction -= v10;
 			break;
 		default:
 			break;
@@ -3593,7 +3593,7 @@ void __fastcall SpawnQuestItem(int itemid, int x, int y, int randarea, int selfl
 	int i; // ebx
 	BOOL failed; // eax
 	int j; // esi
-	int v12; // ebx
+	int moreAction; // ebx
 	int v13; // esi
 	int tries; // [esp+10h] [ebp-4h]
 
@@ -3634,15 +3634,15 @@ LABEL_3:
 LABEL_13:
 	if ( numitems < 127 )
 	{
-		v12 = itemavail[0];
+		moreAction = itemavail[0];
 		v13 = itemavail[0];
 		item[v13]._ix = x;
-		itemactive[numitems] = v12;
+		itemactive[numitems] = moreAction;
 		item[v13]._iy = y;
 		itemavail[0] = itemavail[-numitems + 126]; /* double check */
-		dItem[x][y] = v12 + 1;
-		GetItemAttrs(v12, itemid, currlevel);
-		SetupItem(v12);
+		dItem[x][y] = moreAction + 1;
+		GetItemAttrs(moreAction, itemid, currlevel);
+		SetupItem(moreAction);
 		item[v13]._iPostDraw = 1;
 		if ( selflag )
 		{
@@ -4366,7 +4366,7 @@ void __fastcall PrintUString(int x, int y, int cjustflag, char *str, int col)
 	int v9; // ecx
 	signed int v10; // eax
 	int v11; // edx
-	int v12; // eax
+	int moreAction; // eax
 	unsigned char v13; // al
 	int v14; // edi
 	int v15; // [esp+Ch] [ebp-4h]
@@ -4394,13 +4394,13 @@ LABEL_16:
 			v8 = (257 - v10) >> 1;
 		v6 += v8;
 	}
-	v12 = 0;
+	moreAction = 0;
 	a3 = 0;
 	if ( v15 > 0 )
 	{
 		while ( 1 )
 		{
-			v13 = fontframe[fontidx[(unsigned char)v5[v12]]];
+			v13 = fontframe[fontidx[(unsigned char)v5[moreAction]]];
 			v14 = v13;
 			v8 += fontkern[v13] + 1;
 			if ( v13 )
@@ -4409,7 +4409,7 @@ LABEL_16:
 					CPrintString(v6, v13, col);
 			}
 			v6 += fontkern[v14] + 1;
-			v12 = a3++ + 1;
+			moreAction = a3++ + 1;
 			if ( a3 >= v15 )
 				break;
 			v5 = str;
@@ -4731,7 +4731,7 @@ void __fastcall UseItem(int p, int Mid, int spl)
 	int v9; // esi
 	int v10; // esi
 	int v11; // edi
-	unsigned int v12; // edi
+	unsigned int moreAction; // edi
 	char v13; // al
 	int v14; // edi
 	int v15; // ecx
@@ -4863,9 +4863,9 @@ LABEL_41:
 			}
 			v10 = p;
 			v11 = plr[v10]._pMaxMana >> 8;
-			v12 = (v11 & 0xFFFFFFFE) + 2 * random(40, v11);
+			moreAction = (v11 & 0xFFFFFFFE) + 2 * random(40, v11);
 			v13 = plr[v10]._pClass;
-			v14 = 32 * v12;
+			v14 = 32 * moreAction;
 			if ( v13 == 2 )
 				v14 *= 2;
 			if ( v13 == 1 )

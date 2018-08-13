@@ -210,7 +210,7 @@ void __fastcall PrintSString(int x, int y, unsigned char cjustflag, char *str, i
 	int v9; // esi
 	int v10; // esi
 	int v11; // ecx
-	int v12; // eax
+	int moreAction; // eax
 	int v13; // edx
 	int v14; // ecx
 	unsigned char v15; // al
@@ -245,18 +245,18 @@ void __fastcall PrintSString(int x, int y, unsigned char cjustflag, char *str, i
 	v30 = 0;
 	if ( cjustflag )
 	{
-		v12 = 0;
+		moreAction = 0;
 		if ( v28 > 0 )
 		{
 			do
 			{
 				v13 = (unsigned char)str[v11++];
-				v12 += fontkern[fontframe[fontidx[v13]]] + 1;
+				moreAction += fontkern[fontframe[fontidx[v13]]] + 1;
 			}
 			while ( v11 < v28 );
 		}
-		if ( v12 < v25 )
-			v30 = (v25 - v12) >> 1;
+		if ( moreAction < v25 )
+			v30 = (v25 - moreAction) >> 1;
 		v10 += v30;
 	}
 	if ( stextsel == v24 )
@@ -484,7 +484,7 @@ void __cdecl StoreAutoPlace()
 	int v9; // esi
 	int v10; // esi
 	int v11; // esi
-	int *v12; // esi
+	int *moreAction; // esi
 	int v13; // esi
 	int v14; // esi
 	int v15; // esi
@@ -607,15 +607,15 @@ LABEL_36:
 		{
 			if ( v0 == 2 )
 			{
-				v12 = AP2x2Tbl;
+				moreAction = AP2x2Tbl;
 				do
 				{
 					if ( v1 )
 						break;
-					v1 = AutoPlace(myplr, *v12, 2, 2, 1);
-					++v12;
+					v1 = AutoPlace(myplr, *moreAction, 2, 2, 1);
+					++moreAction;
 				}
-				while ( (signed int)v12 < (signed int)&AP2x2Tbl[10] );
+				while ( (signed int)moreAction < (signed int)&AP2x2Tbl[10] );
 				v13 = 21;
 				do
 				{
@@ -1119,12 +1119,12 @@ void __cdecl S_StartSRepair()
 	int v9; // esi
 	int v10; // eax
 	int v11; // [esp-4h] [ebp-1Ch]
-	signed int v12; // [esp+10h] [ebp-8h]
+	signed int moreAction; // [esp+10h] [ebp-8h]
 	int v13; // [esp+14h] [ebp-4h]
 
 	v0 = 0;
 	stextsize = 1;
-	v12 = 0;
+	moreAction = 0;
 	storenumh = 0;
 	v1 = &storehold[0]._itype;
 	do
@@ -1137,28 +1137,28 @@ void __cdecl S_StartSRepair()
 	v3 = myplr;
 	if ( plr[myplr].InvBody[0]._itype != -1 && plr[v3].InvBody[0]._iDurability != plr[v3].InvBody[0]._iMaxDur )
 	{
-		v12 = 1;
+		moreAction = 1;
 		AddStoreHoldRepair(plr[v3].InvBody, -1);
 		v2 = myplr;
 	}
 	v4 = v2;
 	if ( plr[v2].InvBody[6]._itype != -1 && plr[v4].InvBody[6]._iDurability != plr[v4].InvBody[6]._iMaxDur )
 	{
-		v12 = 1;
+		moreAction = 1;
 		AddStoreHoldRepair(&plr[v4].InvBody[6], -2);
 		v2 = myplr;
 	}
 	v5 = v2;
 	if ( plr[v2].InvBody[4]._itype != -1 && plr[v5].InvBody[4]._iDurability != plr[v5].InvBody[4]._iMaxDur )
 	{
-		v12 = 1;
+		moreAction = 1;
 		AddStoreHoldRepair(&plr[v5].InvBody[4], -3);
 		v2 = myplr;
 	}
 	v6 = v2;
 	if ( plr[v2].InvBody[5]._itype != -1 && plr[v6].InvBody[5]._iDurability != plr[v6].InvBody[5]._iMaxDur )
 	{
-		v12 = 1;
+		moreAction = 1;
 		AddStoreHoldRepair(&plr[v6].InvBody[5], -4);
 		v2 = myplr;
 	}
@@ -1171,7 +1171,7 @@ void __cdecl S_StartSRepair()
 			//_LOBYTE(v8) = SmithRepairOk(v0);
 			if ( SmithRepairOk(v0) )
 			{
-				v12 = 1;
+				moreAction = 1;
 				AddStoreHoldRepair((ItemStruct *)((char *)&plr[0].InvList[v13] + v7), v0);
 				v2 = myplr;
 			}
@@ -1183,7 +1183,7 @@ void __cdecl S_StartSRepair()
 	}
 	v9 = v2;
 	v11 = plr[v9]._pGold;
-	if ( v12 )
+	if ( moreAction )
 	{
 		stextsval = 0;
 		v10 = plr[v9]._pNumInv;
@@ -2575,7 +2575,7 @@ void __fastcall TakePlrsMoney(int cost)
 	int v9; // eax
 	_DWORD *v10; // ecx
 	int v11; // eax
-	signed int v12; // ebx
+	signed int moreAction; // ebx
 	int v13; // eax
 	int v14; // eax
 	_DWORD *v15; // ecx
@@ -2650,7 +2650,7 @@ void __fastcall TakePlrsMoney(int cost)
 			break;
 		}
 	}
-	v12 = 0;
+	moreAction = 0;
 	drawpanflag = 255;
 	if ( v1 > 0 )
 	{
@@ -2698,7 +2698,7 @@ LABEL_26:
 		{
 			while ( v1 > 0 )
 			{
-				v14 = StructSize<ItemStruct>() * v12 + v13;
+				v14 = StructSize<ItemStruct>() * moreAction + v13;
 				if ( *(int *)((char *)&plr[0].InvList[0]._itype + v14) == ITYPE_GOLD )
 				{
 					v15 = (unsigned int *)((char *)&plr[0].InvList[0]._ivalue + v14);
@@ -2708,21 +2708,21 @@ LABEL_26:
 						if ( v1 >= v16 )
 						{
 							v1 -= v16;
-							RemoveInvItem(v3, v12);
+							RemoveInvItem(v3, moreAction);
 							v3 = myplr;
-							v12 = -1;
+							moreAction = -1;
 						}
 						else
 						{
 							*v15 = v16 - v1;
-							SetGoldCurs(v3, v12);
+							SetGoldCurs(v3, moreAction);
 							v1 = 0;
 						}
 					}
 				}
-				++v12;
+				++moreAction;
 				v13 = StructSize<PlayerStruct>() * v3;
-				if ( v12 >= plr[v3]._pNumInv )
+				if ( moreAction >= plr[v3]._pNumInv )
 					goto LABEL_26;
 			}
 		}
@@ -3033,7 +3033,7 @@ void __cdecl StoreSellItem()
 	int v8; // edx
 	int *v10; // edi
 	int v11; // eax
-	unsigned int v12; // esi
+	unsigned int moreAction; // esi
 	int v13; // [esp+10h] [ebp-4h]
 
 	idx = stextvhold + ((stextlhold - stextup) >> 2);
@@ -3062,14 +3062,14 @@ LABEL_15:
 		{
 			if ( cost > maxGoldPile)
 			{
-				v12 = (cost - maxGoldPile - 1) / maxGoldPile + 1;
-				cost += -maxGoldPile * v12;
+				moreAction = (cost - maxGoldPile - 1) / maxGoldPile + 1;
+				cost += -maxGoldPile * moreAction;
 				do
 				{
 					PlaceStoreGold(maxGoldPile);
-					--v12;
+					--moreAction;
 				}
-				while ( v12 );
+				while ( moreAction );
 			}
 			PlaceStoreGold(cost);
 		}

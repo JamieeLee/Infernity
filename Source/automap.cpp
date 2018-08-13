@@ -51,7 +51,7 @@ void __cdecl InitAutomap()
 	unsigned char *v9; // edx
 	unsigned int i; // esi
 	unsigned char v11; // bl
-	_BYTE *v12; // edx
+	_BYTE *moreAction; // edx
 	signed int v13; // ecx
 	_BYTE *v14; // eax
 	signed int v15; // edx
@@ -98,10 +98,10 @@ void __cdecl InitAutomap()
 	for ( i = 1; i <= size; ++i )
 	{
 		v11 = *v9;
-		v12 = v9 + 1;
+		moreAction = v9 + 1;
 		_LOWORD(v0) = v11;
-		_LOBYTE(v8) = *v12;
-		v9 = v12 + 1;
+		_LOBYTE(v8) = *moreAction;
+		v9 = moreAction + 1;
 		_LOWORD(v8) = (unsigned char)v8;
 		v8 = v0 + (v8 << 8);
 		automaptype[i] = v8;
@@ -424,7 +424,7 @@ void __cdecl DrawAutomap()
 	int v9; // esi
 	int v10; // ebx
 	int v11; // edi
-	int v12; // esi
+	int moreAction; // esi
 	int v13; // edi
 	int v14; // esi
 	int v15; // ebp
@@ -503,25 +503,25 @@ void __cdecl DrawAutomap()
 		if ( v10 & 1 )
 		{
 			v11 = 384 - AutoMapPosBits * ((v10 - 1) >> 1);
-			v12 = 336 - AutoMapXPos * ((v10 + 1) >> 1);
+			moreAction = 336 - AutoMapXPos * ((v10 + 1) >> 1);
 		}
 		else
 		{
 			v11 = AutoMapXPos - AutoMapPosBits * (v10 >> 1) + 384;
-			v12 = 336 - AutoMapXPos * (v10 >> 1) - AutoMapYPos;
+			moreAction = 336 - AutoMapXPos * (v10 >> 1) - AutoMapYPos;
 		}
 		if ( ViewX & 1 )
 		{
 			v11 -= AutoMapYPos;
-			v12 -= AMPlayerX;
+			moreAction -= AMPlayerX;
 		}
 		if ( ViewY & 1 )
 		{
 			v11 += AutoMapYPos;
-			v12 -= AMPlayerX;
+			moreAction -= AMPlayerX;
 		}
 		v13 = (AutoMapScale * ScrollInfo._sxoff / 100 >> 1) + v11;
-		v14 = (AutoMapScale * ScrollInfo._syoff / 100 >> 1) + v12;
+		v14 = (AutoMapScale * ScrollInfo._syoff / 100 >> 1) + moreAction;
 		if ( invflag || sbookflag )
 			v13 -= 160;
 		if ( chrflag || questlog )
@@ -607,7 +607,7 @@ void __fastcall DrawAutomapType(int screen_x, int screen_y, short automap_type, 
 	int v9; // edx
 	int v10; // ST28_4
 	int v11; // ST2C_4
-	int v12; // ST24_4
+	int moreAction; // ST24_4
 	int v13; // ST2C_4
 	int v14; // ST28_4
 	int v15; // ST24_4
@@ -712,12 +712,12 @@ LABEL_8:
 			{
 				v10 = v4 - AutoMapXPos;
 				v11 = v4 - AutoMapYPos;
-				v12 = v5 - AutoMapYPos;
+				moreAction = v5 - AutoMapYPos;
 				automap_typeb = v5 - AMPlayerX;
 				DrawLine(v4, v5 - AutoMapYPos, v4 - AMPlayerX, v5 - AutoMapYPos + AMPlayerY, replace_200);
 				DrawLine(v10, v5, v10 + AMPlayerX, v5 - AMPlayerY, replace_200);
-				DrawLine(v11, v12, v10, automap_typeb, replace_144);
-				DrawLine(v11, v12, v4, automap_typeb, replace_144);
+				DrawLine(v11, moreAction, v10, automap_typeb, replace_144);
+				DrawLine(v11, moreAction, v4, automap_typeb, replace_144);
 				DrawLine(v11, v5, v10, automap_typeb, replace_144);
 				DrawLine(v11, v5, v4, automap_typeb, replace_144);
 			}
@@ -854,7 +854,7 @@ void __cdecl DrawAutomapPlr(int pnum)
 	int v9; // [esp-Ch] [ebp-20h]
 	int v10; // [esp-8h] [ebp-1Ch]
 	int v11; // [esp+Ch] [ebp-8h]
-	int v12; // [esp+10h] [ebp-4h]
+	int moreAction; // [esp+10h] [ebp-4h]
 
 	v0 = pnum;
 	if ( plr[v0]._pmode == PM_WALK3 )
@@ -872,19 +872,19 @@ void __cdecl DrawAutomapPlr(int pnum)
 		v2 = plr[v0].WorldY;
 	}
 	v11 = v1 - 2 * AutoMapXOfs - ViewX;
-	v12 = v2 - 2 * AutoMapYOfs - ViewY;
+	moreAction = v2 - 2 * AutoMapYOfs - ViewY;
 	v3 = (AutoMapScale * ScrollInfo._sxoff / 100 >> 1)
 	   + (AutoMapScale * plr[v0]._pxoff / 100 >> 1)
-	   + AutoMapYPos * (v11 - v12)
+	   + AutoMapYPos * (v11 - moreAction)
 	   + 384;
 	if ( invflag || sbookflag )
 		v3 = (AutoMapScale * ScrollInfo._sxoff / 100 >> 1)
 		   + (AutoMapScale * plr[v0]._pxoff / 100 >> 1)
-		   + AutoMapYPos * (v11 - v12)
+		   + AutoMapYPos * (v11 - moreAction)
 		   + 224;
 	if ( chrflag || questlog )
 		v3 += 160;
-	v4 = AMPlayerX * (v12 + v11)
+	v4 = AMPlayerX * (moreAction + v11)
 	   + (AutoMapScale * ScrollInfo._syoff / 100 >> 1)
 	   + (AutoMapScale * plr[v0]._pyoff / 100 >> 1)
 	   + 336
@@ -901,13 +901,13 @@ void __cdecl DrawAutomapPlr(int pnum)
 		case DIR_SW:
 			DrawLine(
 				v3,
-				AMPlayerX * (v12 + v11)
+				AMPlayerX * (moreAction + v11)
 			  + (AutoMapScale * ScrollInfo._syoff / 100 >> 1)
 			  + (AutoMapScale * plr[v0]._pyoff / 100 >> 1)
 			  + 336
 			  - AMPlayerX,
 				v3 - AutoMapYPos,
-				AMPlayerX * (v12 + v11)
+				AMPlayerX * (moreAction + v11)
 			  + (AutoMapScale * ScrollInfo._syoff / 100 >> 1)
 			  + (AutoMapScale * plr[v0]._pyoff / 100 >> 1)
 			  + 336,
@@ -961,13 +961,13 @@ LABEL_19:
 		case DIR_SE:
 			DrawLine(
 				v3,
-				AMPlayerX * (v12 + v11)
+				AMPlayerX * (moreAction + v11)
 			  + (AutoMapScale * ScrollInfo._syoff / 100 >> 1)
 			  + (AutoMapScale * plr[v0]._pyoff / 100 >> 1)
 			  + 336
 			  - AMPlayerX,
 				v3 + AutoMapYPos,
-				AMPlayerX * (v12 + v11)
+				AMPlayerX * (moreAction + v11)
 			  + (AutoMapScale * ScrollInfo._syoff / 100 >> 1)
 			  + (AutoMapScale * plr[v0]._pyoff / 100 >> 1)
 			  + 336,
@@ -1137,7 +1137,7 @@ void SetAutomapViewByOtherPlayer(int x, int y, int playerNum)
 	int v9; // eax
 	int v10; // eax
 	short v11; // ax
-	int v12; // edi
+	int moreAction; // edi
 
 	v2 = (x - 16) >> 1;
 	v3 = (y - 16) >> 1;
@@ -1238,13 +1238,13 @@ void SetAutomapViewByOtherPlayer(int x, int y, int playerNum)
 			automapview[-1][v4] = playerNum; // *((_BYTE *)&AMdword_4B7E44 + v4) = 1;
 		}
 	}
-	v12 = v3 - 1;
-	if (GetAutomapType(v2, v12, 0) & 0x4000) {
+	moreAction = v3 - 1;
+	if (GetAutomapType(v2, moreAction, 0) & 0x4000) {
 		if (automapview[0][v4 - 1] < 1) {
 			automapview[0][v4 - 1] = playerNum; // AMbyte_4B7E4C[v4 + 31] = 1;
 		}
 	}
-	if (GetAutomapType(v2 - 1, v12, 0) & 0x4000) {
+	if (GetAutomapType(v2 - 1, moreAction, 0) & 0x4000) {
 		if (automapview[-1][v4 - 1] < 1) {
 			automapview[-1][v4 - 1] = playerNum; /* *((_BYTE *)&AMdword_4B7E40 + v4 + 3) = 1; fix */
 		}
@@ -1265,7 +1265,7 @@ void __fastcall SetAutomapView(int x, int y)
 	int v9; // eax
 	int v10; // eax
 	short v11; // ax
-	int v12; // edi
+	int moreAction; // edi
 	bool overwriteMap = true;
 
 	v2 = (x - 16) >> 1;
@@ -1369,13 +1369,13 @@ LABEL_14:
 			automapview[-1][v4] = 1; // *((_BYTE *)&AMdword_4B7E44 + v4) = 1;
 		}
 	}
-	v12 = v3 - 1;
-	if (GetAutomapType(v2, v12, 0) & 0x4000) {
+	moreAction = v3 - 1;
+	if (GetAutomapType(v2, moreAction, 0) & 0x4000) {
 		if (automapview[0][v4-1] < 1 || overwriteMap == true) {
 			automapview[0][v4 - 1] = 1; // AMbyte_4B7E4C[v4 + 31] = 1;
 		}
 	}
-	if (GetAutomapType(v2 - 1, v12, 0) & 0x4000) {
+	if (GetAutomapType(v2 - 1, moreAction, 0) & 0x4000) {
 		if (automapview[-1][v4-1] < 1 || overwriteMap == true) {
 			automapview[-1][v4 - 1] = 1; /* *((_BYTE *)&AMdword_4B7E40 + v4 + 3) = 1; fix */
 		}

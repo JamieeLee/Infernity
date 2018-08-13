@@ -109,7 +109,7 @@ void __cdecl DrawDiabloMsg()
 	signed int v9; // ebx
 	signed int v10; // eax
 	signed int v11; // ecx
-	int v12; // esi
+	int moreAction; // esi
 	signed int v13; // esi
 	unsigned char v14; // bl
 	bool v15; // zf
@@ -177,8 +177,8 @@ void __cdecl DrawDiabloMsg()
 		goto LABEL_27;
 	do
 	{
-		v12 = (unsigned char)tempstr[v11++];
-		v10 += fontkern[fontframe[fontidx[v12]]] + 1;
+		moreAction = (unsigned char)tempstr[v11++];
+		v10 += fontkern[fontframe[fontidx[moreAction]]] + 1;
 	}
 	while ( v11 < v9 );
 	if ( v10 < 442 )

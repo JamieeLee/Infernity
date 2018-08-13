@@ -675,7 +675,7 @@ void __cdecl InitCows()
 	int v9; // edx
 	int v10; // eax
 	int v11; // ecx
-	_DWORD *v12; // esi
+	_DWORD *moreAction; // esi
 	int v13; // edx
 	_DWORD *v14; // esi
 	_DWORD *v15; // eax
@@ -705,9 +705,9 @@ void __cdecl InitCows()
 		v9 = v3 + cowoffx[v4];
 		v10 = v16 + cowoffy[v4];
 		v11 = numtowners;
-		v12 = (_DWORD *)((char *)dMonster + 4 * (v10 + 112 * v3));
-		if ( !*v12 )
-			*v12 = -1 - numtowners;
+		moreAction = (_DWORD *)((char *)dMonster + 4 * (v10 + 112 * v3));
+		if ( !*moreAction )
+			*moreAction = -1 - numtowners;
 		v13 = 112 * v9;
 		v14 = (_DWORD *)((char *)dMonster + 4 * (v13 + v16));
 		if ( !*v14 )
@@ -994,7 +994,7 @@ void __fastcall TalkToTowner(int p, int t)
 	int v9; // ecx
 	//char v10; // cl
 	bool v11; // zf
-	int v12; // edi
+	int moreAction; // edi
 	//int v13; // eax
 	//int v14; // eax
 	//int v15; // eax
@@ -1115,11 +1115,11 @@ LABEL_39:
 				towner[v7]._tbtcnt = 150;
 				towner[v7]._tVar1 = v3;
 				quests[6]._qvar1 = 1;
-				if ( v11 && (v12 = PS_WARR8, !effect_is_playing(PS_WARR8))
-				  || _LOBYTE(plr[v6]._pClass) == 1 && (v12 = PS_ROGUE8, !effect_is_playing(PS_ROGUE8))
-				  || _LOBYTE(plr[v6]._pClass) == 2 && (v12 = PS_MAGE8, !effect_is_playing(PS_MAGE8)) )
+				if ( v11 && (moreAction = PS_WARR8, !effect_is_playing(PS_WARR8))
+				  || _LOBYTE(plr[v6]._pClass) == 1 && (moreAction = PS_ROGUE8, !effect_is_playing(PS_ROGUE8))
+				  || _LOBYTE(plr[v6]._pClass) == 2 && (moreAction = PS_MAGE8, !effect_is_playing(PS_MAGE8)) )
 				{
-					PlaySFX(v12);
+					PlaySFX(moreAction);
 				}
 LABEL_53:
 				towner[v7]._tMsgSaid = 1;

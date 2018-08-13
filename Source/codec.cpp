@@ -76,18 +76,18 @@ void __fastcall codec_init_key(int unused, char *pszPassword)
 	char v9[136]; // [esp+Ch] [ebp-E0h]
 	char v10[64]; // [esp+94h] [ebp-58h]
 	char dst[20]; // [esp+D4h] [ebp-18h]
-	int v12; // [esp+E8h] [ebp-4h]
+	int moreAction; // [esp+E8h] [ebp-4h]
 
 	v2 = pszPassword;
 	srand(0x7058u);
 	v3 = v9;
-	v12 = 136;
+	moreAction = 136;
 	do
 	{
 		*v3++ = rand();
-		--v12;
+		--moreAction;
 	}
-	while ( v12 );
+	while ( moreAction );
 	v4 = 0;
 	v5 = 0;
 	do
@@ -139,20 +139,20 @@ void __fastcall codec_encode(void *pbSrcDst, int size, int size_64, char *pszPas
 	char v9[128]; // [esp+8h] [ebp-ACh]
 	char v10[20]; // [esp+88h] [ebp-2Ch]
 	char dst[20]; // [esp+9Ch] [ebp-18h]
-	size_t v12; // [esp+B0h] [ebp-4h]
+	size_t moreAction; // [esp+B0h] [ebp-4h]
 
 	v4 = (char *)pbSrcDst;
-	v12 = size;
+	moreAction = size;
 	if ( size_64 != codec_get_encoded_len(size) )
 		TermMsg("Invalid encode parameters");
 	codec_init_key(1, pszPassword);
 	v5 = 0;
-	if ( v12 )
+	if ( moreAction )
 	{
 		do
 		{
-			v6 = v12;
-			if ( v12 >= 0x40 )
+			v6 = moreAction;
+			if ( moreAction >= 0x40 )
 				v6 = 64;
 			memcpy(v9, v4, v6);
 			if ( v6 < 0x40 )
@@ -169,9 +169,9 @@ void __fastcall codec_encode(void *pbSrcDst, int size, int size_64, char *pszPas
 			memset(dst, 0, 0x14u);
 			memcpy(v4, v9, 0x40u);
 			v4 += 64;
-			v12 -= v6;
+			moreAction -= v6;
 		}
-		while ( v12 );
+		while ( moreAction );
 		v5 = v6;
 	}
 	memset(v9, 0, 0x80u);

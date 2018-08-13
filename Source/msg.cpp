@@ -658,7 +658,7 @@ void __cdecl DeltaLoadLevel()
 	int v9; // eax
 	char v10; // cl
 	int v11; // eax
-	char *v12; // edx
+	char *moreAction; // edx
 	int v13; // eax
 	int v14; // ebx
 	int *v15; // edx
@@ -775,9 +775,9 @@ void __cdecl DeltaLoadLevel()
 						*(int *)((char *)&sgLevels[0].item[0].dwSeed + v9));
 					if ( v11 != -1 )
 					{
-						v12 = &dItem[item[v11]._ix][item[v11]._iy];
-						if ( *v12 == v11 + 1 )
-							*v12 = 0;
+						moreAction = &dItem[item[v11]._ix][item[v11]._iy];
+						if ( *moreAction == v11 + 1 )
+							*moreAction = 0;
 						DeleteItem(v11, i);
 					}
 				}
@@ -1059,7 +1059,7 @@ void __fastcall NetSendCmdGItem(unsigned char bHiPri, unsigned char bCmd, unsign
 	int v9; // esi
 	int v10; // esi
 	char v11; // dl
-	short v12; // ax
+	short moreAction; // ax
 	TCmdGItem cmd; // [esp+4h] [ebp-20h]
 
 	cmd.bCmd = bCmd;
@@ -1100,9 +1100,9 @@ void __fastcall NetSendCmdGItem(unsigned char bHiPri, unsigned char bCmd, unsign
 		cmd.bMDur = item[v5]._iMaxDur;
 		cmd.bCh = item[v5]._iCharges;
 		v11 = item[v5]._iMaxCharges;
-		v12 = item[v5]._ivalue;
+		moreAction = item[v5]._ivalue;
 		cmd.bMCh = v11;
-		cmd.wValue = v12;
+		cmd.wValue = moreAction;
 		cmd.dwBuff = item[v5].isRare;
 	}
 	if ( bHiPri )
@@ -1189,7 +1189,7 @@ void __fastcall NetSendCmdPItem(unsigned char bHiPri, unsigned char bCmd, unsign
 	int v9; // esi
 	int v10; // esi
 	char v11; // dl
-	short v12; // ax
+	short moreAction; // ax
 	TCmdPItem cmd; // [esp+4h] [ebp-18h]
 
 	cmd.bCmd = bCmd;
@@ -1226,9 +1226,9 @@ void __fastcall NetSendCmdPItem(unsigned char bHiPri, unsigned char bCmd, unsign
 		cmd.bMDur = plr[v4].HoldItem._iMaxDur;
 		cmd.bCh = plr[v4].HoldItem._iCharges;
 		v11 = plr[v4].HoldItem._iMaxCharges;
-		v12 = plr[v4].HoldItem._ivalue;
+		moreAction = plr[v4].HoldItem._ivalue;
 		cmd.bMCh = v11;
-		cmd.wValue = v12;
+		cmd.wValue = moreAction;
 		cmd.dwBuff = plr[v4].HoldItem.isRare;
 	}
 	if ( bHiPri )

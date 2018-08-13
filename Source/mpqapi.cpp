@@ -337,9 +337,9 @@ _BLOCKENTRY *__fastcall mpqapi_add_file(char *pszName, _BLOCKENTRY *pBlk, int bl
 	int v8; // ecx
 	int v9; // esi
 	int v11; // [esp+Ch] [ebp-8h]
-	_BLOCKENTRY *v12; // [esp+10h] [ebp-4h]
+	_BLOCKENTRY *moreAction; // [esp+10h] [ebp-4h]
 
-	v12 = pBlk;
+	moreAction = pBlk;
 	v3 = pszName;
 	v4 = encrypt_hash(pszName, 0);
 	v5 = encrypt_hash(v3, 1);
@@ -363,14 +363,14 @@ _BLOCKENTRY *__fastcall mpqapi_add_file(char *pszName, _BLOCKENTRY *pBlk, int bl
 	}
 	if ( v6 < 0 )
 		TermMsg("Out of hash space");
-	if ( !v12 )
-		v12 = mpqapi_new_block(&block_index);
+	if ( !moreAction )
+		moreAction = mpqapi_new_block(&block_index);
 	v9 = v7;
 	sgpHashTbl[v9].hashcheck[0] = v5;
 	sgpHashTbl[v9].hashcheck[1] = v11;
 	sgpHashTbl[v9].lcid = 0;
 	sgpHashTbl[v9].block = block_index;
-	return v12;
+	return moreAction;
 }
 
 bool __fastcall mpqapi_write_file_contents(char *pszName, char *pbData, int dwLen, _BLOCKENTRY *pBlk)

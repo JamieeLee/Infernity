@@ -87,7 +87,7 @@ void __fastcall DrawMissile(int x, int y, int sx, int sy, int a5, int a6, int de
 	int v9; // eax
 	int v10; // eax
 	MissileStruct *v11; // eax
-	char *v12; // edi
+	char *moreAction; // edi
 	int v13; // edx
 	int v14; // esi
 	int v15; // ecx
@@ -119,17 +119,17 @@ void __fastcall DrawMissile(int x, int y, int sx, int sy, int a5, int a6, int de
 			v11 = &missile[v10];
 			if ( v11->_mix == v26 && v11->_miy == v7 && v11->_miPreFlag == del_flag && v11->_miDrawFlag )
 			{
-				v12 = (char *)v11->_miAnimData;
-				if ( !v12 )
+				moreAction = (char *)v11->_miAnimData;
+				if ( !moreAction )
 					return;
 				v13 = v11->_miAnimFrame;
-				if ( v13 < 1 || (unsigned int)*v12 > 0x32 || v13 > *v12 )
+				if ( v13 < 1 || (unsigned int)*moreAction > 0x32 || v13 > *moreAction )
 					return;
 				v14 = sy + v11->_miyoff;
 				v15 = sx + v11->_mixoff - v11->_miAnimWidth2;
 				if ( v11->_miUniqTrans )
 				{
-					Cl2DecodeFrm3(v15, v14, v12, v13, v11->_miAnimWidth, a5, a6, _LOBYTE(v11->_miUniqTrans) + 3);
+					Cl2DecodeFrm3(v15, v14, moreAction, v13, v11->_miAnimWidth, a5, a6, _LOBYTE(v11->_miUniqTrans) + 3);
 					v7 = v25;
 				}
 				else
@@ -137,9 +137,9 @@ void __fastcall DrawMissile(int x, int y, int sx, int sy, int a5, int a6, int de
 					v23 = v11->_miAnimWidth;
 					v21 = v11->_miAnimFrame;
 					if ( v11->_miLightFlag )
-						Cl2DecodeLightTbl(v15, v14, v12, v21, v23, a5, a6);
+						Cl2DecodeLightTbl(v15, v14, moreAction, v21, v23, a5, a6);
 					else
-						Cl2DecodeFrm1(v15, v14, v12, v21, v23, a5, a6);
+						Cl2DecodeFrm1(v15, v14, moreAction, v21, v23, a5, a6);
 				}
 			}
 		}
@@ -186,7 +186,7 @@ void __fastcall DrawClippedMissile(int x, int y, int sx, int sy, int a5, int a6,
 	int v9; // eax
 	int v10; // eax
 	MissileStruct *v11; // eax
-	char *v12; // edi
+	char *moreAction; // edi
 	int v13; // edx
 	int v14; // esi
 	int v15; // ecx
@@ -218,17 +218,17 @@ void __fastcall DrawClippedMissile(int x, int y, int sx, int sy, int a5, int a6,
 			v11 = &missile[v10];
 			if ( v11->_mix == v26 && v11->_miy == v7 && v11->_miPreFlag == a7 && v11->_miDrawFlag )
 			{
-				v12 = (char *)v11->_miAnimData;
-				if ( !v12 )
+				moreAction = (char *)v11->_miAnimData;
+				if ( !moreAction )
 					return;
 				v13 = v11->_miAnimFrame;
-				if ( v13 < 1 || (unsigned int)*v12 > 0x32 || v13 > *v12 )
+				if ( v13 < 1 || (unsigned int)*moreAction > 0x32 || v13 > *moreAction )
 					return;
 				v14 = sy + v11->_miyoff;
 				v15 = sx + v11->_mixoff - v11->_miAnimWidth2;
 				if ( v11->_miUniqTrans )
 				{
-					Cl2DecodeFrm5(v15, v14, v12, v13, v11->_miAnimWidth, a5, a6, _LOBYTE(v11->_miUniqTrans) + 3);
+					Cl2DecodeFrm5(v15, v14, moreAction, v13, v11->_miAnimWidth, a5, a6, _LOBYTE(v11->_miUniqTrans) + 3);
 					v7 = v25;
 				}
 				else
@@ -236,9 +236,9 @@ void __fastcall DrawClippedMissile(int x, int y, int sx, int sy, int a5, int a6,
 					v23 = v11->_miAnimWidth;
 					v21 = v11->_miAnimFrame;
 					if ( v11->_miLightFlag )
-						Cl2DecodeFrm6(v15, v14, v12, v21, v23, a5, a6);
+						Cl2DecodeFrm6(v15, v14, moreAction, v21, v23, a5, a6);
 					else
-						Cl2DecodeFrm4(v15, v14, v12, v21, v23, a5, a6);
+						Cl2DecodeFrm4(v15, v14, moreAction, v21, v23, a5, a6);
 				}
 			}
 		}
@@ -320,7 +320,7 @@ void __fastcall DrawPlayer(int pnum, int x, int y, int px, int py, int animdata,
 {
 	char *v10; // edx
 	int v11; // eax
-	char *v12; // ecx
+	char *moreAction; // ecx
 	int v13; // [esp+Ch] [ebp-4h]
 	int ya; // [esp+18h] [ebp+8h]
 	int animdataa; // [esp+24h] [ebp+14h]
@@ -331,7 +331,7 @@ void __fastcall DrawPlayer(int pnum, int x, int y, int px, int py, int animdata,
 	ya = (int)v10;
 	if ( *v10 & 0x40 || plr[myplr]._pInfraFlag || !setlevel && !currlevel )
 	{
-		v12 = (char *)animdata;
+		moreAction = (char *)animdata;
 		if ( animdata )
 		{
 			if ( animframe >= 1 && *(_DWORD *)animdata <= 0x32u && animframe <= *(_DWORD *)animdata )
@@ -340,12 +340,12 @@ void __fastcall DrawPlayer(int pnum, int x, int y, int px, int py, int animdata,
 				{
 					Cl2DecodeFrm2(165, px, py, (char *)animdata, animframe, animwidth, a9, a10);
 					v11 = myplr;
-					v12 = (char *)animdata;
+					moreAction = (char *)animdata;
 					v10 = (char *)ya;
 				}
 				if ( v13 == v11 )
 				{
-					Cl2DecodeFrm1(px, py, v12, animframe, animwidth, a9, a10);
+					Cl2DecodeFrm1(px, py, moreAction, animframe, animwidth, a9, a10);
 					if ( plr[v13].pManaShield )
 						Cl2DecodeFrm1(
 							px + plr[v13]._pAnimWidth2 - misfiledata[9].mAnimWidth2[0],
@@ -358,7 +358,7 @@ void __fastcall DrawPlayer(int pnum, int x, int y, int px, int py, int animdata,
 				}
 				else if ( !(*v10 & 0x40) || plr[v11]._pInfraFlag && light_table_index > 8 )
 				{
-					Cl2DecodeFrm3(px, py, v12, animframe, animwidth, a9, a10, 1);
+					Cl2DecodeFrm3(px, py, moreAction, animframe, animwidth, a9, a10, 1);
 					if ( plr[v13].pManaShield )
 						Cl2DecodeFrm3(
 							px + plr[v13]._pAnimWidth2 - misfiledata[9].mAnimWidth2[0],
@@ -377,7 +377,7 @@ void __fastcall DrawPlayer(int pnum, int x, int y, int px, int py, int animdata,
 						light_table_index -= 5;
 					else
 						light_table_index = 0;
-					Cl2DecodeLightTbl(px, py, v12, animframe, animwidth, a9, a10);
+					Cl2DecodeLightTbl(px, py, moreAction, animframe, animwidth, a9, a10);
 					if ( plr[v13].pManaShield )
 						Cl2DecodeLightTbl(
 							px + plr[v13]._pAnimWidth2 - misfiledata[9].mAnimWidth2[0],
@@ -401,7 +401,7 @@ void __fastcall DrawClippedPlayer(int pnum, int x, int y, int px, int py, int an
 {
 	char *v10; // edx
 	int v11; // eax
-	char *v12; // ecx
+	char *moreAction; // ecx
 	int v13; // [esp+Ch] [ebp-4h]
 	int ya; // [esp+18h] [ebp+8h]
 	int animdataa; // [esp+24h] [ebp+14h]
@@ -412,7 +412,7 @@ void __fastcall DrawClippedPlayer(int pnum, int x, int y, int px, int py, int an
 	ya = (int)v10;
 	if ( *v10 & 0x40 || plr[myplr]._pInfraFlag )
 	{
-		v12 = (char *)animdata;
+		moreAction = (char *)animdata;
 		if ( animdata )
 		{
 			if ( animframe >= 1 && *(_DWORD *)animdata <= 0x32u && animframe <= *(_DWORD *)animdata )
@@ -421,12 +421,12 @@ void __fastcall DrawClippedPlayer(int pnum, int x, int y, int px, int py, int an
 				{
 					Cl2DecodeClrHL(165, px, py, (char *)animdata, animframe, animwidth, a9, a10);
 					v11 = myplr;
-					v12 = (char *)animdata;
+					moreAction = (char *)animdata;
 					v10 = (char *)ya;
 				}
 				if ( v13 == v11 )
 				{
-					Cl2DecodeFrm4(px, py, v12, animframe, animwidth, a9, a10);
+					Cl2DecodeFrm4(px, py, moreAction, animframe, animwidth, a9, a10);
 					if ( plr[v13].pManaShield )
 						Cl2DecodeFrm4(
 							px + plr[v13]._pAnimWidth2 - misfiledata[9].mAnimWidth2[0],
@@ -439,7 +439,7 @@ void __fastcall DrawClippedPlayer(int pnum, int x, int y, int px, int py, int an
 				}
 				else if ( !(*v10 & 0x40) || plr[v11]._pInfraFlag && light_table_index > 8 )
 				{
-					Cl2DecodeFrm5(px, py, v12, animframe, animwidth, a9, a10, 1);
+					Cl2DecodeFrm5(px, py, moreAction, animframe, animwidth, a9, a10, 1);
 					if ( plr[v13].pManaShield )
 						Cl2DecodeFrm5(
 							px + plr[v13]._pAnimWidth2 - misfiledata[9].mAnimWidth2[0],
@@ -458,7 +458,7 @@ void __fastcall DrawClippedPlayer(int pnum, int x, int y, int px, int py, int an
 						light_table_index -= 5;
 					else
 						light_table_index = 0;
-					Cl2DecodeFrm6(px, py, v12, animframe, animwidth, a9, a10);
+					Cl2DecodeFrm6(px, py, moreAction, animframe, animwidth, a9, a10);
 					if ( plr[v13].pManaShield )
 						Cl2DecodeFrm6(
 							px + plr[v13]._pAnimWidth2 - misfiledata[9].mAnimWidth2[0],
@@ -763,7 +763,7 @@ void __fastcall scrollrt_draw_lower(int x, int y, int sx, int sy, int a5, int so
 	unsigned int v9; // ebx
 	int v10; // eax
 	int v11; // ecx
-	int v12; // edx
+	int moreAction; // edx
 	char *v13; // edx
 	int v14; // edi
 	int v15; // eax
@@ -821,9 +821,9 @@ void __fastcall scrollrt_draw_lower(int x, int y, int sx, int sy, int a5, int so
 			{
 				v11 = (unsigned char)(nTransTable[v10] & TransList[dung_map[v9][v6]]);
 				arch_draw_type = 2;
-				v12 = screen_y_times_768[sy];
+				moreAction = screen_y_times_768[sy];
 				cel_transparency_active = v11;
-				v13 = (char *)gpBuffer + v12;
+				v13 = (char *)gpBuffer + moreAction;
 				level_cel_block = v8[1];
 				v14 = (int)&v13[sx + 32];
 				if ( level_cel_block )
@@ -999,7 +999,7 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 	char v9; // dl
 	int *v10; // eax
 	DeadStruct *v11; // eax
-	int *v12; // esi
+	int *moreAction; // esi
 	int v13; // ecx
 	int v14; // edx
 	char v15; // bl
@@ -1064,18 +1064,18 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 		if ( v7 )
 		{
 			v11 = &dead[(v7 & 0x1F) - 1];
-			v12 = (int *)v11->_deadData[(v7 >> 5) & 7];
+			moreAction = (int *)v11->_deadData[(v7 >> 5) & 7];
 			v13 = a4 - v11->field_28;
-			if ( v12 )
+			if ( moreAction )
 			{
 				v14 = v11->_deadFrame;
-				if ( v14 >= 1 && (unsigned int)*v12 <= 0x32 && v14 <= *v12 )
+				if ( v14 >= 1 && (unsigned int)*moreAction <= 0x32 && v14 <= *moreAction )
 				{
 					v15 = v11->_deadtrans;
 					if ( v15 )
-						Cl2DecodeFrm5(v13, a5, (char *)v12, v14, v11->field_24, 0, 8, v15);
+						Cl2DecodeFrm5(v13, a5, (char *)moreAction, v14, v11->field_24, 0, 8, v15);
 					else
-						Cl2DecodeFrm6(v13, a5, (char *)v12, v14, v11->field_24, 0, 8);
+						Cl2DecodeFrm6(v13, a5, (char *)moreAction, v14, v11->field_24, 0, 8);
 				}
 			}
 		}
@@ -1320,7 +1320,7 @@ void __fastcall DrawClippedObject(int x, int y, int a3, int a4, int pre_flag, in
 	unsigned char v9; // dl
 	int v10; // esi
 	int v11; // ebx
-	int v12; // edi
+	int moreAction; // edi
 	int v13; // eax
 	int v14; // ecx
 	char *v15; // eax
@@ -1342,7 +1342,7 @@ void __fastcall DrawClippedObject(int x, int y, int a3, int a4, int pre_flag, in
 		dir = 8;
 		v13 = object[v10]._ox - x;
 		v14 = object[v10]._oy - v7;
-		v12 = a3 + 32 * v13 - object[v10]._oAnimWidth2 - 32 * v14;
+		moreAction = a3 + 32 * v13 - object[v10]._oAnimWidth2 - 32 * v14;
 		v11 = a4 + 16 * (v14 + v13);
 		a6 = 0;
 	}
@@ -1354,7 +1354,7 @@ void __fastcall DrawClippedObject(int x, int y, int a3, int a4, int pre_flag, in
 		if ( object[v10]._oPreFlag != pre_flag )
 			return;
 		v11 = a4;
-		v12 = a3 - object[v10]._oAnimWidth2;
+		moreAction = a3 - object[v10]._oAnimWidth2;
 	}
 	if ( v9 < 0x7Fu )
 	{
@@ -1365,14 +1365,14 @@ void __fastcall DrawClippedObject(int x, int y, int a3, int a4, int pre_flag, in
 			if ( v16 >= 1 && *(_DWORD *)v15 <= 0x32u && v16 <= *(_DWORD *)v15 )
 			{
 				if ( v20 == pcursobj )
-					CelDrawHdrClrHL(194, v12, v11, v15, v16, object[v10]._oAnimWidth, a6, dir);
+					CelDrawHdrClrHL(194, moreAction, v11, v15, v16, object[v10]._oAnimWidth, a6, dir);
 				v19 = object[v10]._oAnimWidth;
 				v18 = object[v10]._oAnimFrame;
 				v17 = (char *)object[v10]._oAnimData;
 				if ( object[v10]._oLight )
-					Cel2DecodeHdrLight(v12, v11, v17, v18, v19, a6, dir);
+					Cel2DecodeHdrLight(moreAction, v11, v17, v18, v19, a6, dir);
 				else
-					Cel2DrawHdrOnly(v12, v11, v17, v18, v19, a6, dir);
+					Cel2DrawHdrOnly(moreAction, v11, v17, v18, v19, a6, dir);
 			}
 		}
 	}
@@ -1388,7 +1388,7 @@ void __fastcall scrollrt_draw_clipped_e_flag(char *buffer, int x, int y, int a4,
 	int v9; // eax
 	int v10; // edi
 	int v11; // eax
-	int v12; // eax
+	int moreAction; // eax
 	unsigned short *v13; // esi
 	int v14; // eax
 	int v15; // eax
@@ -1413,9 +1413,9 @@ void __fastcall scrollrt_draw_clipped_e_flag(char *buffer, int x, int y, int a4,
 	v11 = (unsigned char)(nTransTable[v7] & TransList[v9]);
 	light_table_index = v8;
 	cel_transparency_active = v11;
-	v12 = gendung_get_dpiece_num_from_coord(x, y);
+	moreAction = gendung_get_dpiece_num_from_coord(x, y);
 	arch_draw_type = 1;
-	v13 = (unsigned short *)((char *)dpiece_defs_map_1 + 32 * v12);
+	v13 = (unsigned short *)((char *)dpiece_defs_map_1 + 32 * moreAction);
 	v14 = *v13;
 	level_cel_block = *v13;
 	if ( v14 )
@@ -1458,7 +1458,7 @@ void __fastcall scrollrt_draw_lower_2(int x, int y, int sx, int sy, int a5, int 
 	int v9; // ecx
 	int v10; // eax
 	int v11; // eax
-	int v12; // eax
+	int moreAction; // eax
 	int v13; // ecx
 	int v14; // ecx
 	int v15; // eax
@@ -1519,10 +1519,10 @@ void __fastcall scrollrt_draw_lower_2(int x, int y, int sx, int sy, int a5, int 
 					}
 					while ( a6a < (dword_5A5594 >> 1) - 1 );
 				}
-				v12 = 2 * a6 + 2;
-				if ( v12 < 8 )
+				moreAction = 2 * a6 + 2;
+				if ( moreAction < 8 )
 					scrollrt_draw_clipped_dungeon_2(
-						(char *)gpBuffer + screen_y_times_768[sy] - 12288 * v12 + v8,
+						(char *)gpBuffer + screen_y_times_768[sy] - 12288 * moreAction + v8,
 						xa,
 						v7,
 						a6,
@@ -1662,7 +1662,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 	char v9; // bl
 	char v10; // cl
 	char v11; // dl
-	int *v12; // eax
+	int *moreAction; // eax
 	int v13; // edi
 	DeadStruct *v14; // eax
 	int *v15; // esi
@@ -1716,11 +1716,11 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 	v51 = dPlayer[0][v8];
 	v49 = dArch[0][v8];
 	v11 = dung_map[0][v8];
-	v12 = (int *)((char *)dMonster + 4 * v8);
+	moreAction = (int *)((char *)dMonster + 4 * v8);
 	v47 = v11;
 	v48 = v10;
-	v43 = *v12;
-	v44 = *(v12 - 1);
+	v43 = *moreAction;
+	v44 = *(moreAction - 1);
 	if ( visiondebug && v53 & 0x40 )
 		Cel2DecodeHdrOnly(dst_buf, (char *)pSquareCel, 1, 64, a5, 8);
 	if ( MissilePreFlag && v53 & 1 )
@@ -1942,7 +1942,7 @@ void __fastcall scrollrt_draw_clipped_e_flag_2(char *buffer, int x, int y, int a
 	int v9; // esi
 	int v10; // eax
 	unsigned char *v11; // edi
-	int v12; // eax
+	int moreAction; // eax
 	unsigned short *v13; // esi
 	int v14; // eax
 	int v15; // eax
@@ -1967,9 +1967,9 @@ void __fastcall scrollrt_draw_clipped_e_flag_2(char *buffer, int x, int y, int a
 	v10 = dung_map[0][v7];
 	level_piece_id = v8;
 	v11 = (unsigned char *)&a1[24576 * a4];
-	v12 = (unsigned char)(nTransTable[v8] & TransList[v10]);
+	moreAction = (unsigned char)(nTransTable[v8] & TransList[v10]);
 	light_table_index = v9;
-	cel_transparency_active = v12;
+	cel_transparency_active = moreAction;
 	v13 = (unsigned short *)((char *)dpiece_defs_map_1 + 32 * gendung_get_dpiece_num_from_coord(x, y));
 	if ( !a4 )
 	{
@@ -2039,7 +2039,7 @@ void __fastcall scrollrt_draw_upper(int x, int y, int sx, int sy, int a5, int a6
 	unsigned short *v9; // ebx
 	int v10; // ecx
 	int v11; // eax
-	char *v12; // edx
+	char *moreAction; // edx
 	int v13; // edi
 	int v14; // eax
 	unsigned char *v15; // edi
@@ -2093,8 +2093,8 @@ void __fastcall scrollrt_draw_upper(int x, int y, int sx, int sy, int a5, int a6
 			if ( v11 )
 			{
 				cel_transparency_active = (unsigned char)(nTransTable[v11] & TransList[dung_map[0][v10]]);
-				v12 = (char *)gpBuffer + screen_y_times_768[sy];
-				v13 = (int)&v12[sx + 32];
+				moreAction = (char *)gpBuffer + screen_y_times_768[sy];
+				v13 = (int)&moreAction[sx + 32];
 				if ( a6 >= 0 )
 				{
 					v14 = v9[1];
@@ -2102,7 +2102,7 @@ void __fastcall scrollrt_draw_upper(int x, int y, int sx, int sy, int a5, int a6
 					if ( v14 )
 					{
 						arch_draw_type = 2;
-						drawUpperScreen((unsigned char *)&v12[sx + 32]);
+						drawUpperScreen((unsigned char *)&moreAction[sx + 32]);
 						arch_draw_type = 0;
 					}
 				}
@@ -2272,7 +2272,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 	char v9; // bl
 	char v10; // cl
 	char v11; // dl
-	int *v12; // eax
+	int *moreAction; // eax
 	DeadStruct *v13; // eax
 	int *v14; // esi
 	int v15; // ecx
@@ -2325,11 +2325,11 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 	v50 = dPlayer[0][v8];
 	v48 = dArch[0][v8];
 	v11 = dung_map[0][v8];
-	v12 = (int *)((char *)dMonster + 4 * v8);
+	moreAction = (int *)((char *)dMonster + 4 * v8);
 	v46 = v11;
 	v47 = v10;
-	v42 = *v12;
-	v43 = *(v12 - 1);
+	v42 = *moreAction;
+	v43 = *(moreAction - 1);
 	if ( visiondebug && v52 & 0x40 )
 		CelDecodeHdrOnly(dst_buf, (char *)pSquareCel, 1, 64, 0, a5);
 	if ( MissilePreFlag && v52 & 1 )
@@ -2595,7 +2595,7 @@ void __fastcall DrawObject(int x, int y, int a3, int a4, int pre_flag, int a6, i
 	unsigned char v9; // dl
 	int v10; // esi
 	int v11; // ebx
-	int v12; // edi
+	int moreAction; // edi
 	int v13; // eax
 	int v14; // ecx
 	char *v15; // eax
@@ -2615,7 +2615,7 @@ void __fastcall DrawObject(int x, int y, int a3, int a4, int pre_flag, int a6, i
 		dir = 8;
 		v13 = object[v10]._ox - x;
 		v14 = object[v10]._oy - v7;
-		v12 = a3 + 32 * v13 - object[v10]._oAnimWidth2 - 32 * v14;
+		moreAction = a3 + 32 * v13 - object[v10]._oAnimWidth2 - 32 * v14;
 		v11 = a4 + 16 * (v14 + v13);
 		a6 = 0;
 	}
@@ -2627,7 +2627,7 @@ void __fastcall DrawObject(int x, int y, int a3, int a4, int pre_flag, int a6, i
 		if ( object[v10]._oPreFlag != pre_flag )
 			return;
 		v11 = a4;
-		v12 = a3 - object[v10]._oAnimWidth2;
+		moreAction = a3 - object[v10]._oAnimWidth2;
 	}
 	if ( v9 < 0x7Fu )
 	{
@@ -2638,11 +2638,11 @@ void __fastcall DrawObject(int x, int y, int a3, int a4, int pre_flag, int a6, i
 			if ( v16 >= 1 && *(_DWORD *)v15 <= 0x32u && v16 <= *(_DWORD *)v15 )
 			{
 				if ( v18 == pcursobj )
-					CelDecodeClr(194, v12, v11, v15, v16, object[v10]._oAnimWidth, a6, dir);
+					CelDecodeClr(194, moreAction, v11, v15, v16, object[v10]._oAnimWidth, a6, dir);
 				if ( object[v10]._oLight )
 				{
 					CelDecodeHdrLightOnly(
-						v12,
+						moreAction,
 						v11,
 						(char *)object[v10]._oAnimData,
 						object[v10]._oAnimFrame,
@@ -2654,7 +2654,7 @@ void __fastcall DrawObject(int x, int y, int a3, int a4, int pre_flag, int a6, i
 				{
 					v17 = (char *)object[v10]._oAnimData;
 					if ( v17 )
-						CelDrawHdrOnly(v12, v11, v17, object[v10]._oAnimFrame, object[v10]._oAnimWidth, a6, dir);
+						CelDrawHdrOnly(moreAction, v11, v17, object[v10]._oAnimFrame, object[v10]._oAnimWidth, a6, dir);
 				}
 			}
 		}
@@ -2669,7 +2669,7 @@ void __fastcall scrollrt_draw_e_flag(char *buffer, int x, int y, int a4, int a5,
 	int v9; // ecx
 	int v10; // ebx
 	int v11; // edx
-	int v12; // eax
+	int moreAction; // eax
 	int v13; // eax
 	int v14; // ecx
 	int v15; // edi
@@ -2692,9 +2692,9 @@ void __fastcall scrollrt_draw_e_flag(char *buffer, int x, int y, int a4, int a5,
 	v9 = dPiece[0][v7];
 	v10 = cel_transparency_active;
 	v11 = dTransVal[0][v7];
-	v12 = dung_map[0][v7];
+	moreAction = dung_map[0][v7];
 	level_piece_id = v9;
-	v13 = (unsigned char)TransList[v12];
+	v13 = (unsigned char)TransList[moreAction];
 	v14 = (unsigned char)nTransTable[v9];
 	v15 = light_table_index;
 	light_table_index = v11;
@@ -2752,7 +2752,7 @@ void __fastcall DrawZoom(int x, int y)
 	int v9; // esi
 	int v10; // edi
 	_WORD *v11; // edi
-	char *v12; // esi
+	char *moreAction; // esi
 	char *v13; // ebx
 	signed int v14; // edx
 	signed int v15; // ecx
@@ -2876,7 +2876,7 @@ LABEL_23:
 	v19 = 320;
 LABEL_24:
 	v11 = (_WORD *)((char *)gpBuffer + a6b);
-	v12 = (char *)gpBuffer + a5a;
+	moreAction = (char *)gpBuffer + a5a;
 	v13 = &gpBuffer->row_unused_1[1].col_unused_1[a6b];
 	v14 = 176;
 	do
@@ -2884,7 +2884,7 @@ LABEL_24:
 		v15 = v19;
 		do
 		{
-			_LOBYTE(v16) = *v12++;
+			_LOBYTE(v16) = *moreAction++;
 			_HIBYTE(v16) = v16;
 			*v11 = v16;
 			*(_WORD *)v13 = v16;
@@ -2893,7 +2893,7 @@ LABEL_24:
 			--v15;
 		}
 		while ( v15 );
-		v12 += -v19 - 768;
+		moreAction += -v19 - 768;
 		v17 = 2 * (v19 + 768);
 		v13 -= v17;
 		v11 = (_WORD *)((char *)v11 - v17);
@@ -3126,7 +3126,7 @@ void __cdecl scrollrt_draw_cursor_item()
 	int v9; // edi
 	int v10; // esi
 	signed int v11; // ebx
-	int v12; // edi
+	int moreAction; // edi
 	int v13; // edx
 	char *v14; // [esp+10h] [ebp-4h]
 
@@ -3200,13 +3200,13 @@ void __cdecl scrollrt_draw_cursor_item()
 						v11 = 181;
 					if ( !plr[myplr].HoldItem._iStatFlag )
 						v11 = 229;
-					v12 = v9 + 64;
-					CelDrawHdrClrHL(v11, v12, v1 + v10 + 159, (char *)pCursCels, pcurs, v0, 0, 8);
+					moreAction = v9 + 64;
+					CelDrawHdrClrHL(v11, moreAction, v1 + v10 + 159, (char *)pCursCels, pcurs, v0, 0, 8);
 					v13 = cursH + v10 + 159;
 					if ( v11 == 229 )
-						Cel2DrawHdrLightRed(v12, v13, (char *)pCursCels, pcurs, cursW, 0, 8, 1);
+						Cel2DrawHdrLightRed(moreAction, v13, (char *)pCursCels, pcurs, cursW, 0, 8, 1);
 					else
-						Cel2DrawHdrOnly(v12, v13, (char *)pCursCels, pcurs, cursW, 0, 8);
+						Cel2DrawHdrOnly(moreAction, v13, (char *)pCursCels, pcurs, cursW, 0, 8);
 				}
 			}
 		}

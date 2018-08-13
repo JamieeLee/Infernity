@@ -554,7 +554,7 @@ void __cdecl CheckCursMove()
 	BOOL v9; // eax
 	int v10; // ecx
 	int v11; // edx
-	int v12; // ecx
+	int moreAction; // ecx
 	int v13; // ebx
 	int v14; // ebx
 	int v15; // eax
@@ -1036,7 +1036,7 @@ LABEL_296:
 	}
 	if ( v10 == -1 )
 		goto LABEL_128;
-	v12 = 112 * v6 + v8;
+	moreAction = 112 * v6 + v8;
 	v81 = 112 * v6 + v8;
 	v13 = 112 * v6 + v8;
 	if ( v83 )
@@ -1045,7 +1045,7 @@ LABEL_296:
 		v15 = dMonster[1][v14 + 2];
 		if ( !v15 )
 			goto LABEL_74;
-		v16 = (dFlags[1][v12 + 2] & 0x40) == 0;
+		v16 = (dFlags[1][moreAction + 2] & 0x40) == 0;
 	}
 	else
 	{
@@ -1053,7 +1053,7 @@ LABEL_296:
 		v15 = dMonster[2][v14 + 1];
 		if ( !v15 )
 			goto LABEL_74;
-		v16 = (dFlags[2][v12 + 1] & 0x40) == 0;
+		v16 = (dFlags[2][moreAction + 1] & 0x40) == 0;
 	}
 	if ( !v16 )
 	{

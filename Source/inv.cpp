@@ -200,7 +200,7 @@ void __cdecl DrawInv()
 	char v9; // cl
 	int v10; // ecx
 	int v11; // eax
-	int v12; // edi
+	int moreAction; // edi
 	int v13; // edx
 	char v14; // cl
 	int v15; // ecx
@@ -297,9 +297,9 @@ void __cdecl DrawInv()
 		InvDrawSlotBack(633, 365, 28, 28);
 		v10 = myplr;
 		v11 = myplr;
-		v12 = plr[myplr].InvBody[2]._iCurs + 12;
-		v13 = InvItemWidth[v12];
-		screen_ya = InvItemWidth[v12];
+		moreAction = plr[myplr].InvBody[2]._iCurs + 12;
+		v13 = InvItemWidth[moreAction];
+		screen_ya = InvItemWidth[moreAction];
 		if ( pcursinvitem == 2 )
 		{
 			v14 = -59;
@@ -307,14 +307,14 @@ void __cdecl DrawInv()
 				v14 = -75;
 			if ( !plr[v11].InvBody[2]._iStatFlag )
 				v14 = -27;
-			CelDecodeClr(v14, 633, 365, (char *)pCursCels, v12, v13, 0, 8);
+			CelDecodeClr(v14, 633, 365, (char *)pCursCels, moreAction, v13, 0, 8);
 			v10 = myplr;
 			v13 = screen_ya;
 		}
 		if ( plr[v10].InvBody[2]._iStatFlag )
-			CelDrawHdrOnly(633, 365, (char *)pCursCels, v12, v13, 0, 8);
+			CelDrawHdrOnly(633, 365, (char *)pCursCels, moreAction, v13, 0, 8);
 		else
-			CelDrawHdrLightRed(633, 365, (char *)pCursCels, v12, v13, 0, 8, 1);
+			CelDrawHdrLightRed(633, 365, (char *)pCursCels, moreAction, v13, 0, 8, 1);
 	}
 	if ( plr[myplr].InvBody[3]._itype != -1 )
 	{
@@ -571,7 +571,7 @@ int __fastcall AutoPlace(int pnum, int ii, int sx, int sy, int saveflag)
 	signed int v9; // esi
 	int j; // edi
 	int v11; // eax
-	signed int v12; // esi
+	signed int moreAction; // esi
 	signed int v13; // ecx
 	int v14; // edi
 	char *v15; // ecx
@@ -601,9 +601,9 @@ LABEL_16:
 				&plr[pnum].HoldItem,
 				sizeof(plr[pnum].InvList[plr[pnum]._pNumInv]));
 			++plr[v11]._pNumInv;
-			v12 = v7;
+			moreAction = v7;
 			if ( v7 < 0 )
-				v12 = 0;
+				moreAction = 0;
 			for ( i = 0; i < sy; ++i )
 			{
 				v13 = v18;
@@ -612,7 +612,7 @@ LABEL_16:
 				v14 = 0;
 				if ( sx > 0 )
 				{
-					v15 = &plr[v11].InvGrid[v13 + v12];
+					v15 = &plr[v11].InvGrid[v13 + moreAction];
 					do
 					{
 						if ( v14 || i != sy - 1 )
@@ -624,7 +624,7 @@ LABEL_16:
 					}
 					while ( v14 < sx );
 				}
-				v12 += 10;
+				moreAction += 10;
 			}
 			CalcPlrScrolls(p);
 		}
@@ -668,7 +668,7 @@ int __fastcall SpecialAutoPlace(int pnum, int ii, int sx, int sy, int saveflag)
 	signed int v9; // esi
 	int j; // edi
 	signed int v11; // ecx
-	int *v12; // eax
+	int *moreAction; // eax
 	int v13; // eax
 	signed int v14; // esi
 	signed int v15; // ecx
@@ -753,11 +753,11 @@ LABEL_25:
 	if ( sx <= 1 && sy <= 1 )
 	{
 		v11 = 0;
-		v12 = &plr[p].SpdList[0]._itype;
-		while ( *v12 != -1 )
+		moreAction = &plr[p].SpdList[0]._itype;
+		while ( *moreAction != -1 )
 		{
 			++v11;
-			v12 += 92;
+			moreAction += 92;
 			if ( v11 >= 8 )
 				goto LABEL_24;
 		}
@@ -784,7 +784,7 @@ int __fastcall GoldAutoPlace(int pnum)
 	signed int v9; // ebx
 	char *v10; // edx
 	int v11; // eax
-	int v12; // ecx
+	int moreAction; // ecx
 	int pnuma; // [esp+10h] [ebp-4h]
 
 	pnuma = pnum;
@@ -810,10 +810,10 @@ LABEL_28:
 					qmemcpy((char *)plr[0].InvList + v11, &plr[v1].HoldItem, StructSize<ItemStruct>());
 					++plr[v1]._pNumInv;
 					*v10 = plr[v1]._pNumInv;
-					v12 = plr[v1].HoldItem._ivalue;
-					if ( v12 < 2500 )
+					moreAction = plr[v1].HoldItem._ivalue;
+					if ( moreAction < 2500 )
 					{
-						if ( v12 > 1000 )
+						if ( moreAction > 1000 )
 							*(int *)((char *)&plr[0].InvList[0]._iCurs + v11) = 5;
 						else
 							*(int *)((char *)&plr[0].InvList[0]._iCurs + v11) = 4;
@@ -969,7 +969,7 @@ void __fastcall CheckInvPaste(int pnum, int mx, int my)
 	int v9; // edx
 	signed int v10; // edi
 	char v11; // al
-	signed int v12; // ecx
+	signed int moreAction; // ecx
 	int v13; // eax
 	int v14; // eax
 	char *v15; // edi
@@ -1086,13 +1086,13 @@ LABEL_18:
 	if ( v68 >= 65 && v68 <= 72 )
 		v69 = ILOC_BELT;
 	v11 = plr[v3].HoldItem._iLoc;
-	v12 = 0;
+	moreAction = 0;
 	if ( (char)v11 == v69 )
-		v12 = 1;
+		moreAction = 1;
 	if ( v69 == 1 && v11 == ILOC_TWOHAND )
 	{
 		v69 = ILOC_TWOHAND;
-		v12 = 1;
+		moreAction = 1;
 	}
 	if ( v11 != 7 || v69 != ILOC_BELT )
 	{
@@ -1539,7 +1539,7 @@ LABEL_79:
 			v15 += 10;
 			if ( ++v65 >= v67 )
 			{
-				v12 = cursor_id;
+				moreAction = cursor_id;
 				v10 = v68;
 				goto LABEL_81;
 			}
@@ -1573,19 +1573,19 @@ LABEL_78:
 	}
 	if ( v64 == 1 && v67 == 1 )
 	{
-		v12 = 1;
+		moreAction = 1;
 		if ( !AllItemsList[plr[v3].HoldItem.IDidx].iUsable )
-			v12 = 0;
+			moreAction = 0;
 		if ( !plr[v3].HoldItem._iStatFlag )
-			v12 = 0;
+			moreAction = 0;
 		if ( plr[v3].HoldItem._itype == ITYPE_GOLD )
 		{
-			v12 = 0;
+			moreAction = 0;
 			goto LABEL_50;
 		}
 	}
 LABEL_81:
-	if ( !v12 )
+	if ( !moreAction )
 		return;
 	if ( v69 == ILOC_UNEQUIPABLE || v69 == ILOC_BELT || plr[v3].HoldItem._iStatFlag )
 		goto LABEL_92;
@@ -1600,10 +1600,10 @@ LABEL_81:
 		if ( v19 != 2 )
 			return;
 			PlaySFX(PS_MAGE13);
-		v12 = 0;
+		moreAction = 0;
 		v10 = v68;
 LABEL_92:
-		if ( !v12 )
+		if ( !moreAction )
 			return;
 		goto LABEL_93;
 	}
@@ -1656,7 +1656,7 @@ void __fastcall CheckInvCut(int pnum, int mx, int my)
 	int v9; // edx
 	signed int v10; // esi
 	char *v11; // eax
-	int v12; // ecx
+	int moreAction; // ecx
 	int v13; // edx
 	int v14; // eax
 	signed int v15; // esi
@@ -1761,8 +1761,8 @@ LABEL_26:
 				do
 				{
 					v11 = &plr[0].InvGrid[v10 + v3 * StructSize<PlayerStruct>()];
-					v12 = *v11;
-					if ( v12 == v9 || v12 == -v9 )
+					moreAction = *v11;
+					if ( moreAction == v9 || moreAction == -v9 )
 						*v11 = 0;
 					++v10;
 				}
@@ -2220,7 +2220,7 @@ void __fastcall AutoGetItem(int pnum, int ii)
 	int v9; // edi
 	int v10; // edx
 	int v11; // ecx
-	char v12; // al
+	char moreAction; // al
 	int v13; // ecx
 	int iia; // [esp+10h] [ebp-18h]
 	signed int iib; // [esp+10h] [ebp-18h]
@@ -2468,8 +2468,8 @@ LABEL_71:
 		}
 		if ( v2 == myplr )
 		{
-			v12 = plr[v3]._pClass;
-			switch ( v12 )
+			moreAction = plr[v3]._pClass;
+			switch ( moreAction )
 			{
 				case UI_WARRIOR:
 					v13 = random(0, 3) + PS_WARR14;
@@ -2655,7 +2655,7 @@ int __fastcall InvPutItem(int pnum, int x, int y)
 	int v9; // esi
 	int v10; // esi
 	int v11; // eax
-	int v12; // edx
+	int moreAction; // edx
 	int v13; // esi
 	int v15; // eax
 	int *v16; // edx
@@ -2716,17 +2716,17 @@ int __fastcall InvPutItem(int pnum, int x, int y)
 					while ( v11 <= yb && !v23 )
 					{
 						v21 = v20;
-						v12 = v8 + v22;
+						moreAction = v8 + v22;
 						v13 = v19 + v20;
 						do
 						{
 							if ( v23 )
 								break;
-							if ( CanPut(v13, v12) )
+							if ( CanPut(v13, moreAction) )
 							{
 								v23 = 1;
 								xa = v13;
-								v5 = v12;
+								v5 = moreAction;
 							}
 							++v21;
 							++v13;
@@ -3201,7 +3201,7 @@ int __fastcall UseInvItem(int pnum, int cii)
 	int v9; // eax
 	int v10; // ecx
 	char v11; // al
-	char v12; // al
+	char moreAction; // al
 	int p; // [esp+10h] [ebp-8h]
 	signed int v14; // [esp+14h] [ebp-4h]
 
@@ -3232,15 +3232,15 @@ int __fastcall UseInvItem(int pnum, int cii)
 		}
 		if ( v6[90] == 17 )
 		{
-			v12 = plr[v2]._pClass;
+			moreAction = plr[v2]._pClass;
 			sfxdelay = 10;
-			if ( v12 )
+			if ( moreAction )
 			{
-				if ( v12 == 1 )
+				if ( moreAction == 1 )
 				{
 					sfxdnum = PS_ROGUE95;
 				}
-				else if ( v12 == 2 )
+				else if ( moreAction == 2 )
 				{
 					sfxdnum = PS_MAGE95;
 				}

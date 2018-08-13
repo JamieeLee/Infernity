@@ -159,7 +159,7 @@ void __fastcall PrintPlrMsg(int no, int x, int y, char *str, int just)
 	int v9; // esi
 	unsigned int v10; // eax
 	unsigned char v11; // cl
-	unsigned char v12; // cl
+	unsigned char moreAction; // cl
 	int v13; // eax
 	unsigned char v14; // bl
 	int v15; // [esp+Ch] [ebp-Ch]
@@ -187,9 +187,9 @@ void __fastcall PrintPlrMsg(int no, int x, int y, char *str, int just)
 				if ( !*v8 )
 					break;
 				++v8;
-				v12 = fontframe[fontidx[v11]];
-				v10 += fontkern[v12] + 1;
-				if ( v12 )
+				moreAction = fontframe[fontidx[v11]];
+				v10 += fontkern[moreAction] + 1;
+				if ( moreAction )
 				{
 					if ( v10 >= y )
 						goto LABEL_13;

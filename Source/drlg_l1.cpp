@@ -142,7 +142,7 @@ void __fastcall LoadL1Dungeon(char *sFileName, int vx, int vy)
 	int v9; // ebx
 	char *v10; // eax
 	int v11; // ecx
-	char v12; // dl
+	char moreAction; // dl
 	int v13; // [esp+Ch] [ebp-Ch]
 	int v14; // [esp+10h] [ebp-8h]
 	int v15; // [esp+14h] [ebp-4h]
@@ -185,11 +185,11 @@ void __fastcall LoadL1Dungeon(char *sFileName, int vx, int vy)
 				v14 = v8;
 				do
 				{
-					v12 = *v10;
+					moreAction = *v10;
 					if ( *v10 )
 					{
 						mydflags[0][v11] |= 0x80u;
-						dungeon[0][v11] = v12;
+						dungeon[0][v11] = moreAction;
 					}
 					else
 					{
@@ -265,7 +265,7 @@ void __cdecl DRLG_L1Pass3()
 	int v9; // eax
 	int v10; // ST24_4
 	int v11; // ST20_4
-	int v12; // ST1C_4
+	int moreAction; // ST1C_4
 	signed int v13; // [esp+Ch] [ebp-1Ch]
 	int *v14; // [esp+10h] [ebp-18h]
 	int v15; // [esp+14h] [ebp-14h]
@@ -317,12 +317,12 @@ void __cdecl DRLG_L1Pass3()
 			++v7;
 			v11 = ++v9;
 			_LOWORD(v9) = *v7;
-			v12 = ++v9;
+			moreAction = ++v9;
 			_LOWORD(v9) = v7[1];
 			v6 += 40;
 			*(v5 - 112) = v10;
 			*v5 = v11;
-			*(v5 - 111) = v12;
+			*(v5 - 111) = moreAction;
 			v5[1] = v9 + 1;
 			v5 += 224;
 			--v13;
@@ -424,7 +424,7 @@ void __fastcall LoadPreL1Dungeon(char *sFileName, int vx, int vy)
 	char *v9; // eax
 	int v10; // ecx
 	char v11; // dl
-	signed int v12; // esi
+	signed int moreAction; // esi
 	signed int v13; // eax
 	signed int v14; // edi
 	int v15; // [esp+Ch] [ebp-8h]
@@ -486,10 +486,10 @@ void __fastcall LoadPreL1Dungeon(char *sFileName, int vx, int vy)
 		while ( v16 < v8 );
 	}
 	DRLG_L1Floor();
-	v12 = 0;
+	moreAction = 0;
 	do
 	{
-		v13 = v12;
+		v13 = moreAction;
 		v14 = 40;
 		do
 		{
@@ -498,9 +498,9 @@ void __fastcall LoadPreL1Dungeon(char *sFileName, int vx, int vy)
 			--v14;
 		}
 		while ( v14 );
-		++v12;
+		++moreAction;
 	}
-	while ( v12 < 40 );
+	while ( moreAction < 40 );
 	mem_free_dbg(v3);
 }
 // 5CF328: using guessed type int dmaxx;
@@ -574,7 +574,7 @@ void __fastcall DRLG_L5(int entry)
 	int v9; // ebp
 	_BYTE *v10; // ebx
 	signed int v11; // eax
-	signed int v12; // ecx
+	signed int moreAction; // ecx
 	int v13; // [esp+10h] [ebp-8h]
 	int v14; // [esp+10h] [ebp-8h]
 	int v15; // [esp+14h] [ebp-4h]
@@ -710,14 +710,14 @@ LABEL_34:
 	do
 	{
 		v11 = v1;
-		v12 = 40;
+		moreAction = 40;
 		do
 		{
 			pdungeon[0][v11] = dungeon[0][v11];
 			v11 += 40;
-			--v12;
+			--moreAction;
 		}
-		while ( v12 );
+		while ( moreAction );
 		++v1;
 	}
 	while ( v1 < 40 );
@@ -834,7 +834,7 @@ void __cdecl DRLG_L1Shadows()
 	char v9; // cl
 	signed int v10; // edi
 	signed int v11; // eax
-	signed int v12; // esi
+	signed int moreAction; // esi
 	char v13; // cl
 	char v14; // dl
 	char v15; // cl
@@ -895,7 +895,7 @@ void __cdecl DRLG_L1Shadows()
 	do
 	{
 		v11 = v10;
-		v12 = 39;
+		moreAction = 39;
 		do
 		{
 			if ( dungeon[0][v11] == -117 && !mydflags[0][v11] )
@@ -953,9 +953,9 @@ void __cdecl DRLG_L1Shadows()
 				dungeon[0][v11] = v18;
 			}
 			v11 += 40;
-			--v12;
+			--moreAction;
 		}
-		while ( v12 );
+		while ( moreAction );
 		++v10;
 	}
 	while ( v10 < 40 );
@@ -967,7 +967,7 @@ int __fastcall DRLG_PlaceMiniSet(unsigned char *miniset, int tmin, int tmax, int
 	int v9; // edi
 	int v10; // esi
 	int v11; // edx
-	int v12; // eax
+	int moreAction; // eax
 	int v14; // esi
 	int v15; // edi
 	int v16; // ebx
@@ -1017,8 +1017,8 @@ int __fastcall DRLG_PlaceMiniSet(unsigned char *miniset, int tmin, int tmax, int
 		v29 = 40 - v37;
 		while ( 1 )
 		{
-			v12 = random(0, max);
-			v14 = v12;
+			moreAction = random(0, max);
+			v14 = moreAction;
 			v33 = 0;
 			v15 = random(0, v29);
 			while ( 1 )
@@ -1359,7 +1359,7 @@ void __fastcall L5roomGen(int x, int y, int w, int h, bool dir)
 	int v8; // ecx
 	int v9; // eax
 	int v11; // esi
-	int v12; // edi
+	int moreAction; // edi
 	int v13; // ebx
 	int v14; // eax
 	int v15; // eax
@@ -1404,27 +1404,27 @@ void __fastcall L5roomGen(int x, int y, int w, int h, bool dir)
 			{
 				v9 = random(0, 5);
 				v11 = (v9 + 2) & 0xFFFFFFFE;
-				v12 = (random(0, 5) + 2) & 0xFFFFFFFE;
+				moreAction = (random(0, 5) + 2) & 0xFFFFFFFE;
 				v13 = txa + twa - v11 / 2;
-				tya = v29 - v12;
-				v14 = L5checkRoom(v13 - 1, v29 - v12 - 1, v11 + 2, v12 + 1);
+				tya = v29 - moreAction;
+				v14 = L5checkRoom(v13 - 1, v29 - moreAction - 1, v11 + 2, moreAction + 1);
 				++dir_horiza;
 				v25 = v14;
 			}
 			while ( !v14 && dir_horiza < 20 );
 			if ( v14 == 1 )
-				L5drawRoom(v13, tya, v11, v12);
+				L5drawRoom(v13, tya, v11, moreAction);
 			txb = v29 + h;
-			v15 = L5checkRoom(v13 - 1, v29 + h, v11 + 2, v12 + 1);
+			v15 = L5checkRoom(v13 - 1, v29 + h, v11 + 2, moreAction + 1);
 			tha = v15;
 			if ( v15 == 1 )
-				L5drawRoom(v13, txb, v11, v12);
+				L5drawRoom(v13, txb, v11, moreAction);
 			if ( v25 == 1 )
-				L5roomGen(v13, tya, v11, v12, 0);
+				L5roomGen(v13, tya, v11, moreAction, 0);
 			if ( tha != 1 )
 				return;
 			*(_DWORD *)&dir = 0;
-			h = v12;
+			h = moreAction;
 			w = v11;
 			v29 = txb;
 			txa = v13;
@@ -1773,7 +1773,7 @@ void __fastcall L5HorizWall(int i, int j, char p, int dx)
 	int v9; // eax
 	int v10; // ecx
 	char *v11; // edi
-	int v12; // eax
+	int moreAction; // eax
 	int v13; // eax
 	int v14; // eax
 	int v15; // [esp+8h] [ebp-8h]
@@ -1815,14 +1815,14 @@ void __fastcall L5HorizWall(int i, int j, char p, int dx)
 	if ( dx > 1 )
 	{
 		v11 = &dungeon[1][v9];
-		v12 = dx - 1;
+		moreAction = dx - 1;
 		do
 		{
 			*v11 = v16;
 			v11 += 40;
-			--v12;
+			--moreAction;
 		}
-		while ( v12 );
+		while ( moreAction );
 		v4 = v15;
 	}
 	v13 = random(0, dx - 1) + 1;
@@ -1847,7 +1847,7 @@ void __fastcall L5VertWall(int i, int j, char p, int dy)
 	int v9; // ebx
 	int v10; // esi
 	int v11; // ecx
-	char *v12; // edi
+	char *moreAction; // edi
 	int v13; // eax
 	unsigned int v14; // ecx
 	int v15; // edx
@@ -1898,15 +1898,15 @@ void __fastcall L5VertWall(int i, int j, char p, int dy)
 	v11 = dy;
 	if ( dy > 1 )
 	{
-		v12 = &dungeon[v10][v4 + 1];
+		moreAction = &dungeon[v10][v4 + 1];
 		_LOBYTE(v9) = v20;
 		BYTE1(v9) = v20;
 		v13 = v9 << 16;
 		_LOWORD(v13) = v9;
 		_LOBYTE(v9) = v19;
 		v14 = (unsigned int)(dy - 1) >> 2;
-		memset32(v12, v13, v14);
-		memset(&v12[4 * v14], v13, ((_BYTE)dy - 1) & 3);
+		memset32(moreAction, v13, v14);
+		memset(&moreAction[4 * v14], v13, ((_BYTE)dy - 1) & 3);
 		v11 = dy;
 		v4 = v18;
 	}
@@ -1938,7 +1938,7 @@ void __cdecl L5tileFix()
 	char *v9; // edx
 	char *v10; // edx
 	char *v11; // edx
-	char *v12; // edx
+	char *moreAction; // edx
 	char *v13; // edx
 	char *v14; // edx
 	char *v15; // edx
@@ -2027,9 +2027,9 @@ void __cdecl L5tileFix()
 			}
 			if ( v8 == 13 )
 			{
-				v12 = &dungeon[v6 + 1][v4];
-				if ( *v12 == 24 )
-					*v12 = 21;
+				moreAction = &dungeon[v6 + 1][v4];
+				if ( *moreAction == 24 )
+					*moreAction = 21;
 			}
 			if ( v8 == 19 )
 			{
@@ -2471,7 +2471,7 @@ void __fastcall DRLG_L5GChamber(int sx, int sy, bool topflag, bool bottomflag, b
 	char *v9; // eax
 	int v10; // eax
 	int v11; // ecx
-	int v12; // eax
+	int moreAction; // eax
 	char *v13; // eax
 	signed int v14; // edi
 	int v15; // eax
@@ -2516,13 +2516,13 @@ void __fastcall DRLG_L5GChamber(int sx, int sy, bool topflag, bool bottomflag, b
 	if ( rightflag == 1 )
 	{
 		v11 = sx + 11;
-		v12 = sy + 40 * v11;
-		dungeon[0][v12 + 2] = 14;
-		dungeon[0][v12 + 3] = 11;
-		dungeon[0][v12 + 4] = 9;
-		dungeon[0][v12 + 7] = 5;
-		dungeon[0][v12 + 8] = 11;
-		v13 = &dungeon[0][v12 + 9];
+		moreAction = sy + 40 * v11;
+		dungeon[0][moreAction + 2] = 14;
+		dungeon[0][moreAction + 3] = 11;
+		dungeon[0][moreAction + 4] = 9;
+		dungeon[0][moreAction + 7] = 5;
+		dungeon[0][moreAction + 8] = 11;
+		v13 = &dungeon[0][moreAction + 9];
 		if ( *v13 != 4 )
 			*v13 = 21;
 		sx = v11 - 11;
@@ -2689,7 +2689,7 @@ void __fastcall DRLG_L5FTVR(int i, int j, int x, int y, int d)
 	int v9; // ecx
 	int v10; // ebx
 	int v11; // eax
-	int v12; // edi
+	int moreAction; // edi
 	char v13; // al
 	char v14; // al
 	int v15; // ecx
@@ -2717,7 +2717,7 @@ void __fastcall DRLG_L5FTVR(int i, int j, int x, int y, int d)
 		v10 = x - 2;
 		v11 = 40 * v8;
 		ya = v7 - 1;
-		v12 = v6 - 2;
+		moreAction = v6 - 2;
 		for ( v20 = 40 * v8; dungeon[0][v11 + tya] == 13; v11 = v20 )
 		{
 			v13 = TransVal;
@@ -2727,17 +2727,17 @@ void __fastcall DRLG_L5FTVR(int i, int j, int x, int y, int d)
 			dung_map[1][v9 + 1] = v13;
 			DRLG_L5FTVR(txa + 2, tya, v10 + 4, v6, 1);
 			DRLG_L5FTVR(txa, tya, v10, v6, 2);
-			DRLG_L5FTVR(v21, ya + 2, x, v12 + 4, 3);
-			DRLG_L5FTVR(v21, ya, x, v12, 4);
-			DRLG_L5FTVR(txa, ya, v10, v12, 5);
-			DRLG_L5FTVR(txa + 2, ya, v10 + 4, v12, 6);
-			DRLG_L5FTVR(txa, ya + 2, v10, v12 + 4, 7);
+			DRLG_L5FTVR(v21, ya + 2, x, moreAction + 4, 3);
+			DRLG_L5FTVR(v21, ya, x, moreAction, 4);
+			DRLG_L5FTVR(txa, ya, v10, moreAction, 5);
+			DRLG_L5FTVR(txa + 2, ya, v10 + 4, moreAction, 6);
+			DRLG_L5FTVR(txa, ya + 2, v10, moreAction + 4, 7);
 			v19 += 2;
 			v20 += 40;
 			d = 8;
 			x += 2;
 			v6 += 2;
-			v12 += 2;
+			moreAction += 2;
 			v10 += 2;
 			++tya;
 			++ya;

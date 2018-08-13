@@ -520,7 +520,7 @@ void __fastcall DoLighting(int nXPos, int nYPos, int nRadius, int Lnum)
 	int v9; // esi
 	int v10; // eax
 	char *v11; // edi
-	signed int v12; // ecx
+	signed int moreAction; // ecx
 	int v13; // edx
 	_BYTE *v14; // ecx
 	int v15; // ebx
@@ -637,10 +637,10 @@ void __fastcall DoLighting(int nXPos, int nYPos, int nRadius, int Lnum)
 				v11 = &dung_map_rgba[16 * (v55 + 16 * v51)];
 				do
 				{
-					v12 = (unsigned char)v11[Lnuma];
-					if ( v12 < 128 )
+					moreAction = (unsigned char)v11[Lnuma];
+					if ( moreAction < 128 )
 					{
-						v13 = (unsigned char)dung_map_radius[128 * nRadius + v12];
+						v13 = (unsigned char)dung_map_radius[128 * nRadius + moreAction];
 						if ( v9 >= 0 && v9 < 112 && v47 >= 0 && v47 < 112 )
 						{
 							v14 = (unsigned char *)dTransVal + v47 + v10;
@@ -878,7 +878,7 @@ void __fastcall DoVision(int nXPos, int nYPos, int nRadius, unsigned char doauto
 	int v9; // ebx
 	int v10; // ecx
 	unsigned char v11; // dl
-	int v12; // ecx
+	int moreAction; // ecx
 	int v13; // ecx
 	unsigned char v14; // cl
 	unsigned char v15; // dl
@@ -954,11 +954,11 @@ void __fastcall DoVision(int nXPos, int nYPos, int nRadius, unsigned char doauto
 							}
 							break;
 						case 2:
-							v12 = v8[v9 - 1];
+							moreAction = v8[v9 - 1];
 							v30 = v8[v9];
-							v6 = v29 + (unsigned char)v12;
+							v6 = v29 + (unsigned char)moreAction;
 							v7 = v28 - v30;
-							if ( (_BYTE)v12 && v30 )
+							if ( (_BYTE)moreAction && v30 )
 							{
 								v26 = -1;
 								v23 = 1;
@@ -1060,7 +1060,7 @@ void __cdecl MakeLightTable()
 	signed int v9; // edx
 	unsigned char v10; // cl
 	unsigned char v11; // al
-	char *v12; // ebx
+	char *moreAction; // ebx
 	char *v13; // ebx
 	int v14; // ecx
 	signed int v15; // esi
@@ -1200,7 +1200,7 @@ void __cdecl MakeLightTable()
 		while ( v49 );
 	}
 	memset(v0, 0, 0x100u);
-	v12 = v0 + 256;
+	moreAction = v0 + 256;
 	if ( leveltype == DTYPE_HELL )
 	{
 		v13 = pLightTbl;
@@ -1261,18 +1261,18 @@ void __cdecl MakeLightTable()
 		v22 = (int)(v21 + 28);
 		*(_WORD *)v22 = 257;
 		*(_BYTE *)(v22 + 2) = 1;
-		v12 = v21 + 255;
+		moreAction = v21 + 255;
 	}
 	v23 = LoadFileInMem("PlrGFX\\Infra.TRN", 0);
 	v24 = 0;
 	do
-		*v12++ = v23[v24++];
+		*moreAction++ = v23[v24++];
 	while ( v24 < 256 );
 	mem_free_dbg(v23);
 	v25 = LoadFileInMem("PlrGFX\\Stone.TRN", 0);
 	v26 = 0;
 	do
-		*v12++ = v25[v26++];
+		*moreAction++ = v25[v26++];
 	while ( v26 < 256 );
 	mem_free_dbg(v25);
 	v27 = 0;
@@ -1282,18 +1282,18 @@ void __cdecl MakeLightTable()
 		do
 		{
 			if ( v27 || v28 != -30 )
-				*v12 = v28;
+				*moreAction = v28;
 			else
-				*v12 = 0;
-			++v12;
+				*moreAction = 0;
+			++moreAction;
 			++v28;
 		}
 		while ( (unsigned char)v28 < 0xEFu );
-		*v12 = 0;
-		v29 = (unsigned char *)v12 + 1;
+		*moreAction = 0;
+		v29 = (unsigned char *)moreAction + 1;
 		*v29++ = 0;
 		*v29 = 0;
-		v12 = (char *)v29 + 1;
+		moreAction = (char *)v29 + 1;
 		++v27;
 	}
 	while ( v27 < 8 );
@@ -1304,7 +1304,7 @@ void __cdecl MakeLightTable()
 		v32 = 8;
 		do
 		{
-			*v12++ = v31;
+			*moreAction++ = v31;
 			v31 += 2;
 			--v32;
 		}
@@ -1317,9 +1317,9 @@ void __cdecl MakeLightTable()
 	{
 		v34 = -32;
 		do
-			*v12++ = v34++;
+			*moreAction++ = v34++;
 		while ( (unsigned char)v34 < 0xEFu );
-		*v12++ = 0;
+		*moreAction++ = 0;
 		--v33;
 	}
 	while ( v33 );

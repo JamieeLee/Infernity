@@ -239,7 +239,7 @@ void __fastcall gmenu_draw_menu_item(TMenuItem *pItem, int a2)
 	int v9; // ecx
 	unsigned int v10; // ebp
 	int v11; // esi
-	int v12; // eax
+	int moreAction; // eax
 	int v13; // edi
 	unsigned int v14; // [esp+10h] [ebp-4h]
 
@@ -263,9 +263,9 @@ void __fastcall gmenu_draw_menu_item(TMenuItem *pItem, int a2)
 		v5 = v14;
 	}
 	v11 = 384 - (v5 >> 1);
-	v12 = -((v3->dwFlags & 0x80000000) != 0);
-	_LOBYTE(v12) = v12 & 0xF1;
-	light_table_index = v12 + 15;
+	moreAction = -((v3->dwFlags & 0x80000000) != 0);
+	_LOBYTE(moreAction) = moreAction & 0xF1;
+	light_table_index = moreAction + 15;
 	gmenu_print_text(384 - (v5 >> 1), v2, v3->pszStr);
 	if ( v3 == sgpCurrItem )
 	{

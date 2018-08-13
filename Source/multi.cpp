@@ -537,7 +537,7 @@ void __cdecl multi_process_network_packets()
 	int v9; // eax
 	int v10; // eax
 	int v11; // esi
-	int v12; // eax
+	int moreAction; // eax
 	int v13; // ecx
 	int v14; // eax
 	//int v15; // eax
@@ -605,9 +605,9 @@ void __cdecl multi_process_network_packets()
 								dPlayer[plr[v10].WorldX][plr[v10].WorldY] = arglist[0] + 1;
 							}
 							v11 = abs(plr[*(_DWORD *)arglist]._px - plr[*(_DWORD *)arglist].WorldX);
-							v12 = abs(plr[*(_DWORD *)arglist]._py - plr[*(_DWORD *)arglist].WorldY);
+							moreAction = abs(plr[*(_DWORD *)arglist]._py - plr[*(_DWORD *)arglist].WorldY);
 							v13 = *(_DWORD *)arglist;
-							if ( v11 > 1 || v12 > 1 )
+							if ( v11 > 1 || moreAction > 1 )
 							{
 								v14 = *(_DWORD *)arglist;
 								plr[v14]._px = plr[*(_DWORD *)arglist].WorldX;
@@ -1098,7 +1098,7 @@ void __fastcall multi_player_joins(int pnum, TCmdPlrInfoHdr *cmd, int a3)
 	int v9; // ST08_4
 	int v10; // edx
 	int v11; // eax
-	int v12; // ecx
+	int moreAction; // ecx
 	int v13; // eax
 
 
@@ -1171,10 +1171,10 @@ void __fastcall multi_player_joins(int pnum, TCmdPlrInfoHdr *cmd, int a3)
 							plr[v6]._pmode = 8;
 							NewPlrAnim(v3, v10, plr[v6]._pDFrames, 1, v9);
 							v11 = plr[v6]._pAnimLen;
-							v12 = v11 - 1;
+							moreAction = v11 - 1;
 							plr[v6]._pVar8 = 2 * v11;
 							v13 = plr[v6].WorldX;
-							plr[v6]._pAnimFrame = v12;
+							plr[v6]._pAnimFrame = moreAction;
 							dFlags[v13][plr[v6].WorldY] |= 4u;
 						}
 						else

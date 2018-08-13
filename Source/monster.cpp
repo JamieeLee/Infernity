@@ -473,7 +473,7 @@ void __cdecl GetLevelMTypes() /* note-decompile this function again and check */
 	int v7; // edi
 	int v10; // eax
 	int v11; // esi
-	int v12; // edi
+	int moreAction; // edi
 	char *v13; // ecx
 	int i; // esi
 	int v15; // ecx
@@ -540,13 +540,13 @@ void __cdecl GetLevelMTypes() /* note-decompile this function again and check */
 			AddMonsterType(skeltypes[v10], 1);
 		}
 		v11 = currlevel;
-		v12 = 0;
+		moreAction = 0;
 		v13 = &monsterdata[0].mMaxDLvl;
 		max = 0;
 		do
 		{
 			if ( v11 >= 15 * (char)*(v13 - 1) / 30 + 1 && v11 <= 15 * (char)*v13 / 30 + 1 && MonstAvailTbl[max] & 3 )
-				typelist[v12++] = max;
+				typelist[moreAction++] = max;
 			++max;
 			v13 += 128;
 		}
@@ -558,13 +558,13 @@ void __cdecl GetLevelMTypes() /* note-decompile this function again and check */
 		}
 		else
 		{
-			while ( v12 > 0 )
+			while ( moreAction > 0 )
 			{
 				if ( nummtypes >= 16 || monstimgtot >= 4000 )
 					break;
 				v15 = 0;
-				v16 = v12 == 0;
-				if ( v12 > 0 )
+				v16 = moreAction == 0;
+				if ( moreAction > 0 )
 				{
 					v17 = 4000 - monstimgtot;
 					do
@@ -576,18 +576,18 @@ void __cdecl GetLevelMTypes() /* note-decompile this function again and check */
 						}
 						else
 						{
-							v19 = typelist[v12-- - 1]; //v19 = *(&v22 + v12--); /* fix and check */
+							v19 = typelist[moreAction-- - 1]; //v19 = *(&v22 + moreAction--); /* fix and check */
 							*v18 = v19;
 						}
 					}
-					while ( v15 < v12 );
-					v16 = v12 == 0;
+					while ( v15 < moreAction );
+					v16 = moreAction == 0;
 				}
 				if ( !v16 )
 				{
-					v20 = &typelist[random(88, v12)];
+					v20 = &typelist[random(88, moreAction)];
 					AddMonsterType(LOBYTE(*v20), 1);
-					v21 = typelist[v12-- - 1]; // v21 = *(&v22 + v12--);
+					v21 = typelist[moreAction-- - 1]; // v21 = *(&v22 + moreAction--);
 					*v20 = v21;
 				}
 			}
@@ -616,7 +616,7 @@ void __fastcall InitMonsterGFX(int monst)
 	int *v9; // ecx
 	int v10; // edx
 	int v11; // ecx
-	int v12; // ecx
+	int moreAction; // ecx
 	bool v13; // zf
 	int v14; // ecx
 	void **v15; // esi
@@ -686,9 +686,9 @@ void __fastcall InitMonsterGFX(int monst)
 	}
 	while ( v29 < 6 );
 	Monsters[v1].MData = (MonsterData *)((char *)monsterdata + v3);
-	v12 = *(int *)((char *)&monsterdata[0].flags + v3);
-	Monsters[v1].flags_1 = v12;
-	Monsters[v1].flags_2 = (v12 - 64) >> 1;
+	moreAction = *(int *)((char *)&monsterdata[0].flags + v3);
+	Monsters[v1].flags_1 = moreAction;
+	Monsters[v1].flags_2 = (moreAction - 64) >> 1;
 	Monsters[v1].mMinHP = *((_BYTE *)&monsterdata[0].mMinHP + v3);
 	v13 = *(int *)((char *)&monsterdata[0].has_trans + v3) == 0;
 	Monsters[v1].mMaxHP = *((_BYTE *)&monsterdata[0].mMaxHP + v3);
@@ -789,7 +789,7 @@ void __fastcall InitMonster(int i, int rd, int mtype, int x, int y)
 	char *v9; // ecx
 	int v10; // eax
 	int v11; // eax
-	//int v12; // ecx
+	//int moreAction; // ecx
 	int v13; // eax
 	int v16; // eax
 	MonsterData *v17; // eax
@@ -1430,7 +1430,7 @@ void __fastcall PlaceGroup(int mtype, int num, unsigned char leaderf, int leader
 	int v8; // edi
 	int v9; // esi
 	int v10; // eax
-	int v12; // eax
+	int moreAction; // eax
 	int v13; // ecx
 	int v14; // eax
 	//int v15; // ST04_4
@@ -1486,11 +1486,11 @@ void __fastcall PlaceGroup(int mtype, int num, unsigned char leaderf, int leader
 				v10 = random(93, 80);
 				v8 = v10 + 16;
 				v29 = v10 + 16;
-				v12 = random(93, 80);
-				v9 = v12 + 16;
-				v28 = v12 + 16;
+				moreAction = random(93, 80);
+				v9 = moreAction + 16;
+				v28 = moreAction + 16;
 			}
-			while ( !MonstPlace(v8, v12 + 16) );
+			while ( !MonstPlace(v8, moreAction + 16) );
 		}
 		if ( nummonsters + v31 > totalmonsters )
 			v31 = totalmonsters - nummonsters;
@@ -1585,7 +1585,7 @@ void __cdecl InitMonsters()
 	int v9; // edx
 	int v10; // eax
 	int v11; // esi
-	unsigned char *v12; // edi
+	unsigned char *moreAction; // edi
 	int v13; // ebx
 	int v15; // esi
 	int v17; // eax
@@ -1666,16 +1666,16 @@ void __cdecl InitMonsters()
 		totalmonsters = v10;
 		if ( nummtypes > 0 )
 		{
-			v12 = &Monsters[0].mPlaceFlags;
+			moreAction = &Monsters[0].mPlaceFlags;
 			do
 			{
-				if ( *v12 & 1 )
+				if ( *moreAction & 1 )
 				{
 					v13 = max++;
 					scattertypes[v13] = v11;
 				}
 				++v11;
-				v12 += 328;
+				moreAction += 328;
 			}
 			while ( v11 < v9 );
 		}
@@ -1822,12 +1822,12 @@ void __fastcall SetMapMonsters(unsigned char *pMap, int startx, int starty)
 	int i; // esi
 	int v10; // eax
 	int v11; // ecx
-	int v12; // [esp+Ch] [ebp-Ch]
+	int moreAction; // [esp+Ch] [ebp-Ch]
 	int v13; // [esp+10h] [ebp-8h]
 	unsigned char *v14; // [esp+14h] [ebp-4h]
 	int startya; // [esp+20h] [ebp+8h]
 
-	v12 = startx;
+	moreAction = startx;
 	v3 = pMap;
 	AddMonsterType(MT_GOLEM, 2);
 	AddMonster(1, 0, 0, 0, 0);
@@ -1861,7 +1861,7 @@ void __fastcall SetMapMonsters(unsigned char *pMap, int startx, int starty)
 				{
 					v10 = AddMonsterType(MonstConvTbl[*(unsigned short *)v8-1], 2); /* fix */
 					v11 = nummonsters++;
-					PlaceMonster(v11, v10, i + v12 + 16, startya);
+					PlaceMonster(v11, v10, i + moreAction + 16, startya);
 				}
 				v8 = v14 + 2;
 				++i;
@@ -1955,7 +1955,7 @@ void __fastcall M_Enemy(int i)
 	int v9; // ecx
 	int v10; // edi
 	//int v11; // edx
-	int v12; // eax
+	int moreAction; // eax
 	int v13; // ecx
 	int v14; // ebx
 	int v15; // eax
@@ -2040,10 +2040,10 @@ LABEL_18:
 		{
 			continue;
 		}
-		v12 = v1->_my;
+		moreAction = v1->_my;
 		v13 = monster[v10]._my;
-		v20 = dung_map[monster[v10]._mx][v13] == dung_map[v1->_mx][v12];
-		v14 = abs(v12 - v13);
+		v20 = dung_map[monster[v10]._mx][v13] == dung_map[v1->_mx][moreAction];
+		v14 = abs(moreAction - v13);
 		if ( abs(v1->_mx - monster[v10]._mx) <= v14 )
 			v15 = v1->_my - monster[v10]._my;
 		else
@@ -2231,7 +2231,7 @@ void __fastcall M_StartWalk2(int i, int xvel, int yvel, int xoff, int yoff, int 
 	int v9; // edx
 	int v10; // ecx
 	int v11; // eax
-	int v12; // eax
+	int moreAction; // eax
 	bool v13; // zf
 	CMonster *v14; // edx
 	int v15; // [esp+Ch] [ebp-8h]
@@ -2249,16 +2249,16 @@ void __fastcall M_StartWalk2(int i, int xvel, int yvel, int xoff, int yoff, int 
 	dMonster[0][v10 + 112 * EndDira] = -1 - ia;
 	monster[v8]._mVar1 = EndDira;
 	monster[v8]._moldx = EndDira;
-	v12 = yadd + v11;
+	moreAction = yadd + v11;
 	monster[v8]._moldy = v10;
 	v13 = monster[v8]._uniqtype == 0;
 	monster[v8]._mx = v9;
-	monster[v8]._my = v12;
+	monster[v8]._my = moreAction;
 	monster[v8]._mfutx = v9;
-	monster[v8]._mfuty = v12;
-	dMonster[0][v12 + 112 * v9] = ia + 1;
+	monster[v8]._mfuty = moreAction;
+	dMonster[0][moreAction + 112 * v9] = ia + 1;
 	if ( !v13 )
-		ChangeLightXY((unsigned char)monster[v8].mlid, v9, v12);
+		ChangeLightXY((unsigned char)monster[v8].mlid, v9, moreAction);
 	v14 = monster[v8].MType;
 	monster[v8]._mxvel = v15;
 	monster[v8]._myvel = yvel;
@@ -2278,7 +2278,7 @@ void __fastcall M_StartWalk3(int i, int xvel, int yvel, int xoff, int yoff, int 
 {
 	int v10; // esi
 	int v11; // ebx
-	int v12; // edi
+	int moreAction; // edi
 	int v13; // edi
 	int v14; // ebx
 	int v15; // ecx
@@ -2291,11 +2291,11 @@ void __fastcall M_StartWalk3(int i, int xvel, int yvel, int xoff, int yoff, int 
 	ia = i;
 	v10 = i;
 	v11 = monster[i]._my;
-	v12 = monster[i]._mx;
+	moreAction = monster[i]._mx;
 	v17 = xvel;
-	a6a = v12 + xadd;
+	a6a = moreAction + xadd;
 	a7a = v11 + yadd;
-	v13 = mapx + v12;
+	v13 = mapx + moreAction;
 	v14 = mapy + v11;
 	if ( monster[i]._uniqtype )
 		ChangeLightXY((unsigned char)monster[v10].mlid, v13, v14);
@@ -2619,7 +2619,7 @@ void __fastcall M_DiabloDeath(int i, unsigned char sendmsg)
 	int v9; // esi
 	int v10; // eax
 	double v11; // st7
-	int v12; // eax
+	int moreAction; // eax
 	int v13; // ecx
 	int v14; // esi
 	int v15; // [esp+8h] [ebp-8h]
@@ -2670,12 +2670,12 @@ void __fastcall M_DiabloDeath(int i, unsigned char sendmsg)
 	if ( v17 > 20 )
 		v17 = 20;
 	v11 = (double)v17;
-	v12 = ViewX << 16;
+	moreAction = ViewX << 16;
 	v13 = monster[v3]._mx << 16;
 	monster[v3]._mVar3 = ViewX << 16;
 	v14 = ViewY << 16;
 	monster[v3]._mVar4 = ViewY << 16;
-	monster[v3]._mVar5 = (signed __int64)((double)(v12 - v13) / v11);
+	monster[v3]._mVar5 = (signed __int64)((double)(moreAction - v13) / v11);
 	monster[v3]._mVar6 = (signed __int64)((double)(v14 - (monster[v3]._my << 16)) / v11);
 }
 // 4A22D5: using guessed type char gbSoundOn;
@@ -2755,7 +2755,7 @@ void __fastcall MonstStartKill(int i, int pnum, unsigned char sendmsg)
 	int v9; // eax
 	AnimStruct *v10; // edx
 	int v11; // ecx
-	int v12; // eax
+	int moreAction; // eax
 	unsigned char v13; // al
 
 	v3 = i;
@@ -2795,15 +2795,15 @@ void __fastcall MonstStartKill(int i, int pnum, unsigned char sendmsg)
 	monster[v5]._mdir = v9;
 	NewMonsterAnim(v3, v10, v9);
 	v11 = monster[v5]._moldy;
-	v12 = monster[v5]._moldx;
+	moreAction = monster[v5]._moldx;
 	monster[v5]._my = v11;
 	monster[v5]._mfuty = v11;
 	monster[v5]._mmode = MM_DEATH;
 	monster[v5]._mxoff = 0;
 	monster[v5]._myoff = 0;
 	monster[v5]._mVar1 = 0;
-	monster[v5]._mx = v12;
-	monster[v5]._mfutx = v12;
+	monster[v5]._mx = moreAction;
+	monster[v5]._mfutx = moreAction;
 	M_CheckEFlag(v3);
 	M_ClearSquares(v3);
 	dMonster[0][monster[v5]._my + 112 * monster[v5]._mx] = v3 + 1;
@@ -3126,7 +3126,7 @@ int __fastcall M_DoWalk(int i)
 	bool v9; // zf
 	int v10; // ecx
 	int v11; // edx
-	int v12; // eax
+	int moreAction; // eax
 	int v13; // ecx
 
 	v1 = i;
@@ -3159,10 +3159,10 @@ int __fastcall M_DoWalk(int i)
 		v11 = monster[v2]._myvel;
 		monster[v2]._mVar8 = v4 + 1;
 		monster[v2]._mVar6 += v10;
-		v12 = monster[v2]._mVar6 >> 4;
+		moreAction = monster[v2]._mVar6 >> 4;
 		monster[v2]._mVar7 += v11;
 		v13 = monster[v2]._mVar7 >> 4;
-		monster[v2]._mxoff = v12;
+		monster[v2]._mxoff = moreAction;
 		monster[v2]._myoff = v13;
 	}
 	if ( monster[v2]._uniqtype )
@@ -3232,7 +3232,7 @@ int __fastcall M_DoWalk3(int i)
 	bool v9; // zf
 	int v10; // edi
 	int v11; // ecx
-	int v12; // edx
+	int moreAction; // edx
 	int v13; // eax
 	int v14; // ecx
 
@@ -3266,11 +3266,11 @@ int __fastcall M_DoWalk3(int i)
 		if ( !monster[v2]._mAnimCnt )
 		{
 			v11 = monster[v2]._mxvel;
-			v12 = monster[v2]._myvel;
+			moreAction = monster[v2]._myvel;
 			monster[v2]._mVar8 = v3 + 1;
 			monster[v2]._mVar6 += v11;
 			v13 = monster[v2]._mVar6 >> 4;
-			monster[v2]._mVar7 += v12;
+			monster[v2]._mVar7 += moreAction;
 			v14 = monster[v2]._mVar7 >> 4;
 			monster[v2]._mxoff = v13;
 			monster[v2]._myoff = v14;
@@ -3348,7 +3348,7 @@ void __fastcall M_TryH2HHit(int i, int pnum, int Hit, int MinDam, int MaxDam)
 	int v8; // edi
 	int v9; // eax
 	//int v10; // ST08_4
-	int v12; // ecx
+	int moreAction; // ecx
 	int v13; // edi
 	int v14; // eax
 	int v15; // eax
@@ -3402,7 +3402,7 @@ void __fastcall M_TryH2HHit(int i, int pnum, int Hit, int MinDam, int MaxDam)
 			if ( debug_mode_dollar_sign || debug_mode_key_inverted_v )
 				v36 = 1000;
 #endif
-			v12 = 5;
+			moreAction = 5;
 			v13 = Hit
 				+ 2 * (SLOBYTE(monster[v6].mLevel) - plr[v7]._pLevel)
 				+ 30
@@ -3972,7 +3972,7 @@ void __fastcall M_Teleport(int i)
 	int v9; // [esp+Ch] [ebp-24h]
 	int v10; // [esp+10h] [ebp-20h]
 	int v11; // [esp+14h] [ebp-1Ch]
-	int v12; // [esp+18h] [ebp-18h]
+	int moreAction; // [esp+18h] [ebp-18h]
 	int v13; // [esp+1Ch] [ebp-14h]
 	int a1; // [esp+20h] [ebp-10h]
 	signed int v15; // [esp+24h] [ebp-Ch]
@@ -3991,7 +3991,7 @@ void __fastcall M_Teleport(int i)
 	if ( v3->_mmode != 15 )
 	{
 		v10 = (unsigned char)v3->_menemyx;
-		v12 = (unsigned char)v3->_menemyy;
+		moreAction = (unsigned char)v3->_menemyy;
 		v4 = random(100, 2);
 		v11 = 2 * v4 - 1;
 		v17 = -1;
@@ -4000,7 +4000,7 @@ void __fastcall M_Teleport(int i)
 		while ( !v15 )
 		{
 			v16 = -1;
-			v7 = v12 - v13;
+			v7 = moreAction - v13;
 			do
 			{
 				if ( v15 )
@@ -4308,7 +4308,7 @@ void __fastcall M_WalkDir(int i, int md)
 	int v9; // edx
 	int v10; // eax
 	int v11; // [esp-14h] [ebp-1Ch]
-	int v12; // [esp-Ch] [ebp-14h]
+	int moreAction; // [esp-Ch] [ebp-14h]
 	int v13; // [esp-Ch] [ebp-14h]
 	int v14; // [esp-8h] [ebp-10h]
 	int v15; // [esp-8h] [ebp-10h]
@@ -4340,7 +4340,7 @@ void __fastcall M_WalkDir(int i, int md)
 			v16 = 3;
 			v10 = v4;
 			v14 = 0;
-			v12 = -1;
+			moreAction = -1;
 			v7 = -MWVel[v10][0];
 			v6 = -MWVel[v10][1];
 			goto LABEL_15;
@@ -4351,11 +4351,11 @@ void __fastcall M_WalkDir(int i, int md)
 			v16 = 5;
 			v5 = v4;
 			v14 = -1;
-			v12 = 0;
+			moreAction = 0;
 			v6 = MWVel[v5][1];
 			v7 = -MWVel[v5][0];
 LABEL_15:
-			M_StartWalk(v2, v6, v7, v12, v14, v16);
+			M_StartWalk(v2, v6, v7, moreAction, v14, v16);
 			break;
 		case DIR_E:
 			M_StartWalk3(v2, MWVel[v4][2], 0, -32, -16, 1, -1, 1, 0, 6);
@@ -4388,7 +4388,7 @@ void __fastcall GroupUnity(int i)
 	int v9; // ebp
 	int j; // edi
 	int v11; // eax
-	int v12; // ecx
+	int moreAction; // ecx
 	//int v13; // [esp+10h] [ebp-4h]
 
 	v1 = i;
@@ -4467,11 +4467,11 @@ LABEL_18:
 					}
 					if ( monster[v11]._mAi == AI_GARG )
 					{
-						v12 = monster[v11]._mFlags;
-						if ( v12 & 4 )
+						moreAction = monster[v11]._mFlags;
+						if ( moreAction & 4 )
 						{
 							monster[v11]._mmode = MM_SATTACK;
-							monster[v11]._mFlags = v12 & 0xFFFFFFFB;
+							monster[v11]._mFlags = moreAction & 0xFFFFFFFB;
 						}
 					}
 				}
@@ -4490,7 +4490,7 @@ bool __fastcall M_CallWalk(int i, int md)
 	int v9; // ebx
 	//int v10; // eax
 	int v11; // ebx
-	//int v12; // eax
+	//int moreAction; // eax
 	//int v13; // eax
 	signed int v14; // ebx
 	//int v15; // eax
@@ -4520,7 +4520,7 @@ bool __fastcall M_CallWalk(int i, int md)
 			goto LABEL_10;
 		v11 = v2;
 		v2 = right[v2];
-		//_LOBYTE(v12) = DirOK(v3, v2);
+		//_LOBYTE(moreAction) = DirOK(v3, v2);
 		if ( DirOK(v3, v2) )
 			goto LABEL_10;
 		v2 = left[v11];
@@ -4601,7 +4601,7 @@ bool __fastcall M_CallWalk2(int i, int md)
 	int v9; // edi
 	//int v10; // eax
 	//int v11; // eax
-	bool v12; // di
+	bool moreAction; // di
 
 	v2 = md;
 	v3 = i;
@@ -4633,9 +4633,9 @@ bool __fastcall M_CallWalk2(int i, int md)
 	if ( DirOK(v3, v2) )
 	{
 LABEL_10:
-		v12 = 1;
+		moreAction = 1;
 		M_WalkDir(v3, v2);
-		return v12;
+		return moreAction;
 	}
 	return 0;
 }
@@ -4667,7 +4667,7 @@ bool __fastcall M_RoundWalk(int i, int md, int *dir)
 	//int v9; // eax
 	//int v10; // eax
 	int *v11; // ebp
-	//int v12; // eax
+	//int moreAction; // eax
 	//int v13; // eax
 
 	v3 = dir;
@@ -4685,7 +4685,7 @@ bool __fastcall M_RoundWalk(int i, int md, int *dir)
 	{
 		v11 = &left[v8];
 		v5 = left[v8];
-		//_LOBYTE(v12) = DirOK(v4, left[v8]);
+		//_LOBYTE(moreAction) = DirOK(v4, left[v8]);
 		if ( DirOK(v4, left[v8]) )
 			goto LABEL_11;
 		v5 = left[*v11];
@@ -4726,7 +4726,7 @@ void __fastcall MAI_Zombie(int i)
 	int v9; // eax
 	int v10; // eax
 	int v11; // eax
-	int v12; // ecx
+	int moreAction; // ecx
 	int md; // [esp+Ch] [ebp-Ch]
 	int v14; // [esp+10h] [ebp-8h]
 	int arglist; // [esp+14h] [ebp-4h]
@@ -4756,8 +4756,8 @@ void __fastcall MAI_Zombie(int i)
 					if ( v7 >= v8 || (v9 = abs(v6), v8 = 2 * (unsigned char)v3->_mint + 4, v9 >= v8) )
 					{
 						v11 = random(104, 100);
-						v12 = 2 * (unsigned char)v3->_mint + 20;
-						if ( v11 < v12 )
+						moreAction = 2 * (unsigned char)v3->_mint + 20;
+						if ( v11 < moreAction )
 						{
 							md = random(104, 8);
 						}
@@ -4792,7 +4792,7 @@ void __fastcall MAI_SkelSd(int i)
 	int v8; // eax
 	//int v9; // ST04_4
 	int v11; // eax
-	//int v12; // ST04_4
+	//int moreAction; // ST04_4
 	int v13; // eax
 	int v14; // ecx
 	int v15; // edx
@@ -4815,7 +4815,7 @@ void __fastcall MAI_SkelSd(int i)
 		v2->_mdir = v7;
 		v8 = abs(v5);
 		//v10 = v9;
-		if ( v8 >= 2 || (v11 = abs(v6), v11 >= 2) ) /* v10 = v12,  */
+		if ( v8 >= 2 || (v11 = abs(v6), v11 >= 2) ) /* v10 = moreAction,  */
 		{
 			if ( v2->_mVar1 != 13 )
 			{
@@ -4909,7 +4909,7 @@ void __fastcall MAI_Snake(int i)
 	int v9; // ST18_4
 	int v10; // ebx
 	int v11; // eax
-	//int v12; // ST1C_4
+	//int moreAction; // ST1C_4
 	int v14; // eax
 	int v15; // eax
 	int v16; // ecx
@@ -4966,7 +4966,7 @@ void __fastcall MAI_Snake(int i)
 		if ( abs(v7) < 2 )
 		{
 			v11 = abs(v10);
-			//v13 = v12;
+			//v13 = moreAction;
 			if ( v11 < 2 )
 			{
 				v14 = esi3->_mVar1;
@@ -5103,7 +5103,7 @@ void __fastcall MAI_Bat(int i)
 	int v7; // eax
 	int v10; // edx
 	bool v11; // eax
-	int v12; // ecx
+	int moreAction; // ecx
 	CMonster *v14; // eax
 	int v15; // edi
 	int v16; // eax
@@ -5167,9 +5167,9 @@ void __fastcall MAI_Bat(int i)
 			{
 				if ( AddMissile(esi3->_mx, esi3->_my, v1, v2, midir, 20, micaster, arglist, 0, 0) != -1 )
 				{
-					v12 = esi3->_my + 112 * esi3->_mx;
+					moreAction = esi3->_my + 112 * esi3->_mx;
 					esi3->_mmode = 14;
-					dMonster[0][v12] = -1 - arglist;
+					dMonster[0][moreAction] = -1 - arglist;
 				}
 			}
 			else if ( abs(v5) >= 2 || abs(v6) >= 2 )
@@ -5214,7 +5214,7 @@ void __fastcall MAI_SkelBow(int i)
 	int v9; // ecx
 	int v10; // eax
 	//int v11; // ST04_4
-	int v12; // eax
+	int moreAction; // eax
 	//int v13; // eax
 	int v14; // edi
 	int v15; // ebx
@@ -5247,7 +5247,7 @@ void __fastcall MAI_SkelBow(int i)
 			if ( v10 < 4 )
 			{
 				if ( (v9 = v2->_mVar2, v9 > 20) && v19 < 2 * (unsigned char)v2->_mint + 13
-				  || ((v12 = v2->_mVar1, v12 == 1) || v12 == 2 || v12 == 3)
+				  || ((moreAction = v2->_mVar1, moreAction == 1) || moreAction == 2 || moreAction == 3)
 				  && !v9
 				  && v19 < 2 * (unsigned char)v2->_mint + 63 )
 				{
@@ -5284,7 +5284,7 @@ void __fastcall MAI_Fat(int i)
 	int v9; // eax
 	int md; // [esp+4h] [ebp-Ch]
 	int arglist; // [esp+8h] [ebp-8h]
-	int v12; // [esp+Ch] [ebp-4h]
+	int moreAction; // [esp+Ch] [ebp-4h]
 
 	v1 = i;
 	arglist = i;
@@ -5298,12 +5298,12 @@ void __fastcall MAI_Fat(int i)
 		v5 = M_GetDir(arglist);
 		md = v5;
 		v2->_mdir = v5;
-		v12 = random(111, 100);
+		moreAction = random(111, 100);
 		if ( abs(v3) >= 2 || abs(v4) >= 2 )
 		{
 			v8 = v2->_mVar2;
-			if ( v8 > 20 && v12 < 4 * (unsigned char)v2->_mint + 20
-			  || ((v9 = v2->_mVar1, v9 == 1) || v9 == 2 || v9 == 3) && !v8 && v12 < 4 * (unsigned char)v2->_mint + 70 )
+			if ( v8 > 20 && moreAction < 4 * (unsigned char)v2->_mint + 20
+			  || ((v9 = v2->_mVar1, v9 == 1) || v9 == 2 || v9 == 3) && !v8 && moreAction < 4 * (unsigned char)v2->_mint + 70 )
 			{
 				M_CallWalk(arglist, md);
 			}
@@ -5311,9 +5311,9 @@ void __fastcall MAI_Fat(int i)
 		else
 		{
 			v7 = (unsigned char)v2->_mint;
-			if ( v12 >= 4 * v7 + 15 )
+			if ( moreAction >= 4 * v7 + 15 )
 			{
-				if ( v12 < 4 * v7 + 20 )
+				if ( moreAction < 4 * v7 + 20 )
 					M_StartSpAttack(arglist);
 			}
 			else
@@ -5338,7 +5338,7 @@ void __fastcall MAI_Sneak(int i)
 	int v9; // eax
 	//int v10; // ST04_4
 	int v11; // eax
-	int v12; // edi
+	int moreAction; // edi
 	signed int v13; // ecx
 	int v14; // eax
 	int v15; // [esp+Ch] [ebp-10h]
@@ -5397,8 +5397,8 @@ void __fastcall MAI_Sneak(int i)
 			}
 			else
 			{
-				v12 = v6 + 1;
-				if ( abs(v17) < v12 && abs(v4) < v12 || v2->_mFlags & 1 )
+				moreAction = v6 + 1;
+				if ( abs(v17) < moreAction && abs(v4) < moreAction || v2->_mFlags & 1 )
 				{
 					if ( _LOBYTE(v2->_mgoal) == 2
 					  || (abs(v17) >= 2 || abs(v4) >= 2)
@@ -5554,7 +5554,7 @@ void __fastcall MAI_Fallen(int i)
 	int j; // edi
 	int k; // ecx
 	int v11; // eax
-	int v12; // eax
+	int moreAction; // eax
 	char v13; // al
 	int v14; // edx
 	int v15; // eax
@@ -5637,11 +5637,11 @@ void __fastcall MAI_Fallen(int i)
 						v11 = dMonster[0][j + monster[v3]._my + 112 * (k + monster[v3]._mx)];
 						if ( v11 > 0 )
 						{
-							v12 = v11 - 1;
-							if ( monster[v12]._mAi == AI_FALLEN )
+							moreAction = v11 - 1;
+							if ( monster[moreAction]._mAi == AI_FALLEN )
 							{
-								_LOBYTE(monster[v12]._mgoal) = 5;
-								monster[v12]._mgoalvar1 = 30 * (unsigned char)monster[v3]._mint + 105;
+								_LOBYTE(monster[moreAction]._mgoal) = 5;
+								monster[moreAction]._mgoalvar1 = 30 * (unsigned char)monster[v3]._mint + 105;
 							}
 						}
 					}
@@ -5694,7 +5694,7 @@ void __fastcall MAI_Round(int i, unsigned char special)
 	int v7; // ebx
 	int v9; // eax
 	//int v10; // ST04_4
-	int v12; // eax
+	int moreAction; // eax
 	//int v13; // ST04_4
 	int v15; // edi
 	int v16; // eax
@@ -5743,9 +5743,9 @@ void __fastcall MAI_Round(int i, unsigned char special)
 					//v11 = v10;
 					if ( v9 < 4 )
 					{
-						v12 = abs(v32);
+						moreAction = abs(v32);
 						//v11 = v13;
-						if ( v12 < 4 )
+						if ( moreAction < 4 )
 							goto LABEL_26;
 					}
 					if ( random(115, 4) )
@@ -5823,7 +5823,7 @@ void __fastcall MAI_Ranged(int i, int missile_type, unsigned char special)
 	int v8; // ebx
 	int v9; // edi
 	bool v11; // zf
-	int v12; // eax
+	int moreAction; // eax
 	int v13; // eax
 	//int v14; // ST00_4
 	//int v16; // eax
@@ -5856,8 +5856,8 @@ void __fastcall MAI_Ranged(int i, int missile_type, unsigned char special)
 			monster[v4]._mdir = v20;
 			if ( v11 )
 			{
-				v12 = random(118, 20);
-				M_StartDelay(arglist, v12);
+				moreAction = random(118, 20);
+				M_StartDelay(arglist, moreAction);
 			}
 			else if ( abs(v9) < 4 )
 			{
@@ -5921,7 +5921,7 @@ void __fastcall MAI_Scav(int i)
 	int v9; // eax
 	bool v10; // eax
 	int v11; // ebx
-	int v12; // edi
+	int moreAction; // edi
 	signed int v13; // edi
 	int v14; // edx
 	int v15; // eax
@@ -6014,7 +6014,7 @@ LABEL_10:
 						}
 						while ( v7 <= 4 );
 						v11 = v6 - 1;
-						v12 = v7 - 1;
+						moreAction = v7 - 1;
 					}
 					else
 					{
@@ -6048,12 +6048,12 @@ LABEL_10:
 						}
 						while ( v13 >= -4 );
 						v11 = v6 + 1;
-						v12 = v13 + 1;
+						moreAction = v13 + 1;
 					}
 					if ( v20 )
 					{
 						monster[v2]._mgoalvar1 = monster[v2]._mx + v11 + 1;
-						monster[v2]._mgoalvar2 = monster[v2]._my + v12 + 1;
+						monster[v2]._mgoalvar2 = monster[v2]._my + moreAction + 1;
 					}
 				}
 				v17 = monster[v2]._mgoalvar1;
@@ -6128,7 +6128,7 @@ void __fastcall MAI_RoundRanged(int i, int missile_type, unsigned char checkdoor
 	int v8; // ebx
 	int v9; // edi
 	int v11; // eax
-	//int v12; // ST04_4
+	//int moreAction; // ST04_4
 	int v13; // ecx
 	int v14; // eax
 	//int v15; // ST04_4
@@ -6175,7 +6175,7 @@ void __fastcall MAI_RoundRanged(int i, int missile_type, unsigned char checkdoor
 			MonstCheckDoors(arglist);
 		checkdoorsa = random(121, 10000);
 		v11 = abs(v9);
-		//v13 = v12;
+		//v13 = moreAction;
 		if ( v11 < 2 )
 		{
 			v14 = abs(v8);
@@ -6302,7 +6302,7 @@ void __fastcall MAI_RR2(int i, int mistype, int dam)
 	int v8; // edi
 	int v10; // eax
 	//int v11; // ST04_4
-	int v12; // ecx
+	int moreAction; // ecx
 	int v13; // eax
 	//int v14; // ST04_4
 	int v15; // eax
@@ -6356,22 +6356,22 @@ void __fastcall MAI_RR2(int i, int mistype, int dam)
 			MonstCheckDoors(arglist);
 		v38 = random(121, 100);
 		v10 = abs(v8);
-		//v12 = v11;
-		if ( v10 >= 2 || (v13 = abs(v7), v13 >= 2) ) /* v12 = v14,  */
+		//moreAction = v11;
+		if ( v10 >= 2 || (v13 = abs(v7), v13 >= 2) ) /* moreAction = v14,  */
 		{
 			if ( v4->_msquelch == -1 )
 			{
-				//v12 = y2;
+				//moreAction = y2;
 				if ( dung_map[v4->_mx][v4->_my] == dung_map[x2][y2] )
 				{
 					if ( _LOBYTE(v4->_mgoal) != 4 )
 					{
 						v15 = abs(v8);
-						//v12 = v16;
+						//moreAction = v16;
 						if ( v15 < 3 )
 						{
 							v17 = abs(v7);
-							//v12 = v18;
+							//moreAction = v18;
 							if ( v17 < 3 )
 								goto LABEL_26;
 						}
@@ -6394,9 +6394,9 @@ void __fastcall MAI_RR2(int i, int mistype, int dam)
 						v20 = abs(v8);
 						v7 = v36;
 					}
-					v12 = v4->_mgoalvar1;
-					v4->_mgoalvar1 = v12 + 1;
-					if ( v12 < 2 * v20 || (v21 = DirOK(arglist, md), !v21) )
+					moreAction = v4->_mgoalvar1;
+					v4->_mgoalvar1 = moreAction + 1;
+					if ( moreAction < 2 * v20 || (v21 = DirOK(arglist, md), !v21) )
 					{
 						if ( v38 < 5 * ((unsigned char)v4->_mint + 16) )
 							M_RoundWalk(arglist, md, &v4->_mgoalvar2);
@@ -6417,19 +6417,19 @@ LABEL_26:
 							if ( v24 >= 2 || (v27 = abs(v7), v27 >= 2) ) /* v26 = v28,  */
 							{
 								v31 = random(124, 100);
-								v12 = (unsigned char)v4->_mint;
-								if ( v31 < 2 * (5 * v12 + 25)
+								moreAction = (unsigned char)v4->_mint;
+								if ( v31 < 2 * (5 * moreAction + 25)
 								  || ((v32 = v4->_mVar1, v32 == 1) || v32 == 2 || v32 == 3)
 								  && !v4->_mVar2
-								  && (v12 = 2 * (5 * v12 + 40), v31 < v12) )
+								  && (moreAction = 2 * (5 * moreAction + 40), v31 < moreAction) )
 								{
 									M_CallWalk(arglist, md);
 								}
 								goto LABEL_47;
 							}
 							v29 = random(124, 100);
-							v12 = 10 * ((unsigned char)v4->_mint + 4);
-							if ( v29 >= v12 )
+							moreAction = 10 * ((unsigned char)v4->_mint + 4);
+							if ( v29 >= moreAction )
 							{
 LABEL_47:
 								v4->_mgoalvar3 = 1;
@@ -6479,7 +6479,7 @@ void __fastcall MAI_Golum(int i)
 	char v9; // cl
 	//char v10; // eax
 	signed int v11; // edx
-	signed int v12; // ecx
+	signed int moreAction; // ecx
 	int v13; // eax
 	bool v14; // eax
 	int *v15; // esi
@@ -6534,18 +6534,18 @@ void __fastcall MAI_Golum(int i)
 						monster[monster[v2]._menemy]._lasty = monster[v2]._my;
 						do
 						{
-							v12 = 0;
+							moreAction = 0;
 							do
 							{
 								/* v13 = *(_DWORD *)&nTransTable[4
-															* (monster[v2]._my + v11 + 112 * (v12 + monster[v2]._mx))
+															* (monster[v2]._my + v11 + 112 * (moreAction + monster[v2]._mx))
 															+ 1148]; check */
-								v13 = dMonster[monster[v2]._mx + v12 - 2][monster[v2]._my + v11 - 2];
+								v13 = dMonster[monster[v2]._mx + moreAction - 2][monster[v2]._my + v11 - 2];
 								if ( v13 > 0 )
 									monster[v13]._msquelch = -1;
-								++v12;
+								++moreAction;
 							}
-							while ( v12 < 5 );
+							while ( moreAction < 5 );
 							++v11;
 						}
 						while ( v11 < 5 );
@@ -6897,7 +6897,7 @@ void __fastcall MAI_Counselor(int i)
 	char v9; // al
 	int v10; // ecx
 	bool v11; // zf
-	bool v12; // sf
+	bool moreAction; // sf
 	unsigned char v13; // of
 	int v14; // edx
 	int v15; // ecx
@@ -6948,11 +6948,11 @@ void __fastcall MAI_Counselor(int i)
 			v10 = monster[v2]._mgoalvar1;
 			v13 = __OFSUB__(v10, 3);
 			v11 = v10 == 3;
-			v12 = v10 - 3 < 0;
+			moreAction = v10 - 3 < 0;
 			v14 = v10 + 1;
 			v15 = v1;
 			monster[v2]._mgoalvar1 = v14;
-			if ( (unsigned char)(v12 ^ v13) | v11 )
+			if ( (unsigned char)(moreAction ^ v13) | v11 )
 			{
 				M_CallWalk(v1, opposite[md]);
 				goto LABEL_39;
@@ -7031,9 +7031,9 @@ LABEL_39:
 			v27 = md;
 			v28 = monster[v2]._mmaxhp >> 1;
 			v13 = __OFSUB__(monster[v2]._mhitpoints, v28);
-			v12 = monster[v2]._mhitpoints - v28 < 0;
+			moreAction = monster[v2]._mhitpoints - v28 < 0;
 			monster[v2]._mdir = md;
-			if ( v12 ^ v13 )
+			if ( moreAction ^ v13 )
 			{
 				_LOBYTE(monster[v2]._mgoal) = 2;
 LABEL_29:
@@ -7475,7 +7475,7 @@ void __cdecl ProcessMonsters()
 	unsigned int v9; // eax
 	int v10; // eax
 	bool v11; // zf
-	char *v12; // ecx
+	char *moreAction; // ecx
 	char *v13; // eax
 	int v14; // ecx
 	int v15; // eax
@@ -7539,9 +7539,9 @@ void __cdecl ProcessMonsters()
 				TermMsg("Illegal enemy player %d for monster \"%s\"", v9, monster[v1].mName);
 			v10 = monster[v1]._menemy;
 			v11 = (*v4 & 2) == 0;
-			v12 = (char *)&plr[v10]._px;
+			moreAction = (char *)&plr[v10]._px;
 			v13 = (char *)&plr[v10]._py;
-			monster[v1]._menemyx = *v12;
+			monster[v1]._menemyx = *moreAction;
 			monster[v1]._menemyy = *v13;
 			if ( v11 )
 			{
@@ -7551,7 +7551,7 @@ void __cdecl ProcessMonsters()
 			}
 			else
 			{
-				v14 = *(_DWORD *)v12;
+				v14 = *(_DWORD *)moreAction;
 				v15 = *(_DWORD *)v13;
 				monster[v1]._msquelch = -1;
 				monster[v1]._lastx = v14;
@@ -7714,7 +7714,7 @@ bool __fastcall DirOK(int i, int mdir)
 	bool v8; // zf
 	int v9; // edx
 	unsigned char *v11; // ebx
-	unsigned char v12; // al
+	unsigned char moreAction; // al
 	int v13; // edx
 	int v14; // eax
 	int v15; // edi
@@ -7789,8 +7789,8 @@ LABEL_24:
 		}
 		return 1;
 	}
-	v12 = monster[v4]._uniqtype;
-	if ( !v12 || !(UniqMonst[v12-1].mUnqAttr & 2) )
+	moreAction = monster[v4]._uniqtype;
+	if ( !moreAction || !(UniqMonst[moreAction-1].mUnqAttr & 2) )
 		return 1;
 	v26 = 0;
 	v13 = v6 - 3;
@@ -7862,7 +7862,7 @@ bool __fastcall LineClearF(bool (__fastcall *Clear)(int, int), int x1, int y1, i
 	int v9; // eax
 	int v10; // eax
 	int v11; // ebx
-	int v12; // esi
+	int moreAction; // esi
 	signed int v13; // edi
 	int v14; // edx
 	int v15; // ecx
@@ -7949,13 +7949,13 @@ bool __fastcall LineClearF(bool (__fastcall *Clear)(int, int), int x1, int y1, i
 		if ( v5 <= 0 )
 		{
 			v11 = v10 + v6;
-			v12 = 2 * (v6 + v5);
+			moreAction = 2 * (v6 + v5);
 			v13 = -1;
 		}
 		else
 		{
 			v11 = v10 - v6;
-			v12 = 2 * (v5 - v6);
+			moreAction = 2 * (v5 - v6);
 			v13 = 1;
 		}
 		do
@@ -7965,7 +7965,7 @@ bool __fastcall LineClearF(bool (__fastcall *Clear)(int, int), int x1, int y1, i
 				break;
 			if ( v11 <= 0 == v13 < 0 )
 			{
-				v11 += v12;
+				v11 += moreAction;
 				v14 = v13 + y1;
 				y1 += v13;
 			}
@@ -7998,7 +7998,7 @@ BOOL __fastcall LineClearF1(BOOL (__fastcall *Clear)(int, int, int), int monst, 
 	int v9; // eax
 	int v10; // eax
 	int v11; // eax
-	int v12; // ebx
+	int moreAction; // ebx
 	int v13; // esi
 	signed int v14; // edi
 	int v15; // eax
@@ -8084,13 +8084,13 @@ BOOL __fastcall LineClearF1(BOOL (__fastcall *Clear)(int, int, int), int monst, 
 		v28 = 2 * v6;
 		if ( v6 <= 0 )
 		{
-			v12 = v11 + v7;
+			moreAction = v11 + v7;
 			v13 = 2 * (v7 + v6);
 			v14 = -1;
 		}
 		else
 		{
-			v12 = v11 - v7;
+			moreAction = v11 - v7;
 			v13 = 2 * (v6 - v7);
 			v14 = 1;
 		}
@@ -8099,15 +8099,15 @@ BOOL __fastcall LineClearF1(BOOL (__fastcall *Clear)(int, int, int), int monst, 
 			v15 = y1;
 			if ( x1 == x2 && y1 == y2 )
 				break;
-			if ( v12 <= 0 == v14 < 0 )
+			if ( moreAction <= 0 == v14 < 0 )
 			{
-				v12 += v13;
+				moreAction += v13;
 				v15 = v14 + y1;
 				y1 += v14;
 			}
 			else
 			{
-				v12 += v28;
+				moreAction += v28;
 			}
 		}
 		while ( ++x1 == v26 && v15 == v27 || Clear(v25, x1, v15) ); /* check args */
@@ -8133,7 +8133,7 @@ void __fastcall SyncMonsterAnim(int i)
 	int v9; // edx
 	int v10; // ecx
 	int v11; // edx
-	int v12; // ecx
+	int moreAction; // ecx
 	int v13; // edx
 
 	v1 = i;
@@ -8189,16 +8189,16 @@ LABEL_13:
 			v11 = v5->Anims[2].Frames[v9];
 			monster[v2]._mAnimFrame = 1;
 			monster[v2]._mAFNum = v11;
-			v12 = v5->Anims[2].Rate;
+			moreAction = v5->Anims[2].Rate;
 			break;
 		default:
 			v13 = v5->Anims[0].Frames[v9];
 			monster[v2]._mAnimFrame = 1;
 			monster[v2]._mAFNum = v13;
-			v12 = v5->Anims[0].Rate;
+			moreAction = v5->Anims[0].Rate;
 			break;
 	}
-	monster[v2]._mAnimLen = v12;
+	monster[v2]._mAnimLen = moreAction;
 }
 
 void __fastcall M_FallenFear(int x, int y)
@@ -8213,14 +8213,14 @@ void __fastcall M_FallenFear(int x, int y)
 	int v9; // eax
 	int v10; // eax
 	signed int v11; // [esp-10h] [ebp-1Ch]
-	int v12; // [esp+0h] [ebp-Ch]
+	int moreAction; // [esp+0h] [ebp-Ch]
 	int x1; // [esp+4h] [ebp-8h]
 	int y1; // [esp+8h] [ebp-4h]
 
 	v2 = 0;
 	y1 = y;
 	x1 = x;
-	v12 = 0;
+	moreAction = 0;
 	if ( nummonsters > 0 )
 	{
 		v3 = &monster[0]._mx;
@@ -8276,9 +8276,9 @@ LABEL_16:
 				monster[v5]._mdir = GetDirection(x1, y1, *v3, v3[1]);
 			}
 			v3 += 57;
-			v2 = v12++ + 1;
+			v2 = moreAction++ + 1;
 		}
-		while ( v12 < nummonsters );
+		while ( moreAction < nummonsters );
 	}
 }
 
@@ -8416,7 +8416,7 @@ void __fastcall MissToMonst(int i, int x, int y)
 	int v9; // eax
 	char *v10; // edi
 	int v11; // eax
-	int v12; // edx
+	int moreAction; // edx
 	char v13; // al
 	char v14; // al
 	int v15; // ebx
@@ -8504,14 +8504,14 @@ void __fastcall MissToMonst(int i, int x, int y)
 	{
 		v10 = &dPlayer[v9][v31];
 		v11 = *v10;
-		v12 = v11 - 1;
+		moreAction = v11 - 1;
 		arglist = v11 - 1;
 		if ( *v10 > 0 )
 		{
 			v13 = v6->MType->mtype;
 			if ( v13 != MT_GLOOM && (v13 < MT_INCIN || v13 > MT_HELLBURN) )
 			{
-				M_TryH2HHit(v5, v12, 500, (unsigned char)v6->mMinDamage2, (unsigned char)v6->mMaxDamage2);
+				M_TryH2HHit(v5, moreAction, 500, (unsigned char)v6->mMinDamage2, (unsigned char)v6->mMaxDamage2);
 				if ( arglist == *v10 - 1 )
 				{
 					v14 = v6->MType->mtype;
@@ -8673,10 +8673,10 @@ BOOL __fastcall PosOkMonst3(int i, int x, int y)
 	int v9; // ecx
 	bool result; // eax
 	int v11; // ecx
-	signed int v12; // [esp+10h] [ebp-8h]
+	signed int moreAction; // [esp+10h] [ebp-8h]
 	int v13; // [esp+14h] [ebp-4h]
 
-	v12 = 0;
+	moreAction = 0;
 	v3 = x;
 	v4 = 0;
 	v13 = i;
@@ -8721,11 +8721,11 @@ BOOL __fastcall PosOkMonst3(int i, int x, int y)
 					do
 					{
 						if ( missile[missileactive[v11]]._mitype == 5 )
-							v12 = 1;
+							moreAction = 1;
 						++v11;
 					}
 					while ( v11 < nummissiles );
-					if ( v12 )
+					if ( moreAction )
 					{
 LABEL_33:
 						if ( !(monster[v13].mMagicRes & 0x10) || monster[v13].MType->mtype == MT_DIABLO )
@@ -8831,7 +8831,7 @@ bool __fastcall SpawnSkeleton(int ii, int x, int y)
 	int *v8; // esi
 	bool v9; // eax
 	int v11; // eax
-	int v12; // ecx
+	int moreAction; // ecx
 	int v13; // edx
 	int v14; // esi
 	int v15; // edi
@@ -8882,26 +8882,26 @@ bool __fastcall SpawnSkeleton(int ii, int x, int y)
 			if ( v20 )
 			{
 				v11 = random(137, 15);
-				v12 = 0;
+				moreAction = 0;
 				v13 = 0;
 				a3a = v11 + 1;
 				if ( v11 + 1 > 0 )
 				{
 					while ( 1 )
 					{
-						if ( monstok[v13 + 2 * v12 + v12] )
+						if ( monstok[v13 + 2 * moreAction + moreAction] )
 							--a3a;
 						if ( a3a <= 0 )
 							break;
-						if ( ++v12 == 3 )
+						if ( ++moreAction == 3 )
 						{
-							v12 = 0;
+							moreAction = 0;
 							if ( ++v13 == 3 )
 								v13 = 0;
 						}
 					}
 				}
-				v14 = v12 + v3 - 1;
+				v14 = moreAction + v3 - 1;
 				v15 = v13 + v4 - 1;
 				v16 = GetDirection(v14, v15, x2, v4);
 				ActivateSpawn(i, v14, v15, v16);
