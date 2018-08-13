@@ -4713,8 +4713,8 @@ void __cdecl ProcessPlayers()
 	do
 	{
 		v6 = (int)(v5 - 89);
-		if(true)
-		//if ( *((_BYTE *)v5 - 379) && currlevel == *(_DWORD *)v6 && (v4 == myplr || !*(_BYTE *)(v6 + 267)) )
+		//if(true)
+		if ( *((_BYTE *)v5 - 379) && currlevel == *(_DWORD *)v6 && (v4 == myplr || !*(_BYTE *)(v6 + 267)) )
 		{
 			{
 				std::ofstream outfile;
@@ -4751,8 +4751,8 @@ void __cdecl ProcessPlayers()
 			v11 = 0;
 			do
 			{
-				//switch ( *(v5 - 102) )
-				switch(1)
+				switch ( *(v5 - 102) )
+				//switch(1)
 				{
 					case PM_STAND:
 						v12 = PM_DoStand(v4);
@@ -4806,8 +4806,8 @@ LABEL_38:
 					*(_DWORD *)v14 = 1;
 			}
 		}
-		//v5 += 5430 + (sizeof(PlayerStruct)-21760);
-		v5 += sizeof(PlayerStruct);
+		v5 += 5430;
+		//v5 += sizeof(PlayerStruct);
 		++v4;
 	}
 	while ( (signed int)v5 < (signed int)&plr[4]._pHitPoints );
