@@ -150,7 +150,7 @@ void __cdecl gendung_418D91()
 	int v9; // edi
 	char *v10; // esi
 	int j; // ecx
-	unsigned char moreAction; // al
+	unsigned char v12; // al
 	unsigned char *v13; // esi
 	int v14; // ecx
 	signed int v15; // edx
@@ -301,8 +301,8 @@ LABEL_36:
 					v10 = (char *)pDungeonCels + *((_DWORD *)pDungeonCels + v9);
 					for ( j = level_frame_sizes[v9]; j; --j )
 					{
-						moreAction = *v10++;
-						if ( moreAction && moreAction < 0x20u )
+						v12 = *v10++;
+						if ( v12 && v12 < 0x20u )
 							v53 = 0;
 					}
 				}
@@ -882,7 +882,7 @@ bool __fastcall DRLG_WillThemeRoomFit(int floor, int x, int y, int minSize, int 
 	int v8; // edi
 	int v10; // ebx
 	int v11; // edx
-	unsigned char *moreAction; // eax
+	unsigned char *v12; // eax
 	int v13; // eax
 	int i; // eax
 	int v15; // eax
@@ -927,10 +927,10 @@ bool __fastcall DRLG_WillThemeRoomFit(int floor, int x, int y, int minSize, int 
 				v11 = v7;
 				if ( v7 < v7 + maxSize )
 				{
-					moreAction = (unsigned char *)dungeon + v8 + v10 + y;
+					v12 = (unsigned char *)dungeon + v8 + v10 + y;
 					do
 					{
-						if ( *moreAction == v25 )
+						if ( *v12 == v25 )
 						{
 							++v31;
 						}
@@ -941,7 +941,7 @@ bool __fastcall DRLG_WillThemeRoomFit(int floor, int x, int y, int minSize, int 
 							v27 = 0;
 						}
 						++v11;
-						moreAction += 40;
+						v12 += 40;
 					}
 					while ( v11 < v7 + maxSize );
 					v10 = v26;
@@ -1034,7 +1034,7 @@ void __fastcall DRLG_CreateThemeRoom(int themeIndex)
 	int v9; // ebx
 	int v10; // edx
 	int v11; // ebx
-	int moreAction; // edx
+	int v12; // edx
 	int v13; // eax
 	int v14; // eax
 	int v15; // eax
@@ -1174,12 +1174,12 @@ LABEL_53:
 	if ( leveltype == DTYPE_HELL )
 	{
 		v11 = themeLoc[v1].x;
-		moreAction = 10 * (v11 + themeLoc[v1].width);
+		v12 = 10 * (v11 + themeLoc[v1].width);
 		dungeon[v11][v2] = 9;
 		v5 = v3 + 40 * v11;
-		dungeon[-1][moreAction * 4 + v2] = 16; // *((_BYTE *)&dMonster[111][moreAction + 102] + v2) = 16;
+		dungeon[-1][v12 * 4 + v2] = 16; // *((_BYTE *)&dMonster[111][v12 + 102] + v2) = 16;
 		dungeon[0][v5 + v2 - 1] = 15; // *((_BYTE *)&dMonster[111][111] + v5 + v2 + 3) = 15;
-		dungeon[-1][v3 + moreAction * 4 + v2 - 1] = 12; // *((_BYTE *)&dMonster[111][101] + v3 + moreAction * 4 + v2 + 3) = 12;
+		dungeon[-1][v3 + v12 * 4 + v2 - 1] = 12; // *((_BYTE *)&dMonster[111][101] + v3 + v12 * 4 + v2 + 3) = 12;
 	}
 	if ( leveltype == DTYPE_CATACOMBS )
 	{
@@ -1259,7 +1259,7 @@ void __fastcall DRLG_PlaceThemeRooms(int minSize, int maxSize, int floor, int fr
 	int v8; // esi
 	int v9; // edi
 	int v10; // eax
-	int moreAction; // eax
+	int v12; // eax
 	int v14; // eax
 	int v16; // eax
 	int v17; // edi
@@ -1299,8 +1299,8 @@ void __fastcall DRLG_PlaceThemeRooms(int minSize, int maxSize, int floor, int fr
 							v8 = minSize2 - 2;
 							v9 = maxSize2 - 2;
 							v10 = random(0, width - (minSize2 - 2) + 1);
-							moreAction = minSize2 - 2 + random(0, v10);
-							if ( moreAction < minSize2 - 2 || (width = moreAction, moreAction > v9) )
+							v12 = minSize2 - 2 + random(0, v10);
+							if ( v12 < minSize2 - 2 || (width = v12, v12 > v9) )
 								width = minSize2 - 2;
 							v14 = random(0, height - v8 + 1);
 							v16 = v8 + random(0, v14);

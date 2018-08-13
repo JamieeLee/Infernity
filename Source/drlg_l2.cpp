@@ -368,7 +368,7 @@ void __fastcall LoadL2Dungeon(char *sFileName, int vx, int vy)
 	int v9; // eax
 	int v10; // ebx
 	int v11; // edi
-	char *moreAction; // eax
+	char *v12; // eax
 	int v13; // ecx
 	char v14; // dl
 	signed int v15; // ecx
@@ -417,7 +417,7 @@ void __fastcall LoadL2Dungeon(char *sFileName, int vx, int vy)
 	v9 = (int)(v4 + 2);
 	v10 = 0;
 	v11 = v4[2];
-	moreAction = (char *)(v9 + 2);
+	v12 = (char *)(v9 + 2);
 	if ( v11 > 0 )
 	{
 		do
@@ -428,8 +428,8 @@ void __fastcall LoadL2Dungeon(char *sFileName, int vx, int vy)
 				v32 = v8;
 				do
 				{
-					v14 = *moreAction;
-					if ( *moreAction )
+					v14 = *v12;
+					if ( *v12 )
 					{
 						dflags[0][v13] |= 0x80u;
 						dungeon[0][v13] = v14;
@@ -439,7 +439,7 @@ void __fastcall LoadL2Dungeon(char *sFileName, int vx, int vy)
 						dungeon[0][v13] = 3;
 					}
 					v13 += 40;
-					moreAction += 2;
+					v12 += 2;
 					--v32;
 				}
 				while ( v32 );
@@ -551,7 +551,7 @@ void __cdecl DRLG_L2Pass3()
 	int v9; // eax
 	int v10; // ST24_4
 	int v11; // ST20_4
-	int moreAction; // ST1C_4
+	int v12; // ST1C_4
 	signed int v13; // [esp+Ch] [ebp-1Ch]
 	int *v14; // [esp+10h] [ebp-18h]
 	int v15; // [esp+14h] [ebp-14h]
@@ -603,12 +603,12 @@ void __cdecl DRLG_L2Pass3()
 			++v7;
 			v11 = ++v9;
 			_LOWORD(v9) = *v7;
-			moreAction = ++v9;
+			v12 = ++v9;
 			_LOWORD(v9) = v7[1];
 			v6 += 40;
 			*(v5 - 112) = v10;
 			*v5 = v11;
-			*(v5 - 111) = moreAction;
+			*(v5 - 111) = v12;
 			v5[1] = v9 + 1;
 			v5 += 224;
 			--v13;
@@ -631,7 +631,7 @@ void __fastcall LoadPreL2Dungeon(char *sFileName, int vx, int vy)
 	int v9; // edi
 	char *v10; // edx
 	int v11; // esi
-	char moreAction; // bl
+	char v12; // bl
 	signed int v13; // eax
 	_BYTE *v14; // edx
 	signed int v15; // esi
@@ -677,11 +677,11 @@ void __fastcall LoadPreL2Dungeon(char *sFileName, int vx, int vy)
 				v20 = v9;
 				do
 				{
-					moreAction = *v10;
+					v12 = *v10;
 					if ( *v10 )
 					{
 						dflags[0][v11] |= 0x80u;
-						dungeon[0][v11] = moreAction;
+						dungeon[0][v11] = v12;
 					}
 					else
 					{
@@ -835,7 +835,7 @@ void __fastcall DRLG_L2(int entry)
 	int v9; // eax
 	signed int v10; // ecx
 	signed int v11; // eax
-	signed int moreAction; // esi
+	signed int v12; // esi
 	int v13; // [esp+10h] [ebp-4h]
 
 	v1 = 0;
@@ -1017,14 +1017,14 @@ LABEL_21:
 	do
 	{
 		v11 = v10;
-		moreAction = 40;
+		v12 = 40;
 		do
 		{
 			pdungeon[0][v11] = dungeon[0][v11];
 			v11 += 40;
-			--moreAction;
+			--v12;
 		}
-		while ( moreAction );
+		while ( v12 );
 		++v10;
 	}
 	while ( v10 < 40 );
@@ -1225,7 +1225,7 @@ void __fastcall DRLG_L2PlaceRndSet(unsigned char *miniset, int rndper)
 	int v9; // eax
 	unsigned char v10; // cl
 	int v11; // edi
-	_BYTE *moreAction; // ecx
+	_BYTE *v12; // ecx
 	int v13; // esi
 	int v14; // eax
 	int v15; // eax
@@ -1304,7 +1304,7 @@ void __fastcall DRLG_L2PlaceRndSet(unsigned char *miniset, int rndper)
 					v11 = v22;
 					if ( v33 == 1 )
 					{
-						moreAction = (_BYTE *)v31;
+						v12 = (_BYTE *)v31;
 						v13 = v23;
 						if ( v23 >= v32 + 2 * v31 )
 						{
@@ -1335,17 +1335,17 @@ LABEL_34:
 						{
 							while ( v33 == 1 )
 							{
-								moreAction = (_BYTE *)v30;
+								v12 = (_BYTE *)v30;
 								v14 = v25 + 2 * v30;
 								if ( v29 < v14 )
 								{
 									v15 = v14 - v29;
-									moreAction = (unsigned char *)dungeon + v24 + v13;
+									v12 = (unsigned char *)dungeon + v24 + v13;
 									do
 									{
-										if ( *moreAction == v2[v22] )
+										if ( *v12 == v2[v22] )
 											v33 = 0;
-										moreAction += 40;
+										v12 += 40;
 										--v15;
 									}
 									while ( v15 );
@@ -1460,7 +1460,7 @@ void __cdecl DRLG_L2Shadows()
 	signed int v9; // [esp+8h] [ebp-Ch]
 	signed int v10; // [esp+Ch] [ebp-8h]
 	unsigned char v11; // [esp+11h] [ebp-3h]
-	unsigned char moreAction; // [esp+12h] [ebp-2h]
+	unsigned char v12; // [esp+12h] [ebp-2h]
 	unsigned char v13; // [esp+13h] [ebp-1h]
 
 	v10 = 1;
@@ -1472,7 +1472,7 @@ void __cdecl DRLG_L2Shadows()
 		{
 			v1 = &SPATSL2[0].s1;
 			v2 = BSTYPESL2[(unsigned char)v0[1]];
-			moreAction = BSTYPESL2[(unsigned char)*(v0 - 39)];
+			v12 = BSTYPESL2[(unsigned char)*(v0 - 39)];
 			v11 = BSTYPESL2[(unsigned char)*v0];
 			v13 = BSTYPESL2[(unsigned char)*(v0 - 40)];
 			do
@@ -1486,7 +1486,7 @@ void __cdecl DRLG_L2Shadows()
 					if ( v4 && v4 != v11 )
 						v3 = 0;
 					v5 = v1[2];
-					if ( v5 && v5 != moreAction )
+					if ( v5 && v5 != v12 )
 						v3 = 0;
 					if ( v3 == 1 )
 					{
@@ -1616,7 +1616,7 @@ bool __cdecl CreateDungeon()
 	bool v8; // eax
 	int v9; // edi
 	int v10; // esi
-	signed int moreAction; // [esp-4h] [ebp-20h]
+	signed int v12; // [esp-4h] [ebp-20h]
 	int nX1; // [esp+8h] [ebp-14h]
 	int nY1; // [esp+Ch] [ebp-10h]
 	int nX2; // [esp+10h] [ebp-Ch]
@@ -1639,16 +1639,16 @@ bool __cdecl CreateDungeon()
 		{
 			if ( !quests[14]._qactive )
 				goto LABEL_12;
-			moreAction = 10;
+			v12 = 10;
 		}
 		else
 		{
 			if ( currlevel != 7 || !quests[8]._qactive )
 				goto LABEL_12;
-			moreAction = 15;
+			v12 = 15;
 		}
-		v0 = moreAction;
-		v1 = moreAction;
+		v0 = v12;
+		v1 = v12;
 	}
 	v2 = 1;
 LABEL_12:
@@ -1725,7 +1725,7 @@ void __fastcall CreateRoom(int nX1, int nY1, int nX2, int nY2, int nRDest, int n
 	int v9; // esi
 	int v10; // ebx
 	int v11; // edx
-	int moreAction; // eax
+	int v12; // eax
 	int v13; // edx
 	int v14; // edx
 	int v15; // edi
@@ -1925,9 +1925,9 @@ LABEL_16:
 		}
 		v11 = Room_Max - Room_Min;
 LABEL_7:
-		moreAction = random(0, v11);
+		v12 = random(0, v11);
 		nX1 = Room_Min;
-		v41 = Room_Min + moreAction;
+		v41 = Room_Min + v12;
 		goto LABEL_11;
 	}
 }
@@ -1946,7 +1946,7 @@ void __fastcall DefineRoom(int nX1, int nY1, int nX2, int nY2, int ForceHW)
 	bool v9; // zf
 	int v10; // ecx
 	char *v11; // eax
-	char *moreAction; // ebx
+	char *v12; // ebx
 	int v13; // eax
 	int v14; // [esp+10h] [ebp-4h]
 	int v15; // [esp+10h] [ebp-4h]
@@ -2006,12 +2006,12 @@ void __fastcall DefineRoom(int nX1, int nY1, int nX2, int nY2, int ForceHW)
 		predungeon[v6][nY1] = 35;
 		if ( v10 < nX2 )
 		{
-			moreAction = &predungeon[v10][nY1];
+			v12 = &predungeon[v10][nY1];
 			v13 = nX2 - v10;
 			do
 			{
-				*moreAction = 46;
-				moreAction += 40;
+				*v12 = 46;
+				v12 += 40;
 				--v13;
 			}
 			while ( v13 );
@@ -2078,7 +2078,7 @@ void __fastcall ConnectHall(int nX1, int nY1, int nX2, int nY2, int nHd)
 	int v9; // edi
 	int v10; // ebx
 	int v11; // ecx
-	char moreAction; // al
+	char v12; // al
 	int v13; // eax
 	int v14; // ecx
 	char *v15; // ebx
@@ -2139,14 +2139,14 @@ void __fastcall ConnectHall(int nX1, int nY1, int nX2, int nY2, int nHd)
 			v9 = 2;
 		if ( nY <= 1 && v9 == 1 )
 			v9 = 3;
-		moreAction = *v37;
+		v12 = *v37;
 		if ( *v37 == 67 && (v9 == 1 || v9 == 4) )
 			v9 = 2;
-		if ( moreAction == 66 && (v9 == 1 || v9 == 2) )
+		if ( v12 == 66 && (v9 == 1 || v9 == 2) )
 			v9 = 3;
-		if ( moreAction == 69 && (v9 == 4 || v9 == 3) )
+		if ( v12 == 69 && (v9 == 4 || v9 == 3) )
 			v9 = 1;
-		if ( moreAction == 65 && (v9 == 2 || v9 == 3) )
+		if ( v12 == 65 && (v9 == 2 || v9 == 3) )
 			v9 = 4;
 		v13 = Dir_Xadd[v9];
 		v14 = Dir_Yadd[v9];
@@ -2348,7 +2348,7 @@ void __fastcall DoPatternCheck(int i, int j)
 	bool v9; // zf
 	char v10; // bl
 	int *v11; // [esp+0h] [ebp-10h]
-	int moreAction; // [esp+4h] [ebp-Ch]
+	int v12; // [esp+4h] [ebp-Ch]
 	int v13; // [esp+8h] [ebp-8h]
 	int v14; // [esp+Ch] [ebp-4h]
 
@@ -2356,7 +2356,7 @@ void __fastcall DoPatternCheck(int i, int j)
 	v14 = i;
 	if ( Patterns[0][4] != 255 )
 	{
-		moreAction = 0;
+		v12 = 0;
 		v2 = i - 1;
 		v11 = &Patterns[0][4];
 		do
@@ -2380,7 +2380,7 @@ LABEL_26:
 				}
 				else
 				{
-					switch ( Patterns[0][v6 + moreAction] )
+					switch ( Patterns[0][v6 + v12] )
 					{
 						case 0:
 							goto LABEL_26;
@@ -2436,7 +2436,7 @@ LABEL_25:
 				}
 			}
 			v11 += 10;
-			moreAction += 10;
+			v12 += 10;
 		}
 		while ( *v11 != 255 );
 	}
@@ -2454,7 +2454,7 @@ bool __cdecl DL2_FillVoids()
 	char v9; // dl
 	bool v10; // eax
 	int v11; // esi
-	signed int moreAction; // ecx
+	signed int v12; // ecx
 	signed int v13; // edi
 	signed int v14; // edx
 	signed int v15; // eax
@@ -2582,7 +2582,7 @@ LABEL_35:
 			v11 = v4 - 1;
 			if ( !x1f )
 				v11 = v4;
-			moreAction = x2f;
+			v12 = x2f;
 			if ( x2f )
 				++v4;
 			x2 = v4;
@@ -2666,25 +2666,25 @@ LABEL_35:
 					else
 					{
 						v27 = x2;
-						while ( v15 || moreAction )
+						while ( v15 || v12 )
 						{
 							if ( !v11 )
 								v15 = 0;
 							if ( v27 == 39 )
-								moreAction = 0;
+								v12 = 0;
 							if ( v27 - v11 >= 14 )
 							{
 								v15 = 0;
-								moreAction = 0;
+								v12 = 0;
 							}
 							if ( v15 )
 								--v11;
-							if ( moreAction )
+							if ( v12 )
 								++v27;
 							if ( predungeon[v11][v6] != 32 )
 								v15 = 0;
 							if ( predungeon[v27][v6] != 32 )
-								moreAction = 0;
+								v12 = 0;
 						}
 						v28 = v11 + 2;
 						v29 = v27 - 2;
@@ -3057,7 +3057,7 @@ void __fastcall DRLG_L2FTVR(int i, int j, int x, int y, int d)
 	int v9; // ecx
 	int v10; // ebx
 	int v11; // eax
-	int moreAction; // edi
+	int v12; // edi
 	char v13; // al
 	char v14; // al
 	int v15; // ecx
@@ -3085,7 +3085,7 @@ void __fastcall DRLG_L2FTVR(int i, int j, int x, int y, int d)
 		v10 = x - 2;
 		v11 = 40 * v8;
 		ya = v7 - 1;
-		moreAction = v6 - 2;
+		v12 = v6 - 2;
 		for ( k = 40 * v8; dungeon[0][v11 + ja] == 3; v11 = k )
 		{
 			v13 = TransVal;
@@ -3095,17 +3095,17 @@ void __fastcall DRLG_L2FTVR(int i, int j, int x, int y, int d)
 			dung_map[1][v9 + 1] = v13;
 			DRLG_L2FTVR(ia + 2, ja, v10 + 4, v6, 1);
 			DRLG_L2FTVR(ia, ja, v10, v6, 2);
-			DRLG_L2FTVR(v21, ya + 2, x, moreAction + 4, 3);
-			DRLG_L2FTVR(v21, ya, x, moreAction, 4);
-			DRLG_L2FTVR(ia, ya, v10, moreAction, 5);
-			DRLG_L2FTVR(ia + 2, ya, v10 + 4, moreAction, 6);
-			DRLG_L2FTVR(ia, ya + 2, v10, moreAction + 4, 7);
+			DRLG_L2FTVR(v21, ya + 2, x, v12 + 4, 3);
+			DRLG_L2FTVR(v21, ya, x, v12, 4);
+			DRLG_L2FTVR(ia, ya, v10, v12, 5);
+			DRLG_L2FTVR(ia + 2, ya, v10 + 4, v12, 6);
+			DRLG_L2FTVR(ia, ya + 2, v10, v12 + 4, 7);
 			v19 += 2;
 			k += 40;
 			d = 8;
 			x += 2;
 			v6 += 2;
-			moreAction += 2;
+			v12 += 2;
 			v10 += 2;
 			++ja;
 			++ya;
@@ -3267,7 +3267,7 @@ void __cdecl DRLG_InitL2Vals()
 	int (*v9)[112]; // edx
 	signed int v10; // ebx
 	int v11; // edi
-	char moreAction; // [esp-4h] [ebp-14h]
+	char v12; // [esp-4h] [ebp-14h]
 
 	v0 = 0;
 	v1 = dPiece;
@@ -3288,13 +3288,13 @@ void __cdecl DRLG_InitL2Vals()
 					if ( v5 != 17 )
 						goto LABEL_13;
 LABEL_11:
-					moreAction = 6;
+					v12 = 6;
 					goto LABEL_12;
 				}
 			}
-			moreAction = 5;
+			v12 = 5;
 LABEL_12:
-			*v2 = moreAction;
+			*v2 = v12;
 LABEL_13:
 			++v3;
 			v2 += 112;

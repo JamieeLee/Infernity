@@ -362,7 +362,7 @@ void __cdecl InitL4Triggers()
 	int (*v9)[112]; // [esp+Ch] [ebp-Ch]
 	int (*v10)[112]; // [esp+Ch] [ebp-Ch]
 	int v11; // [esp+10h] [ebp-8h]
-	int (*moreAction)[112]; // [esp+14h] [ebp-4h]
+	int (*v12)[112]; // [esp+14h] [ebp-4h]
 
 	trigflag[4] = 0;
 	v11 = 0;
@@ -370,14 +370,14 @@ void __cdecl InitL4Triggers()
 	do
 	{
 		v0 = 0;
-		moreAction = v9;
+		v12 = v9;
 		v1 = &trigs[trigflag[4]]._tmsg;
 		v2 = &trigs[trigflag[4]]._ty;
 		v3 = &trigs[trigflag[4]];
 		v4 = &trigs[trigflag[4]]._tlvl;
 		do
 		{
-			if ( (*moreAction)[0] == 83 )
+			if ( (*v12)[0] == 83 )
 			{
 				++trigflag[4];
 				v3->_tx = v0;
@@ -388,7 +388,7 @@ void __cdecl InitL4Triggers()
 				v2 += 4;
 				v1 += 4;
 			}
-			if ( (*moreAction)[0] == 422 )
+			if ( (*v12)[0] == 422 )
 			{
 				v3->_tx = v0;
 				*v2 = v11;
@@ -400,7 +400,7 @@ void __cdecl InitL4Triggers()
 				v2 += 4;
 				v1 += 4;
 			}
-			if ( (*moreAction)[0] == 120 )
+			if ( (*v12)[0] == 120 )
 			{
 				++trigflag[4];
 				v3->_tx = v0;
@@ -411,7 +411,7 @@ void __cdecl InitL4Triggers()
 				v2 += 4;
 				v1 += 4;
 			}
-			++moreAction;
+			++v12;
 			++v0;
 		}
 		while ( v0 < 112 );
@@ -654,7 +654,7 @@ unsigned char __cdecl ForceL2Trig()
 	int *v9; // ecx
 	int v10; // eax
 	int v11; // ecx
-	int moreAction; // eax
+	int v12; // eax
 	int *v13; // eax
 	int *v14; // ebp
 	TriggerStruct *v15; // esi
@@ -694,7 +694,7 @@ LABEL_18:
 			}
 			v10 = v8;
 			v11 = trigs[v10]._tx;
-			moreAction = trigs[v10]._ty;
+			v12 = trigs[v10]._ty;
 			cursmx = v11;
 			goto LABEL_37;
 		}
@@ -771,9 +771,9 @@ LABEL_10:
 	}
 	v19 = v2;
 	cursmx = trigs[v19]._tx;
-	moreAction = trigs[v19]._ty;
+	v12 = trigs[v19]._ty;
 LABEL_37:
-	cursmy = moreAction;
+	cursmy = v12;
 	return 1;
 }
 
@@ -791,7 +791,7 @@ unsigned char __cdecl ForceL3Trig()
 	int *v9; // eax
 	int *v10; // ebp
 	int v11; // edi
-	TriggerStruct *moreAction; // esi
+	TriggerStruct *v12; // esi
 	int v13; // ebx
 	int v14; // eax
 	int v15; // eax
@@ -886,18 +886,18 @@ LABEL_29:
 			if ( *v10 == -1 )
 				return 0;
 		}
-		moreAction = trigs;
+		v12 = trigs;
 		while ( 1 )
 		{
-			if ( moreAction->_tmsg == WM_DIABTWARPUP )
+			if ( v12->_tmsg == WM_DIABTWARPUP )
 			{
-				v13 = abs(moreAction->_tx - cursmx);
-				v14 = abs(moreAction->_ty - cursmy);
+				v13 = abs(v12->_tx - cursmx);
+				v14 = abs(v12->_ty - cursmy);
 				if ( v13 < 4 && v14 < 4 )
 					break;
 			}
 			++v11;
-			++moreAction;
+			++v12;
 			if ( v11 >= trigflag[4] )
 				goto LABEL_29;
 		}
@@ -924,7 +924,7 @@ unsigned char __cdecl ForceL4Trig()
 	int v9; // edi
 	TriggerStruct *v10; // esi
 	int v11; // ebx
-	int moreAction; // eax
+	int v12; // eax
 	int *v13; // eax
 	int *v14; // esi
 	int *v15; // edx
@@ -1019,8 +1019,8 @@ LABEL_27:
 				if ( v10->_tmsg == WM_DIABTWARPUP )
 				{
 					v11 = abs(v10->_tx - cursmx);
-					moreAction = abs(v10->_ty - cursmy);
-					if ( v11 < 4 && moreAction < 4 )
+					v12 = abs(v10->_ty - cursmy);
+					if ( v11 < 4 && v12 < 4 )
 						break;
 				}
 				++v9;
@@ -1270,12 +1270,12 @@ void __cdecl CheckTriggers()
 	int v9; // [esp-4h] [ebp-20h]
 	int x; // [esp+Ch] [ebp-10h]
 	int y; // [esp+10h] [ebp-Ch]
-	int moreAction; // [esp+14h] [ebp-8h]
+	int v12; // [esp+14h] [ebp-8h]
 	int error_id; // [esp+1Bh] [ebp-1h]
 
 	if ( plr[myplr]._pmode )
 		return;
-	moreAction = 0;
+	v12 = 0;
 	if ( trigflag[4] <= 0 )
 		return;
 	v0 = &trigs[0]._tmsg;
@@ -1309,9 +1309,9 @@ LABEL_32:
 			break;
 		StartNewLvl(myplr, v4, ReturnLvl);
 LABEL_34:
-		++moreAction;
+		++v12;
 		v0 += 4;
-		if ( moreAction >= trigflag[4] )
+		if ( v12 >= trigflag[4] )
 			return;
 	}
 	if ( *v0 != WM_DIABTOWNWARP )

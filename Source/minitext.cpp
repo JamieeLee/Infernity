@@ -145,7 +145,7 @@ void __fastcall PrintQTextChr(int screen_x, int screen_y, char *cel_buf, int fra
 	unsigned int v9; // eax
 	unsigned int v10; // ecx
 	char v11; // cf
-	unsigned int moreAction; // ecx
+	unsigned int v12; // ecx
 	char *v13; // [esp+14h] [ebp-8h]
 	char *v14; // [esp+18h] [ebp-4h]
 
@@ -183,12 +183,12 @@ void __fastcall PrintQTextChr(int screen_x, int screen_y, char *cel_buf, int fra
 				if ( !(v9 & 1) || (*v6 = *v5, ++v5, ++v6, v10) )
 				{
 					v11 = v10 & 1;
-					moreAction = v9 >> 2;
-					if ( !v11 || (*(_WORD *)v6 = *(_WORD *)v5, v5 += 2, v6 += 2, moreAction) )
+					v12 = v9 >> 2;
+					if ( !v11 || (*(_WORD *)v6 = *(_WORD *)v5, v5 += 2, v6 += 2, v12) )
 					{
-						qmemcpy(v6, v5, 4 * moreAction);
-						v5 += 4 * moreAction;
-						v6 += 4 * moreAction;
+						qmemcpy(v6, v5, 4 * v12);
+						v5 += 4 * v12;
+						v6 += 4 * v12;
 					}
 				}
 			}

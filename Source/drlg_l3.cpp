@@ -204,7 +204,7 @@ int __cdecl DRLG_L3Anvil()
 	int v9; // ecx
 	signed int v10; // eax
 	unsigned char v11; // dl
-	signed int moreAction; // [esp+Ch] [ebp-Ch]
+	signed int v12; // [esp+Ch] [ebp-Ch]
 	signed int v13; // [esp+Ch] [ebp-Ch]
 	signed int v14; // [esp+10h] [ebp-8h]
 	int v15; // [esp+14h] [ebp-4h]
@@ -212,12 +212,12 @@ int __cdecl DRLG_L3Anvil()
 	v0 = random(0, 29);
 	v1 = 0;
 	v15 = random(0, 29);
-	moreAction = 0;
+	v12 = 0;
 	while ( 1 )
 	{
-		if ( moreAction >= 200 )
+		if ( v12 >= 200 )
 			return 1;
-		++moreAction;
+		++v12;
 		v14 = 1;
 		v2 = 2;
 		do
@@ -253,7 +253,7 @@ int __cdecl DRLG_L3Anvil()
 				v15 = 0;
 		}
 	}
-	if ( moreAction >= 200 )
+	if ( v12 >= 200 )
 		return 1;
 	v13 = 11;
 	v7 = 123;
@@ -681,7 +681,7 @@ int __fastcall DRLG_L3FillRoom(int x1, int y1, int x2, int y2)
 	char *v9; // ecx
 	int v10; // eax
 	int v11; // ebx
-	char *moreAction; // edx
+	char *v12; // edx
 	int v13; // eax
 	int i; // ebx
 	int v16; // ecx
@@ -737,12 +737,12 @@ LABEL_12:
 		{
 			if ( v8 < v6 )
 			{
-				moreAction = &dungeon[v8][v11];
+				v12 = &dungeon[v8][v11];
 				v13 = v6 - v8;
 				do
 				{
-					*moreAction = 1;
-					moreAction += 40;
+					*v12 = 1;
+					v12 += 40;
 					--v13;
 				}
 				while ( v13 );
@@ -997,7 +997,7 @@ void __cdecl DRLG_L3FillStraights()
 	char *v9; // ebx
 	int v10; // edi
 	int v11; // ebx
-	char moreAction; // al
+	char v12; // al
 	signed int v13; // ebx
 	signed int v14; // eax
 	signed int v15; // esi
@@ -1097,11 +1097,11 @@ void __cdecl DRLG_L3FillStraights()
 							v24 = &dungeon[0][v10 + 1 + v28];
 							do
 							{
-								moreAction = random(0, 2);
+								v12 = random(0, 2);
 								v7 = v24;
 								v24 += 40;
 								--v11;
-								*v7 = moreAction;
+								*v7 = v12;
 							}
 							while ( v11 );
 							v9 = v23;
@@ -1290,7 +1290,7 @@ void __cdecl DRLG_L3River()
 	unsigned char v9; // al
 	int v10; // eax
 	char *v11; // eax
-	signed int moreAction; // eax
+	signed int v12; // eax
 	int v13; // ecx
 	bool v14; // zf
 	int v15; // eax
@@ -1559,16 +1559,16 @@ LABEL_83:
 			v11 = &dungeon[v1][v2];
 			if ( *(v11 - 1) == 10 && *(v11 - 2) == 8 )
 			{
-				moreAction = v5;
-				river[1][moreAction] = v2 - 1;
+				v12 = v5;
+				river[1][v12] = v2 - 1;
 				v13 = v40;
 				v14 = v40 == 2;
-				river[0][moreAction] = v1;
-				river[2][moreAction] = 24;
+				river[0][v12] = v1;
+				river[2][v12] = 24;
 				if ( v14 )
-					river[1][moreAction + 99] = 22;
+					river[1][v12 + 99] = 22;
 				if ( v13 == 3 )
-					river[1][moreAction + 99] = 21;
+					river[1][v12 + 99] = 21;
 				v47 = 1;
 LABEL_94:
 				if ( v48 == 1 )
@@ -1725,7 +1725,7 @@ void __cdecl DRLG_L3Pool()
 	int v9; // ecx
 	int v10; // eax
 	int v11; // esi
-	char *moreAction; // edx
+	char *v12; // edx
 	unsigned char v13; // al
 	unsigned char v14; // al
 	signed int v15; // [esp+Ch] [ebp-18h]
@@ -1767,13 +1767,13 @@ void __cdecl DRLG_L3Pool()
 						v11 = totarea;
 						if ( totarea < v10 )
 						{
-							moreAction = &dungeon[totarea][v9];
+							v12 = &dungeon[totarea][v9];
 							do
 							{
-								if ( *moreAction < 0 && v9 >= 0 && v9 < 40 && v11 >= 0 && v11 < 40 )
+								if ( *v12 < 0 && v9 >= 0 && v9 < 40 && v11 >= 0 && v11 < 40 )
 								{
-									v13 = *moreAction & 0x7F;
-									*moreAction = v13;
+									v13 = *v12 & 0x7F;
+									*v12 = v13;
 									if ( v8 > 4 )
 									{
 										if ( v15 < 25 && !v17 )
@@ -1782,7 +1782,7 @@ void __cdecl DRLG_L3Pool()
 											if ( v14 )
 											{
 												if ( v14 <= 0x25u )
-													*moreAction = v14;
+													*v12 = v14;
 											}
 											lavapool = 1;
 										}
@@ -1791,7 +1791,7 @@ void __cdecl DRLG_L3Pool()
 								}
 								++v11;
 								v10 = v8 + x;
-								moreAction += 40;
+								v12 += 40;
 							}
 							while ( v11 < v8 + x );
 						}
@@ -2152,7 +2152,7 @@ void __fastcall DRLG_L3PlaceRndSet(unsigned char *miniset, int rndper)
 	int v9; // eax
 	unsigned char v10; // cl
 	int v11; // edi
-	unsigned char moreAction; // al
+	unsigned char v12; // al
 	char v13; // al
 	int j; // edx
 	int v15; // esi
@@ -2224,8 +2224,8 @@ LABEL_44:
 				}
 			}
 			v11 = v27 * v28 + 2;
-			moreAction = v2[v11];
-			if ( moreAction < 0x54u || moreAction > 0x64u )
+			v12 = v2[v11];
+			if ( v12 < 0x54u || v12 > 0x64u )
 				goto LABEL_33;
 			if ( v29 == 1 )
 				break;
@@ -2290,7 +2290,7 @@ void __cdecl DRLG_L3Wood()
 	signed int v9; // esi
 	_BYTE *v10; // eax
 	int v11; // esi
-	int moreAction; // ebx
+	int v12; // ebx
 	int v13; // eax
 	_BYTE *v14; // ecx
 	int v15; // ecx
@@ -2410,16 +2410,16 @@ void __cdecl DRLG_L3Wood()
 				if ( v44 < v11 )
 				{
 					v38 = (int)(v0 + 40);
-					moreAction = v11 - v44;
+					v12 = v11 - v44;
 					do
 					{
 						v13 = random(0, 2);
 						v14 = (_BYTE *)v38;
 						v38 += 40;
-						--moreAction;
+						--v12;
 						*v14 = v13 != 0 ? 126 : -127;
 					}
-					while ( moreAction );
+					while ( v12 );
 				}
 				v15 = v11;
 				v16 = y + 1;
@@ -2697,7 +2697,7 @@ void __cdecl DRLG_L3Pass3()
 	int v9; // eax
 	signed int v10; // [esp+Ch] [ebp-1Ch]
 	int *v11; // [esp+10h] [ebp-18h]
-	int moreAction; // [esp+14h] [ebp-14h]
+	int v12; // [esp+14h] [ebp-14h]
 	int v13; // [esp+18h] [ebp-10h]
 	int v14; // [esp+18h] [ebp-10h]
 	int v15; // [esp+1Ch] [ebp-Ch]
@@ -2742,8 +2742,8 @@ void __cdecl DRLG_L3Pass3()
 		v10 = 40;
 		do
 		{
-			moreAction = *v6 - 1;
-			if ( moreAction < 0 )
+			v12 = *v6 - 1;
+			if ( v12 < 0 )
 			{
 				v20 = 0;
 				v18 = 0;
@@ -2752,7 +2752,7 @@ void __cdecl DRLG_L3Pass3()
 			}
 			else
 			{
-				v7 = (unsigned short *)((char *)pMegaTiles + 8 * moreAction);
+				v7 = (unsigned short *)((char *)pMegaTiles + 8 * v12);
 				v8 = *v7;
 				++v7;
 				v9 = v8 + 1;
@@ -2791,7 +2791,7 @@ void __fastcall LoadL3Dungeon(char *sFileName, int vx, int vy)
 	_BYTE *v9; // edx
 	int v10; // ebx
 	signed int v11; // ecx
-	_BYTE *moreAction; // eax
+	_BYTE *v12; // eax
 	signed int v13; // edx
 	int v14; // edi
 	signed int v15; // eax
@@ -2842,13 +2842,13 @@ void __fastcall LoadL3Dungeon(char *sFileName, int vx, int vy)
 	v11 = 0;
 	do
 	{
-		moreAction = (unsigned char *)dungeon + v11;
+		v12 = (unsigned char *)dungeon + v11;
 		v13 = 40;
 		do
 		{
-			if ( !*moreAction )
-				*moreAction = 8;
-			moreAction += 40;
+			if ( !*v12 )
+				*v12 = 8;
+			v12 += 40;
 			--v13;
 		}
 		while ( v13 );
@@ -2899,7 +2899,7 @@ void __fastcall LoadPreL3Dungeon(char *sFileName, int vx, int vy)
 	_BYTE *v9; // ecx
 	signed int v10; // ecx
 	_BYTE *v11; // eax
-	signed int moreAction; // edx
+	signed int v12; // edx
 	int v13; // [esp+8h] [ebp-8h]
 	int v14; // [esp+Ch] [ebp-4h]
 
@@ -2941,15 +2941,15 @@ void __fastcall LoadPreL3Dungeon(char *sFileName, int vx, int vy)
 	do
 	{
 		v11 = (unsigned char *)dungeon + v10;
-		moreAction = 40;
+		v12 = 40;
 		do
 		{
 			if ( !*v11 )
 				*v11 = 8;
 			v11 += 40;
-			--moreAction;
+			--v12;
 		}
-		while ( moreAction );
+		while ( v12 );
 		++v10;
 	}
 	while ( v10 < 40 );

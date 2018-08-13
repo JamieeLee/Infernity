@@ -610,7 +610,7 @@ void __fastcall InitRndLocObj5x5(int min, int max, int objtype)
 	int v9; // edi
 	int v10; // esi
 	int v11; // edx
-	signed int moreAction; // [esp+Ch] [ebp-14h]
+	signed int v12; // [esp+Ch] [ebp-14h]
 	int v13; // [esp+10h] [ebp-10h]
 	int v14; // [esp+14h] [ebp-Ch]
 	signed int v15; // [esp+18h] [ebp-8h]
@@ -627,7 +627,7 @@ void __fastcall InitRndLocObj5x5(int min, int max, int objtype)
 			v14 = 0;
 			while ( 1 )
 			{
-				moreAction = 1;
+				v12 = 1;
 				v7 = random(139, 80);
 				v9 = v7 + 16;
 				v15 = -2;
@@ -639,14 +639,14 @@ void __fastcall InitRndLocObj5x5(int min, int max, int objtype)
 					do
 					{
 						if ( !RndLocOk(v16 + v9, v11) )
-							moreAction = 0;
+							v12 = 0;
 						++v16;
 					}
 					while ( v16 <= 2 );
 					++v15;
 				}
 				while ( v15 <= 2 );
-				if ( moreAction )
+				if ( v12 )
 					break;
 				if ( ++v14 > 20000 )
 					return;
@@ -756,7 +756,7 @@ void __fastcall AddBookLever(int lx1, int ly1, int lx2, int ly2, int x1, int y1,
 	int v9; // esi
 	int v10; // edi
 	signed int v11; // ebx
-	int moreAction; // edx
+	int v12; // edx
 	//int v13; // eax
 	//int v14; // eax
 	//int v15; // eax
@@ -775,10 +775,10 @@ void __fastcall AddBookLever(int lx1, int ly1, int lx2, int ly2, int x1, int y1,
 		do
 		{
 			v19 = -2;
-			moreAction = v11 + v10;
+			v12 = v11 + v10;
 			do
 			{
-				if ( !RndLocOk(v19 + v9, moreAction) )
+				if ( !RndLocOk(v19 + v9, v12) )
 					v17 = 0;
 				++v19;
 			}
@@ -1053,7 +1053,7 @@ void __cdecl AddObjTraps()
 	int *i; // eax
 	//int v10; // eax
 	int v11; // eax
-	int *moreAction; // [esp+0h] [ebp-18h]
+	int *v12; // [esp+0h] [ebp-18h]
 	char *v13; // [esp+4h] [ebp-14h]
 	int *v14; // [esp+8h] [ebp-10h]
 	int v15; // [esp+Ch] [ebp-Ch]
@@ -1070,7 +1070,7 @@ void __cdecl AddObjTraps()
 		v15 = 25;
 	v0 = 0;
 	v1 = dPiece[-1];
-	moreAction = dPiece[-1];
+	v12 = dPiece[-1];
 	do
 	{
 		x = 0;
@@ -1127,10 +1127,10 @@ LABEL_28:
 		}
 		while ( v16 < 112 );
 		++v0;
-		v1 = moreAction + 1;
-		++moreAction;
+		v1 = v12 + 1;
+		++v12;
 	}
-	while ( (signed int)moreAction < (signed int)dPiece );
+	while ( (signed int)v12 < (signed int)dPiece );
 }
 
 void __cdecl AddChestTraps()
@@ -1182,7 +1182,7 @@ void __fastcall LoadMapObjects(unsigned char *pMap, int startx, int starty, int 
 	int v9; // esi
 	int v10; // ecx
 	int v11; // eax
-	int moreAction; // ecx
+	int v12; // ecx
 	int v13; // eax
 	int v14; // esi
 	unsigned char *v15; // ebx
@@ -1199,14 +1199,14 @@ void __fastcall LoadMapObjects(unsigned char *pMap, int startx, int starty, int 
 	v9 = *pMap;
 	v10 = pMap[2];
 	v11 = v10;
-	moreAction = 2 * v10;
+	v12 = 2 * v10;
 	v20 = startx;
 	v13 = v9 * v11;
 	v14 = 2 * v9;
 	v19 = v14;
-	v18 = moreAction;
-	v15 = &v8[4 * v14 * moreAction + 2 + 2 * v13];
-	if ( moreAction > 0 )
+	v18 = v12;
+	v15 = &v8[4 * v14 * v12 + 2 + 2 * v13];
+	if ( v12 > 0 )
 	{
 		v21 = -16 - starty;
 		y = starty + 16;
@@ -1220,13 +1220,13 @@ void __fastcall LoadMapObjects(unsigned char *pMap, int startx, int starty, int 
 					v17 = ObjIndex(i + v20 + 16, y);
 					SetObjMapRange(v17, x1, y1, x1 + w, y1 + h, leveridx);
 					v14 = v19;
-					moreAction = v18;
+					v12 = v18;
 				}
 				v15 += 2;
 			}
 			++y;
 		}
-		while ( y + v21 < moreAction );
+		while ( y + v21 < v12 );
 	}
 	InitObjFlag = 0;
 }
@@ -1243,7 +1243,7 @@ void __fastcall LoadMapObjs(unsigned char *pMap, int startx, int starty)
 	int v9; // edi
 	unsigned char *v10; // esi
 	int i; // ebx
-	int moreAction; // [esp+8h] [ebp-8h]
+	int v12; // [esp+8h] [ebp-8h]
 	int v13; // [esp+Ch] [ebp-4h]
 	int y; // [esp+18h] [ebp+8h]
 
@@ -1253,7 +1253,7 @@ void __fastcall LoadMapObjs(unsigned char *pMap, int startx, int starty)
 	v5 = *pMap;
 	v6 = v4;
 	v7 = 2 * v4;
-	moreAction = startx;
+	v12 = startx;
 	v8 = v5 * v6;
 	v9 = 2 * v5;
 	v10 = &v3[4 * v9 * v7 + 2 + 2 * v8];
@@ -1266,7 +1266,7 @@ void __fastcall LoadMapObjs(unsigned char *pMap, int startx, int starty)
 			for ( i = 0; i < v9; ++i )
 			{
 				if ( *v10 )
-					AddObject(ObjTypeConv[*v10], i + moreAction + 16, y);
+					AddObject(ObjTypeConv[*v10], i + v12 + 16, y);
 				v10 += 2;
 			}
 			++y;
@@ -1512,7 +1512,7 @@ void __cdecl InitObjects()
 	unsigned char *v9; // esi
 	//int v10; // eax
 	char v11; // al
-	//int moreAction; // eax
+	//int v12; // eax
 	char v13; // al
 	unsigned char *v14; // esi
 	//int v15; // eax
@@ -1619,7 +1619,7 @@ void __cdecl InitObjects()
 		}
 		if ( leveltype == DTYPE_HELL )
 		{
-			//_LOBYTE(moreAction) = QuestStatus(11);
+			//_LOBYTE(v12) = QuestStatus(11);
 			if ( QuestStatus(11) )
 			{
 				v13 = plr[myplr]._pClass;
@@ -1675,7 +1675,7 @@ void __fastcall SetMapObjects(unsigned char *pMap, int startx, int starty)
 	int v9; // ecx
 	int v10; // esi
 	int v11; // ecx
-	int moreAction; // edi
+	int v12; // edi
 	_BYTE *v13; // eax
 	int v14; // ebx
 	signed int v15; // ebx
@@ -1712,17 +1712,17 @@ void __fastcall SetMapObjects(unsigned char *pMap, int startx, int starty)
 	v9 = v8;
 	v10 = 2 * v8;
 	v11 = v6 * v9;
-	moreAction = 2 * v6;
-	v13 = (_BYTE *)(2 * v11 + 2 + 4 * moreAction * v10 + v7);
+	v12 = 2 * v6;
+	v13 = (_BYTE *)(2 * v11 + 2 + 4 * v12 * v10 + v7);
 	v22 = v13;
 	if ( v10 > 0 )
 	{
 		v24 = (_BYTE *)v10;
 		do
 		{
-			if ( moreAction > 0 )
+			if ( v12 > 0 )
 			{
-				v14 = moreAction;
+				v14 = v12;
 				do
 				{
 					if ( *v13 )
@@ -1757,7 +1757,7 @@ void __fastcall SetMapObjects(unsigned char *pMap, int startx, int starty)
 		y = starty + 16;
 		do
 		{
-			for ( i = 0; i < moreAction; ++i )
+			for ( i = 0; i < v12; ++i )
 			{
 				if ( *v24 )
 					AddObject(ObjTypeConv[(unsigned char)*v24], i + v23 + 16, y);
@@ -2271,18 +2271,18 @@ void __fastcall GetRndObjLoc(int randarea, int *xx, int *yy)
 	int v9; // edi
 	int v10; // [esp+Ch] [ebp-Ch]
 	int v11; // [esp+10h] [ebp-8h]
-	int moreAction; // [esp+14h] [ebp-4h]
+	int v12; // [esp+14h] [ebp-4h]
 
 	v3 = xx;
-	moreAction = randarea;
+	v12 = randarea;
 	if ( randarea )
 	{
 		v10 = 0;
 		while ( 1 )
 		{
 LABEL_3:
-			if ( ++v10 > 1000 && moreAction > 1 )
-				--moreAction;
+			if ( ++v10 > 1000 && v12 > 1 )
+				--v12;
 			v4 = random(0, 112);
 			*v3 = v4;
 			v6 = random(0, 112);
@@ -2290,7 +2290,7 @@ LABEL_3:
 			*yy = v6;
 			v8 = 0;
 			v11 = 0;
-			if ( moreAction <= 0 )
+			if ( v12 <= 0 )
 				break;
 			while ( !v8 )
 			{
@@ -2301,9 +2301,9 @@ LABEL_3:
 						break;
 					v8 = RndLocOk(v11 + *v3, v7 + v9++) == 0;
 				}
-				while ( v9 < moreAction );
+				while ( v9 < v12 );
 				randarea = ++v11;
-				if ( v11 >= moreAction )
+				if ( v11 >= v12 )
 				{
 					if ( v8 )
 						goto LABEL_3;
@@ -2690,7 +2690,7 @@ void __fastcall Obj_FlameTrap(int i)
 	int v9; // eax
 	signed int v10; // esi
 	int v11; // eax
-	_BYTE *moreAction; // edx
+	_BYTE *v12; // edx
 	_DWORD *v13; // eax
 	int v14; // eax
 	_BYTE *v15; // edx
@@ -2736,14 +2736,14 @@ LABEL_24:
 	if ( object[v1]._oVar3 == 2 )
 	{
 		v11 = v8 + 112 * (v9 - 2);
-		moreAction = (unsigned char *)dPlayer + v11;
+		v12 = (unsigned char *)dPlayer + v11;
 		v13 = (_DWORD *)((char *)dMonster + 4 * v11);
 		do
 		{
-			if ( *moreAction || *v13 )
+			if ( *v12 || *v13 )
 				object[v1]._oVar4 = 1;
 			v13 += 112;
-			moreAction += 112;
+			v12 += 112;
 			--v10;
 		}
 		while ( v10 );
@@ -2780,7 +2780,7 @@ void __fastcall Obj_Trap(int i)
 	char *j; // edx
 	int v10; // eax
 	int v11; // [esp+8h] [ebp-1Ch]
-	int moreAction; // [esp+10h] [ebp-14h]
+	int v12; // [esp+10h] [ebp-14h]
 	int sx; // [esp+14h] [ebp-10h]
 	int sy; // [esp+18h] [ebp-Ch]
 	int v15; // [esp+1Ch] [ebp-8h]
@@ -2830,14 +2830,14 @@ LABEL_10:
 	v11 = v5 + 1;
 	if ( (unsigned char)(__OFSUB__(v5 - 1, v5 + 1) ^ 1) | (v5 - 1 == v5 + 1) )
 	{
-		moreAction = v6 - 1;
+		v12 = v6 - 1;
 		v15 = v6 + 1;
 		do
 		{
-			v8 = moreAction;
-			if ( moreAction <= v15 )
+			v8 = v12;
+			if ( v12 <= v15 )
 			{
-				for ( j = &dPlayer[moreAction][v7]; ; j += 112 )
+				for ( j = &dPlayer[v12][v7]; ; j += 112 )
 				{
 					if ( *j )
 					{
@@ -3217,7 +3217,7 @@ void __fastcall ObjL2Special(int x1, int y1, int x2, int y2)
 	int v9; // edx
 	int i; // edi
 	int v11; // eax
-	char *moreAction; // edx
+	char *v12; // edx
 	int *v13; // esi
 	int v14; // eax
 	int v15; // ebx
@@ -3267,7 +3267,7 @@ void __fastcall ObjL2Special(int x1, int y1, int x2, int y2)
 			if ( x1 <= x2 )
 			{
 				v11 = i + 112 * x1;
-				moreAction = &dArch[0][v11 + 2];
+				v12 = &dArch[0][v11 + 2];
 				v13 = (int *)((char *)dPiece + 4 * v11);
 				v14 = x2 - x1 + 1;
 				do
@@ -3275,16 +3275,16 @@ void __fastcall ObjL2Special(int x1, int y1, int x2, int y2)
 					v15 = *v13;
 					if ( *v13 == 132 )
 					{
-						*(moreAction - 1) = 2;
-						*moreAction = 1;
+						*(v12 - 1) = 2;
+						*v12 = 1;
 					}
 					if ( v15 == 135 || v15 == 139 )
 					{
-						moreAction[110] = 3;
-						moreAction[222] = 4;
+						v12[110] = 3;
+						v12[222] = 4;
 					}
 					v13 += 112;
-					moreAction += 112;
+					v12 += 112;
 					--v14;
 				}
 				while ( v14 );
@@ -3738,7 +3738,7 @@ void __fastcall MonstCheckDoors(int m)
 	int v9; // eax
 	int v10; // ebx
 	int v11; // eax
-	bool moreAction; // zf
+	bool v12; // zf
 	bool v13; // sf
 	unsigned char v14; // of
 	int v15; // eax
@@ -3792,7 +3792,7 @@ void __fastcall MonstCheckDoors(int m)
 				v10 = abs(object[v8]._ox - v29);
 				v11 = abs(object[v8]._oy - v28);
 				v14 = __OFSUB__(v10, 1);
-				moreAction = v10 == 1;
+				v12 = v10 == 1;
 				v13 = v10 - 1 < 0;
 				v30 = v11;
 				if ( v10 != 1 )
@@ -3859,10 +3859,10 @@ LABEL_43:
 			}
 			OperateL1LDoor(myplr, oi, 1u);
 			v14 = 0;
-			moreAction = 1;
+			v12 = 1;
 			v13 = 0;
 LABEL_17:
-			if ( !((unsigned char)(v13 ^ v14) | moreAction) )
+			if ( !((unsigned char)(v13 ^ v14) | v12) )
 				goto LABEL_21;
 			goto LABEL_18;
 		}
@@ -4172,7 +4172,7 @@ void __fastcall OperateBookLever(int pnum, int i)
 	char v9; // bl
 	int v10; // ST08_4
 	int v11; // ecx
-	int moreAction; // ecx
+	int v12; // ecx
 	int v13; // [esp+Ch] [ebp-8h]
 	short param1; // [esp+10h] [ebp-4h]
 
@@ -4223,9 +4223,9 @@ void __fastcall OperateBookLever(int pnum, int i)
 				TransVal = v9;
 			}
 		}
-		moreAction = object[v2]._oVar7;
+		v12 = object[v2]._oVar7;
 		object[v2]._oAnimFrame = object[v2]._oVar6;
-		InitQTextMsg(moreAction);
+		InitQTextMsg(v12);
 		if ( v13 == myplr )
 			NetSendCmdParam1(0, CMD_OPERATEOBJ, param1);
 	}
@@ -4758,11 +4758,11 @@ void __fastcall TryDisarm(int pnum, int i)
 	int v9; // eax
 	int v10; // ecx
 	int v11; // eax
-	int moreAction; // [esp+Ch] [ebp-4h]
+	int v12; // [esp+Ch] [ebp-4h]
 
 	v2 = pnum;
 	v3 = i;
-	moreAction = i;
+	v12 = i;
 	if ( pnum == myplr )
 		SetCursor(CURSOR_HAND);
 	v4 = v3;
@@ -4781,7 +4781,7 @@ void __fastcall TryDisarm(int pnum, int i)
 					v8 = 1;
 				if ( v10 == OBJ_TRAPR )
 					v8 = 1;
-				if ( v8 && dObject[object[v9]._oVar1][object[v9]._oVar2] - 1 == moreAction )
+				if ( v8 && dObject[object[v9]._oVar1][object[v9]._oVar2] - 1 == v12 )
 				{
 					object[v9]._oVar4 = 1;
 					object[v4]._oTrapFlag = 0;
@@ -4815,7 +4815,7 @@ void __fastcall OperateShrine(int pnum, int i, int sType)
 	int v9; // eax
 	int v10; // eax
 	int v11; // eax
-	int moreAction; // edx
+	int v12; // edx
 	int v13; // esi
 	signed int v14; // ebx
 	int *v15; // eax
@@ -4922,16 +4922,16 @@ void __fastcall OperateShrine(int pnum, int i, int sType)
 	int v117; // esi
 	int v118; // edx
 	int v119; // ebx
-	int moreAction0; // edi
-	int moreAction1; // eax
-	int moreAction2; // edx
-	int moreAction3; // edx
-	int moreAction4; // edx
-	int moreAction5; // eax
-	int *moreAction6; // ecx
-	signed int moreAction7; // esi
-	int moreAction8; // esi
-	int *moreAction9; // ecx
+	int v120; // edi
+	int v121; // eax
+	int v122; // edx
+	int v123; // edx
+	int v124; // edx
+	int v125; // eax
+	int *v126; // ecx
+	signed int v127; // esi
+	int v128; // esi
+	int *v129; // ecx
 	int *v130; // eax
 	signed int v131; // ecx
 	int v133; // eax
@@ -5025,7 +5025,7 @@ void __fastcall OperateShrine(int pnum, int i, int sType)
 			case 1://Hidden
 				//-10 max durability to one equipped item, +10 durability to the others.	
 				//"New strength is forged through destruction."
-				moreAction = 0;
+				v12 = 0;
 				if ( v5 || arglist != myplr )
 					return;
 				v13 = arglist;
@@ -5035,12 +5035,12 @@ void __fastcall OperateShrine(int pnum, int i, int sType)
 				do
 				{
 					if ( *v15 != -1 )
-						++moreAction;
+						++v12;
 					v15 += 92;
 					--v7;
 				}
 				while ( v7 );
-				if ( moreAction <= 0 )
+				if ( v12 <= 0 )
 					goto LABEL_47;
 				v16 = &plr[v13].InvBody[0]._iMaxDur;
 				do
@@ -5740,25 +5740,25 @@ LABEL_47:
 				v117 = *(int *)((char *)&plr[0]._pMaxManaBase + v7);
 				v118 = *(int *)((char *)&plr[0]._pManaBase + v7);
 				v119 = *(int *)((char *)&plr[0]._pMana + v7) - v118;
-				moreAction0 = *(int *)((char *)&plr[0]._pMaxManaBase + v7) / 10;
-				moreAction1 = *(int *)((char *)&plr[0]._pMaxMana + v7) - v117;
-				*(int *)((char *)&plr[0]._pManaBase + v7) = v118 - moreAction0;
-				moreAction2 = *(int *)((char *)&plr[0]._pMana + v7) - moreAction0;
-				sfx_idg = moreAction2;
-				*(int *)((char *)&plr[0]._pMana + v7) = moreAction2;
-				moreAction3 = *(int *)((char *)&plr[0]._pMaxMana + v7);
-				*(int *)((char *)&plr[0]._pMaxManaBase + v7) = v117 - moreAction0;
-				moreAction4 = moreAction3 - moreAction0;
-				*(int *)((char *)&plr[0]._pMaxMana + v7) = moreAction4;
+				v120 = *(int *)((char *)&plr[0]._pMaxManaBase + v7) / 10;
+				v121 = *(int *)((char *)&plr[0]._pMaxMana + v7) - v117;
+				*(int *)((char *)&plr[0]._pManaBase + v7) = v118 - v120;
+				v122 = *(int *)((char *)&plr[0]._pMana + v7) - v120;
+				sfx_idg = v122;
+				*(int *)((char *)&plr[0]._pMana + v7) = v122;
+				v123 = *(int *)((char *)&plr[0]._pMaxMana + v7);
+				*(int *)((char *)&plr[0]._pMaxManaBase + v7) = v117 - v120;
+				v124 = v123 - v120;
+				*(int *)((char *)&plr[0]._pMaxMana + v7) = v124;
 				if ( (signed int)(sfx_idg & 0xFFFFFFC0) <= 0 )
 				{
 					*(int *)((char *)&plr[0]._pManaBase + v7) = 0;
 					*(int *)((char *)&plr[0]._pMana + v7) = v119;
 				}
-				if ( (signed int)(moreAction4 & 0xFFFFFFC0) <= 0 )
+				if ( (signed int)(v124 & 0xFFFFFFC0) <= 0 )
 				{
 					*(int *)((char *)&plr[0]._pMaxManaBase + v7) = 0;
-					*(int *)((char *)&plr[0]._pMaxMana + v7) = moreAction1;
+					*(int *)((char *)&plr[0]._pMaxMana + v7) = v121;
 				}
 				*/
 				_LOBYTE(v7) = 36;
@@ -5768,31 +5768,31 @@ LABEL_47:
 				//"Mysteries are revealed in the light of reason."
 				if ( v5 || arglist != myplr )
 					return;
-				moreAction5 = arglist;
-				moreAction6 = &plr[arglist].InvBody[0]._iIdentified;
-				moreAction7 = 7;
+				v125 = arglist;
+				v126 = &plr[arglist].InvBody[0]._iIdentified;
+				v127 = 7;
 				do
 				{
-					if ( *((_BYTE *)moreAction6 + 4) && !*moreAction6 )
-						*moreAction6 = 1;
-					moreAction6 += 92;
-					--moreAction7;
+					if ( *((_BYTE *)v126 + 4) && !*v126 )
+						*v126 = 1;
+					v126 += 92;
+					--v127;
 				}
-				while ( moreAction7 );
-				moreAction8 = 0;
-				if ( plr[moreAction5]._pNumInv > 0 )
+				while ( v127 );
+				v128 = 0;
+				if ( plr[v125]._pNumInv > 0 )
 				{
-					moreAction9 = &plr[moreAction5].InvList[0]._iIdentified;
+					v129 = &plr[v125].InvList[0]._iIdentified;
 					do
 					{
-						if ( *((_BYTE *)moreAction9 + 4) && !*moreAction9 )
-							*moreAction9 = 1;
-						++moreAction8;
-						moreAction9 += 92;
+						if ( *((_BYTE *)v129 + 4) && !*v129 )
+							*v129 = 1;
+						++v128;
+						v129 += 92;
 					}
-					while ( moreAction8 < plr[moreAction5]._pNumInv );
+					while ( v128 < plr[v125]._pNumInv );
 				}
-				v130 = &plr[moreAction5].SpdList[0]._iIdentified;
+				v130 = &plr[v125].SpdList[0]._iIdentified;
 				v131 = 8;
 				do
 				{
@@ -6108,7 +6108,7 @@ bool __fastcall OperateFountains(int pnum, int i)
 	int v8; // ebp
 	int v10; // eax
 	int v11; // esi
-	int moreAction; // eax
+	int v12; // eax
 	int v13; // eax
 	int v14; // edi
 	int v15; // edx
@@ -6230,10 +6230,10 @@ LABEL_38:
 					{
 						if ( v10 )
 						{
-							moreAction = v10 - 1;
-							if ( moreAction )
+							v12 = v10 - 1;
+							if ( v12 )
 							{
-								v13 = moreAction - 1;
+								v13 = v12 - 1;
 								if ( v13 )
 								{
 									if ( v13 == 1 )
@@ -6285,7 +6285,7 @@ void __fastcall OperateWeaponRack(int pnum, int i, unsigned char sendmsg)
 	int v9; // eax
 	bool v10; // zf
 	int v11; // ecx
-	int moreAction; // edx
+	int v12; // edx
 	signed int v13; // [esp-4h] [ebp-14h]
 	int v14; // [esp+Ch] [ebp-4h]
 
@@ -6330,11 +6330,11 @@ LABEL_12:
 	if ( v10 )
 	{
 		v11 = object[v4]._ox;
-		moreAction = object[v4]._oy;
+		v12 = object[v4]._oy;
 		if ( (unsigned char)leveltype <= 1u )
-			CreateTypeItem(v11, moreAction, 0, v9, 0, sendmsg, 0);
+			CreateTypeItem(v11, v12, 0, v9, 0, sendmsg, 0);
 		else
-			CreateTypeItem(v11, moreAction, 1u, v9, 0, sendmsg, 0);
+			CreateTypeItem(v11, v12, 1u, v9, 0, sendmsg, 0);
 		if ( v14 == myplr )
 			NetSendCmdParam1(0, CMD_OPERATEOBJ, v3);
 	}
@@ -6752,7 +6752,7 @@ void __fastcall BreakBarrel(int pnum, int i, int dam, unsigned char forcebreak, 
 	int v9; // eax
 	int v10; // eax
 	int v11; // eax
-	char moreAction; // al
+	char v12; // al
 	char v13; // al
 	int v14; // edx
 	int v15; // [esp-4h] [ebp-24h]
@@ -6814,9 +6814,9 @@ void __fastcall BreakBarrel(int pnum, int i, int dam, unsigned char forcebreak, 
 									v11 = *v19;
 									if ( *v19 > 0 )
 										MonsterTrapHit(v11 - 1, 1, 4, 0, 1, 0);
-									moreAction = dPlayer[0][forcebreaka];
-									if ( moreAction > 0 )
-										PlayerMHit(moreAction - 1, -1, 0, 8, 16, 1, 0, 0);
+									v12 = dPlayer[0][forcebreaka];
+									if ( v12 > 0 )
+										PlayerMHit(v12 - 1, -1, 0, 8, 16, 1, 0, 0);
 									v13 = dObject[0][forcebreaka];
 									if ( v13 > 0 )
 									{

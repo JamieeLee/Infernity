@@ -330,7 +330,7 @@ void __fastcall CheckQuestKill(int m, unsigned char sendmsg)
 	char v9; // al
 	int v10; // edi
 	int (*v11)[112]; // esi
-	signed int moreAction; // ecx
+	signed int v12; // ecx
 	int *v13; // eax
 	int (*v14)[112]; // ebx
 	char v15; // al
@@ -428,7 +428,7 @@ LABEL_10:
 					v11 = dPiece;
 					do
 					{
-						moreAction = 0;
+						v12 = 0;
 						v13 = &trigs[trigflag[4]]._ty;
 						v14 = v11;
 						do
@@ -436,15 +436,15 @@ LABEL_10:
 							if ( (*v14)[0] == 370 )
 							{
 								++trigflag[4];
-								*(v13 - 1) = moreAction;
+								*(v13 - 1) = v12;
 								*v13 = v10;
 								v13[1] = 1026;
 								v13 += 4;
 							}
-							++moreAction;
+							++v12;
 							++v14;
 						}
-						while ( moreAction < 112 );
+						while ( v12 < 112 );
 						v11 = (int (*)[112])((char *)v11 + 4);
 						++v10;
 					}
@@ -637,7 +637,7 @@ void __fastcall DrawSChamber(int q, int x, int y)
 	int v9; // eax
 	char *v10; // edx
 	char v11; // bl
-	int moreAction; // edx
+	int v12; // edx
 	unsigned char *ptr; // [esp+Ch] [ebp-10h]
 	int v14; // [esp+10h] [ebp-Ch]
 	int v15; // [esp+14h] [ebp-8h]
@@ -681,9 +681,9 @@ void __fastcall DrawSChamber(int q, int x, int y)
 		}
 		while ( y < v15 );
 	}
-	moreAction = v14;
-	quests[moreAction]._qtx = 2 * v3 + 22;
-	quests[moreAction]._qty = 2 * v5 + 23;
+	v12 = v14;
+	quests[v12]._qtx = 2 * v3 + 22;
+	quests[v12]._qty = 2 * v5 + 23;
 	mem_free_dbg(ptr);
 }
 // 5CF330: using guessed type int setpc_h;
@@ -701,13 +701,13 @@ void __fastcall DrawLTBanner(int x, int y)
 	char *v9; // edx
 	char *v10; // ecx
 	unsigned char *ptr; // [esp+Ch] [ebp-10h]
-	int moreAction; // [esp+10h] [ebp-Ch]
+	int v12; // [esp+10h] [ebp-Ch]
 	int v13; // [esp+14h] [ebp-8h]
 	int v14; // [esp+18h] [ebp-4h]
 
 	v2 = y;
 	v3 = x;
-	moreAction = y;
+	v12 = y;
 	v4 = LoadFileInMem("Levels\\L1Data\\Banner1.DUN", 0);
 	v5 = v4;
 	v14 = 0;
@@ -727,7 +727,7 @@ void __fastcall DrawLTBanner(int x, int y)
 			if ( v6 > 0 )
 			{
 				v13 = v6;
-				v10 = &pdungeon[v3][v14 + moreAction];
+				v10 = &pdungeon[v3][v14 + v12];
 				do
 				{
 					if ( *v9 )
@@ -760,13 +760,13 @@ void __fastcall DrawBlind(int x, int y)
 	char *v9; // edx
 	char *v10; // ecx
 	unsigned char *ptr; // [esp+Ch] [ebp-10h]
-	int moreAction; // [esp+10h] [ebp-Ch]
+	int v12; // [esp+10h] [ebp-Ch]
 	int v13; // [esp+14h] [ebp-8h]
 	int v14; // [esp+18h] [ebp-4h]
 
 	v2 = y;
 	v3 = x;
-	moreAction = y;
+	v12 = y;
 	v4 = LoadFileInMem("Levels\\L2Data\\Blind1.DUN", 0);
 	v5 = v4;
 	v14 = 0;
@@ -786,7 +786,7 @@ void __fastcall DrawBlind(int x, int y)
 			if ( v6 > 0 )
 			{
 				v13 = v6;
-				v10 = &pdungeon[v3][v14 + moreAction];
+				v10 = &pdungeon[v3][v14 + v12];
 				do
 				{
 					if ( *v9 )
@@ -819,13 +819,13 @@ void __fastcall DrawBlood(int x, int y)
 	char *v9; // edx
 	char *v10; // ecx
 	unsigned char *ptr; // [esp+Ch] [ebp-10h]
-	int moreAction; // [esp+10h] [ebp-Ch]
+	int v12; // [esp+10h] [ebp-Ch]
 	int v13; // [esp+14h] [ebp-8h]
 	int v14; // [esp+18h] [ebp-4h]
 
 	v2 = y;
 	v3 = x;
-	moreAction = y;
+	v12 = y;
 	v4 = LoadFileInMem("Levels\\L2Data\\Blood2.DUN", 0);
 	v5 = v4;
 	v14 = 0;
@@ -845,7 +845,7 @@ void __fastcall DrawBlood(int x, int y)
 			if ( v6 > 0 )
 			{
 				v13 = v6;
-				v10 = &dungeon[v3][v14 + moreAction];
+				v10 = &dungeon[v3][v14 + v12];
 				do
 				{
 					if ( *v9 )
@@ -1108,7 +1108,7 @@ void __fastcall PrintQLString(int x, int y, unsigned char cjustflag, char *str, 
 	signed int v9; // ecx
 	signed int v10; // eax
 	int v11; // edx
-	int moreAction; // ecx
+	int v12; // ecx
 	signed int v13; // ecx
 	unsigned char v14; // al
 	int v15; // edi
@@ -1146,10 +1146,10 @@ LABEL_24:
 	}
 	if ( qline == v18 )
 	{
-		moreAction = v8 + v6 + 76;
+		v12 = v8 + v6 + 76;
 		if ( !cjustflag )
-			moreAction = v6 + 76;
-		CelDecodeOnly(moreAction, v5 + 205, pCelBuff, ALLQUESTS, 12);
+			v12 = v6 + 76;
+		CelDecodeOnly(v12, v5 + 205, pCelBuff, ALLQUESTS, 12);
 	}
 	v13 = 0;
 	v19 = 0;

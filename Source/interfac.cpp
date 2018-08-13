@@ -263,7 +263,7 @@ void __fastcall InitCutscene(int uMsg)
 	int v9; // eax
 	int v10; // eax
 	int v11; // eax
-	int moreAction; // eax
+	int v12; // eax
 	int v13; // eax
 	int v14; // eax
 
@@ -333,10 +333,10 @@ LABEL_10:
 			goto LABEL_30;
 		case WM_DIABTOWNWARP:
 		case WM_DIABTWARPUP:
-			moreAction = gnLevelTypeTbl[plr[myplr].plrlevel];
-			if ( !moreAction )
+			v12 = gnLevelTypeTbl[plr[myplr].plrlevel];
+			if ( !v12 )
 				goto LABEL_31;
-			v13 = moreAction - 2;
+			v13 = v12 - 2;
 			if ( !v13 )
 			{
 LABEL_21:

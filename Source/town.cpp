@@ -136,7 +136,7 @@ void __fastcall town_draw_clipped_town(void *unused, int x, int y, int sx, int s
 	char v9; // al
 	int v10; // esi
 	int v11; // ebx
-	int moreAction; // esi
+	int v12; // esi
 	int v13; // ebx
 	int v14; // eax
 	int v15; // eax
@@ -180,19 +180,19 @@ void __fastcall town_draw_clipped_town(void *unused, int x, int y, int sx, int s
 	}
 	if ( dFlags[0][v7] & 0x10 )
 	{
-		moreAction = -1 - dMonster[x][y-1]; // -1 - *(&dword_52D204 + v7); /* check */
-		v13 = sx - towner[moreAction]._tAnimWidth2;
-		if ( moreAction == pcursmonst )
+		v12 = -1 - dMonster[x][y-1]; // -1 - *(&dword_52D204 + v7); /* check */
+		v13 = sx - towner[v12]._tAnimWidth2;
+		if ( v12 == pcursmonst )
 			CelDrawHdrClrHL(
 				166,
 				v13,
 				sy,
-				(char *)towner[moreAction]._tAnimData,
-				towner[moreAction]._tAnimFrame,
-				towner[moreAction]._tAnimWidth,
+				(char *)towner[v12]._tAnimData,
+				towner[v12]._tAnimFrame,
+				towner[v12]._tAnimWidth,
 				0,
 				8);
-		Cel2DrawHdrOnly(v13, sy, (char *)towner[moreAction]._tAnimData, towner[moreAction]._tAnimFrame, towner[moreAction]._tAnimWidth, 0, 8);
+		Cel2DrawHdrOnly(v13, sy, (char *)towner[v12]._tAnimData, towner[v12]._tAnimFrame, towner[v12]._tAnimWidth, 0, 8);
 	}
 	v14 = dMonster[0][v7];
 	if ( v14 > 0 )
@@ -255,7 +255,7 @@ void __fastcall town_draw_lower(int x, int y, int sx, int sy, int a5, int some_f
 	int v9; // eax
 	int v10; // eax
 	int *v11; // ebx
-	int moreAction; // esi
+	int v12; // esi
 	unsigned char *v13; // esi
 	char *v14; // edi
 	int v15; // eax
@@ -315,12 +315,12 @@ void __fastcall town_draw_lower(int x, int y, int sx, int sy, int a5, int some_f
 	if ( a5 - some_flag > 0 )
 	{
 		v11 = &screen_y_times_768[v6];
-		moreAction = 112 * xa;
+		v12 = 112 * xa;
 		a5a = 112 * xa;
 		a1a = v10;
 		do
 		{
-			if ( y >= 0 && y < 112 && moreAction >= 0 && moreAction < 12544 && (level_cel_block = dPiece[0][moreAction + y]) != 0 )
+			if ( y >= 0 && y < 112 && v12 >= 0 && v12 < 12544 && (level_cel_block = dPiece[0][v12 + y]) != 0 )
 			{
 				v13 = (unsigned char *)gpBuffer + *v11 + sx;
 				v14 = (char *)dpiece_defs_map_1 + 32 * gendung_get_dpiece_num_from_coord(xa, ya);
@@ -340,7 +340,7 @@ void __fastcall town_draw_lower(int x, int y, int sx, int sy, int a5, int some_f
 				}
 				while ( v26 < 16 );
 				town_draw_clipped_town((char *)gpBuffer + *v11 + sx, xa, ya, sx, sy, 1);
-				moreAction = a5a;
+				v12 = a5a;
 			}
 			else
 			{
@@ -348,10 +348,10 @@ void __fastcall town_draw_lower(int x, int y, int sx, int sy, int a5, int some_f
 			}
 			++xa;
 			sx += 64;
-			moreAction += 112;
+			v12 += 112;
 			y = ya - 1;
 			v17 = a1a-- == 1;
-			a5a = moreAction;
+			a5a = v12;
 			--ya;
 		}
 		while ( !v17 );
@@ -392,13 +392,13 @@ void __fastcall town_draw_clipped_e_flag_2(void *buffer, int x, int y, int a4, i
 	short *v9; // esi
 	int v10; // eax
 	int v11; // eax
-	void *moreAction; // [esp+8h] [ebp-8h]
+	void *v12; // [esp+8h] [ebp-8h]
 	int xa; // [esp+Ch] [ebp-4h]
 	int a4a; // [esp+1Ch] [ebp+Ch]
 
 	v7 = a4;
 	xa = x;
-	moreAction = buffer;
+	v12 = buffer;
 	if ( a4 )
 		v8 = (unsigned char *)buffer + 24576 * a4;
 	else
@@ -424,7 +424,7 @@ void __fastcall town_draw_clipped_e_flag_2(void *buffer, int x, int y, int a4, i
 	}
 	while ( a4a < 6 );
 	if ( a5 < 8 )
-		town_draw_clipped_town_2((int)moreAction, xa, y, v7, a5, sx, sy, 0);
+		town_draw_clipped_town_2((int)v12, xa, y, v7, a5, sx, sy, 0);
 }
 // 69CF14: using guessed type int level_cel_block;
 
@@ -434,7 +434,7 @@ void __fastcall town_draw_clipped_town_2(int x, int y, int a3, int a4, int a5, i
 	int v9; // ebx
 	char v10; // al
 	char v11; // al
-	int moreAction; // esi
+	int v12; // esi
 	int v13; // edi
 	int v14; // esi
 	int v15; // edi
@@ -464,19 +464,19 @@ void __fastcall town_draw_clipped_town_2(int x, int y, int a3, int a4, int a5, i
 	if ( v10 )
 	{
 		v11 = v10 - 1;
-		moreAction = v11;
-		v13 = sx - item[moreAction]._iAnimWidth2;
+		v12 = v11;
+		v13 = sx - item[v12]._iAnimWidth2;
 		if ( v11 == pcursitem )
 			CelDrawHdrClrHL(
 				181,
 				v13,
 				sy,
-				(char *)item[moreAction]._iAnimData,
-				item[moreAction]._iAnimFrame,
-				item[moreAction]._iAnimWidth,
+				(char *)item[v12]._iAnimData,
+				item[v12]._iAnimFrame,
+				item[v12]._iAnimWidth,
 				a5,
 				8);
-		Cel2DrawHdrOnly(v13, sy, (char *)item[moreAction]._iAnimData, item[moreAction]._iAnimFrame, item[moreAction]._iAnimWidth, a5, 8);
+		Cel2DrawHdrOnly(v13, sy, (char *)item[v12]._iAnimData, item[v12]._iAnimFrame, item[v12]._iAnimWidth, a5, 8);
 	}
 	if ( dFlags[0][v9] & 0x10 )
 	{
@@ -554,7 +554,7 @@ void __fastcall town_draw_lower_2(int x, int y, int sx, int sy, int a5, int a6, 
 	int *v9; // edi
 	short *v10; // eax
 	int v11; // esi
-	int moreAction; // eax
+	int v12; // eax
 	int *v13; // ebx
 	int v14; // edi
 	short *v15; // edi
@@ -627,13 +627,13 @@ LABEL_16:
 	v11 = sx;
 	v8 = sy;
 LABEL_18:
-	moreAction = a5 - some_flag;
+	v12 = a5 - some_flag;
 	if ( a5 - some_flag > 0 )
 	{
 		v13 = &screen_y_times_768[v8];
 		v14 = 112 * xa;
 		a5a = 112 * xa;
-		v24 = moreAction;
+		v24 = v12;
 		do
 		{
 			if ( ya >= 0 && ya < 112 && v14 >= 0 && v14 < 12544 && (level_cel_block = dPiece[0][v14 + ya]) != 0 )
@@ -816,7 +816,7 @@ void __fastcall town_draw_upper(int x, int y, int sx, int sy, int a5, int a6, in
 	int v9; // eax
 	bool v10; // zf
 	int v11; // eax
-	short *moreAction; // ebx
+	short *v12; // ebx
 	int v13; // eax
 	int v14; // esi
 	int v15; // edi
@@ -865,19 +865,19 @@ void __fastcall town_draw_upper(int x, int y, int sx, int sy, int a5, int a6, in
 			{
 				a1 = (int *)&gpBuffer->row_unused_1[0].col_unused_1[sx + 32 + screen_y_times_768[sy]];
 				sxa = 0;
-				moreAction = &dpiece_defs_map_1[0][0][16 * gendung_get_dpiece_num_from_coord(x, y) + 1];
+				v12 = &dpiece_defs_map_1[0][0][16 * gendung_get_dpiece_num_from_coord(x, y) + 1];
 				do
 				{
 					if ( a6 >= sxa )
 					{
-						v13 = (unsigned short)*moreAction;
-						level_cel_block = (unsigned short)*moreAction;
+						v13 = (unsigned short)*v12;
+						level_cel_block = (unsigned short)*v12;
 						if ( v13 )
 							drawUpperScreen((unsigned char *)a1);
 					}
 					a1 -= 6144;
 					++sxa;
-					moreAction += 2;
+					v12 += 2;
 				}
 				while ( sxa < 7 );
 				town_draw_town_all((char *)gpBuffer + v8 + screen_y_times_768[sy], xa, ya, a6, dir, v8, sy, 0);
@@ -1135,7 +1135,7 @@ void __fastcall T_DrawZoom(int x, int y)
 	int v9; // esi
 	int v10; // edi
 	_WORD *v11; // edi
-	char *moreAction; // esi
+	char *v12; // esi
 	char *v13; // ebx
 	signed int v14; // edx
 	signed int v15; // ecx
@@ -1260,7 +1260,7 @@ LABEL_23:
 	v19 = 320;
 LABEL_24:
 	v11 = (_WORD *)((char *)gpBuffer + a5a);
-	moreAction = (char *)gpBuffer + a6b;
+	v12 = (char *)gpBuffer + a6b;
 	v13 = &gpBuffer->row_unused_1[1].col_unused_1[a5a];
 	v14 = 176;
 	do
@@ -1268,7 +1268,7 @@ LABEL_24:
 		v15 = v19;
 		do
 		{
-			_LOBYTE(v16) = *moreAction++;
+			_LOBYTE(v16) = *v12++;
 			_HIBYTE(v16) = v16;
 			*v11 = v16;
 			*(_WORD *)v13 = v16;
@@ -1277,7 +1277,7 @@ LABEL_24:
 			--v15;
 		}
 		while ( v15 );
-		moreAction += -v19 - 768;
+		v12 += -v19 - 768;
 		v17 = 2 * (v19 + 768);
 		v13 -= v17;
 		v11 = (_WORD *)((char *)v11 - v17);
@@ -1433,7 +1433,7 @@ void __fastcall T_FillSector(unsigned char *P3Tiles, unsigned char *pSector, int
 	int v9; // edi
 	int *v10; // ecx
 	int v11; // eax
-	unsigned char *moreAction; // esi
+	unsigned char *v12; // esi
 	unsigned short v13; // ax
 	int v14; // eax
 	int v15; // [esp+4h] [ebp-14h]
@@ -1462,17 +1462,17 @@ void __fastcall T_FillSector(unsigned char *P3Tiles, unsigned char *pSector, int
 					v11 = *(unsigned short *)&v17[v19];
 					if ( (_WORD)v11 )
 					{
-						moreAction = &v18[8 * (v11 - 1)];
-						v13 = *(_WORD *)moreAction;
-						moreAction += 2;
+						v12 = &v18[8 * (v11 - 1)];
+						v13 = *(_WORD *)v12;
+						v12 += 2;
 						v14 = v13 + 1;
 						a4 = v14;
-						_LOWORD(v14) = *(_WORD *)moreAction;
-						moreAction += 2;
+						_LOWORD(v14) = *(_WORD *)v12;
+						v12 += 2;
 						a6 = ++v14;
-						_LOWORD(v14) = *(_WORD *)moreAction;
+						_LOWORD(v14) = *(_WORD *)v12;
 						v16 = ++v14;
-						_LOWORD(v14) = *((_WORD *)moreAction + 1);
+						_LOWORD(v14) = *((_WORD *)v12 + 1);
 						v15 = v14 + 1;
 					}
 					else

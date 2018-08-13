@@ -20,7 +20,7 @@ void __cdecl InitDead()
 	int v9; // edx
 	CMonster *v10; // ecx
 	char *v11; // edi
-	int *moreAction; // ebx
+	int *v12; // ebx
 	int mtypes[200]; // [esp+Ch] [ebp-330h]
 	int *v14; // [esp+32Ch] [ebp-10h]
 	int *v15; // [esp+330h] [ebp-Ch]
@@ -86,9 +86,9 @@ void __cdecl InitDead()
 				v14 = v10->Anims[4].Frames;
 				do
 				{
-					moreAction = v14;
+					v12 = v14;
 					++v14;
-					*(_DWORD *)v11 = *moreAction;
+					*(_DWORD *)v11 = *v12;
 					v11 += 4;
 					v15 = (int *)((char *)v15 - 1);
 				}

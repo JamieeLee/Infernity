@@ -416,7 +416,7 @@ void __cdecl DrawSpellList()
 	int v9; // esi
 	int v10; // eax
 	int v11; // ebp
-	int moreAction; // edx
+	int v12; // edx
 	int *v13; // ecx
 	int *v14; // eax
 	signed int v15; // edx
@@ -528,8 +528,8 @@ LABEL_32:
 							sprintf(infostr, "Scroll of %s", spelldata[pSpell].sNameText);
 							v10 = myplr;
 							v11 = 0;
-							moreAction = plr[myplr]._pNumInv;
-							if ( moreAction > 0 )
+							v12 = plr[myplr]._pNumInv;
+							if ( v12 > 0 )
 							{
 								v13 = &plr[v10].InvList[0]._iMiscId;
 								do
@@ -541,9 +541,9 @@ LABEL_32:
 										++v11;
 									}
 									v13 += 92;
-									--moreAction;
+									--v12;
 								}
-								while ( moreAction );
+								while ( v12 );
 							}
 							v14 = &plr[v10].SpdList[0]._iMiscId;
 							v15 = 8;
@@ -690,11 +690,11 @@ void __fastcall ToggleSpell(int slot)
 	int v9; // edi
 	//int v10; // [esp+4h] [ebp-Ch]
 	char *v11; // [esp+8h] [ebp-8h]
-	int moreAction; // [esp+Ch] [ebp-4h]
+	int v12; // [esp+Ch] [ebp-4h]
 
 	v1 = slot + 5430 * myplr;
 	v2 = plr[0]._pSplHotKey[v1];
-	moreAction = plr[0]._pSplHotKey[v1];
+	v12 = plr[0]._pSplHotKey[v1];
 	if ( v2 != -1 )
 	{
 		v3 = myplr;
@@ -740,7 +740,7 @@ void __fastcall ToggleSpell(int slot)
 		if ( v9 & ((unsigned __int64)((__int64)1 << ((unsigned char)v2 - 1)) >> 32) | v8 & (unsigned int)((__int64)1 << ((unsigned char)v2 - 1)) )
 		{
 			drawpanflag = 255;
-			plr[v3]._pRSpell = moreAction;
+			plr[v3]._pRSpell = v12;
 			_LOBYTE(plr[v3]._pRSplType) = *v11;
 		}
 	}
@@ -758,7 +758,7 @@ void __fastcall CPrintString(int No, unsigned char pszStr, int Just)
 	unsigned int v9; // ecx
 	char v10; // cf
 	unsigned int v11; // ecx
-	signed int moreAction; // edx
+	signed int v12; // edx
 	int v13; // eax
 	int v14; // ecx
 	char v15; // al
@@ -781,7 +781,7 @@ void __fastcall CPrintString(int No, unsigned char pszStr, int Just)
 		{
 			do
 			{
-				moreAction = 13;
+				v12 = 13;
 				do
 				{
 					while ( 1 )
@@ -791,11 +791,11 @@ void __fastcall CPrintString(int No, unsigned char pszStr, int Just)
 							break;
 						_LOBYTE(v13) = -(char)v13;
 						v5 += v13;
-						moreAction -= v13;
-						if ( !moreAction )
+						v12 -= v13;
+						if ( !v12 )
 							goto LABEL_28;
 					}
-					moreAction -= v13;
+					v12 -= v13;
 					v14 = v13;
 					do
 					{
@@ -813,7 +813,7 @@ void __fastcall CPrintString(int No, unsigned char pszStr, int Just)
 					}
 					while ( v14 );
 				}
-				while ( moreAction );
+				while ( v12 );
 LABEL_28:
 				v5 -= 781;
 			}
@@ -1319,7 +1319,7 @@ void __cdecl DoSpeedBook()
 	int Y; // [esp+10h] [ebp-14h]
 	signed int v10; // [esp+14h] [ebp-10h]
 	int v11; // [esp+18h] [ebp-Ch]
-	signed int moreAction; // [esp+1Ch] [ebp-8h]
+	signed int v12; // [esp+1Ch] [ebp-8h]
 	signed int v13; // [esp+20h] [ebp-4h]
 
 	v0 = myplr;
@@ -1327,7 +1327,7 @@ void __cdecl DoSpeedBook()
 	v1 = 1;
 	v2 = plr[myplr]._pRSpell == -1;
 	spselflag = 1;
-	moreAction = 495;
+	v12 = 495;
 	X = 600;
 	Y = 307;
 	if ( !v2 )
@@ -1368,12 +1368,12 @@ void __cdecl DoSpeedBook()
 					if ( v10 == plr[v0]._pRSpell && v11 == SLOBYTE(plr[v0]._pRSplType) )
 					{
 						X = v13 - 36;
-						Y = moreAction - 188;
+						Y = v12 - 188;
 					}
 					v13 -= 56;
 					if ( v13 == 20 )
 					{
-						moreAction -= 56;
+						v12 -= 56;
 						v13 = 636;
 					}
 				}
@@ -1387,7 +1387,7 @@ void __cdecl DoSpeedBook()
 				v13 -= 56;
 			if ( v13 == 20 )
 			{
-				moreAction -= 56;
+				v12 -= 56;
 				v13 = 636;
 			}
 			if ( ++v11 >= 4 )
@@ -1503,7 +1503,7 @@ void __cdecl CheckPanelInfo()
 	int *v9; // eax
 	signed int v10; // edx
 	int v11; // ecx
-	int moreAction; // [esp+10h] [ebp-4h]
+	int v12; // [esp+10h] [ebp-4h]
 
 	v0 = 0;
 	panelflag = 0;
@@ -1576,7 +1576,7 @@ LABEL_54:
 				case RSPLTYPE_SCROLL:
 					sprintf(tempstr, "Scroll of %s", spelldata[v4].sNameText);
 					AddPanelString(tempstr, 1);
-					moreAction = 0;
+					v12 = 0;
 					v5 = myplr;
 					if ( plr[myplr]._pNumInv > 0 )
 					{
@@ -1585,13 +1585,13 @@ LABEL_54:
 						do
 						{
 							if ( *(v6 - 53) != -1 && (*v6 == IMISC_SCROLL || *v6 == IMISC_SCROLLT) && v6[1] == v4 )
-								++moreAction;
+								++v12;
 							v6 += 92;
 							--v7;
 						}
 						while ( v7 );
 					}
-					v8 = moreAction;
+					v8 = v12;
 					v9 = &plr[v5].SpdList[0]._iMiscId;
 					v10 = 8;
 					do
@@ -1739,7 +1739,7 @@ void __cdecl FreeControlPan()
 	void *v9; // ecx
 	void *v10; // ecx
 	void *v11; // ecx
-	void *moreAction; // ecx
+	void *v12; // ecx
 	void *v13; // ecx
 	void *v14; // ecx
 	void *v15; // ecx
@@ -1780,9 +1780,9 @@ void __cdecl FreeControlPan()
 	v11 = pQLogCel;
 	pQLogCel = 0;
 	mem_free_dbg(v11);
-	moreAction = pSpellBkCel;
+	v12 = pSpellBkCel;
 	pSpellBkCel = 0;
-	mem_free_dbg(moreAction);
+	mem_free_dbg(v12);
 	v13 = pSBkBtnCel;
 	pSBkBtnCel = 0;
 	mem_free_dbg(v13);
@@ -2039,7 +2039,7 @@ void __cdecl DrawChr()
 	char v9; // al
 	char v10; // al
 	char v11; // al
-	int moreAction; // ecx
+	int v12; // ecx
 	int v13; // eax
 	int v14; // ecx
 	int v15; // eax
@@ -2195,13 +2195,13 @@ void __cdecl DrawChr()
 		a5[0] = 3;
 	ADD_PlrStringXY(95, 239, 126, a4, a5[0]);
 	a5[0] = 0;
-	moreAction = plr[myplr]._pStrength;
+	v12 = plr[myplr]._pStrength;
 	v13 = plr[myplr]._pBaseStr;
-	if ( moreAction > v13 )
+	if ( v12 > v13 )
 		a5[0] = 1;
-	if ( moreAction < v13 )
+	if ( v12 < v13 )
 		a5[0] = 2;
-	sprintf(a4, "%i", moreAction);
+	sprintf(a4, "%i", v12);
 	ADD_PlrStringXY(143, 155, 173, a4, a5[0]);
 	a5[0] = 0;
 	v14 = plr[myplr]._pMagic;
@@ -2284,7 +2284,7 @@ void __fastcall ADD_PlrStringXY(int x, int y, int width, char *pszStr, char col)
 	int v9; // edi
 	int v10; // ecx
 	unsigned char v11; // bl
-	unsigned char moreAction; // al
+	unsigned char v12; // al
 	int v13; // ebx
 	int widtha; // [esp+Ch] [ebp-4h]
 	int widthb; // [esp+Ch] [ebp-4h]
@@ -2313,13 +2313,13 @@ void __fastcall ADD_PlrStringXY(int x, int y, int width, char *pszStr, char col)
 	while ( v7 )
 	{
 		++pszStr;
-		moreAction = fontframe[fontidx[v7]];
-		v13 = moreAction;
-		v9 += fontkern[moreAction] + 1;
-		if ( moreAction )
+		v12 = fontframe[fontidx[v7]];
+		v13 = v12;
+		v9 += fontkern[v12] + 1;
+		if ( v12 )
 		{
 			if ( v9 < v8 )
-				CPrintString(widthb, moreAction, col);
+				CPrintString(widthb, v12, col);
 		}
 		widthb += fontkern[v13] + 1;
 		v7 = *pszStr;
@@ -2334,7 +2334,7 @@ void __fastcall MY_PlrStringXY(int x, int y, int width, char *pszStr, char col, 
 	int v9; // esi
 	char *v10; // edi
 	unsigned char v11; // cl
-	unsigned char moreAction; // al
+	unsigned char v12; // al
 	int v13; // edi
 	int widtha; // [esp+Ch] [ebp-4h]
 	int widthb; // [esp+Ch] [ebp-4h]
@@ -2364,13 +2364,13 @@ void __fastcall MY_PlrStringXY(int x, int y, int width, char *pszStr, char col, 
 	while ( v7 )
 	{
 		++v6;
-		moreAction = fontframe[fontidx[v7]];
-		v13 = moreAction;
-		v16 += base + fontkern[moreAction];
-		if ( moreAction )
+		v12 = fontframe[fontidx[v7]];
+		v13 = v12;
+		v16 += base + fontkern[v12];
+		if ( v12 )
 		{
 			if ( v16 < v9 )
-				CPrintString(widthb, moreAction, col);
+				CPrintString(widthb, v12, col);
 		}
 		widthb += base + fontkern[v13];
 		v7 = *v6;
@@ -2460,7 +2460,7 @@ void __cdecl CheckChrBtns()
 	int v9; // edx
 	int v10; // eax
 	int v11; // edx
-	int moreAction; // edx
+	int v12; // edx
 
 	v0 = 0;
 	if ( !chrbtnactive )
@@ -2500,8 +2500,8 @@ LABEL_12:
 						v11 = attribute_inc_rects[v0].x;
 						if ( v2 >= v11 && v2 <= v11 + attribute_inc_rects[v10].w )
 						{
-							moreAction = attribute_inc_rects[v10].y;
-							if ( MouseY >= moreAction && MouseY <= moreAction + attribute_inc_rects[v10].h )
+							v12 = attribute_inc_rects[v10].y;
+							if ( MouseY >= v12 && MouseY <= v12 + attribute_inc_rects[v10].h )
 							{
 								chrbtn[v0] = 1;
 								chrbtnactive = 1;
@@ -2611,7 +2611,7 @@ int __fastcall DrawDurIcon4Item(ItemStruct *pItem, int x, int c)
 	int v9; // eax
 	int v10; // eax
 	int v11; // eax
-	signed int moreAction; // [esp-4h] [ebp-Ch]
+	signed int v12; // [esp-4h] [ebp-Ch]
 
 	v3 = pItem->_itype;
 	v4 = x;
@@ -2631,32 +2631,32 @@ int __fastcall DrawDurIcon4Item(ItemStruct *pItem, int x, int c)
 		v8 = v3 - 1;
 		if ( !v8 )
 		{
-			moreAction = 2;
+			v12 = 2;
 			goto LABEL_15;
 		}
 		v9 = v8 - 1;
 		if ( !v9 )
 		{
-			moreAction = 6;
+			v12 = 6;
 			goto LABEL_15;
 		}
 		v10 = v9 - 1;
 		if ( !v10 )
 		{
-			moreAction = 7;
+			v12 = 7;
 			goto LABEL_15;
 		}
 		v11 = v10 - 1;
 		if ( !v11 )
 		{
-			moreAction = 5;
+			v12 = 5;
 			goto LABEL_15;
 		}
 		if ( v11 == 6 )
 		{
-			moreAction = 8;
+			v12 = 8;
 LABEL_15:
-			v7 = moreAction;
+			v7 = v12;
 			goto LABEL_18;
 		}
 	}
@@ -2676,17 +2676,17 @@ void __cdecl RedBack()
 	char *v7; // edi
 	signed int v9; // edx
 	signed int v10; // ecx
-	int moreAction; // [esp+8h] [ebp-4h]
+	int v12; // [esp+8h] [ebp-4h]
 	int _EAX;
 	char *_EBX;
 
 	v0 = -(light4flag != 0);
 	_LOWORD(v0) = v0 & 0xF400;
-	moreAction = v0 + 0x1200;
+	v12 = v0 + 0x1200;
 	if ( leveltype == DTYPE_HELL )
 	{
 		v7 = gpBuffer->row[0].pixels;
-		_EBX = &pLightTbl[moreAction];
+		_EBX = &pLightTbl[v12];
 		v9 = 352;
 		do
 		{
@@ -2708,7 +2708,7 @@ void __cdecl RedBack()
 	else
 	{
 		v1 = gpBuffer->row[0].pixels;
-		_EBX = &pLightTbl[moreAction];
+		_EBX = &pLightTbl[v12];
 		v3 = 352;
 		do
 		{
@@ -2775,7 +2775,7 @@ void __cdecl DrawSpellBook()
 	signed int v9; // [esp+10h] [ebp-18h]
 	int sel; // [esp+14h] [ebp-14h]
 	int v11; // [esp+18h] [ebp-10h]
-	int moreAction; // [esp+1Ch] [ebp-Ch]
+	int v12; // [esp+1Ch] [ebp-Ch]
 
 	CelDecodeOnly(384, 511, pSpellBkCel, 1, 320);
 	CelDecodeOnly(76 * sbooktab + 391, 508, pSBkBtnCel, sbooktab + 1, 76);
@@ -2809,14 +2809,14 @@ void __cdecl DrawSpellBook()
 				{
 					v4 = GetManaAmount(myplr, v2);
 					v5 = v4 >> 6;
-					moreAction = v4 >> 6;
+					v12 = v4 >> 6;
 					GetDamageAmt(v2, &sel, &v11);
 					if ( sel == -1 )
 						sprintf(tempstr, "Mana: %i   Dam: n/a", v5);
 					else
 						sprintf(tempstr, "Mana: %i  Dam: %i - %i", v5, sel, v11);
 					if ( v2 == SPL_BONESPIRIT )
-						sprintf(tempstr, "Mana: %i  Dam: 1/3 tgt hp", moreAction);
+						sprintf(tempstr, "Mana: %i  Dam: 1/3 tgt hp", v12);
 					PrintSBookStr(10, v8, 0, tempstr, 0);
 					v6 = plr[myplr]._pISplLvlAdd + plr[myplr]._pSplLvl[v2];
 					if ( v6 < 0 )
@@ -2849,7 +2849,7 @@ void __fastcall PrintSBookStr(int x, int y, bool cjustflag, char *pszStr, int br
 	char *v9; // esi
 	unsigned char v10; // al
 	int v11; // esi
-	unsigned char moreAction; // al
+	unsigned char v12; // al
 	int width; // [esp+Ch] [ebp-4h]
 
 	v5 = pszStr;
@@ -2876,11 +2876,11 @@ LABEL_14:
 	}
 	while ( 1 )
 	{
-		moreAction = *v5;
+		v12 = *v5;
 		if ( !*v5 )
 			break;
 		++v5;
-		v10 = fontframe[fontidx[moreAction]];
+		v10 = fontframe[fontidx[v12]];
 		v11 = v10;
 		v7 += fontkern[v10] + 1;
 		if ( v10 )

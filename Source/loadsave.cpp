@@ -15,7 +15,7 @@ void __fastcall LoadGame(bool firstflag)
 	bool v9; // sf
 	unsigned char v10; // of
 	int *v11; // esi
-	int *moreAction; // esi
+	int *v12; // esi
 	int i; // esi
 	int *v14; // esi
 	int *v15; // esi
@@ -125,13 +125,13 @@ void __fastcall LoadGame(bool firstflag)
 	while ( (signed int)v11 < (signed int)&monstkills[200] );
 	if ( leveltype )
 	{
-		moreAction = monstactive;
+		v12 = monstactive;
 		do
 		{
-			*moreAction = ILoad();
-			++moreAction;
+			*v12 = ILoad();
+			++v12;
 		}
-		while ( (signed int)moreAction < (signed int)&monstactive[200] );
+		while ( (signed int)v12 < (signed int)&monstactive[200] );
 		for ( i = 0; i < nummonsters; ++i )
 			LoadMonster(monstactive[i]);
 		v14 = missileactive;
@@ -571,7 +571,7 @@ void __cdecl SaveGame()
 	int *v9; // esi
 	int j; // esi
 	int *v11; // esi
-	int *moreAction; // esi
+	int *v12; // esi
 	int k; // esi
 	signed int v14; // esi
 	int l; // esi
@@ -693,13 +693,13 @@ void __cdecl SaveGame()
 			++v11;
 		}
 		while ( (signed int)v11 < (signed int)&objectactive[127] );
-		moreAction = objectavail;
+		v12 = objectavail;
 		do
 		{
-			BSave(*(_BYTE *)moreAction);
-			++moreAction;
+			BSave(*(_BYTE *)v12);
+			++v12;
 		}
-		while ( (signed int)moreAction < (signed int)&objectavail[127] );
+		while ( (signed int)v12 < (signed int)&objectavail[127] );
 		for ( k = 0; k < nobjects; ++k )
 			SaveObject(objectactive[k]);
 		ISave(numlights);

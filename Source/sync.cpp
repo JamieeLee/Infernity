@@ -292,7 +292,7 @@ void __fastcall sync_monster_data(int pnum, TSyncMonster *packet)
 	int v9; // eax
 	int v10; // ecx
 	signed int v11; // ST14_4
-	int moreAction; // eax
+	int v12; // eax
 	int v13; // eax
 	int v14; // eax
 	//int v15; // eax
@@ -331,8 +331,8 @@ void __fastcall sync_monster_data(int pnum, TSyncMonster *packet)
 				if ( v10 != MM_CHARGE && v10 != MM_STONE )
 				{
 					v11 = abs(monster[v5]._mx - v9);
-					moreAction = abs(monster[v5]._my - (unsigned char)v2->_my);
-					if ( v11 > 2 || moreAction > 2 )
+					v12 = abs(monster[v5]._my - (unsigned char)v2->_my);
+					if ( v11 > 2 || v12 > 2 )
 					{
 						if ( dMonster[0][(unsigned char)v2->_my + 112 * (unsigned char)v2->_mx] )
 						{

@@ -124,7 +124,7 @@ bool __fastcall TFit_Obj5(int t)
 	int v8; // ecx
 	int v10; // [esp+Ch] [ebp-Ch]
 	int v11; // [esp+10h] [ebp-8h]
-	signed int moreAction; // [esp+14h] [ebp-4h]
+	signed int v12; // [esp+14h] [ebp-4h]
 
 	v2 = 0;
 	v3 = 0;
@@ -144,7 +144,7 @@ LABEL_19:
 		v6 = v3 + 112 * v2;
 		if ( dung_map[0][v6] == v5 && !nSolidTable[dPiece[0][v6]] )
 		{
-			moreAction = 1;
+			v12 = 1;
 			v7 = 0;
 			do
 			{
@@ -152,14 +152,14 @@ LABEL_19:
 					break;
 				v8 = v3 + trm5y[v7] + 112 * (v2 + trm5x[v7]);
 				if ( nSolidTable[dPiece[0][v8]] )
-					moreAction = 0;
+					v12 = 0;
 				v5 = v11;
 				if ( dung_map[0][v8] != v11 )
-					moreAction = 0;
+					v12 = 0;
 				++v7;
 			}
-			while ( moreAction );
-			if ( moreAction )
+			while ( v12 );
+			if ( v12 )
 			{
 				--v4;
 				goto LABEL_18;
@@ -465,7 +465,7 @@ bool __fastcall CheckThemeRoom(int tv)
 	int *v8; // esi
 	char *v9; // eax
 	int *v10; // edx
-	signed int moreAction; // [esp+Ch] [ebp-8h]
+	signed int v12; // [esp+Ch] [ebp-8h]
 
 	v1 = 0;
 	if ( trigflag[4] <= 0 )
@@ -497,7 +497,7 @@ LABEL_5:
 			v7 = 0;
 			v8 = &dPiece[-1][111];
 LABEL_16:
-			moreAction = 0;
+			v12 = 0;
 			v9 = &dung_map[-1][v7 + 111];
 			v10 = v8;
 			while ( v9[1] != tv
@@ -507,10 +507,10 @@ LABEL_16:
 				 && (*v9 == tv || nSolidTable[*v10])
 				 && (v9[2] == tv || nSolidTable[v10[2]]) )
 			{
-				++moreAction;
+				++v12;
 				v10 += 112;
 				v9 += 112;
-				if ( moreAction >= 112 )
+				if ( v12 >= 112 )
 				{
 					++v8;
 					++v7;

@@ -619,7 +619,7 @@ void __fastcall DRLG_L4(int entry)
 	//int v9; // eax
 	int v10; // eax
 	unsigned char *v11; // ecx
-	unsigned char *moreAction; // ecx
+	unsigned char *v12; // ecx
 	//int v13; // eax
 	signed int v14; // eax
 	signed int v15; // ecx
@@ -700,9 +700,9 @@ void __fastcall DRLG_L4(int entry)
 				v10 = DRLG_L4PlaceMiniSet(L4USTAIRS, 1, 1, -1, -1, 0, 0);
 				if ( v10 )
 				{
-					if ( gbMaxPlayers != 1 || (moreAction = L4PENTA, quests[5]._qactive == 2) )
-						moreAction = L4PENTA2;
-					v10 = DRLG_L4PlaceMiniSet(moreAction, 1, 1, -1, -1, 1, 1);
+					if ( gbMaxPlayers != 1 || (v12 = L4PENTA, quests[5]._qactive == 2) )
+						v12 = L4PENTA2;
+					v10 = DRLG_L4PlaceMiniSet(v12, 1, 1, -1, -1, 1, 1);
 				}
 			}
 			else
@@ -957,7 +957,7 @@ void __cdecl L4AddWall()
 	int v9; // eax
 	int v10; // eax
 	int v11; // eax
-	int moreAction; // eax
+	int v12; // eax
 	int v13; // eax
 	int v14; // eax
 	int v15; // eax
@@ -1029,9 +1029,9 @@ void __cdecl L4AddWall()
 				}
 				if ( dungeon[0][v2] == 11 && random(0, 100) < 100 )
 				{
-					moreAction = L4VWallOk(v1, v0);
-					if ( moreAction != -1 )
-						L4VertWall(v1, v0, moreAction);
+					v12 = L4VWallOk(v1, v0);
+					if ( v12 != -1 )
+						L4VertWall(v1, v0, v12);
 				}
 				if ( dungeon[0][v2] == 14 && random(0, 100) < 100 )
 				{
@@ -1189,7 +1189,7 @@ void __fastcall L4HorizWall(int i, int j, int dx)
 	char *v9; // eax
 	int v10; // eax
 	bool v11; // zf
-	char *moreAction; // eax
+	char *v12; // eax
 
 	v3 = i;
 	v4 = j;
@@ -1229,9 +1229,9 @@ void __fastcall L4HorizWall(int i, int j, int dx)
 	dungeon[0][v10] = 57;
 	if ( v11 )
 		dungeon[0][v10 - 1] = 58;
-	moreAction = &dungeon[0][v10 + 39];
-	if ( *moreAction == 6 )
-		*moreAction = 59;
+	v12 = &dungeon[0][v10 + 39];
+	if ( *v12 == 6 )
+		*v12 = 59;
 }
 
 void __fastcall L4VertWall(int i, int j, int dy)
@@ -1245,11 +1245,11 @@ void __fastcall L4VertWall(int i, int j, int dy)
 	int v9; // eax
 	char *v10; // ecx
 	bool v11; // zf
-	int moreAction; // [esp+8h] [ebp-4h]
+	int v12; // [esp+8h] [ebp-4h]
 
 	v3 = j;
 	v4 = 40 * i;
-	moreAction = j;
+	v12 = j;
 	v5 = 40 * i + j;
 	if ( dungeon[0][v5] == 14 )
 		dungeon[0][v5] = 17;
@@ -1261,7 +1261,7 @@ void __fastcall L4VertWall(int i, int j, int dy)
 	if ( dy > 1 )
 	{
 		memset(&dungeon[0][v5 + 1], 1u, dy - 1);
-		v3 = moreAction;
+		v3 = v12;
 		v6 = dy;
 	}
 	v7 = (unsigned char *)dungeon + v5 + v6;
@@ -1302,7 +1302,7 @@ void __cdecl L4tileFix()
 	int v9; // eax
 	int v10; // eax
 	char *v11; // esi
-	char moreAction; // bl
+	char v12; // bl
 	char *v13; // edx
 	char *v14; // edx
 	char *v15; // edx
@@ -1410,16 +1410,16 @@ void __cdecl L4tileFix()
 	char *v117; // edx
 	char *v118; // edx
 	char *v119; // edx
-	char *moreAction0; // edx
-	char *moreAction1; // edx
-	char *moreAction2; // edx
-	char *moreAction3; // edx
-	char *moreAction4; // edx
-	char *moreAction5; // edx
-	char *moreAction6; // edx
-	char *moreAction7; // edx
-	char *moreAction8; // edx
-	char *moreAction9; // edx
+	char *v120; // edx
+	char *v121; // edx
+	char *v122; // edx
+	char *v123; // edx
+	char *v124; // edx
+	char *v125; // edx
+	char *v126; // edx
+	char *v127; // edx
+	char *v128; // edx
+	char *v129; // edx
 	char *v130; // edx
 	signed int v131; // edx
 	char *v132; // eax
@@ -1501,68 +1501,68 @@ void __cdecl L4tileFix()
 		{
 			v10 = v9;
 			v11 = &dungeon[v10][v8];
-			moreAction = *v11;
+			v12 = *v11;
 			if ( *v11 == 13 )
 			{
 				v13 = &dungeon[v10][v8 + 1];
 				if ( *v13 == 30 )
 					*v13 = 27;
 			}
-			if ( moreAction == 27 )
+			if ( v12 == 27 )
 			{
 				v14 = &dungeon[v10 + 1][v8];
 				if ( *v14 == 30 )
 					*v14 = 19;
 			}
-			if ( moreAction == 1 )
+			if ( v12 == 1 )
 			{
 				v15 = &dungeon[v10][v8 + 1];
 				if ( *v15 == 30 )
 					*v15 = 27;
 			}
-			if ( moreAction == 27 )
+			if ( v12 == 27 )
 			{
 				v16 = &dungeon[v10 + 1][v8];
 				if ( *v16 == 1 )
 					*v16 = 16;
 			}
-			if ( moreAction == 19 )
+			if ( v12 == 19 )
 			{
 				v17 = &dungeon[v10 + 1][v8];
 				if ( *v17 == 27 )
 					*v17 = 26;
 			}
-			if ( moreAction == 27 )
+			if ( v12 == 27 )
 			{
 				v18 = &dungeon[v10 + 1][v8];
 				if ( *v18 == 30 )
 					*v18 = 19;
 			}
-			if ( moreAction == 2 )
+			if ( v12 == 2 )
 			{
 				v19 = &dungeon[v10 + 1][v8];
 				if ( *v19 == 15 )
 					*v19 = 14;
 			}
-			if ( moreAction == 14 )
+			if ( v12 == 14 )
 			{
 				v20 = &dungeon[v10 + 1][v8];
 				if ( *v20 == 15 )
 					*v20 = 14;
 			}
-			if ( moreAction == 22 )
+			if ( v12 == 22 )
 			{
 				v21 = &dungeon[v10 + 1][v8];
 				if ( *v21 == 1 )
 					*v21 = 16;
 			}
-			if ( moreAction == 27 )
+			if ( v12 == 27 )
 			{
 				v22 = &dungeon[v10 + 1][v8];
 				if ( *v22 == 1 )
 					*v22 = 16;
 			}
-			if ( moreAction == 6 )
+			if ( v12 == 6 )
 			{
 				v23 = &dungeon[v10 + 1][v8];
 				if ( *v23 == 27 )
@@ -1571,25 +1571,25 @@ void __cdecl L4tileFix()
 						*v23 = 22;
 				}
 			}
-			if ( moreAction == 22 )
+			if ( v12 == 22 )
 			{
 				v24 = &dungeon[v10 + 1][v8];
 				if ( *v24 == 30 )
 					*v24 = 19;
 			}
-			if ( moreAction == 21 )
+			if ( v12 == 21 )
 			{
 				v25 = &dungeon[v10 + 1][v8];
 				if ( *v25 == 1 && dungeon[v10][v8 + 39] == 1 )
 					*v25 = 13;
 			}
-			if ( moreAction == 14 )
+			if ( v12 == 14 )
 			{
 				v26 = &dungeon[v10 + 1][v8];
 				if ( *v26 == 30 && dungeon[v10][v8 + 1] == 6 )
 					*v26 = 28;
 			}
-			if ( moreAction == 16 )
+			if ( v12 == 16 )
 			{
 				if ( dungeon[v10 + 1][v8] == 6 )
 				{
@@ -1601,63 +1601,63 @@ void __cdecl L4tileFix()
 				if ( *v28 == 30 && dungeon[v10 + 1][v8 + 1] == 30 )
 					*v28 = 27;
 			}
-			if ( moreAction == 6 )
+			if ( v12 == 6 )
 			{
 				v29 = &dungeon[v10 + 1][v8];
 				if ( *v29 == 30 && dungeon[v10][v8 + 39] == 6 )
 					*v29 = 21;
 			}
-			if ( moreAction == 2 )
+			if ( v12 == 2 )
 			{
 				v30 = &dungeon[v10 + 1][v8];
 				if ( *v30 == 27 && dungeon[v10 + 1][v8 + 1] == 9 )
 					*v30 = 29;
 			}
-			if ( moreAction == 9 )
+			if ( v12 == 9 )
 			{
 				v31 = &dungeon[v10 + 1][v8];
 				if ( *v31 == 15 )
 					*v31 = 14;
 			}
-			if ( moreAction == 15 )
+			if ( v12 == 15 )
 			{
 				v32 = &dungeon[v10 + 1][v8];
 				if ( *v32 == 27 && dungeon[v10 + 1][v8 + 1] == 2 )
 					*v32 = 29;
 			}
-			if ( moreAction == 19 )
+			if ( v12 == 19 )
 			{
 				v33 = &dungeon[v10 + 1][v8];
 				if ( *v33 == 18 )
 					*v33 = 24;
 			}
-			if ( moreAction == 9 )
+			if ( v12 == 9 )
 			{
 				v34 = &dungeon[v10 + 1][v8];
 				if ( *v34 == 15 )
 					*v34 = 14;
 			}
-			if ( moreAction == 19 )
+			if ( v12 == 19 )
 			{
 				v35 = &dungeon[v10 + 1][v8];
 				if ( *v35 == 19 && dungeon[v10][v8 + 39] == 30 )
 					*v35 = 24;
 			}
-			if ( moreAction == 24 && *(v11 - 1) == 30 && *(v11 - 2) == 6 )
+			if ( v12 == 24 && *(v11 - 1) == 30 && *(v11 - 2) == 6 )
 				*(v11 - 1) = 21;
-			if ( moreAction == 2 )
+			if ( v12 == 2 )
 			{
 				v36 = &dungeon[v10 + 1][v8];
 				if ( *v36 == 30 )
 					*v36 = 28;
 			}
-			if ( moreAction == 15 )
+			if ( v12 == 15 )
 			{
 				v37 = &dungeon[v10 + 1][v8];
 				if ( *v37 == 30 )
 					*v37 = 28;
 			}
-			if ( moreAction == 28 )
+			if ( v12 == 28 )
 			{
 				v38 = &dungeon[v10][v8 + 1];
 				if ( *v38 == 30 )
@@ -1666,7 +1666,7 @@ void __cdecl L4tileFix()
 				if ( *v39 == 2 )
 					*v39 = 15;
 			}
-			if ( moreAction == 19 )
+			if ( v12 == 19 )
 			{
 				if ( dungeon[v10 + 2][v8] == 2 && dungeon[v10][v8 + 39] == 18 && dungeon[v10 + 1][v8 + 1] == 1 )
 					dungeon[v10 + 1][v8] = 17;
@@ -1675,40 +1675,40 @@ void __cdecl L4tileFix()
 				if ( dungeon[v10 + 2][v8] == 2 && dungeon[v10][v8 + 39] == 18 && dungeon[v10 + 1][v8 + 1] == 13 )
 					dungeon[v10 + 1][v8] = 17;
 			}
-			if ( moreAction == 21 )
+			if ( v12 == 21 )
 			{
 				if ( dungeon[v10 + 2][v8] == 2 && dungeon[v10][v8 + 39] == 18 && dungeon[v10 + 1][v8 + 1] == 1 )
 					dungeon[v10 + 1][v8] = 17;
 				if ( dungeon[v10 + 1][v8 + 1] == 1 && dungeon[v10][v8 + 39] == 22 && dungeon[v10 + 2][v8] == 3 )
 					dungeon[v10 + 1][v8] = 17;
 			}
-			if ( moreAction == 15 )
+			if ( v12 == 15 )
 			{
 				v40 = &dungeon[v10 + 1][v8];
 				if ( *v40 == 28 && dungeon[v10 + 2][v8] == 30 && dungeon[v10][v8 + 39] == 6 )
 					*v40 = 23;
 			}
-			if ( moreAction == 14 )
+			if ( v12 == 14 )
 			{
 				v41 = &dungeon[v10 + 1][v8];
 				if ( *v41 == 28 && dungeon[v10 + 2][v8] == 1 )
 					*v41 = 23;
 			}
-			if ( moreAction == 15 )
+			if ( v12 == 15 )
 			{
 				v42 = &dungeon[v10 + 1][v8];
 				if ( *v42 == 27 && dungeon[v10 + 1][v8 + 1] == 30 )
 					*v42 = 29;
 			}
-			if ( moreAction == 28 )
+			if ( v12 == 28 )
 			{
 				v43 = &dungeon[v10][v8 + 1];
 				if ( *v43 == 9 )
 					*v43 = 15;
 			}
-			if ( moreAction == 21 && dungeon[v10][v8 + 39] == 21 )
+			if ( v12 == 21 && dungeon[v10][v8 + 39] == 21 )
 				dungeon[v10 + 1][v8] = 24;
-			if ( moreAction == 2 )
+			if ( v12 == 2 )
 			{
 				v44 = &dungeon[v10 + 1][v8];
 				if ( *v44 == 27 && dungeon[v10 + 1][v8 + 1] == 30 )
@@ -1717,39 +1717,39 @@ void __cdecl L4tileFix()
 				if ( *v45 == 18 )
 					*v45 = 25;
 			}
-			if ( moreAction == 21 )
+			if ( v12 == 21 )
 			{
 				v46 = &dungeon[v10 + 1][v8];
 				if ( *v46 == 9 && dungeon[v10 + 2][v8] == 2 )
 					*v46 = 11;
 			}
-			if ( moreAction == 19 )
+			if ( v12 == 19 )
 			{
 				v47 = &dungeon[v10 + 1][v8];
 				if ( *v47 == 10 )
 					*v47 = 17;
 			}
-			if ( moreAction == 15 )
+			if ( v12 == 15 )
 			{
 				v48 = &dungeon[v10][v8 + 1];
 				if ( *v48 == 3 )
 					*v48 = 4;
 			}
-			if ( moreAction == 22 )
+			if ( v12 == 22 )
 			{
 				v49 = &dungeon[v10][v8 + 1];
 				if ( *v49 == 9 )
 					*v49 = 15;
 			}
-			if ( moreAction == 18 )
+			if ( v12 == 18 )
 			{
 				v50 = &dungeon[v10][v8 + 1];
 				if ( *v50 == 30 )
 					*v50 = 18;
 			}
-			if ( moreAction == 24 && *(v11 - 40) == 30 )
+			if ( v12 == 24 && *(v11 - 40) == 30 )
 				*(v11 - 40) = 19;
-			if ( moreAction == 21 )
+			if ( v12 == 21 )
 			{
 				v51 = &dungeon[v10][v8 + 1];
 				if ( *v51 == 2 )
@@ -1758,37 +1758,37 @@ void __cdecl L4tileFix()
 				if ( *v52 == 9 )
 					*v52 = 10;
 			}
-			if ( moreAction == 22 )
+			if ( v12 == 22 )
 			{
 				v53 = &dungeon[v10][v8 + 1];
 				if ( *v53 == 30 )
 					*v53 = 18;
 			}
-			if ( moreAction == 21 )
+			if ( v12 == 21 )
 			{
 				v54 = &dungeon[v10][v8 + 1];
 				if ( *v54 == 30 )
 					*v54 = 18;
 			}
-			if ( moreAction == 16 )
+			if ( v12 == 16 )
 			{
 				v55 = &dungeon[v10][v8 + 1];
 				if ( *v55 == 2 )
 					*v55 = 15;
 			}
-			if ( moreAction == 13 )
+			if ( v12 == 13 )
 			{
 				v56 = &dungeon[v10][v8 + 1];
 				if ( *v56 == 2 )
 					*v56 = 15;
 			}
-			if ( moreAction == 22 )
+			if ( v12 == 22 )
 			{
 				v57 = &dungeon[v10][v8 + 1];
 				if ( *v57 == 2 )
 					*v57 = 15;
 			}
-			if ( moreAction == 21 )
+			if ( v12 == 21 )
 			{
 				v58 = &dungeon[v10 + 1][v8];
 				if ( *v58 == 18 && dungeon[v10 + 2][v8] == 30 )
@@ -1797,13 +1797,13 @@ void __cdecl L4tileFix()
 				if ( *v59 == 9 && dungeon[v10 + 1][v8 + 1] == 1 )
 					*v59 = 16;
 			}
-			if ( moreAction == 2 )
+			if ( v12 == 2 )
 			{
 				v60 = &dungeon[v10 + 1][v8];
 				if ( *v60 == 27 && dungeon[v10 + 1][v8 + 1] == 2 )
 					*v60 = 29;
 			}
-			if ( moreAction == 23 )
+			if ( v12 == 23 )
 			{
 				v61 = &dungeon[v10][v8 + 1];
 				if ( *v61 == 2 )
@@ -1812,43 +1812,43 @@ void __cdecl L4tileFix()
 				if ( *v62 == 9 )
 					*v62 = 15;
 			}
-			if ( moreAction == 25 )
+			if ( v12 == 25 )
 			{
 				v63 = &dungeon[v10][v8 + 1];
 				if ( *v63 == 2 )
 					*v63 = 15;
 			}
-			if ( moreAction == 22 )
+			if ( v12 == 22 )
 			{
 				v64 = &dungeon[v10 + 1][v8];
 				if ( *v64 == 9 )
 					*v64 = 11;
 			}
-			if ( moreAction == 23 )
+			if ( v12 == 23 )
 			{
 				v65 = &dungeon[v10 + 1][v8];
 				if ( *v65 == 9 )
 					*v65 = 11;
 			}
-			if ( moreAction == 15 )
+			if ( v12 == 15 )
 			{
 				v66 = &dungeon[v10 + 1][v8];
 				if ( *v66 == 1 )
 					*v66 = 16;
 			}
-			if ( moreAction == 11 )
+			if ( v12 == 11 )
 			{
 				v67 = &dungeon[v10 + 1][v8];
 				if ( *v67 == 15 )
 					*v67 = 14;
 			}
-			if ( moreAction == 23 )
+			if ( v12 == 23 )
 			{
 				v68 = &dungeon[v10 + 1][v8];
 				if ( *v68 == 1 )
 					*v68 = 16;
 			}
-			if ( moreAction == 21 )
+			if ( v12 == 21 )
 			{
 				v69 = &dungeon[v10 + 1][v8];
 				if ( *v69 == 27 )
@@ -1857,13 +1857,13 @@ void __cdecl L4tileFix()
 				if ( *v70 == 18 )
 					*v70 = 24;
 			}
-			if ( moreAction == 26 )
+			if ( v12 == 26 )
 			{
 				v71 = &dungeon[v10 + 1][v8];
 				if ( *v71 == 1 )
 					*v71 = 16;
 			}
-			if ( moreAction == 29 )
+			if ( v12 == 29 )
 			{
 				v72 = &dungeon[v10 + 1][v8];
 				if ( *v72 == 1 )
@@ -1872,45 +1872,45 @@ void __cdecl L4tileFix()
 				if ( *v73 == 2 )
 					*v73 = 15;
 			}
-			if ( moreAction == 1 && *(v11 - 1) == 15 )
+			if ( v12 == 1 && *(v11 - 1) == 15 )
 				*(v11 - 1) = 10;
-			if ( moreAction == 18 )
+			if ( v12 == 18 )
 			{
 				v74 = &dungeon[v10][v8 + 1];
 				if ( *v74 == 2 )
 					*v74 = 15;
 			}
-			if ( moreAction == 23 )
+			if ( v12 == 23 )
 			{
 				v75 = &dungeon[v10][v8 + 1];
 				if ( *v75 == 30 )
 					*v75 = 18;
 			}
-			if ( moreAction == 18 )
+			if ( v12 == 18 )
 			{
 				v76 = &dungeon[v10][v8 + 1];
 				if ( *v76 == 9 )
 					*v76 = 10;
 			}
-			if ( moreAction == 14 )
+			if ( v12 == 14 )
 			{
 				v77 = &dungeon[v10 + 1][v8];
 				if ( *v77 == 30 && dungeon[v10 + 1][v8 + 1] == 30 )
 					*v77 = 23;
 			}
-			if ( moreAction == 2 )
+			if ( v12 == 2 )
 			{
 				v78 = &dungeon[v10 + 1][v8];
 				if ( *v78 == 28 && dungeon[v10][v8 + 39] == 6 )
 					*v78 = 23;
 			}
-			if ( moreAction == 23 )
+			if ( v12 == 23 )
 			{
 				v79 = &dungeon[v10 + 1][v8];
 				if ( *v79 == 18 && *(v11 - 1) == 6 )
 					*v79 = 24;
 			}
-			if ( moreAction == 14 )
+			if ( v12 == 14 )
 			{
 				v80 = &dungeon[v10 + 1][v8];
 				if ( *v80 == 23 && dungeon[v10 + 2][v8] == 30 )
@@ -1919,13 +1919,13 @@ void __cdecl L4tileFix()
 				if ( *v81 == 28 && dungeon[v10 + 2][v8] == 30 && dungeon[v10][v8 + 39] == 6 )
 					*v81 = 23;
 			}
-			if ( moreAction == 23 )
+			if ( v12 == 23 )
 			{
 				v82 = &dungeon[v10 + 1][v8];
 				if ( *v82 == 30 )
 					*v82 = 19;
 			}
-			if ( moreAction == 29 )
+			if ( v12 == 29 )
 			{
 				v83 = &dungeon[v10 + 1][v8];
 				if ( *v83 == 30 )
@@ -1934,55 +1934,55 @@ void __cdecl L4tileFix()
 				if ( *v84 == 30 )
 					*v84 = 18;
 			}
-			if ( moreAction == 19 )
+			if ( v12 == 19 )
 			{
 				v85 = &dungeon[v10 + 1][v8];
 				if ( *v85 == 30 )
 					*v85 = 19;
 			}
-			if ( moreAction == 21 )
+			if ( v12 == 21 )
 			{
 				v86 = &dungeon[v10 + 1][v8];
 				if ( *v86 == 30 )
 					*v86 = 19;
 			}
-			if ( moreAction == 26 )
+			if ( v12 == 26 )
 			{
 				v87 = &dungeon[v10 + 1][v8];
 				if ( *v87 == 30 )
 					*v87 = 19;
 			}
-			if ( moreAction == 16 )
+			if ( v12 == 16 )
 			{
 				v88 = &dungeon[v10][v8 + 1];
 				if ( *v88 == 30 )
 					*v88 = 18;
 			}
-			if ( moreAction == 13 )
+			if ( v12 == 13 )
 			{
 				v89 = &dungeon[v10][v8 + 1];
 				if ( *v89 == 9 )
 					*v89 = 10;
 			}
-			if ( moreAction == 25 )
+			if ( v12 == 25 )
 			{
 				v90 = &dungeon[v10][v8 + 1];
 				if ( *v90 == 30 )
 					*v90 = 18;
 			}
-			if ( moreAction == 18 )
+			if ( v12 == 18 )
 			{
 				v91 = &dungeon[v10][v8 + 1];
 				if ( *v91 == 2 )
 					*v91 = 15;
 			}
-			if ( moreAction == 11 )
+			if ( v12 == 11 )
 			{
 				v92 = &dungeon[v10 + 1][v8];
 				if ( *v92 == 3 )
 					*v92 = 5;
 			}
-			if ( moreAction == 19 )
+			if ( v12 == 19 )
 			{
 				v93 = &dungeon[v10 + 1][v8];
 				if ( *v93 == 9 )
@@ -2130,60 +2130,60 @@ void __cdecl L4tileFix()
 			}
 			if ( v100 == 15 )
 			{
-				moreAction0 = &dungeon[v98 + 1][v96];
-				if ( *moreAction0 == 4 )
-					*moreAction0 = 12;
+				v120 = &dungeon[v98 + 1][v96];
+				if ( *v120 == 4 )
+					*v120 = 12;
 			}
 			if ( v100 == 21 )
 			{
-				moreAction1 = &dungeon[v98 + 1][v96];
-				if ( *moreAction1 == 1 )
-					*moreAction1 = 16;
+				v121 = &dungeon[v98 + 1][v96];
+				if ( *v121 == 1 )
+					*v121 = 16;
 			}
 			if ( v100 == 11 )
 			{
-				moreAction2 = &dungeon[v98 + 1][v96];
-				if ( *moreAction2 == 4 )
-					*moreAction2 = 12;
+				v122 = &dungeon[v98 + 1][v96];
+				if ( *v122 == 4 )
+					*v122 = 12;
 			}
 			if ( v100 == 2 )
 			{
-				moreAction3 = &dungeon[v98 + 1][v96];
-				if ( *moreAction3 == 3 )
-					*moreAction3 = 5;
+				v123 = &dungeon[v98 + 1][v96];
+				if ( *v123 == 3 )
+					*v123 = 5;
 			}
 			if ( v100 == 9 )
 			{
-				moreAction4 = &dungeon[v98 + 1][v96];
-				if ( *moreAction4 == 3 )
-					*moreAction4 = 5;
+				v124 = &dungeon[v98 + 1][v96];
+				if ( *v124 == 3 )
+					*v124 = 5;
 			}
 			if ( v100 == 14 )
 			{
-				moreAction5 = &dungeon[v98 + 1][v96];
-				if ( *moreAction5 == 3 )
-					*moreAction5 = 5;
+				v125 = &dungeon[v98 + 1][v96];
+				if ( *v125 == 3 )
+					*v125 = 5;
 			}
 			if ( v100 == 15 )
 			{
-				moreAction6 = &dungeon[v98 + 1][v96];
-				if ( *moreAction6 == 3 )
-					*moreAction6 = 5;
+				v126 = &dungeon[v98 + 1][v96];
+				if ( *v126 == 3 )
+					*v126 = 5;
 			}
 			if ( v100 == 2 )
 			{
-				moreAction7 = &dungeon[v98 + 1][v96];
-				if ( *moreAction7 == 5 && dungeon[v98][v96 + 39] == 16 )
-					*moreAction7 = 12;
-				moreAction8 = &dungeon[v98 + 1][v96];
-				if ( *moreAction8 == 4 )
-					*moreAction8 = 12;
+				v127 = &dungeon[v98 + 1][v96];
+				if ( *v127 == 5 && dungeon[v98][v96 + 39] == 16 )
+					*v127 = 12;
+				v128 = &dungeon[v98 + 1][v96];
+				if ( *v128 == 4 )
+					*v128 = 12;
 			}
 			if ( v100 == 9 )
 			{
-				moreAction9 = &dungeon[v98 + 1][v96];
-				if ( *moreAction9 == 4 )
-					*moreAction9 = 12;
+				v129 = &dungeon[v98 + 1][v96];
+				if ( *v129 == 4 )
+					*v129 = 12;
 			}
 			if ( v100 == 1 && *(v99 - 1) == 8 )
 				*(v99 - 1) = 9;
@@ -2351,7 +2351,7 @@ void __cdecl L4makeDungeon()
 	char v9; // cl
 	int v10; // eax
 	int v11; // eax
-	signed int moreAction; // ebx
+	signed int v12; // ebx
 	signed int v13; // esi
 	char *v14; // edx
 	char v15; // cl
@@ -2411,26 +2411,26 @@ void __cdecl L4makeDungeon()
 		--v24;
 	}
 	while ( v24 );
-	moreAction = 0;
+	v12 = 0;
 	do
 	{
 		v13 = 0;
-		v14 = &dung[19][moreAction];
+		v14 = &dung[19][v12];
 		do
 		{
 			v15 = *v14;
 			v14 -= 20;
 			v16 = 160 * v13++;
-			v17 = v16 + 2 * moreAction;
+			v17 = v16 + 2 * v12;
 			L4dungeon[40][v17] = v15;
 			L4dungeon[40][v17 + 1] = v15;
 			L4dungeon[41][v17] = v15;
 			L4dungeon[41][v17 + 1] = v15;
 		}
 		while ( v13 < 20 );
-		++moreAction;
+		++v12;
 	}
-	while ( moreAction < 20 );
+	while ( v12 < 20 );
 	v18 = 0;
 	v26 = &dung[19][19];
 	do
@@ -2469,7 +2469,7 @@ void __cdecl uShape()
 	signed int v9; // eax
 	char v10; // dl
 	int v11; // eax
-	signed int moreAction; // esi
+	signed int v12; // esi
 	char *v13; // edx
 
 	v0 = 19;
@@ -2545,23 +2545,23 @@ void __cdecl uShape()
 	{
 		if ( hallok[v11] )
 		{
-			moreAction = 19;
+			v12 = 19;
 			do
 			{
-				v13 = &dung[v11][moreAction];
+				v13 = &dung[v11][v12];
 				if ( *v13 == 1 )
 				{
-					moreAction = -1;
+					v12 = -1;
 					v11 = 0;
 				}
 				else
 				{
 					*v13 = 1;
-					dung[v11 + 1][moreAction] = 1;
+					dung[v11 + 1][v12] = 1;
 				}
-				--moreAction;
+				--v12;
 			}
-			while ( moreAction >= 0 );
+			while ( v12 >= 0 );
 		}
 		else if ( ++v11 == 20 )
 		{
@@ -2699,7 +2699,7 @@ void __fastcall L4roomGen(int x, int y, int w, int h, int dir)
 	int v8; // ecx
 	int v9; // eax
 	int v11; // esi
-	int moreAction; // edi
+	int v12; // edi
 	int v13; // ebx
 	int v14; // eax
 	int v15; // eax
@@ -2742,26 +2742,26 @@ void __fastcall L4roomGen(int x, int y, int w, int h, int dir)
 			{
 				v9 = random(0, 5);
 				v11 = (v9 + 2) & 0xFFFFFFFE;
-				moreAction = (random(0, 5) + 2) & 0xFFFFFFFE;
+				v12 = (random(0, 5) + 2) & 0xFFFFFFFE;
 				v13 = xa + wa - v11 / 2;
-				ya = v27 - moreAction;
-				v14 = L4checkRoom(v13 - 1, v27 - moreAction - 1, v11 + 2, moreAction + 1);
+				ya = v27 - v12;
+				v14 = L4checkRoom(v13 - 1, v27 - v12 - 1, v11 + 2, v12 + 1);
 				++dira;
 				v23 = v14;
 			}
 			while ( !v14 && dira < 20 );
 			if ( v14 == 1 )
-				L4drawRoom(v13, ya, v11, moreAction);
+				L4drawRoom(v13, ya, v11, v12);
 			xb = v27 + h;
-			ha = L4checkRoom(v13 - 1, v27 + h, v11 + 2, moreAction + 1);
+			ha = L4checkRoom(v13 - 1, v27 + h, v11 + 2, v12 + 1);
 			if ( ha == 1 )
-				L4drawRoom(v13, xb, v11, moreAction);
+				L4drawRoom(v13, xb, v11, v12);
 			if ( v23 == 1 )
-				L4roomGen(v13, ya, v11, moreAction, 0);
+				L4roomGen(v13, ya, v11, v12, 0);
 			if ( ha != 1 )
 				return;
 			dir = 0;
-			h = moreAction;
+			h = v12;
 			w = v11;
 			v27 = xb;
 			xa = v13;
@@ -3061,7 +3061,7 @@ void __fastcall DRLG_L4FTVR(int i, int j, int x, int y, int d)
 	int v9; // ecx
 	int v10; // ebx
 	int v11; // eax
-	int moreAction; // edi
+	int v12; // edi
 	char v13; // al
 	char v14; // al
 	int v15; // ecx
@@ -3089,7 +3089,7 @@ void __fastcall DRLG_L4FTVR(int i, int j, int x, int y, int d)
 		v10 = x - 2;
 		v11 = 40 * v8;
 		ya = v7 - 1;
-		moreAction = v6 - 2;
+		v12 = v6 - 2;
 		for ( k = 40 * v8; dungeon[0][v11 + ja] == 6; v11 = k )
 		{
 			v13 = TransVal;
@@ -3099,17 +3099,17 @@ void __fastcall DRLG_L4FTVR(int i, int j, int x, int y, int d)
 			dung_map[1][v9 + 1] = v13;
 			DRLG_L4FTVR(ia + 2, ja, v10 + 4, v6, 1);
 			DRLG_L4FTVR(ia, ja, v10, v6, 2);
-			DRLG_L4FTVR(v21, ya + 2, x, moreAction + 4, 3);
-			DRLG_L4FTVR(v21, ya, x, moreAction, 4);
-			DRLG_L4FTVR(ia, ya, v10, moreAction, 5);
-			DRLG_L4FTVR(ia + 2, ya, v10 + 4, moreAction, 6);
-			DRLG_L4FTVR(ia, ya + 2, v10, moreAction + 4, 7);
+			DRLG_L4FTVR(v21, ya + 2, x, v12 + 4, 3);
+			DRLG_L4FTVR(v21, ya, x, v12, 4);
+			DRLG_L4FTVR(ia, ya, v10, v12, 5);
+			DRLG_L4FTVR(ia + 2, ya, v10 + 4, v12, 6);
+			DRLG_L4FTVR(ia, ya + 2, v10, v12 + 4, 7);
 			v19 += 2;
 			k += 40;
 			d = 8;
 			x += 2;
 			v6 += 2;
-			moreAction += 2;
+			v12 += 2;
 			v10 += 2;
 			++ja;
 			++ya;
@@ -3165,7 +3165,7 @@ void __cdecl DRLG_L4TransFix() /* check */
 	char v6; // al
 	char v10; // al
 	char v11; // al
-	char moreAction; // al
+	char v12; // al
 	char v13; // al
 	char v14; // al
 	char v15; // al
@@ -3199,9 +3199,9 @@ void __cdecl DRLG_L4TransFix() /* check */
 			}
 			if ( *v1 == 19 )
 			{
-				moreAction = *(v16 - 113);
-				*(v16 - 112) = moreAction;
-				*v16 = moreAction;
+				v12 = *(v16 - 113);
+				*(v16 - 112) = v12;
+				*v16 = v12;
 			}
 			if ( *v1 == 24 )
 			{
@@ -3276,7 +3276,7 @@ void __cdecl DRLG_L4Pass3()
 	int v9; // eax
 	signed int v10; // [esp+Ch] [ebp-1Ch]
 	int *v11; // [esp+10h] [ebp-18h]
-	int moreAction; // [esp+14h] [ebp-14h]
+	int v12; // [esp+14h] [ebp-14h]
 	int v13; // [esp+18h] [ebp-10h]
 	int v14; // [esp+18h] [ebp-10h]
 	int v15; // [esp+1Ch] [ebp-Ch]
@@ -3321,8 +3321,8 @@ void __cdecl DRLG_L4Pass3()
 		v10 = 40;
 		do
 		{
-			moreAction = *v6 - 1;
-			if ( moreAction < 0 )
+			v12 = *v6 - 1;
+			if ( v12 < 0 )
 			{
 				v20 = 0;
 				v18 = 0;
@@ -3331,7 +3331,7 @@ void __cdecl DRLG_L4Pass3()
 			}
 			else
 			{
-				v7 = (unsigned short *)((char *)pMegaTiles + 8 * moreAction);
+				v7 = (unsigned short *)((char *)pMegaTiles + 8 * v12);
 				v8 = *v7;
 				++v7;
 				v9 = v8 + 1;
