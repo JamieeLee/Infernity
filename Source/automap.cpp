@@ -669,10 +669,10 @@ void __fastcall DrawAutomapType(int screen_x, int screen_y, short automap_type, 
 	}
 	if ( automap_type < 0 )
 	{
-		engine_draw_automap_pixels(v4 - AMPlayerX, v5 - AMPlayerX - AMPlayerY, v4 + AMPlayerX + AutoMapYPos, AMPlayerY + v5, replace_144);
-		engine_draw_automap_pixels(v4 - AutoMapYPos, v5 - AMPlayerX, AutoMapYPos + v4, AMPlayerX + v5, replace_144);
-		engine_draw_automap_pixels(v4 - AutoMapYPos - AMPlayerX, v5 - AMPlayerY, AMPlayerX + v4, v5 + AMPlayerX + AMPlayerY, replace_144);
-		engine_draw_automap_pixels(v4 - AutoMapXPos, v5, v4, v5 + AutoMapYPos, replace_144);
+		DrawLine(v4 - AMPlayerX, v5 - AMPlayerX - AMPlayerY, v4 + AMPlayerX + AutoMapYPos, AMPlayerY + v5, replace_144);
+		DrawLine(v4 - AutoMapYPos, v5 - AMPlayerX, AutoMapYPos + v4, AMPlayerX + v5, replace_144);
+		DrawLine(v4 - AutoMapYPos - AMPlayerX, v5 - AMPlayerY, AMPlayerX + v4, v5 + AMPlayerX + AMPlayerY, replace_144);
+		DrawLine(v4 - AutoMapXPos, v5, v4, v5 + AutoMapYPos, replace_144);
 		v3 = automap_type;
 	}
 	v31 = 0;
@@ -685,9 +685,9 @@ void __fastcall DrawAutomapType(int screen_x, int screen_y, short automap_type, 
 			a1 = v4 - AutoMapYPos;
 			a2 = v5 - AutoMapYPos;
 			automap_typea = v5 - AMPlayerX;
-			engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 - AutoMapYPos, v5 - AMPlayerX, replace_200);
-			engine_draw_automap_pixels(v4, a2, a3, automap_typea, replace_200);
-			engine_draw_automap_pixels(v4, v5, a1, automap_typea, replace_200);
+			DrawLine(v4, v5 - AutoMapYPos, v4 - AutoMapYPos, v5 - AMPlayerX, replace_200);
+			DrawLine(v4, a2, a3, automap_typea, replace_200);
+			DrawLine(v4, v5, a1, automap_typea, replace_200);
 			v9 = v5;
 			v29 = automap_typea;
 			v28 = a3;
@@ -712,16 +712,16 @@ LABEL_8:
 				v11 = v4 - AutoMapYPos;
 				v12 = v5 - AutoMapYPos;
 				automap_typeb = v5 - AMPlayerX;
-				engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 - AMPlayerX, v5 - AutoMapYPos + AMPlayerY, replace_200);
-				engine_draw_automap_pixels(v10, v5, v10 + AMPlayerX, v5 - AMPlayerY, replace_200);
-				engine_draw_automap_pixels(v11, v12, v10, automap_typeb, replace_144);
-				engine_draw_automap_pixels(v11, v12, v4, automap_typeb, replace_144);
-				engine_draw_automap_pixels(v11, v5, v10, automap_typeb, replace_144);
-				engine_draw_automap_pixels(v11, v5, v4, automap_typeb, replace_144);
+				DrawLine(v4, v5 - AutoMapYPos, v4 - AMPlayerX, v5 - AutoMapYPos + AMPlayerY, replace_200);
+				DrawLine(v10, v5, v10 + AMPlayerX, v5 - AMPlayerY, replace_200);
+				DrawLine(v11, v12, v10, automap_typeb, replace_144);
+				DrawLine(v11, v12, v4, automap_typeb, replace_144);
+				DrawLine(v11, v5, v10, automap_typeb, replace_144);
+				DrawLine(v11, v5, v4, automap_typeb, replace_144);
 			}
 			if ( v33 & 0x10 )
 			{
-				engine_draw_automap_pixels(v4 - AutoMapYPos, v5 - AMPlayerX, v4 - AutoMapXPos, v5, replace_200);
+				DrawLine(v4 - AutoMapYPos, v5 - AMPlayerX, v4 - AutoMapXPos, v5, replace_200);
 				v33 |= 4u;
 			}
 			if ( v33 & 4 )
@@ -730,13 +730,13 @@ LABEL_8:
 				v14 = v4 - AutoMapYPos;
 				v15 = v5 - AutoMapYPos;
 				automap_typec = v5 - AMPlayerX;
-				engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 - AutoMapYPos, v5 - AMPlayerX, replace_200);
-				engine_draw_automap_pixels(v4, v15, v13, automap_typec, replace_200);
-				engine_draw_automap_pixels(v4, v5, v14, automap_typec, replace_200);
-				engine_draw_automap_pixels(v4, v5, v13, automap_typec, replace_200);
+				DrawLine(v4, v5 - AutoMapYPos, v4 - AutoMapYPos, v5 - AMPlayerX, replace_200);
+				DrawLine(v4, v15, v13, automap_typec, replace_200);
+				DrawLine(v4, v5, v14, automap_typec, replace_200);
+				DrawLine(v4, v5, v13, automap_typec, replace_200);
 			}
 			if ( !(v33 & 0x15) )
-				engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 - AutoMapXPos, v5, replace_200);
+				DrawLine(v4, v5 - AutoMapYPos, v4 - AutoMapXPos, v5, replace_200);
 			if ( v31 )
 				goto LABEL_17;
 			goto LABEL_25;
@@ -749,16 +749,16 @@ LABEL_17:
 				v17 = v5 - AutoMapYPos;
 				v18 = v4 + AutoMapXPos;
 				automap_typed = v5 - AMPlayerX;
-				engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 + AMPlayerX, v5 - AutoMapYPos + AMPlayerY, replace_200);
-				engine_draw_automap_pixels(v18, v5, v18 - AMPlayerX, v5 - AMPlayerY, replace_200);
-				engine_draw_automap_pixels(v16, v17, v4, automap_typed, replace_144);
-				engine_draw_automap_pixels(v16, v17, v18, automap_typed, replace_144);
-				engine_draw_automap_pixels(v16, v5, v4, automap_typed, replace_144);
-				engine_draw_automap_pixels(v16, v5, v18, automap_typed, replace_144);
+				DrawLine(v4, v5 - AutoMapYPos, v4 + AMPlayerX, v5 - AutoMapYPos + AMPlayerY, replace_200);
+				DrawLine(v18, v5, v18 - AMPlayerX, v5 - AMPlayerY, replace_200);
+				DrawLine(v16, v17, v4, automap_typed, replace_144);
+				DrawLine(v16, v17, v18, automap_typed, replace_144);
+				DrawLine(v16, v5, v4, automap_typed, replace_144);
+				DrawLine(v16, v5, v18, automap_typed, replace_144);
 			}
 			if ( v33 & 0x20 )
 			{
-				engine_draw_automap_pixels(AutoMapYPos + v4, v5 - AMPlayerX, v4 + AutoMapXPos, v5, replace_200);
+				DrawLine(AutoMapYPos + v4, v5 - AMPlayerX, v4 + AutoMapXPos, v5, replace_200);
 				v33 |= 8u;
 			}
 			if ( v33 & 8 )
@@ -767,13 +767,13 @@ LABEL_17:
 				v20 = v4 - AutoMapYPos;
 				v21 = v5 - AutoMapYPos;
 				automap_typee = v5 - AMPlayerX;
-				engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 - AutoMapYPos, v5 - AMPlayerX, replace_200);
-				engine_draw_automap_pixels(v4, v21, v19, automap_typee, replace_200);
-				engine_draw_automap_pixels(v4, v5, v20, automap_typee, replace_200);
-				engine_draw_automap_pixels(v4, v5, v19, automap_typee, replace_200);
+				DrawLine(v4, v5 - AutoMapYPos, v4 - AutoMapYPos, v5 - AMPlayerX, replace_200);
+				DrawLine(v4, v21, v19, automap_typee, replace_200);
+				DrawLine(v4, v5, v20, automap_typee, replace_200);
+				DrawLine(v4, v5, v19, automap_typee, replace_200);
 			}
 			if ( !(v33 & 0x2A) )
-				engine_draw_automap_pixels(v4, v5 - AutoMapYPos, v4 + AutoMapXPos, v5, replace_200);
+				DrawLine(v4, v5 - AutoMapYPos, v4 + AutoMapXPos, v5, replace_200);
 LABEL_25:
 			if ( v30 )
 				goto LABEL_26;
@@ -791,16 +791,16 @@ LABEL_26:
 				v23 = v4 - AutoMapYPos;
 				v24 = AutoMapYPos + v5;
 				automap_typef = AMPlayerX + v5;
-				engine_draw_automap_pixels(v4, AutoMapYPos + v5, v4 - AMPlayerX, AutoMapYPos + v5 - AMPlayerY, replace_200);
-				engine_draw_automap_pixels(v22, v5, v22 + AMPlayerX, v5 + AMPlayerY, replace_200);
-				engine_draw_automap_pixels(v23, v24, v22, automap_typef, replace_144);
-				engine_draw_automap_pixels(v23, v24, v4, automap_typef, replace_144);
-				engine_draw_automap_pixels(v23, v5, v22, automap_typef, replace_144);
-				engine_draw_automap_pixels(v23, v5, v4, automap_typef, replace_144);
+				DrawLine(v4, AutoMapYPos + v5, v4 - AMPlayerX, AutoMapYPos + v5 - AMPlayerY, replace_200);
+				DrawLine(v22, v5, v22 + AMPlayerX, v5 + AMPlayerY, replace_200);
+				DrawLine(v23, v24, v22, automap_typef, replace_144);
+				DrawLine(v23, v24, v4, automap_typef, replace_144);
+				DrawLine(v23, v5, v22, automap_typef, replace_144);
+				DrawLine(v23, v5, v4, automap_typef, replace_144);
 			}
 			else
 			{
-				engine_draw_automap_pixels(v4, AutoMapYPos + v5, v4 - AutoMapXPos, v5, replace_200);
+				DrawLine(v4, AutoMapYPos + v5, v4 - AutoMapXPos, v5, replace_200);
 			}
 LABEL_32:
 			if ( v32 )
@@ -812,12 +812,12 @@ LABEL_33:
 					v26 = AutoMapYPos + v5;
 					v27 = v4 + AutoMapXPos;
 					automap_typeg = AMPlayerX + v5;
-					engine_draw_automap_pixels(v4, AutoMapYPos + v5, v4 + AMPlayerX, AutoMapYPos + v5 - AMPlayerY, replace_200);
-					engine_draw_automap_pixels(v27, v5, v27 - AMPlayerX, v5 + AMPlayerY, replace_200);
-					engine_draw_automap_pixels(v25, v26, v4, automap_typeg, replace_144);
-					engine_draw_automap_pixels(v25, v26, v27, automap_typeg, replace_144);
-					engine_draw_automap_pixels(v25, v5, v4, automap_typeg, replace_144);
-					engine_draw_automap_pixels(v25, v5, v27, automap_typeg, replace_144);
+					DrawLine(v4, AutoMapYPos + v5, v4 + AMPlayerX, AutoMapYPos + v5 - AMPlayerY, replace_200);
+					DrawLine(v27, v5, v27 - AMPlayerX, v5 + AMPlayerY, replace_200);
+					DrawLine(v25, v26, v4, automap_typeg, replace_144);
+					DrawLine(v25, v26, v27, automap_typeg, replace_144);
+					DrawLine(v25, v5, v4, automap_typeg, replace_144);
+					DrawLine(v25, v5, v27, automap_typeg, replace_144);
 				}
 				else
 				{
@@ -825,7 +825,7 @@ LABEL_33:
 					v28 = v4 + AutoMapXPos;
 					v9 = AutoMapYPos + v5;
 LABEL_36:
-					engine_draw_automap_pixels(v4, v9, v28, v29, replace_200);
+					DrawLine(v4, v9, v28, v29, replace_200);
 				}
 			}
 			break;
@@ -890,14 +890,14 @@ void __cdecl DrawAutomapPlr()
 	switch ( plr[v0]._pdir )
 	{
 		case DIR_S:
-			engine_draw_automap_pixels(v3, v4, v3, v4 + AutoMapYPos, 153);
-			engine_draw_automap_pixels(v3, AutoMapYPos + v4, v3 + AMPlayerY, v4 + AMPlayerX, 153);
+			DrawLine(v3, v4, v3, v4 + AutoMapYPos, 153);
+			DrawLine(v3, AutoMapYPos + v4, v3 + AMPlayerY, v4 + AMPlayerX, 153);
 			v10 = v4 + AMPlayerX;
 			v9 = v3 - AMPlayerY;
 			v5 = AutoMapYPos + v4;
 			goto LABEL_19;
 		case DIR_SW:
-			engine_draw_automap_pixels(
+			DrawLine(
 				v3,
 				AMPlayerX * (v12 + v11)
 			  + (AutoMapScale * ScrollInfo._syoff / 100 >> 1)
@@ -910,22 +910,22 @@ void __cdecl DrawAutomapPlr()
 			  + (AutoMapScale * plr[v0]._pyoff / 100 >> 1)
 			  + 336,
 				153);
-			engine_draw_automap_pixels(v3 - AutoMapYPos, AMPlayerX + v4, v3 - AMPlayerY - AMPlayerX, v4, 153);
+			DrawLine(v3 - AutoMapYPos, AMPlayerX + v4, v3 - AMPlayerY - AMPlayerX, v4, 153);
 			v7 = AMPlayerX;
 			v8 = v3;
 			v5 = AMPlayerX + v4;
 			v10 = AMPlayerX + v4;
 			goto LABEL_23;
 		case DIR_W:
-			engine_draw_automap_pixels(v3, v4, v3 - AutoMapYPos, v4, 153);
-			engine_draw_automap_pixels(v3 - AutoMapYPos, v4, v3 - AMPlayerX, v4 - AMPlayerY, 153);
+			DrawLine(v3, v4, v3 - AutoMapYPos, v4, 153);
+			DrawLine(v3 - AutoMapYPos, v4, v3 - AMPlayerX, v4 - AMPlayerY, 153);
 			v5 = v4;
 			v10 = v4 + AMPlayerY;
 			v9 = v3 - AMPlayerX;
 			goto LABEL_24;
 		case DIR_NW:
-			engine_draw_automap_pixels(v3, v4, v3 - AutoMapYPos, v4 - AMPlayerX, 153);
-			engine_draw_automap_pixels(v3 - AutoMapYPos, v4 - AMPlayerX, v3 - AMPlayerX, v4 - AMPlayerX, 153);
+			DrawLine(v3, v4, v3 - AutoMapYPos, v4 - AMPlayerX, 153);
+			DrawLine(v3 - AutoMapYPos, v4 - AMPlayerX, v3 - AMPlayerX, v4 - AMPlayerX, 153);
 			v7 = AMPlayerX;
 			v8 = v3 - AMPlayerY;
 			v10 = v4;
@@ -936,8 +936,8 @@ LABEL_24:
 			v6 = v3 - AutoMapYPos;
 			goto LABEL_25;
 		case DIR_N:
-			engine_draw_automap_pixels(v3, v4, v3, v4 - AutoMapYPos, 153);
-			engine_draw_automap_pixels(v3, v4 - AutoMapYPos, v3 - AMPlayerY, v4 - AMPlayerX, 153);
+			DrawLine(v3, v4, v3, v4 - AutoMapYPos, 153);
+			DrawLine(v3, v4 - AutoMapYPos, v3 - AMPlayerY, v4 - AMPlayerX, 153);
 			v10 = v4 - AMPlayerX;
 			v5 = v4 - AutoMapYPos;
 			v9 = v3 + AMPlayerY;
@@ -945,19 +945,19 @@ LABEL_19:
 			v6 = v3;
 			goto LABEL_25;
 		case DIR_NE:
-			engine_draw_automap_pixels(v3, v4, v3 + AutoMapYPos, v4 - AMPlayerX, 153);
-			engine_draw_automap_pixels(AutoMapYPos + v3, v4 - AMPlayerX, v3 + AMPlayerX, v4 - AMPlayerX, 153);
+			DrawLine(v3, v4, v3 + AutoMapYPos, v4 - AMPlayerX, 153);
+			DrawLine(AutoMapYPos + v3, v4 - AMPlayerX, v3 + AMPlayerX, v4 - AMPlayerX, 153);
 			v10 = v4;
 			v9 = v3 + AMPlayerX + AMPlayerY;
 			v5 = v4 - AMPlayerX;
 			goto LABEL_17;
 		case DIR_E:
-			engine_draw_automap_pixels(v3, v4, v3 + AutoMapYPos, v4, 153);
-			engine_draw_automap_pixels(AutoMapYPos + v3, v4, v3 + AMPlayerX, v4 - AMPlayerY, 153);
-			engine_draw_automap_pixels(AutoMapYPos + v3, v4, v3 + AMPlayerX, v4 + AMPlayerY, 153);
+			DrawLine(v3, v4, v3 + AutoMapYPos, v4, 153);
+			DrawLine(AutoMapYPos + v3, v4, v3 + AMPlayerX, v4 - AMPlayerY, 153);
+			DrawLine(AutoMapYPos + v3, v4, v3 + AMPlayerX, v4 + AMPlayerY, 153);
 			break;
 		case DIR_SE:
-			engine_draw_automap_pixels(
+			DrawLine(
 				v3,
 				AMPlayerX * (v12 + v11)
 			  + (AutoMapScale * ScrollInfo._syoff / 100 >> 1)
@@ -970,14 +970,14 @@ LABEL_19:
 			  + (AutoMapScale * plr[v0]._pyoff / 100 >> 1)
 			  + 336,
 				153);
-			engine_draw_automap_pixels(AutoMapYPos + v3, AMPlayerX + v4, v3 + AMPlayerX + AMPlayerY, v4, 153);
+			DrawLine(AutoMapYPos + v3, AMPlayerX + v4, v3 + AMPlayerX + AMPlayerY, v4, 153);
 			v5 = AMPlayerX + v4;
 			v10 = AMPlayerX + v4;
 			v9 = v3 + AMPlayerX;
 LABEL_17:
 			v6 = AutoMapYPos + v3;
 LABEL_25:
-			engine_draw_automap_pixels(v6, v5, v9, v10, 153);
+			DrawLine(v6, v5, v9, v10, 153);
 			break;
 		default:
 			return;

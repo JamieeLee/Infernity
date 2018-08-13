@@ -291,12 +291,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 #endif
 	ghInst = v4;
 	if ( RestrictedTest() )
-		ErrDlg(TEMPLATE_ERR_RESTRICTED, 0, "C:\\Src\\Diablo\\Source\\DIABLO.CPP", 877);
+		ErrOkDlg(IDD_DIALOG10, 0, "C:\\Src\\Diablo\\Source\\DIABLO.CPP", 877);
 	if ( ReadOnlyTest() )
 	{
 		if ( !GetModuleFileNameA(ghInst, Filename, 0x104u) )
 			*Filename = '\0';
-		DirErrDlg(Filename);
+		DirErrorDlg(Filename);
 	}
 	ShowCursor(FALSE);
 	srand(GetTickCount());
@@ -333,7 +333,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 #endif
 		mainmenu_action(0); /* v11 fix unused arg */
 		UiDestroy();
-		palette_save_gamme();
+		SaveGamma();
 		if ( ghMainWnd )
 		{
 			Sleep(300);
@@ -1671,11 +1671,11 @@ LABEL_72:
 					return;
 				case 'F':
 				case 'f':
-					palette_inc_gamma();
+					IncreaseGamma();
 					return;
 				case 'G':
 				case 'g':
-					palette_dec_gamma();
+					DecreaseGamma();
 					return;
 				case 'I':
 				case 'i':
@@ -2051,7 +2051,7 @@ void __fastcall LoadGameLevel(bool firstflag, int lvldir)
 				glMid1Seed[currlevel] = GetRndSeed();
 				InitMonsters();
 				glMid2Seed[currlevel] = GetRndSeed();
-				InitObjects(currlevel);
+				InitObjects();
 				InitItems();
 				CreateThemeRooms();
 				glMid3Seed[currlevel] = GetRndSeed();
@@ -2184,12 +2184,12 @@ LABEL_72:
 // 5CF31D: using guessed type char setlevel;
 // 679660: using guessed type char gbMaxPlayers;
 
-void __fastcall game_loop(bool startup)
+void __fastcall game_loop(bool bStartup)
 {
 	int v1; // ecx
 	int v2; // esi
 
-	v1 = startup != 0 ? 0x39 : 0;
+	v1 = bStartup != 0 ? 0x39 : 0;
 	v2 = v1 + 3;
 	if ( v1 != -3 )
 	{
@@ -2276,9 +2276,9 @@ void __cdecl game_logic()
 // 5BB1ED: using guessed type char leveltype;
 // 679660: using guessed type char gbMaxPlayers;
 
-void __fastcall timeout_cursor(bool timeout)
+void __fastcall timeout_cursor(bool bTimeout)
 {
-	if ( timeout )
+	if ( bTimeout )
 	{
 		if ( sgnTimeoutCurs == CURSOR_NONE && !sgbMouseDown )
 		{

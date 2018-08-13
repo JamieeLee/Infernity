@@ -1499,7 +1499,7 @@ void __cdecl AddLazStand()
 	AddObject(OBJ_STORYCANDLE, v4, v1 + 1);
 }
 
-void __fastcall InitObjects(int a1)
+void __cdecl InitObjects()
 {
 	//int v1; // eax
 	//int v2; // eax
@@ -1516,9 +1516,8 @@ void __fastcall InitObjects(int a1)
 	char v13; // al
 	unsigned char *v14; // esi
 	//int v15; // eax
-	int v16; // [esp+0h] [ebp-4h]
+	//int v16; // [esp+0h] [ebp-4h]
 
-	v16 = a1;
 	ClrAllObjects();
 	if ( currlevel == 16 )
 	{
@@ -1576,8 +1575,6 @@ void __fastcall InitObjects(int a1)
 					else
 					{
 						v8 = QUEST_MBLINDING;
-						if ( v7 != 2 )
-							v8 = v16;
 					}
 				}
 				else
@@ -1589,10 +1586,6 @@ void __fastcall InitObjects(int a1)
 				v9 = LoadFileInMem("Levels\\L2Data\\Blind2.DUN", 0);
 				LoadMapObjs(v9, 2 * setpc_x, 2 * setpc_y);
 				mem_free_dbg(v9);
-			}
-			else
-			{
-				v8 = v16;
 			}
 			//_LOBYTE(v10) = QuestStatus(9);
 			if ( QuestStatus(9) )
@@ -1618,10 +1611,6 @@ void __fastcall InitObjects(int a1)
 				AddObject(OBJ_PEDISTAL, 2 * setpc_x + 25, 2 * setpc_y + 32);
 			}
 			InitRndBarrels();
-		}
-		else
-		{
-			v8 = v16;
 		}
 		if ( leveltype == DTYPE_CAVES )
 		{
@@ -1677,9 +1666,9 @@ void __fastcall InitObjects(int a1)
 // 679660: using guessed type char gbMaxPlayers;
 // 67D7C0: using guessed type int InitObjFlag;
 
-void __fastcall SetMapObjects(char *pMap, int startx, int starty)
+void __fastcall SetMapObjects(unsigned char *pMap, int startx, int starty)
 {
-	char *v3; // esi
+	unsigned char *v3; // esi
 	int v6; // edi
 	int v7; // eax
 	int v8; // esi
