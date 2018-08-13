@@ -65,7 +65,8 @@ void __fastcall LoadGame(bool firstflag)
 			TermMsg("Invalid save file");
 		}
 		else {
-			SaveVersion = CurVersion;
+			//SaveVersion = CurVersion;
+			SaveVersion = ILoad();
 		}
 	}
 	else {
@@ -602,8 +603,8 @@ void __cdecl SaveGame()
 	//	ISave_2('IFTY'); // RETL
 	//}
 	//else {
-		ISave_2('RETL'); // RETL
-		//ISave(CurVersion);
+		ISave_2('IFTY'); // RETL
+		ISave(CurVersion);
 	//}
 	//ISave(CurVersion);
 	OSave(setlevel);

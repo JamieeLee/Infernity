@@ -1,0 +1,16 @@
+8/13 01:34:58.648  Connecting to Battle.net...
+8/13 01:34:58.686      querying gateway
+8/13 01:34:58.709      searching for the fastest server
+8/13 01:34:58.903      connected to server
+8/13 01:34:58.910  Connected to server 104.153.105.203
+8/13 01:34:58.910      Validating ID
+8/13 01:34:58.910  Checking for the latest version
+8/13 01:34:59.412      client acknowledged
+8/13 01:34:59.589      logon acknowledged
+8/13 01:34:59.589      requesting latest version
+8/13 01:34:59.751      user has latest version
+8/13 01:34:59.751  Get latest battle.net icons
+8/13 01:34:59.751  Returning ping data to server
+8/13 01:34:59.751      Get player profile
+8/13 01:35:02.719  Disconnecting from server
+8/13 01:35:02.719  Could not connect to Battle.net

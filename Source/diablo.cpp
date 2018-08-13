@@ -1411,6 +1411,12 @@ LABEL_59:
 								//std::stringstream ss;
 								//ss << sizeof(PlayerStruct);
 								//MessageBox(NULL, ss.str().c_str(), NULL, NULL);
+								/*
+								plr[myplr].NumInvExpanded[0] = 0;
+								plr[myplr].NumInvExpanded[1] = 6;
+								plr[myplr].NumInvExpanded[2] = 2;
+								plr[myplr].NumInvExpanded[3] = 0;
+								plr[myplr]._pNumInv = 0;*/	
 								DoAutoMap();
 								return;
 							}

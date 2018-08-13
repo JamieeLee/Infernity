@@ -1315,17 +1315,22 @@ void __fastcall CalcPlrScrolls(int p)
 	signed int v7; // ebx
 	signed __int64 v8; // rax
 	__int64 v9; // rax
-
 	v1 = p;
-	v2 = plr[p]._pNumInv;
-	plr[v1]._pScrlSpells[0] = 0;
-	plr[v1]._pScrlSpells[1] = 0;
-	if ( v2 > 0 )
+	int wutdat = p;
+
+	plr[p]._pScrlSpells[0] = 0;
+	plr[p]._pScrlSpells[1] = 0;
+	int numInv = plr[p]._pNumInv;
+	bool wtf = 0;
+	if (numInv > 5000) { numInv = 0; wtf = 1; }
+	if (numInv > 0 )
 	{
+		wtf = wtf;
 		v3 = &plr[v1].InvList[0]._iMiscId;
-		v4 = v2;
+		v4 = numInv;
 		do
 		{
+			int wtfiisthis = plr[v1].InvList[0]._itype;
 			if ( *(v3 - 53) != -1 && (*v3 == IMISC_SCROLL || *v3 == IMISC_SCROLLT) && v3[34] )
 			{
 				v5 = (__int64)1 << (*((_BYTE *)v3 + 4) - 1);
@@ -1341,6 +1346,7 @@ void __fastcall CalcPlrScrolls(int p)
 	v7 = 8;
 	do
 	{
+		int wtfisthis2 = plr[v1].SpdList[0]._itype;
 		if ( *(v6 - 53) != -1 && (*v6 == IMISC_SCROLL || *v6 == IMISC_SCROLLT) && v6[34] )
 		{
 			v8 = (__int64)1 << (*((_BYTE *)v6 + 4) - 1);
@@ -1460,39 +1466,20 @@ void __fastcall CalcSelfItems(int pnum)
 
 void __fastcall CalcPlrItemMin(int pnum)
 {
-	PlayerStruct *v1; // ecx
-	PlayerStruct *v2; // esi
-	ItemStruct *v3; // edi
-	int v4; // ebp
-	ItemStruct *v6; // edi
-	signed int v7; // ebp
+	int numInv = plr[pnum]._pNumInv;
+	
+	if (numInv > 0)
+	{
+		for (int i = 0; i < numInv; ++i) {
 
-	v1 = &plr[pnum];
-	v2 = v1;
-	v3 = v1->InvList;
-	if ( v1->_pNumInv )
-	{
-		v4 = v1->_pNumInv;
-		do
-		{
-			v3->_iStatFlag = ItemMinStats(v2, v3);
-			++v3;
-			--v4;
+			plr[pnum].InvList[i]._iStatFlag = ItemMinStats(&plr[pnum], &plr[pnum].InvList[i]);
 		}
-		while ( v4 );
 	}
-	v6 = v2->SpdList;
-	v7 = 8;
-	do
-	{
-		if ( v6->_itype != -1 )
-		{
-			v6->_iStatFlag = ItemMinStats(v2, v6);
-		}
-		++v6;
-		--v7;
+
+	for (int i = 0; i < 8; ++i) {
+
+		plr[pnum].SpdList[i]._iStatFlag = ItemMinStats(&plr[pnum], &plr[pnum].SpdList[i]);
 	}
-	while ( v7 );
 }
 
 bool __fastcall ItemMinStats(PlayerStruct *p, ItemStruct *x)

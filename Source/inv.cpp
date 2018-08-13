@@ -1778,6 +1778,7 @@ LABEL_26:
 
 						qmemcpy(&plr[v3].SpdList[freeSlot], &plr[v3].InvList[v13], sizeof(ItemStruct));
 						plr[v3].InvList[v13]._itype = -1;
+						plr[v3]._pNumInv--;
 						CalcPlrInv(p, 1u);
 						CheckItemStats(p);
 						if (p == myplr)
@@ -3358,15 +3359,7 @@ void __cdecl DoTelekinesis()
 
 int __fastcall CalculateGold(int pnum)
 {
-	int result; // eax
-	int v2; // ecx
-	int *v3; // edx
-	signed int v4; // esi
-	int v5; // edx
-	int *v6; // ecx
-
-	result = 0;
-	v2 = pnum;
+	/*
 	v3 = &plr[v2].SpdList[0]._ivalue;
 	v4 = 8;
 	do
@@ -3379,19 +3372,17 @@ int __fastcall CalculateGold(int pnum)
 		v3 += 92;
 		--v4;
 	}
-	while ( v4 );
-	v5 = plr[v2]._pNumInv;
-	if ( v5 > 0 )
+	*/
+	int result = 0;
+	int numInv = plr[pnum]._pNumInv;
+	if (numInv > 0)
 	{
-		v6 = &plr[v2].InvList[0]._ivalue;
-		do
-		{
-			if ( *(v6 - 47) == 11 )
-				result += *v6;
-			v6 += 92;
-			--v5;
+		for (int i = 0; i < numInv; ++i) {
+			if (plr[pnum].InvList[i]._itype == ITYPE_GOLD) {
+			}
+			int val = plr[pnum].InvList[i]._ivalue;
+			result += val;
 		}
-		while ( v5 );
 	}
 	return result;
 }

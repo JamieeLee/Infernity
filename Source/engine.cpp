@@ -1889,7 +1889,7 @@ void RevealMapByOtherPlayers(int x, int y, int pnum) {
 void PrintDebugInfo() {
 	if (false) {
 		std::stringstream ss;
-		ss << "debuginfo: " <<MouseX << " " << MouseY << " " << (plr[myplr].HoldItem._itype == ITYPE_NONE);
+		ss << "debuginfo: " << plr[myplr]._pNumInv << " " << plr[myplr].NumInvExpanded[0] << " " << plr[myplr].NumInvExpanded[1] << " " << plr[myplr].NumInvExpanded[2] << " " << plr[myplr].NumInvExpanded[3];
 		PrintGameStr(200, 200, (char*)ss.str().c_str(), COL_WHITE);
 	}
 }
