@@ -5,6 +5,7 @@
 README.md
 DiabloGame/
 cmd.bat
+test.txt
 
 # PE shared library and associated files.
 *.lib

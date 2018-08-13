@@ -3374,14 +3374,23 @@ int __fastcall CalculateGold(int pnum)
 	}
 	*/
 	int result = 0;
+	for (int i = 0; i < 8; ++i) {
+		if (plr[pnum].SpdList[i]._itype == ITYPE_GOLD) {
+			int val = plr[pnum].SpdList[i]._ivalue;
+			result += val;
+			drawpanflag = 255;
+		}
+	}
+
+
 	int numInv = plr[pnum]._pNumInv;
 	if (numInv > 0)
 	{
 		for (int i = 0; i < numInv; ++i) {
 			if (plr[pnum].InvList[i]._itype == ITYPE_GOLD) {
+				int val = plr[pnum].InvList[i]._ivalue;
+				result += val;
 			}
-			int val = plr[pnum].InvList[i]._ivalue;
-			result += val;
 		}
 	}
 	return result;
