@@ -3192,7 +3192,7 @@ void __fastcall GetUniqueItem(int i, int uid, int x, int y, int rare)
 	item[i]._iCreateInfo |= 0x0200;
 	item[i]._iUid = uid;
 	item[i]._iMagical = 2;
-	if (rare) {
+	if (rare > 0) {
 		std::set<char> uniqPowers;
 		uniqPowers.insert(UniqueItemList[uid].UIPower1);
 		if (UniqueItemList[uid].UINumPL > 1)
