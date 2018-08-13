@@ -5711,21 +5711,13 @@ LABEL_47:
 					return;
 				if ( arglist != myplr )
 					goto LABEL_280;
-				v7 = 0;
-				do
-				{
-					v111 = (unsigned char *)automapview + v7;
-					v112 = 40;
-					do
-					{
-						*v111 = 1;
-						v111 += 40;
-						--v112;
+				for (int i = 0; i < 40; ++i) {
+					for (int j = 0; j < 40; ++j) {
+						if (automapview[i][j] == 0) {
+							automapview[i][j] = 10;
+						}
 					}
-					while ( v112 );
-					++v7;
 				}
-				while ( v7 < 40 );
 				_LOBYTE(v7) = 35;
 				goto LABEL_221;
 			case 23://Ornate	

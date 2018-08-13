@@ -3165,9 +3165,9 @@ int __fastcall CheckUnique(int i, int lvl, int uper, bool recreate)
 // 421D41: using guessed type char var_84[128];
 void __fastcall GetUniqueItem(int i, int uid)
 {
-	GetUniqueItem(i, uid, -1,-1,-1);
+	GetUniqueItem(i, uid, -1,-1,false);
 }
-void __fastcall GetUniqueItem(int i, int uid, int x, int y, int rare)
+void __fastcall GetUniqueItem(int i, int uid, int x, int y, bool rare)
 {
 	UniqueItemFlag[uid] = 1;
 	SaveItemPower(i, UniqueItemList[uid].UIPower1, UniqueItemList[uid].UIParam1, UniqueItemList[uid].UIParam2, 0, 0, 1);
@@ -3192,7 +3192,7 @@ void __fastcall GetUniqueItem(int i, int uid, int x, int y, int rare)
 	item[i]._iCreateInfo |= 0x0200;
 	item[i]._iUid = uid;
 	item[i]._iMagical = 2;
-	if (rare > 0) {
+	if (rare) {
 		std::set<char> uniqPowers;
 		uniqPowers.insert(UniqueItemList[uid].UIPower1);
 		if (UniqueItemList[uid].UINumPL > 1)

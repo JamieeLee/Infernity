@@ -1264,6 +1264,7 @@ void __fastcall SetAutomapView(int x, int y)
 	int v10; // eax
 	short v11; // ax
 	int v12; // edi
+	bool overwriteMap = true;
 
 	v2 = (x - 16) >> 1;
 	v3 = (y - 16) >> 1;
@@ -1284,7 +1285,7 @@ void __fastcall SetAutomapView(int x, int y)
 		{
 LABEL_19:
 			if (GetAutomapType(v2, v3 + 1, 0) == 0x4007) {
-				if (automapview[0][v4 + 1] < 1) {
+				if (automapview[0][v4 + 1] < 1 || overwriteMap == true) {
 					automapview[0][v4 + 1] = 1;
 				}
 			}
@@ -1300,7 +1301,7 @@ LABEL_19:
 			v11 = GetAutomapType(v2 + 1, v3, 0);
 LABEL_32:
 			if (v11 == 0x4007) {
-				if (automapview[1][v4] < 1) {
+				if (automapview[1][v4] < 1 || overwriteMap == true) {
 					automapview[1][v4] = 1;
 				}
 			}
@@ -1308,7 +1309,7 @@ LABEL_32:
 		}
 LABEL_14:
 		if (GetAutomapType(v2, v3 - 1, 0) & 0x4000) {
-			if (automapview[0][v4 - 1] < 1) {
+			if (automapview[0][v4 - 1] < 1 || overwriteMap == true) {
 				automapview[0][v4 - 1] = 1; // AMbyte_4B7E4C[v4 + 31] = 1;
 			}
 		}
@@ -1325,7 +1326,7 @@ LABEL_14:
 			if (v6)
 			{
 				if (GetAutomapType(v2 - 1, v3, 0) & 0x4000) {
-					if (automapview[-1][v4] < 1) {
+					if (automapview[-1][v4] < 1 || overwriteMap == true) {
 						automapview[-1][v4] = 1; // *((_BYTE *)&AMdword_4B7E44 + v4) = 1;
 					}
 				}
@@ -1338,7 +1339,7 @@ LABEL_14:
 		if (v6)
 		{
 			if (GetAutomapType(v2, v3 - 1, 0) & 0x4000) {
-				if (automapview[0][v4 - 1] < 1) {
+				if (automapview[0][v4 - 1] < 1 || overwriteMap == true) {
 					automapview[0][v4 - 1] = 1; // AMbyte_4B7E4C[v4 + 31] = 1;
 				}
 			}
@@ -1346,7 +1347,7 @@ LABEL_14:
 		}
 	LABEL_35:
 		if (GetAutomapType(v2 - 1, v3, 0) & 0x4000) {
-			if (automapview[-1][v4] < 1) {
+			if (automapview[-1][v4] < 1 || overwriteMap == true) {
 			automapview[-1][v4] = 1; // *((_BYTE *)&AMdword_4B7E44 + v4) = 1;
 			}
 		}
@@ -1355,25 +1356,25 @@ LABEL_14:
 	if ( v6 )
 	{
 		if (GetAutomapType(v2, v3 + 1, 0) == 0x4007) {
-			if (automapview[0][v4+1] < 1) {
+			if (automapview[0][v4+1] < 1 || overwriteMap == true) {
 				automapview[0][v4 + 1] = 1;
 			}
 		}
 		goto LABEL_13;
 	}
 	if (GetAutomapType(v2 - 1, v3, 0) & 0x4000) {
-		if (automapview[-1][v4] < 1) {
+		if (automapview[-1][v4] < 1 || overwriteMap == true) {
 			automapview[-1][v4] = 1; // *((_BYTE *)&AMdword_4B7E44 + v4) = 1;
 		}
 	}
 	v12 = v3 - 1;
 	if (GetAutomapType(v2, v12, 0) & 0x4000) {
-		if (automapview[0][v4-1] < 1) {
+		if (automapview[0][v4-1] < 1 || overwriteMap == true) {
 			automapview[0][v4 - 1] = 1; // AMbyte_4B7E4C[v4 + 31] = 1;
 		}
 	}
 	if (GetAutomapType(v2 - 1, v12, 0) & 0x4000) {
-		if (automapview[-1][v4-1] < 1) {
+		if (automapview[-1][v4-1] < 1 || overwriteMap == true) {
 			automapview[-1][v4 - 1] = 1; /* *((_BYTE *)&AMdword_4B7E40 + v4 + 3) = 1; fix */
 		}
 	}
