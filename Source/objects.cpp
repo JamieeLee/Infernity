@@ -5496,7 +5496,7 @@ LABEL_47:
 							GetPlrHandSeed(&plr[v78].HoldItem);
 							v82 = sfx_idc;
 							plr[v78].HoldItem._iStatFlag = 1;
-							qmemcpy(sfx_idc - 55, &plr[v78].HoldItem, 0x170u);
+							qmemcpy(sfx_idc - 55, &plr[v78].HoldItem, StructSize<ItemStruct>());
 						}
 						v7 = *v82;
 						if ( *v82 == IMISC_FULLHEAL || v7 == IMISC_FULLMANA )

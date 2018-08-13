@@ -28,7 +28,7 @@ void __cdecl AutomapZoomIn();
 void __cdecl AutomapZoomOut();
 void __cdecl DrawAutomap();
 void __fastcall DrawAutomapType(int screen_x, int screen_y, short automap_type, char color);
-void __cdecl DrawAutomapPlr();
+void __cdecl DrawAutomapPlr(int pnum);
 short __fastcall GetAutomapType(int x, int y, bool view);
 void __cdecl DrawAutomapGame();
 void __fastcall SetAutomapView(int x, int y);

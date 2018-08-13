@@ -50,6 +50,13 @@ void __cdecl track_process()
 
 void __fastcall track_repeat_walk(bool rep)
 {
+	{
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "track_repeat_walk(" << rep << ")\n";
+		outfile.close();
+	}
+
 	if ( sgbIsWalking != rep )
 	{
 		sgbIsWalking = rep;

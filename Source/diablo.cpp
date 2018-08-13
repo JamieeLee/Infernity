@@ -1408,9 +1408,9 @@ LABEL_59:
 								return;
 							case VK_TAB:
 							{
-								//std::stringstream ss;
-								//ss << sizeof(PlayerStruct);
-								//MessageBox(NULL, ss.str().c_str(), NULL, NULL);
+								std::stringstream ss;
+								ss << sizeof(PkPlayerStruct);
+								MessageBox(NULL, ss.str().c_str(), NULL, NULL);
 								/*
 								plr[myplr].NumInvExpanded[0] = 0;
 								plr[myplr].NumInvExpanded[1] = 6;

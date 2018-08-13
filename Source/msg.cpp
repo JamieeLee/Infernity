@@ -1372,12 +1372,26 @@ int __fastcall ParseCmd(int pnum, TCmd *pCmd)
 	int result; // eax
 	TCmd *v7; // esi
 
+	{
+		if (pCmd->bCmd != 35) {
+			std::ofstream outfile;
+			outfile.open("test.txt", std::ios_base::app);
+			outfile << "ParseCMD(" << (int)pCmd->bCmd << ")\n";
+			outfile.close();
+		}
+	}
+
 	v2 = sgwPackPlrOffsetTbl[pnum] == 0;
 	v3 = pCmd;
 	v4 = pCmd->bCmd;
 	sbLastCmd = v4;
-	if ( !v2 && v4 != CMD_ACK_PLRINFO && v4 != CMD_SEND_PLRINFO )
+	if (!v2 && v4 != CMD_ACK_PLRINFO && v4 != CMD_SEND_PLRINFO) {
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "THIS SHIT RUINED THE MULTIPLAYER\n";
+		outfile.close();
 		return 0;
+	}
 	v5 = v3->bCmd;
 	switch ( v3->bCmd )
 	{
@@ -1760,6 +1774,18 @@ int __fastcall On_WALKXY(struct TCmdLoc *pCmd, int pnum)
 	struct TCmdLoc *v3; // edi
 	int v4; // esi
 
+
+
+	{
+			std::ofstream outfile;
+			outfile.open("test.txt", std::ios_base::app);
+			outfile << "Inside On_WALKXY - GBUFFER:" << gbBufferMsgs << " " << "currlvl: " << currlevel << " plrlvl: " << (plr[pnum].plrlevel) << ")\n";
+			outfile.close();
+	}
+
+
+
+
 	v2 = pnum;
 	v3 = pCmd;
 	if ( gbBufferMsgs != 1 )
@@ -1770,6 +1796,14 @@ int __fastcall On_WALKXY(struct TCmdLoc *pCmd, int pnum)
 			ClrPlrPath(pnum);
 			MakePlrPath(v2, (unsigned char)v3->x, (unsigned char)v3->y, 1u);
 			plr[v4].destAction = -1;
+
+
+			{
+				std::ofstream outfile;
+				outfile.open("test.txt", std::ios_base::app);
+				outfile << "Inside On_WALKXY - Make path - x: " << (int)v3->x << " y" << (int)v3->y << ")\n";
+				outfile.close();
+			}
 		}
 	}
 	return 3;
@@ -3456,6 +3490,12 @@ int __fastcall On_PLAYER_JOINLEVEL(struct TCmdLocParam1 *pCmd, int pnum)
 			plr[v4].plractive = 1;
 			++gbActivePlayers;
 			EventPlrMsg("Player '%s' (level %d) just joined the game", plr[pnum]._pName, plr[v4]._pLevel);
+			{
+				std::ofstream outfile;
+				outfile.open("test.txt", std::ios_base::app);
+				outfile << "player joined game !\n";
+				outfile.close();
+			}
 		}
 		if ( plr[v4].plractive )
 		{

@@ -573,7 +573,9 @@ void __cdecl DrawAutomap()
 			}
 			while ( v25 );
 		}
-		DrawAutomapPlr();
+		for (int i = 0; i < 4; ++i) {
+			DrawAutomapPlr(i);
+		}
 		DrawAutomapGame();
 	}
 	else
@@ -838,7 +840,7 @@ LABEL_36:
 // 4B84C4: using guessed type int AMPlayerX;
 // 4B84C8: using guessed type int AMPlayerY;
 
-void __cdecl DrawAutomapPlr()
+void __cdecl DrawAutomapPlr(int pnum)
 {
 	int v0; // ebx
 	int v1; // eax
@@ -854,8 +856,8 @@ void __cdecl DrawAutomapPlr()
 	int v11; // [esp+Ch] [ebp-8h]
 	int v12; // [esp+10h] [ebp-4h]
 
-	v0 = myplr;
-	if ( plr[myplr]._pmode == PM_WALK3 )
+	v0 = pnum;
+	if ( plr[v0]._pmode == PM_WALK3 )
 	{
 		v1 = plr[v0]._px;
 		v2 = plr[v0]._py;

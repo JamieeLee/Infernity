@@ -4048,6 +4048,15 @@ int __fastcall PM_DoDeath(int pnum)
 
 void __fastcall CheckNewPath(int pnum)
 {
+
+	{
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "CheckNewPath(" << pnum << ")\n";
+		outfile.close();
+	}
+
+
 	int v1; // edi
 	int v2; // ebx
 	int v3; // eax
@@ -4699,11 +4708,19 @@ void __cdecl ProcessPlayers()
 		PlaySFX(sfxdnum);
 	ValidatePlayer();
 	v5 = &plr[0]._pHitPoints;
+
+
 	do
 	{
 		v6 = (int)(v5 - 89);
-		if ( *((_BYTE *)v5 - 379) && currlevel == *(_DWORD *)v6 && (v4 == myplr || !*(_BYTE *)(v6 + 267)) )
+		if(true)
+		//if ( *((_BYTE *)v5 - 379) && currlevel == *(_DWORD *)v6 && (v4 == myplr || !*(_BYTE *)(v6 + 267)) )
 		{
+			{
+				std::ofstream outfile;
+				outfile.open("test.txt", std::ios_base::app);
+				outfile << "ProcessPlayers-inside shitty if\n";
+			}
 			CheckCheatStats(v4);
 			//_LOBYTE(v7) = PlrDeathModeOK(v4);
 			if ( !PlrDeathModeOK(v4) && (signed int)(*v5 & 0xFFFFFFC0) <= 0 )
@@ -4719,7 +4736,7 @@ void __cdecl ProcessPlayers()
 						SyncPlrKill(v4, 0);
 					drawhpflag = 1;
 				}
-				if ( *((_BYTE *)v5 + 21179) & 8 )
+				if ( *((_BYTE *)v5 + 21179 + (sizeof(PlayerStruct) - 21760)) & 8 )
 				{
 					v9 = v5[3];
 					if ( v9 > 0 )
@@ -4734,7 +4751,8 @@ void __cdecl ProcessPlayers()
 			v11 = 0;
 			do
 			{
-				switch ( *(v5 - 102) )
+				//switch ( *(v5 - 102) )
+				switch(1)
 				{
 					case PM_STAND:
 						v12 = PM_DoStand(v4);
@@ -4788,7 +4806,8 @@ LABEL_38:
 					*(_DWORD *)v14 = 1;
 			}
 		}
-		v5 += 5430;
+		//v5 += 5430 + (sizeof(PlayerStruct)-21760);
+		v5 += sizeof(PlayerStruct);
 		++v4;
 	}
 	while ( (signed int)v5 < (signed int)&plr[4]._pHitPoints );
@@ -4867,6 +4886,13 @@ void __fastcall MakePlrPath(int pnum, int xx, int yy, unsigned char endspace)
 	int v10; // ecx
 	int a2; // [esp+Ch] [ebp-4h]
 
+	{
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "Inside MakePlrPath - Make path - x: " << xx << " y" << yy << " PNUM" << pnum <<")\n";
+		outfile.close();
+	}
+
 	v4 = pnum;
 	v5 = xx;
 	a2 = pnum;
@@ -4881,14 +4907,51 @@ void __fastcall MakePlrPath(int pnum, int xx, int yy, unsigned char endspace)
 		RevealMapByOtherPlayers(plr[pnum]._px, plr[pnum]._py, pnum + 2);
 	}
 
+
+	{
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "Inside MakePlrPath - After revealing\n";
+		outfile.close();
+	}
+
 	if ( v8 != v5 || plr[v6]._py != yy )
 	{
+		{
+			std::ofstream outfile;
+			outfile.open("test.txt", std::ios_base::app);
+			outfile << "Inside MakePlrPath - passed first if\n";
+			outfile.close();
+		}
 		v9 = FindPath(PosOkPlayer, a2, v8, plr[v6]._py, v5, yy, plr[v6].walkpath);
 		if ( v9 )
 		{
+			{
+				std::ofstream outfile;
+				outfile.open("test.txt", std::ios_base::app);
+				outfile << "Inside MakePlrPath - find path passed,, endspace = " << (int)endspace << "\n";
+				outfile.close();
+			}
 			if ( !endspace )
 			{
+
+				{
+					std::ofstream outfile;
+					outfile.open("test.txt", std::ios_base::app);
+					outfile << "Inside MakePlrPath - !endspace passed\n";
+					outfile.close();
+				}
 				v10 = *((char *)&plr[v6]._pmode + v9-- + 3);
+
+
+				{
+					std::ofstream outfile;
+					outfile.open("test.txt", std::ios_base::app);
+					outfile << "Inside MakePlrPath - Switch v10 = " << (int)v10 << "\n";
+					outfile.close();
+				}
+
+
 				switch ( v10 )
 				{
 					case PM_WALK:

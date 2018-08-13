@@ -60,6 +60,7 @@ void __fastcall LoadGame(bool firstflag)
 	ptr = pfile_read(dst, &len);
 	tbuff = ptr;
 	int sig = ILoad_2();
+	SaveVersion = 0;
 	if (sig != 'RETL') {
 		 if(sig != 'IFTY') {
 			TermMsg("Invalid save file");
@@ -69,13 +70,8 @@ void __fastcall LoadGame(bool firstflag)
 			SaveVersion = ILoad();
 		}
 	}
-	else {
 		//if (GetConfigBoolVariable("convertCharactersToInfernity") == true) {
-			SaveVersion = 0;
-		//} else{
-			//SaveVersion = 0;// ILoad();
-		//}
-	}
+
 
 	setlevel = OLoad();
 	setlvlnum = ILoad();
@@ -471,8 +467,27 @@ void __fastcall LoadPlayer(int i)
 	memcpy(&plr[i], tbuff, 0x54B0u);
 	tbuff = (char *)tbuff + 21680;*/
 
-	memcpy(&plr[i], tbuff, StructSize<PlayerStruct>());
-	tbuff = (char *)tbuff + StructSize<PlayerStruct>();
+	{
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "LoadPlayer("<<i<<")\n";
+		outfile.close();
+	}
+
+
+	memcpy(&plr[i], tbuff, StructSize<PlayerStruct>()-40);
+	tbuff = (char *)tbuff + StructSize<PlayerStruct>()-40;
+
+	if (SaveVersion == 0) {
+		for (int ii = 0; ii < 4; ++ii) {
+			plr[i].NumInvExpanded[ii] = 0;
+			for (int j = 0; j < 40; ++j) {
+				plr[i].InvListExpanded[ii][j]._itype = -1;
+				plr[i].InvGridExpanded[ii][j] = 0;
+			}
+		}
+		plr[i].NumInvExpanded[0] = plr[i]._pNumInv;
+	}
 }
 
 void __fastcall LoadMonster(int i)
