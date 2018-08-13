@@ -24,14 +24,13 @@ I will order a pizza and think about you while eating ;)
 - Remove/change permanent negative shrines (In general, things permanently damaging your character)
 - Show shrine effect in the description
 - Expand inventory (4tabs, switch by clicking on the icon or shift+1/2/3/4)
+- Make the map revealed by the shrine have a different color
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
 - Fixing possible overflows in monster AC/to hit/etc. on difficulties above normal.
 - Fix friendly fire
 - Show other players on minimap
-- Expand inventory
-- Make the map revealed by the shrine have a different color
 
 # Installing
 - Get `infernity.exe` [here](https://github.com/qndel/Infernity/blob/master/Source/Infernity.exe)
