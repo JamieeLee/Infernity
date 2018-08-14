@@ -27,6 +27,7 @@ I will order a pizza and think about you while eating ;)
 - Make the map revealed by the shrine have a different color
 - Add monster resistances/immunities on the health bar
 - Show other players on minimap
+- Items won't drop on death
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
