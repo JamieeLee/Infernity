@@ -2352,7 +2352,8 @@ void __fastcall StartPlayerKill(int pnum, int earflag)
 		return;
 	if ( myplr == pnum )
 		NetSendCmdParam1(1u, CMD_PLRDEAD, earflag);
-	v20 = (unsigned char)gbMaxPlayers > 1u && plr[v3 / StructSize<PlayerStruct>()].plrlevel == 16;
+	v20 = true;// (unsigned char)gbMaxPlayers > 1u && plr[v3 / StructSize<PlayerStruct>()].plrlevel == 16;
+	//items won't drop after death
 	if ( v2 >= 4 )
 		TermMsg("StartPlayerKill: illegal player %d", v2);
 	v4 = plr[v3 / StructSize<PlayerStruct>()]._pClass;
