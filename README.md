@@ -26,12 +26,12 @@ I will order a pizza and think about you while eating ;)
 - Expand inventory (4tabs, switch by clicking on the icon or shift+1/2/3/4)
 - Make the map revealed by the shrine have a different color
 - Add monster resistances/immunities on the health bar
+- Show other players on minimap
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
 - Fixing possible overflows in monster AC/to hit/etc. on difficulties above normal.
 - Fix friendly fire
-- Show other players on minimap
 
 # Installing
 - Get `infernity.exe` [here](https://github.com/qndel/Infernity/blob/master/Source/Infernity.exe)
@@ -50,6 +50,7 @@ I will order a pizza and think about you while eating ;)
 - 1.07 - Gold pile max size increased from 5k to 1m, shift+clicking a scroll/potion in inventory will add it to belt, shop selection stays after buying, some fixes for spells
 - 1.08 - Shrines display their effect in description (goat shrines and cauldron't still don't), removed permanent mana decrease from shrines = we got rid of all stuff that could permanently damage the character! So it's safe to use goat shrines/cauldrons
 - 1.09 - The most important update so far, adds 4 tabs to inventory. You can switch by clicking or shift+1/2/3/4
+- 1.10 - fixed all bugs related to inventory/multiplayer - this will allow to expand the player  structure in the future (can add more stuff)
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
