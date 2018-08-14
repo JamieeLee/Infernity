@@ -18,13 +18,14 @@ I will order a pizza and think about you while eating ;)
 - Black death doesn't permanently decrease health anymore!
 - Added xp bar
 - Minimap is shared between players
-- Gold pile max size increased to 1m
+- Gold pile max size increased to 60k (Can't be more because of variable type - at least for now)
 - Shop selection stays after buying item (it used to reset to first top item before)
 - Shift clicking potions in inventory adds them to belt
 - Remove/change permanent negative shrines (In general, things permanently damaging your character)
 - Show shrine effect in the description
 - Expand inventory (4tabs, switch by clicking on the icon or shift+1/2/3/4)
 - Make the map revealed by the shrine have a different color
+- Add monster resistances/immunities on the health bar
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
