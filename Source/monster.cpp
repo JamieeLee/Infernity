@@ -4205,8 +4205,8 @@ int __fastcall M_DoDeath(int i)
 			v9 = -1;
 		}
 		ViewY += v9;
-		if ( v4 == 140 )
-			PrepDoEnding();
+		if ( v4 == 140 && gbMaxPlayers == 1)
+			PrepDoEnding(); // cancel outro after killing diablo for multiplayer
 	}
 	else if ( monster[v2]._mAnimFrame == monster[v2]._mAnimLen )
 	{

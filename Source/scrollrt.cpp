@@ -504,6 +504,76 @@ void DrawMonsterHealthBar(int monsterID)
 	int borderColor =  BorderColors[mon->MData->mMonstClass]; //200; // pure golden, unique item style
 	int filledColor = 142; // optimum balance in bright red between dark and light
 	bool fillCorners = true;
+	int square = 10;
+
+
+	/*
+	
+				if ( v7 & 7 )
+			{
+				strcpy(tempstr, "Resists : ");
+				if ( v7 & 1 )
+					strcat(tempstr, "Magic ");
+				if ( v7 & 2 )
+					strcat(tempstr, "Fire ");
+				if ( v7 & 4 )
+					strcat(tempstr, "Lightning ");
+				tempstr[strlen(tempstr) - 1] = '\0';
+				AddPanelString(tempstr, 1);
+			}
+			if ( v7 & 0x38 )
+			{
+				strcpy(tempstr, "Immune : ");
+				if ( v7 & 8 )
+					strcat(tempstr, "Magic ");
+				if ( v7 & 0x10 )
+					strcat(tempstr, "Fire ");
+				if ( v7 & 0x20 )
+					strcat(tempstr, "Lightning ");
+					
+					*/
+
+
+
+	char* immuText = "IMMU: ";
+	char* resText = "RES: ";
+	char* vulnText = ":VULN";
+	int resSize = 3;
+	int resistColors[] = { 148,140,129 };// { 170,140,129,148,242 };// {168, 216, 200, 242, 142 }; // arcane // fire // lightning // acid
+	ushort immunes[] = { 0x8,0x10,0x20 };
+	ushort resists[] = { 0x1,0x2,0x4 };
+	ushort mres = monster->mMagicRes;
+
+
+	int resOffset = 0 + GetTextWidth(resText);
+	for (int k = 0; k < resSize; ++k) {
+		if (mres & resists[k]) {
+			for (int j = 0; j < square; j++) {
+				for (int i = 0; i < square; i++) {
+					ColorPixel(xPos + i + resOffset, yPos + height + j + yOffset + borderWidth + 2, resistColors[k]);
+				}
+			}
+			resOffset += 12;
+		}
+	}
+
+
+	int vulOffset = width - square - GetTextWidth(vulnText) - 4;
+	for (int k = 0; k < resSize; ++k) {
+		if (mres & resists[k] || mres & immunes[k]) {
+		}
+		else {
+			for (int j = 0; j < square; j++) {
+				for (int i = 0; i < square; i++) {
+					ColorPixel(xPos + i + vulOffset,yPos + height + j + yOffset + borderWidth + 2, resistColors[k]);
+				}
+			}
+			vulOffset -= 12;
+		}
+	}
+
+
+
 
 	for (int j = 0; j < height; j++) {
 		for (int i = 0; i < (width*FilledPercent); i++) {
@@ -537,12 +607,30 @@ void DrawMonsterHealthBar(int monsterID)
 		}
 	}
 
+
+
+	bool drawImmu = false;
+	int immuOffset = 0 + GetTextWidth(immuText) -5;
+	for (int k = 0; k < resSize; ++k) {
+		if (mres & immunes[k]) {
+			drawImmu = true;
+			for (int j = 0; j < square; j++) {
+				for (int i = 0; i < square; i++) {
+					ColorPixel(xPos + i + immuOffset, yPos + height + j + yOffset + borderWidth + 2 - 15, resistColors[k]);
+				}
+			}
+			immuOffset += 12;
+		}
+	}
+
+
+
 	int newX = xPos + Screen_LeftBorder;
 	int newY = yPos + height - 3;
 	std::stringstream name;
 	name << mon->mName;
 	int namecolor = COL_WHITE;
-	if (specialMonster == 1) { namecolor = COL_GOLD; }
+	if (specialMonster == 1 || name.str() == "The Dark Lord") { namecolor = COL_GOLD; }
 	PrintGameStr(newX - GetTextWidth((char*)name.str().c_str()) / 2, 30, (char*)name.str().c_str(), namecolor);
 	PrintGameStr(newX - GetTextWidth("/") / 2, 43, "/", COL_WHITE);
 	std::stringstream current;
@@ -551,6 +639,11 @@ void DrawMonsterHealthBar(int monsterID)
 	max << (maxLife >> 6);
 	PrintGameStr(newX + GetTextWidth("/"), 43, (char*)max.str().c_str(), COL_WHITE);
 	PrintGameStr(newX - GetTextWidth((char*)current.str().c_str()) - GetTextWidth("/"), 43, (char*)current.str().c_str(), COL_WHITE);
+	PrintGameStr(newX - width / 2, 59, resText, COL_GOLD);
+	if (drawImmu == true) {
+		PrintGameStr(newX - width / 2, 46, immuText, COL_GOLD);
+	}
+	PrintGameStr(newX + width / 2 - GetTextWidth(vulnText), 59, vulnText, COL_RED);
 }
 
 
