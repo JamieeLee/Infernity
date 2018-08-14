@@ -542,8 +542,7 @@ void DrawMonsterHealthBar(int monsterID)
 	int resistColors[] = { 148,140,129 };// { 170,140,129,148,242 };// {168, 216, 200, 242, 142 }; // arcane // fire // lightning // acid
 	ushort immunes[] = { 0x8,0x10,0x20 };
 	ushort resists[] = { 0x1,0x2,0x4 };
-	ushort mres = monster->mMagicRes;
-
+	ushort mres = mon->mMagicRes;
 
 	int resOffset = 0 + GetTextWidth(resText);
 	for (int k = 0; k < resSize; ++k) {

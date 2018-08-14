@@ -19,7 +19,7 @@ int AMPlayerY; // weak
 
 std::map<std::string, bool> BoolConfig;
 std::map<std::string, int> IntConfig; //config variables
-int maxGoldPile = 1000000;
+int maxGoldPile = 60000;
 
 void __cdecl InitAutomapOnce()
 {
