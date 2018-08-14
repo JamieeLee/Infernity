@@ -6,6 +6,7 @@ README.md
 DiabloGame/
 cmd.bat
 test.txt
+BnetLog.txt
 
 # PE shared library and associated files.
 *.lib
