@@ -2406,23 +2406,44 @@ void __cdecl DrawLevelUpIcon()
 // 4B851C: using guessed type int lvlbtndown;
 // 6AA705: using guessed type char stextflag;
 
+void clearShit(int pnum) {
+	for (int i = 0; i < 40; ++i) {
+		if (plr[myplr].InvList[i]._itype == -1){// || plr[myplr].InvList[i]._iAnimLen == 0) {
+			memset(&plr[myplr].InvList[i], 0, sizeof(ItemStruct));
+			plr[myplr].InvList[i]._itype = -1;
+		}
+	}
+}
+
 bool SwitchInvTab(int newTab) {
+	ItemStruct* invs = plr[myplr].InvList;
+
 	//if (pcurs < CURSOR_FIRSTITEM) {
 		if (newTab != plr[myplr].currentInventoryIndex) {
-			CalcPlrInv(myplr, 1);
-			CheckItemStats(myplr);
+			CalcPlrInv(myplr, 0);
+			//clearShit(myplr);
 			qmemcpy(&plr[myplr].InvListExpanded[plr[myplr].currentInventoryIndex], &plr[myplr].InvList, sizeof(ItemStruct) * 40);
 			qmemcpy(&plr[myplr].InvList, &plr[myplr].InvListExpanded[newTab], sizeof(ItemStruct) * 40);
 
 			qmemcpy(&plr[myplr].InvGridExpanded[plr[myplr].currentInventoryIndex], &plr[myplr].InvGrid, sizeof(char) * 40);
 			qmemcpy(&plr[myplr].InvGrid, &plr[myplr].InvGridExpanded[newTab], sizeof(char) * 40);
-
+			clearShit(myplr);
 			plr[myplr].NumInvExpanded[plr[myplr].currentInventoryIndex] = plr[myplr]._pNumInv;
 			plr[myplr]._pNumInv = plr[myplr].NumInvExpanded[newTab];
+			//std::set<int> seeds;
+			//for (int i = 0; i < 40; ++i) {
+			//	if (plr[myplr].InvList[i]._itype != -1 && plr[myplr].InvList[i]._iAnimData > 0) {
+			//		seeds.insert(plr[myplr].InvList[i]._iSeed);
+			//	}
+			//}
+			//plr[myplr]._pNumInv = seeds.size();
+			
 
 			plr[myplr].currentInventoryIndex = newTab;
 			CalcPlrInv(myplr, 1);
-			CheckItemStats(myplr);
+
+
+			//CheckItemStats(myplr);
 			return true;
 		}
 	//}

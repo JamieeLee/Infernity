@@ -4872,14 +4872,6 @@ void __fastcall OperateShrine(int pnum, int i, int sType)
 	int v66; // edx
 	char v67; // al
 	char v68; // al
-	int v69; // esi
-	int v70; // edx
-	int v71; // ebx
-	int v72; // edi
-	int v73; // eax
-	int v74; // edx
-	int v75; // edx
-	int v76; // edx
 	int v77; // esi
 	int v78; // ebx
 	int *v79; // eax
@@ -4900,33 +4892,15 @@ void __fastcall OperateShrine(int pnum, int i, int sType)
 	int v95; // edx
 	char v96; // al
 	char v97; // al
-	int v98; // esi
-	int v99; // edx
-	int v100; // ebx
-	int v101; // edi
-	int v102; // eax
-	int v103; // edx
-	int v104; // edx
-	int v105; // edx
 	int v106; // ebx
 	int v107; // ST38_4
 	int v108; // ST34_4
 	int v109; // ST3C_4
 	int v110; // eax
-	_BYTE *v111; // eax
-	signed int v112; // edx
 	int *v113; // eax
 	int v114; // edx
 	char v115; // al
 	char v116; // al
-	int v117; // esi
-	int v118; // edx
-	int v119; // ebx
-	int v120; // edi
-	int v121; // eax
-	int v122; // edx
-	int v123; // edx
-	int v124; // edx
 	int v125; // eax
 	int *v126; // ecx
 	signed int v127; // esi
@@ -4945,12 +4919,9 @@ void __fastcall OperateShrine(int pnum, int i, int sType)
 	signed int v141; // [esp+1Ch] [ebp-8h]
 	int arglist; // [esp+20h] [ebp-4h]
 	int sfx_ida; // [esp+2Ch] [ebp+8h]
-	int sfx_ide; // [esp+2Ch] [ebp+8h]
 	int sfx_idb; // [esp+2Ch] [ebp+8h]
 	int *sfx_idc; // [esp+2Ch] [ebp+8h]
-	int sfx_idf; // [esp+2Ch] [ebp+8h]
 	int sfx_idd; // [esp+2Ch] [ebp+8h]
-	int sfx_idg; // [esp+2Ch] [ebp+8h]
 
 	param2 = i;
 	arglist = pnum;

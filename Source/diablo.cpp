@@ -1408,15 +1408,31 @@ LABEL_59:
 								return;
 							case VK_TAB:
 							{
+			/*
+								for (int i = 0; i < 40; ++i) {
+									ItemStruct wtf = plr[myplr].InvListExpanded[0][i];
+								}*/
+
 								//std::stringstream ss;
 								//ss << sizeof(PkPlayerStruct);
 								//MessageBox(NULL, ss.str().c_str(), NULL, NULL);
 								/*
-								plr[myplr].NumInvExpanded[0] = 0;
-								plr[myplr].NumInvExpanded[1] = 6;
-								plr[myplr].NumInvExpanded[2] = 2;
-								plr[myplr].NumInvExpanded[3] = 0;
-								plr[myplr]._pNumInv = 0;*/	
+								plr[myplr].NumInvExpanded[1] = 0;
+								plr[myplr].NumInvExpanded[2] = 0;
+								for (int i = 0; i < 40; ++i) {
+									memset(&plr[myplr].InvListExpanded[1][i], 0, sizeof(ItemStruct));
+									memset(&plr[myplr].InvListExpanded[2][i], 0, sizeof(ItemStruct));
+									plr[myplr].InvListExpanded[1][i]._itype = -1;
+									plr[myplr].InvListExpanded[2][i]._itype = -1;
+									plr[myplr].InvGridExpanded[1][i] = 0;
+									plr[myplr].InvGridExpanded[2][i] = 0;
+								}*/
+								//plr[myplr].NumInvExpanded[0] = 24;
+								//plr[myplr].NumInvExpanded[1] = 5;
+								//plr[myplr].NumInvExpanded[2] = 0;
+								//plr[myplr].NumInvExpanded[3] = 18;
+								//plr[myplr]._pNumInv = plr[myplr].NumInvExpanded[0];
+								//*/
 								DoAutoMap();
 								return;
 							}

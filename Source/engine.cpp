@@ -1907,10 +1907,9 @@ void DrawXpBar()
 	int offset = 3;
 	int barRows = 3;
 	int yPos = 632;
-	int barColor = 182;/*242white, 142red, 200yellow, 182blue*/
+	int barColor = 242;/*242white, 142red, 200yellow, 182blue*/
 	int frameColor = 242;
-
-
+	int dividerHeight = 4;
 
 	PrintGameStr(145, 476, "XP", COL_WHITE);
 	charLevel = player->_pLevel;
@@ -1919,7 +1918,7 @@ void DrawXpBar()
 		prevXp = ExpLvlsTbl[charLevel - 1];
 		prevXpDelta = curXp - prevXp;
 		prevXpDelta_1 = player->_pExperience - prevXp;
-		if (player->_pExperience > prevXp) {
+		if (player->_pExperience >= prevXp) {
 			visibleBar = barSize * (unsigned __int64)prevXpDelta_1 / prevXpDelta;
 			//draw frame
 			//horizontal
@@ -1928,9 +1927,16 @@ void DrawXpBar()
 				ColorPixel((768 - barSize) / 2 + i + offset, yPos + barRows / 2 + 1, frameColor);
 			}
 			//vertical
-			for (int i = 0; i < barRows; ++i) {
-				ColorPixel((768 - barSize) / 2 -1 + offset, yPos - barRows / 2 + i, frameColor);
-				ColorPixel((768 - barSize) / 2 + barSize + offset, yPos - barRows / 2 + i, frameColor);
+			for (int i = -dividerHeight; i < barRows+ dividerHeight; ++i) {
+				if (i >= 0 && i < barRows) {
+					ColorPixel((768 - barSize) / 2 - 1 + offset, yPos - barRows / 2 + i, frameColor);
+				}
+				for (int j = 1; j < 10; ++j) {
+					 ColorPixel((768 - barSize) / 2 - 1 + offset + (barSize*j/10), yPos - barRows / 2 + i, frameColor);
+				}
+				if (i >= 0 && i < barRows) {
+					ColorPixel((768 - barSize) / 2 + barSize + offset, yPos - barRows / 2 + i, frameColor);
+				}
 			}
 			//draw frame
 			for (int i = 0; i < visibleBar; ++i) {
@@ -1942,12 +1948,32 @@ void DrawXpBar()
 	}
 }
 bool AreAffixesGood(char p1, char p2) {
-
+	if (p1 == p2) { return false; }
 	map<int, set<int> > sadAffix;
-	sadAffix[IPL_ATTRIBS] = { IPL_STR,IPL_DEX,IPL_VIT,IPL_MAG};
+	sadAffix[IPL_ATTRIBS] = { IPL_STR,IPL_DEX,IPL_VIT,IPL_MAG,IPL_ATTRIBS_CURSE};
 	sadAffix[IPL_ALLRES] = { IPL_FIRERES ,IPL_MAGICRES, IPL_LIGHTRES };
-	sadAffix[IPL_TOHIT] = { IPL_TOHIT_DAMP };
+	sadAffix[IPL_TOHIT] = { IPL_TOHIT_DAMP,IPL_TOHIT_CURSE,IPL_TOHIT_DAMP_CURSE };
 	sadAffix[IPL_INDESTRUCTIBLE] = { IPL_DUR };
+
+	sadAffix[IPL_MAG] = { IPL_MAG_CURSE,IPL_ATTRIBS,IPL_ATTRIBS_CURSE };
+	sadAffix[IPL_DEX] = { IPL_DEX_CURSE ,IPL_ATTRIBS,IPL_ATTRIBS_CURSE };
+	sadAffix[IPL_STR] = { IPL_STR_CURSE ,IPL_ATTRIBS,IPL_ATTRIBS_CURSE };
+	sadAffix[IPL_VIT] = { IPL_VIT_CURSE ,IPL_ATTRIBS,IPL_ATTRIBS_CURSE };
+
+	sadAffix[IPL_MAG_CURSE] = { IPL_MAG,IPL_ATTRIBS,IPL_ATTRIBS_CURSE };
+	sadAffix[IPL_DEX_CURSE] = { IPL_DEX ,IPL_ATTRIBS,IPL_ATTRIBS_CURSE };
+	sadAffix[IPL_STR_CURSE] = { IPL_STR ,IPL_ATTRIBS,IPL_ATTRIBS_CURSE };
+	sadAffix[IPL_VIT_CURSE] = { IPL_VIT ,IPL_ATTRIBS,IPL_ATTRIBS_CURSE };
+
+
+	sadAffix[IPL_GETHIT] = { IPL_GETHIT_CURSE };
+	sadAffix[IPL_LIFE] = { IPL_LIFE_CURSE };
+	sadAffix[IPL_MANA] = { IPL_MANA_CURSE };
+	sadAffix[IPL_DUR_CURSE] = { IPL_DUR,IPL_INDESTRUCTIBLE };
+	sadAffix[IPL_TOHIT_DAMP_CURSE] = { IPL_TOHIT_CURSE,IPL_TOHIT,IPL_TOHIT_DAMP };
+	sadAffix[IPL_TOHIT_CURSE] = { IPL_TOHIT,IPL_TOHIT_DAMP_CURSE,IPL_TOHIT_DAMP };
+
+
 
 	for (auto const& x : sadAffix) {
 		int tmpAffix = x.first;
@@ -1960,11 +1986,44 @@ bool AreAffixesGood(char p1, char p2) {
 }
 
 void GenerateRareUniqueAffix(int i, int x, int y, int minlvl, int maxlvl, std::set<char>powers) {
+
+	{
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "GENERATING FOR UNIQ " << UniqueItemList[item[i]._iUid].UIName << "\n"; 
+			outfile.close();
+	}
+
+	{
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "UNIQ POWERS: \n";
+		std::set<char>::iterator it;
+		for (it = powers.begin(); it != powers.end(); ++it)
+		{
+			outfile << "UNIQ POWER IN SET: "<<(int)*it<< "\n";
+		}
+		outfile << "UNIQ POWERS END: \n";
+		outfile.close();
+	}
+
+
+
 	int sufPref = sufPref = random(23, 2); 
+	{
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "Generating super affix for unique!\n";
+		outfile.close();
+	}
 	if (sufPref == 0) {
 		//third affix is a prefix
-
-
+		{
+			std::ofstream outfile;
+			outfile.open("test.txt", std::ios_base::app);
+			outfile << "UNIQ affix is prefix!\n";
+			outfile.close();
+		}
 		int pref[256];
 		int prefIter = 0;
 		int local_pref_iter = 0;
@@ -1973,7 +2032,7 @@ void GenerateRareUniqueAffix(int i, int x, int y, int minlvl, int maxlvl, std::s
 			for (auto f : powers) {
 				if (!AreAffixesGood(f, PL_UPrefix[prefIter].PLPower)) { allGood = false; break; }
 			}
-			if (PL_UPrefix[prefIter].PLMinLvl >= minlvl && PL_UPrefix[prefIter].PLMinLvl <= maxlvl && PL_UPrefix[prefIter].PLOk && allGood)
+			if (PL_UPrefix[prefIter].PLMinLvl >= minlvl && PL_UPrefix[prefIter].PLMinLvl <= maxlvl && PL_UPrefix[prefIter].PLOk && allGood==true)
 			{
 				pref[local_pref_iter++] = prefIter;
 				if (PL_Prefix[prefIter].PLDouble) {
@@ -1987,6 +2046,15 @@ void GenerateRareUniqueAffix(int i, int x, int y, int minlvl, int maxlvl, std::s
 		do {
 			preidx2 = pref[random(23, local_pref_iter)];
 		} while (powers.find(PL_UPrefix[preidx2].PLPower) != powers.end());
+
+		{
+			std::ofstream outfile;
+			outfile.open("test.txt", std::ios_base::app);
+			outfile << "UNIQ prefix chosen! ="<<(int)PL_UPrefix[preidx2].PLPower<<"\n";
+			outfile.close();
+		}
+
+
 		SaveItemPower(
 			i,
 			PL_UPrefix[preidx2].PLPower,
@@ -1999,7 +2067,12 @@ void GenerateRareUniqueAffix(int i, int x, int y, int minlvl, int maxlvl, std::s
 	}
 	else {
 		//third affix is a suffix
-
+		{
+			std::ofstream outfile;
+			outfile.open("test.txt", std::ios_base::app);
+			outfile << "UNIQ affix is suffix!\n";
+			outfile.close();
+		}
 		int suf[256];
 		int sufIter = 0;
 		int local_suf_iter = 0;
@@ -2008,7 +2081,7 @@ void GenerateRareUniqueAffix(int i, int x, int y, int minlvl, int maxlvl, std::s
 			for (auto f : powers) {
 				if (!AreAffixesGood(f, PL_USuffix[sufIter].PLPower)) { allGood = false; break; }
 			}
-			if (PL_USuffix[sufIter].PLMinLvl >= minlvl && PL_USuffix[sufIter].PLMinLvl <= maxlvl && PL_Suffix[sufIter].PLOk && allGood)
+			if (PL_USuffix[sufIter].PLMinLvl >= minlvl && PL_USuffix[sufIter].PLMinLvl <= maxlvl && PL_Suffix[sufIter].PLOk && allGood==true)
 			{
 				suf[local_suf_iter++] = sufIter;
 				if (PL_USuffix[sufIter].PLDouble) {
@@ -2031,6 +2104,12 @@ void GenerateRareUniqueAffix(int i, int x, int y, int minlvl, int maxlvl, std::s
 			PL_USuffix[sufidx2].PLMinVal,
 			PL_USuffix[sufidx2].PLMaxVal,
 			PL_USuffix[sufidx2].PLMultVal);
+		{
+			std::ofstream outfile;
+			outfile.open("test.txt", std::ios_base::app);
+			outfile << "UNIQ suffix chosen! =" << (int)PL_USuffix[sufidx2].PLPower << "\n";
+			outfile.close();
+		}
 		item[i].rareAffix = PL_USuffix[sufidx2].PLPower + 1;
 	}
 	if (x >= 0 && y >= 0) {

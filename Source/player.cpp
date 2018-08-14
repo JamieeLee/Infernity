@@ -99,11 +99,21 @@ int ExpLvlsTbl[51] =
   1583495809
 };
 char *ClassStrTbl[3] = { "Warrior", "Rogue", "Sorceror" };
+
+
+int calculateDistanceSquared(int x, int y, int xx, int yy) {
+
+	int distancex = (xx - x) * (xx - x);
+	int distancey = (yy - y) * (yy - y);
+
+	return distancex + distancey;
+
+}
 unsigned char fix[9] = { 0u, 0u, 3u, 3u, 3u, 6u, 6u, 6u, 8u }; /* PM_ChangeLightOff local type */
 int MonstersInCombat(int pnum) {
 	int ret = 0;
 	for (int i = 4; i < 200; ++i) {
-		if ((monster[i]._mmode != MM_STAND || monster[i].isActivated == 1) && (signed int)(monster[i]._mhitpoints & 0xFFFFFFC0) > 0) { ret++; monster[i].isActivated = 1; }
+		if ((monster[i]._mmode != MM_STAND || monster[i].isActivated == 1) && (signed int)(monster[i]._mhitpoints & 0xFFFFFFC0) > 0 && calculateDistanceSquared(plr[pnum]._px, plr[pnum]._py, monster[i]._mx, monster[i]._my) < 100) { ret++; monster[i].isActivated = 1; }
 	}
 	return ret;
 }
@@ -887,13 +897,6 @@ LABEL_28:
 		}
 	}
 	plr[v4].NumInvExpanded[0] = 2;
-
-	{
-		std::ofstream outfile;
-		outfile.open("test.txt", std::ios_base::app);
-		outfile << "NEW PLAYER!\n";
-		outfile.close();
-	}
 	SetRndSeed(0);
 }
 
@@ -4048,15 +4051,6 @@ int __fastcall PM_DoDeath(int pnum)
 
 void __fastcall CheckNewPath(int pnum)
 {
-
-	{
-		std::ofstream outfile;
-		outfile.open("test.txt", std::ios_base::app);
-		outfile << "CheckNewPath(" << pnum << ")\n";
-		outfile.close();
-	}
-
-
 	int v1; // edi
 	int v2; // ebx
 	int v3; // eax
@@ -4850,13 +4844,6 @@ void __fastcall MakePlrPath(int pnum, int xx, int yy, unsigned char endspace)
 	int v10; // ecx
 	int a2; // [esp+Ch] [ebp-4h]
 
-	{
-		std::ofstream outfile;
-		outfile.open("test.txt", std::ios_base::app);
-		outfile << "Inside MakePlrPath - Make path - x: " << xx << " y" << yy << " PNUM" << pnum <<")\n";
-		outfile.close();
-	}
-
 	v4 = pnum;
 	v5 = xx;
 	a2 = pnum;
@@ -4872,50 +4859,14 @@ void __fastcall MakePlrPath(int pnum, int xx, int yy, unsigned char endspace)
 	}
 
 
-	{
-		std::ofstream outfile;
-		outfile.open("test.txt", std::ios_base::app);
-		outfile << "Inside MakePlrPath - After revealing\n";
-		outfile.close();
-	}
-
 	if ( v8 != v5 || plr[v6]._py != yy )
 	{
-		{
-			std::ofstream outfile;
-			outfile.open("test.txt", std::ios_base::app);
-			outfile << "Inside MakePlrPath - passed first if\n";
-			outfile.close();
-		}
 		v9 = FindPath(PosOkPlayer, a2, v8, plr[v6]._py, v5, yy, plr[v6].walkpath);
 		if ( v9 )
 		{
-			{
-				std::ofstream outfile;
-				outfile.open("test.txt", std::ios_base::app);
-				outfile << "Inside MakePlrPath - find path passed,, endspace = " << (int)endspace << "\n";
-				outfile.close();
-			}
 			if ( !endspace )
 			{
-
-				{
-					std::ofstream outfile;
-					outfile.open("test.txt", std::ios_base::app);
-					outfile << "Inside MakePlrPath - !endspace passed\n";
-					outfile.close();
-				}
 				v10 = *((char *)&plr[v6]._pmode + v9-- + 3);
-
-
-				{
-					std::ofstream outfile;
-					outfile.open("test.txt", std::ios_base::app);
-					outfile << "Inside MakePlrPath - Switch v10 = " << (int)v10 << "\n";
-					outfile.close();
-				}
-
-
 				switch ( v10 )
 				{
 					case PM_WALK:

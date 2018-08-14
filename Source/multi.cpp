@@ -1101,15 +1101,6 @@ void __fastcall multi_player_joins(int pnum, TCmdPlrInfoHdr *cmd, int a3)
 	int v12; // ecx
 	int v13; // eax
 
-
-	{
-		std::ofstream outfile;
-		outfile.open("test.txt", std::ios_base::app);
-		outfile << "multi_player_joins begin\n";
-		outfile.close();
-	}
-
-
 	v3 = pnum;
 	v4 = cmd;
 	if ( myplr != pnum )
@@ -1126,13 +1117,6 @@ void __fastcall multi_player_joins(int pnum, TCmdPlrInfoHdr *cmd, int a3)
 			*v5 += v4->wBytes;
 			//if ( *v5 == 1266 )
 
-			{
-				std::ofstream outfile;
-				outfile.open("test.txt", std::ios_base::app);
-				outfile << "multi_player_joins V5= " << (*v5) << " BYTES = " << (int)v4->wBytes<< "!\n";
-				outfile.close();
-			}
-
 
 
 			if(*v5 == sizeof(LATEST_PKPLAYER_STRUCT))
@@ -1142,12 +1126,6 @@ void __fastcall multi_player_joins(int pnum, TCmdPlrInfoHdr *cmd, int a3)
 				v6 = v3;
 				plr[v3]._pGFXLoad = 0;
 				UnPackPlayer(&pkplr[v3], v3, 1);
-				{
-					std::ofstream outfile;
-					outfile.open("test.txt", std::ios_base::app);
-					outfile << "multi_player_joins UNPACKED VER = " << (int)(pkplr[v3].version) << "!\n";
-					outfile.close();
-				}
 
 				if ( a3 )
 				{

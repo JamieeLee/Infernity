@@ -960,6 +960,11 @@ int __fastcall SwapItem(ItemStruct *a, ItemStruct *b)
 
 void __fastcall CheckInvPaste(int pnum, int mx, int my)
 {
+	CheckInvPaste(pnum, mx, my, false);
+}
+
+void __fastcall CheckInvPaste(int pnum, int mx, int my, bool shift)
+{
 	int v3; // ebx
 	int v4; // edi
 	int v5; // eax
@@ -1505,7 +1510,9 @@ LABEL_226:
 					if ( v60 == myplr )
 					{
 						if (cursor_ida == 1) {
-							SetCursorPos(MouseX + (cursW >> 1), MouseY + (cursH >> 1));
+							if (!shift) {
+								SetCursorPos(MouseX + (cursW >> 1), MouseY + (cursH >> 1));
+							}
 						}
 						SetCursor(cursor_ida);
 					}
@@ -1647,6 +1654,11 @@ void __fastcall CheckInvSwap(int pnum, int bLoc, int idx, int wCI, int seed, int
 
 void __fastcall CheckInvCut(int pnum, int mx, int my)
 {
+	CheckInvCut(pnum, mx, my, false);
+}
+
+void __fastcall CheckInvCut(int pnum, int mx, int my, bool shift)
+{
 	int v3; // ebp
 	signed int v4; // ecx
 	signed int v5; // ebx
@@ -1768,26 +1780,6 @@ LABEL_26:
 				}
 				while ( v10 < 40 );
 				v13 = v9 - 1;
-
-
-
-				if (GetAsyncKeyState(VK_SHIFT) & 0x8000 && CanPutToBelt(plr[v3].InvList[v13]._iMiscId))
-				{
-					int freeSlot = FreeSlotOnBelt();
-					if (freeSlot != -1) {
-
-						qmemcpy(&plr[v3].SpdList[freeSlot], &plr[v3].InvList[v13], sizeof(ItemStruct));
-						plr[v3].InvList[v13]._itype = -1;
-						plr[v3]._pNumInv--;
-						CalcPlrInv(p, 1u);
-						CheckItemStats(p);
-						if (p == myplr)
-						{
-							PlaySFX(IS_IGRAB);
-						}
-						return;
-					}
-				}
 				qmemcpy(&plr[v3].HoldItem, (char *)&plr[0].InvList[v13] + v3 * StructSize<PlayerStruct>(), sizeof(plr[v3].HoldItem));
 				v14 = --plr[v3]._pNumInv;
 				if ( v14 > 0 && v14 != v13 )
@@ -1834,7 +1826,9 @@ LABEL_60:
 		{
 			PlaySFX(IS_IGRAB);
 			SetCursor(plr[v3].HoldItem._iCurs + 12);
-			SetCursorPos(v21 - (cursW >> 1), MouseY - (cursH >> 1));
+			if (!shift) {
+				SetCursorPos(v21 - (cursW >> 1), MouseY - (cursH >> 1));
+			}
 		}
 	}
 }
@@ -1950,20 +1944,19 @@ int FreeSlotOnBelt() {
 void __cdecl CheckInvItem()
 {
 	if (pcurs < CURSOR_FIRSTITEM) {
-		/*
-		if (GetAsyncKeyState(VK_SHIFT) < 0 && plr[myplr].HoldItem._itype != ITYPE_NONE && CanPutToBelt() && MouseY <= 340 && FreeSlotOnBelt() != -1) {
+		if (GetAsyncKeyState(VK_SHIFT) < 0 && plr[myplr].HoldItem._itype != ITYPE_NONE && CanPutToBelt(plr[myplr].HoldItem._iMiscId) && MouseY <= 340 && FreeSlotOnBelt() != -1) {
 			if (FreeSlotOnBelt() != -1 && plr[myplr]._pmode <= PM_WALK3){
 				CheckInvCut(myplr, MouseX, MouseY,true);
 				CheckInvPaste(myplr, 200+ FreeSlotOnBelt()*30,359,true);
 				CalcPlrInv(myplr, 1);
 			}
 		}
-		else {*/
+		else {
 
 			CheckInvCut(myplr, MouseX, MouseY);
-			/*
+			
 		}
-		*/
+		
 	}
 	else {
 		CheckInvPaste(myplr, MouseX, MouseY);

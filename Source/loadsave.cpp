@@ -467,16 +467,10 @@ void __fastcall LoadPlayer(int i)
 	memcpy(&plr[i], tbuff, 0x54B0u);
 	tbuff = (char *)tbuff + 21680;*/
 
-	{
-		std::ofstream outfile;
-		outfile.open("test.txt", std::ios_base::app);
-		outfile << "LoadPlayer("<<i<<")\n";
-		outfile.close();
-	}
 
 
-	memcpy(&plr[i], tbuff, StructSize<PlayerStruct>()-40);
-	tbuff = (char *)tbuff + StructSize<PlayerStruct>()-40;
+	memcpy(&plr[i], tbuff, StructSize<PlayerStruct>());
+	tbuff = (char *)tbuff + StructSize<PlayerStruct>();
 
 	if (SaveVersion == 0) {
 		for (int ii = 0; ii < 4; ++ii) {

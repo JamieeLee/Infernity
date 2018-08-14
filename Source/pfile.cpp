@@ -465,24 +465,12 @@ LABEL_11:
 						{
 							memcpy(v11, v6, sizeof(PkPlayerStruct));
 							v13 = 1;
-							{
-								std::ofstream outfile;
-								outfile.open("test.txt", std::ios_base::app);
-								outfile << "dwbytes == pkplayerstruct!\n";
-								outfile.close();
-							}
 						}
 
 						else if (dwBytes == sizeof(PkPlayerStruct2))
 						{
 							memcpy(v11, v6, sizeof(PkPlayerStruct2));
 							v13 = 1;
-							{
-								std::ofstream outfile;
-								outfile.open("test.txt", std::ios_base::app);
-								outfile << "dwbytes == pkplayerstruct2!\n";
-								outfile.close();
-							}
 						}
 						goto LABEL_13;
 					}
@@ -495,13 +483,6 @@ LABEL_13:
 LABEL_15:
 		SFileCloseFile(file);
 		v2 = v13;
-	}
-
-	{
-		std::ofstream outfile;
-		outfile.open("test.txt", std::ios_base::app);
-		outfile << "pfile read hero end - version = " << (int)pPack->version << "!\n";
-		outfile.close();
 	}
 	return v2;
 }
@@ -597,12 +578,6 @@ bool __stdcall pfile_ui_save_create(_uiheroinfo *heroinfo)
 	strncpy(plr[0]._pName, heroinfo->name, 0x20u);
 	plr[0]._pName[31] = 0;
 	PackPlayer(&pkplr, 0, 1);
-	{
-		std::ofstream outfile;
-		outfile.open("test.txt", std::ios_base::app);
-		outfile << "UI SAVE CREATE!\n";
-		outfile.close();
-	}
 	pfile_encode_hero(&pkplr);
 	game_2_ui_player(plr, heroinfo, 0);
 	pfile_flush(1, v1);
@@ -680,12 +655,6 @@ void __cdecl pfile_read_player_from_save()
 	if ( !pfile_read_hero(v1, &pkplr) )
 		TermMsg("Unable to load character");
 	UnPackPlayer(&pkplr, myplr, 0);
-	{
-		std::ofstream outfile;
-		outfile.open("test.txt", std::ios_base::app);
-		outfile << "READ PLAYER FROM SAVE!\n";
-		outfile.close();
-	}
 	*(_DWORD *)&gbValidSaveFile = pfile_archive_contains_game(v1);
 	pfile_SFileCloseArchive(v1);
 }

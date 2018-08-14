@@ -1307,7 +1307,6 @@ LABEL_86:
 void __fastcall CalcPlrScrolls(int p)
 {
 	int v1; // esi
-	int v2; // eax
 	int *v3; // edi
 	int v4; // ebx
 	signed __int64 v5; // rax
@@ -1470,9 +1469,10 @@ void __fastcall CalcPlrItemMin(int pnum)
 	
 	if (numInv > 0)
 	{
-		for (int i = 0; i < numInv; ++i) {
-
-			plr[pnum].InvList[i]._iStatFlag = ItemMinStats(&plr[pnum], &plr[pnum].InvList[i]);
+		for (int i = 0; i < 40; ++i) {
+			if (plr[pnum].InvList[i]._itype != -1) {
+				plr[pnum].InvList[i]._iStatFlag = ItemMinStats(&plr[pnum], &plr[pnum].InvList[i]);
+			}
 		}
 	}
 
@@ -4468,9 +4468,9 @@ void __cdecl DrawRareInfo()
 		if (curruitem.rareAffix > 0) {
 			PrintItemPower(curruitem.rareAffix-1, &curruitem);
 			char special[260];
-			strcpy(special, "(+) ");
+			strcpy(special, "");
 			strcat(special, tempstr);
-			PrintUString(0, v2 + offs, 1, special, 0);
+			PrintUString(0, v2 + offs, 1, special, COL_GOLD);
 			offs += 2;
 		}
 
@@ -4524,9 +4524,9 @@ void __cdecl DrawUniqueInfo()
 		if (curruitem.rareAffix > 0) {
 			PrintItemPower(curruitem.rareAffix - 1, &curruitem);
 			char special[260];
-			strcpy(special, "(+) ");
+			strcpy(special, "");
 			strcat(special, tempstr);
-			PrintUString(0, v2 + UniqueItemList[v1].UINumPL*2, 1, special, 0);
+			PrintUString(0, v2 + UniqueItemList[v1].UINumPL*2, 1, special, COL_GOLD);
 		}
 	}
 }

@@ -19,7 +19,7 @@ int AMPlayerY; // weak
 
 std::map<std::string, bool> BoolConfig;
 std::map<std::string, int> IntConfig; //config variables
-int maxGoldPile = 10000000;
+int maxGoldPile = 1000000;
 
 void __cdecl InitAutomapOnce()
 {
@@ -573,9 +573,9 @@ void __cdecl DrawAutomap()
 			}
 			while ( v25 );
 		}
-		for (int i = 0; i < 4; ++i) {
-			DrawAutomapPlr(i);
-		}
+		//for (int i = 0; i < 4; ++i) {
+		//	DrawAutomapPlr(i);
+		//}
 		DrawAutomapGame();
 	}
 	else

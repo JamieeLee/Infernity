@@ -3438,7 +3438,7 @@ void __cdecl DrawAndBlit()
 				return;
 			ddsdesc = 1;
 			ctrlPan = 0;
-			dwHgt = 352;
+			dwHgt = 480;//dwHgt = 352;
 		}
 		drawpanflag = 0;
 		dx_lock_mutex();
