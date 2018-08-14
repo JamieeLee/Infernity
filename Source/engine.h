@@ -87,6 +87,7 @@ extern std::map<std::string, int> IntConfig;
 extern int maxGoldPile;
 extern uint SaveVersion;
 extern uint CurVersion;
+extern int bullshitStructSize;
 
 // try versioning struct size
 #define countof( a ) __crt_countof( a ) 

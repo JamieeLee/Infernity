@@ -853,7 +853,7 @@ LABEL_223:
 					cursmy = v8;
 					pcursplr = v53;
 				}
-				v54 += 5430;
+				v54 += bullshitStructSize;
 				++v53;
 			}
 			while ( (signed int)v54 < (signed int)&plr[4].WorldY );
@@ -881,7 +881,7 @@ LABEL_223:
 								pcursplr = v82;
 							}
 							++v82;
-							v56 += 5430;
+							v56 += bullshitStructSize;
 						}
 						while ( (signed int)v56 < (signed int)&plr[4].WorldY );
 					}

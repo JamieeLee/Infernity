@@ -633,7 +633,7 @@ void __cdecl DeltaSaveLevel()
 		{
 			if ( v1 != v0 )
 				*v2 = 0;
-			v2 += 5430;
+			v2 += bullshitStructSize;
 			++v1;
 		}
 		while ( (signed int)v2 < (signed int)&plr[4]._pGFXLoad );

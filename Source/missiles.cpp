@@ -4454,7 +4454,7 @@ void __fastcall AddDiabApoca(int mi, int sx, int sy, int dx, int dy, int midir, 
 				mi = v13;
 			}
 			++v9;
-			v10 += 5430;
+			v10 += bullshitStructSize;
 		} while (v9 < (unsigned char)gbMaxPlayers);
 	}
 	missile[mi]._miDelFlag = 1;
@@ -5508,7 +5508,7 @@ void __fastcall MI_Town(int i)
 			}
 		}
 		++arglist;
-		v3 += 5430;
+		v3 += bullshitStructSize;
 	} while ((signed int)v3 < (signed int)&plr[4].plrlevel);
 	if (!missile[v1]._mirange)
 	{

@@ -311,7 +311,7 @@ void __fastcall DrawDeadPlayer(int x, int y, int sx, int sy, int a5, int a6, boo
 		DrawPlrProc(player_num, xa, v7, sx + *(v8 - 78) - *(v8 - 65), sy + *(v8 - 77), v10, v11, *(v8 - 66), a5, a6);
 LABEL_14:
 		++player_num;
-		v8 += 5430;
+		v8 += bullshitStructSize;
 	}
 	while ( (signed int)v8 < (signed int)&plr[4]._pHitPoints );
 }

@@ -2018,7 +2018,7 @@ LABEL_17:
 			}
 LABEL_18:
 			++v21;
-			v2 += 5430;
+			v2 += bullshitStructSize;
 		}
 		while ( (signed int)v2 < (signed int)&plr[4].plrlevel );
 	}
@@ -4153,7 +4153,7 @@ void __cdecl PrepDoEnding()
 			if ( !(v2[5] & 0xFFFFFFC0) )
 				v2[5] = 64;
 		}
-		v2 += 5430;
+		v2 += bullshitStructSize;
 	}
 	while ( (signed int)v2 < (signed int)&plr[4]._pHitPoints );
 }

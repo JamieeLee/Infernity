@@ -583,7 +583,7 @@ LABEL_32:
 				v16 = 0;
 				do
 				{
-					if ( plr[0]._pSplHotKey[v16 + 5430 * v0] == pSpell && plr[v0]._pSplTHotKey[v16] == pSplType )
+					if ( plr[0]._pSplHotKey[v16 + bullshitStructSize * v0] == pSpell && plr[v0]._pSplTHotKey[v16] == pSplType )
 					{
 						DrawSpellCel(v17, xp, (char *)pSpellCels, v16 + 48, 56);
 						sprintf(tempstr, "Spell Hot Key #F%i", v16 + 5);
@@ -670,7 +670,7 @@ void __fastcall SetSpeedSpell(int slot)
 			++v6;
 		}
 		while ( v3 < 4 );
-		plr[0]._pSplHotKey[slot + 5430 * v2] = v1;
+		plr[0]._pSplHotKey[slot + bullshitStructSize * v2] = v1;
 		plr[v4]._pSplTHotKey[slot] = v5;
 	}
 }
@@ -692,7 +692,7 @@ void __fastcall ToggleSpell(int slot)
 	char *v11; // [esp+8h] [ebp-8h]
 	int v12; // [esp+Ch] [ebp-4h]
 
-	v1 = slot + 5430 * myplr;
+	v1 = slot + bullshitStructSize * myplr;
 	v2 = plr[0]._pSplHotKey[v1];
 	v12 = plr[0]._pSplHotKey[v1];
 	if ( v2 != -1 )

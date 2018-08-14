@@ -2534,7 +2534,7 @@ LABEL_15:
 							v10 = 1;
 					}
 				}
-				v4 += 5430;
+				v4 += bullshitStructSize;
 				if ( (signed int)v4 >= (signed int)&plr[4].plrlevel )
 				{
 					if ( !v10 )
@@ -3357,7 +3357,7 @@ void __cdecl RedoPlayerVision()
 			if ( currlevel == *v0 )
 				ChangeVisionXY(v0[27], v0[1], v0[2]);
 		}
-		v0 += 5430;
+		v0 += bullshitStructSize;
 	}
 	while ( (signed int)v0 < (signed int)&plr[4].plrlevel );
 }

@@ -1275,7 +1275,7 @@ LABEL_86:
 		plr[v5]._pGFXLoad = 0;
 		LoadPlrGFX(arglist, 1);
 		SetPlrAnims(arglist);
-		v31 = plr[0]._pNAnim[plr[v5]._pdir + 5430 * arglist];
+		v31 = plr[0]._pNAnim[plr[v5]._pdir + bullshitStructSize * arglist];
 		plr[v5]._pAnimFrame = 1;
 		plr[v5]._pAnimData = v31;
 		plr[v5]._pAnimLen = plr[v5]._pNFrames;

@@ -2,6 +2,8 @@
 
 #include "../types.h"
 
+int bullshitStructSize = StructSize<PlayerStruct>() / 4;
+
 int plr_lframe_size; // idb
 int plr_wframe_size; // idb
 char plr_gfx_flag; // weak
@@ -1532,7 +1534,7 @@ void __fastcall StartStand(int pnum, int dir)
 	{
 		if ( !(plr[v4]._pGFXLoad & 1) )
 			LoadPlrGFX(v2, 1);
-		NewPlrAnim(v2, plr[0]._pNAnim[v3 + 5430 * v2], plr[v4]._pNFrames, 3, plr[v4]._pNWidth);
+		NewPlrAnim(v2, plr[0]._pNAnim[v3 + bullshitStructSize * v2], plr[v4]._pNFrames, 3, plr[v4]._pNWidth);
 		plr[v4]._pmode = PM_STAND;
 		FixPlayerLocation(v2, v3);
 		FixPlrWalkTags(v2);
@@ -1710,7 +1712,7 @@ void __fastcall StartWalk(int pnum, int xvel, int yvel, int xadd, int yadd, int 
 			v11 = arglist;
 		}
 		v13 = plr[v8]._pWWidth;
-		NewPlrAnim(v11, plr[0]._pWAnim[EndDir + 5430 * v11], plr[v8]._pWFrames, 0, v13);
+		NewPlrAnim(v11, plr[0]._pWAnim[EndDir + bullshitStructSize * v11], plr[v8]._pWFrames, 0, v13);
 		plr[v8]._pdir = EndDir;
 		plr[v8]._pVar6 = 0;
 		plr[v8]._pVar7 = 0;
@@ -1819,7 +1821,7 @@ void __fastcall StartWalk2(int pnum, int xvel, int yvel, int xoff, int yoff, int
 		if ( v13 )
 			LoadPlrGFX(arglist, PM_WALK2);
 		v18 = plr[v10]._pWWidth;
-		NewPlrAnim(arglist, plr[0]._pWAnim[EndDir + 5430 * arglist], plr[v10]._pWFrames, 0, v18);
+		NewPlrAnim(arglist, plr[0]._pWAnim[EndDir + bullshitStructSize * arglist], plr[v10]._pWFrames, 0, v18);
 		plr[v10]._pVar8 = 0;
 		v19 = 0;
 		plr[v10]._pdir = EndDir;
@@ -1937,7 +1939,7 @@ void __fastcall StartWalk3(int pnum, int xvel, int yvel, int xoff, int yoff, int
 		if ( v17 )
 			LoadPlrGFX(arglist, 2);
 		v20 = plr[v12]._pWWidth;
-		NewPlrAnim(arglist, plr[0]._pWAnim[EndDir + 5430 * arglist], plr[v12]._pWFrames, 0, v20);
+		NewPlrAnim(arglist, plr[0]._pWAnim[EndDir + bullshitStructSize * arglist], plr[v12]._pWFrames, 0, v20);
 		plr[v12]._pdir = EndDir;
 		plr[v12]._pVar8 = 0;
 		InitPlayerLoc(arglist, 0);
@@ -1992,7 +1994,7 @@ void __fastcall StartAttack(int pnum, int d)
 		if ( !(plr[v4]._pGFXLoad & 4) )
 			LoadPlrGFX(v2, 4);
 		v5 = plr[v4]._pAWidth;
-		NewPlrAnim(v2, plr[0]._pAAnim[v3 + 5430 * v2], plr[v4]._pAFrames, 0, v5);
+		NewPlrAnim(v2, plr[0]._pAAnim[v3 + bullshitStructSize * v2], plr[v4]._pAFrames, 0, v5);
 		plr[v4]._pmode = 4;
 		FixPlayerLocation(v2, v3);
 		SetPlayerOld(v2);
@@ -2020,7 +2022,7 @@ void __fastcall StartRangeAttack(int pnum, int d, int cx, int cy)
 		if ( !(plr[v5]._pGFXLoad & 4) )
 			LoadPlrGFX(v4, 4);
 		v6 = plr[v5]._pAWidth;
-		NewPlrAnim(v4, plr[0]._pAAnim[a2a + 5430 * v4], plr[v5]._pAFrames, 0, v6);
+		NewPlrAnim(v4, plr[0]._pAAnim[a2a + bullshitStructSize * v4], plr[v5]._pAFrames, 0, v6);
 		plr[v5]._pmode = PM_RATTACK;
 		FixPlayerLocation(v4, a2a);
 		SetPlayerOld(v4);
@@ -2051,7 +2053,7 @@ void __fastcall StartPlrBlock(int pnum, int dir)
 		if ( !(plr[v4]._pGFXLoad & 0x100) )
 			LoadPlrGFX(v2, 256);
 		v5 = plr[v4]._pBWidth;
-		NewPlrAnim(v2, plr[0]._pBAnim[v3 + 5430 * v2], plr[v4]._pBFrames, 2, v5);
+		NewPlrAnim(v2, plr[0]._pBAnim[v3 + bullshitStructSize * v2], plr[v4]._pBFrames, 2, v5);
 		plr[v4]._pmode = PM_BLOCK;
 		FixPlayerLocation(v2, v3);
 		SetPlayerOld(v2);
@@ -2088,17 +2090,17 @@ void __fastcall StartSpell(int pnum, int d, int cx, int cy)
 			case STYPE_FIRE:
 				if ( !(plr[v5]._pGFXLoad & 0x20) )
 					LoadPlrGFX(v4, 32);
-				v6 = plr[0]._pFAnim[a2 + 5430 * v4];
+				v6 = plr[0]._pFAnim[a2 + bullshitStructSize * v4];
 				goto LABEL_20;
 			case STYPE_LIGHTNING:
 				if ( !(plr[v5]._pGFXLoad & 0x10) )
 					LoadPlrGFX(v4, 16);
-				v6 = plr[0]._pLAnim[a2 + 5430 * v4];
+				v6 = plr[0]._pLAnim[a2 + bullshitStructSize * v4];
 				goto LABEL_20;
 			case STYPE_MAGIC:
 				if ( !(plr[v5]._pGFXLoad & 0x40) )
 					LoadPlrGFX(v4, 64);
-				v6 = plr[0]._pTAnim[a2 + 5430 * v4];
+				v6 = plr[0]._pTAnim[a2 + bullshitStructSize * v4];
 LABEL_20:
 				v7 = plr[v5]._pSWidth;
 				NewPlrAnim(v4, v6, plr[v5]._pSFrames, 0, v7);
@@ -2280,7 +2282,7 @@ LABEL_13:
 		if ( !(plr[v5]._pGFXLoad & 8) )
 			LoadPlrGFX(v3, 8);
 		v10 = plr[v5]._pHWidth;
-		NewPlrAnim(v3, plr[0]._pHAnim[v9 + 5430 * v3], plr[v5]._pHFrames, 0, v10);
+		NewPlrAnim(v3, plr[0]._pHAnim[v9 + bullshitStructSize * v3], plr[v5]._pHFrames, 0, v10);
 		plr[v5]._pmode = PM_GOTHIT;
 		FixPlayerLocation(v3, v9);
 		plr[v5]._pVar8 = 1;
@@ -5074,25 +5076,25 @@ void __fastcall SyncPlrAnim(int pnum)
 		case PM_STAND:
 		case PM_NEWLVL:
 		case PM_QUIT:
-			v4 = plr[0]._pNAnim[v3 + 5430 * v1];
+			v4 = plr[0]._pNAnim[v3 + bullshitStructSize * v1];
 			goto LABEL_19;
 		case PM_WALK:
 		case PM_WALK2:
 		case PM_WALK3:
-			v4 = plr[0]._pWAnim[v3 + 5430 * v1];
+			v4 = plr[0]._pWAnim[v3 + bullshitStructSize * v1];
 			goto LABEL_19;
 		case PM_ATTACK:
 		case PM_RATTACK:
-			v4 = plr[0]._pAAnim[v3 + 5430 * v1];
+			v4 = plr[0]._pAAnim[v3 + bullshitStructSize * v1];
 			goto LABEL_19;
 		case PM_BLOCK:
-			v4 = plr[0]._pBAnim[v3 + 5430 * v1];
+			v4 = plr[0]._pBAnim[v3 + bullshitStructSize * v1];
 			goto LABEL_19;
 		case PM_GOTHIT:
-			v4 = plr[0]._pHAnim[v3 + 5430 * v1];
+			v4 = plr[0]._pHAnim[v3 + bullshitStructSize * v1];
 			goto LABEL_19;
 		case PM_DEATH:
-			v4 = plr[0]._pDAnim[v3 + 5430 * v1];
+			v4 = plr[0]._pDAnim[v3 + bullshitStructSize * v1];
 			goto LABEL_19;
 		case PM_SPELL:
 			if ( v1 == myplr )
@@ -5100,12 +5102,12 @@ void __fastcall SyncPlrAnim(int pnum)
 			else
 				v5 = 0;
 			if ( !v5 )
-				plr[v2]._pAnimData = plr[0]._pFAnim[v3 + 5430 * v1];
+				plr[v2]._pAnimData = plr[0]._pFAnim[v3 + bullshitStructSize * v1];
 			if ( v5 == STYPE_LIGHTNING )
-				plr[v2]._pAnimData = plr[0]._pLAnim[v3 + 5430 * v1];
+				plr[v2]._pAnimData = plr[0]._pLAnim[v3 + bullshitStructSize * v1];
 			if ( v5 == STYPE_MAGIC )
 			{
-				v4 = plr[0]._pTAnim[v3 + 5430 * v1];
+				v4 = plr[0]._pTAnim[v3 + bullshitStructSize * v1];
 LABEL_19:
 				plr[v2]._pAnimData = v4;
 			}

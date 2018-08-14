@@ -573,9 +573,11 @@ void __cdecl DrawAutomap()
 			}
 			while ( v25 );
 		}
-		//for (int i = 0; i < 4; ++i) {
-		//	DrawAutomapPlr(i);
-		//}
+		for (int i = 0; i < 4; ++i) {
+			if (plr[i].plractive && plr[i].plrlevel == plr[myplr].plrlevel){
+				DrawAutomapPlr(i);
+			}
+		}
 		DrawAutomapGame();
 	}
 	else
