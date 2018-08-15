@@ -4697,7 +4697,7 @@ void __cdecl ProcessPlayers()
 
 				if (playerIndex == myplr)
 				{
-					
+					/*
 					int* v5 = &plr[playerIndex]._pHitPoints;
 					//5430 - 5294 = 136
 					int v8; 
@@ -4722,7 +4722,7 @@ void __cdecl ProcessPlayers()
 					drawmanaflag = 1;
 					v5[3] = v10;
 					}
-					}
+					}*/
 				}
 
 
