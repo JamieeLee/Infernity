@@ -603,7 +603,7 @@ void __cdecl SaveGame()
 	int v47; // [esp+114h] [ebp-4h]
 
 	//v0 = codec_get_encoded_len(262147); /* FILEBUFF */
-	v0 = codec_get_encoded_len(262147 + sizeof(PlayerStruct) - 21720); /* FILEBUFF */
+	v0 = codec_get_encoded_len(262147 + StructSize<PlayerStruct>() - 21720); /* FILEBUFF *///sizeof(PlayerStruct)
 	ptr = DiabloAllocPtr(v0);
 	tbuff = ptr;
 	SaveVersion = CurVersion; // for buffer save/load 
@@ -1041,7 +1041,7 @@ void __cdecl SaveLevel()
 	if ( !currlevel )
 		glSeedTbl[0] = GetRndSeed();
 	//v0 = codec_get_encoded_len(262147); /* FILEBUFF */
-	v0 = codec_get_encoded_len(262147+sizeof(PlayerStruct)- 21720); /* FILEBUFF */
+	v0 = codec_get_encoded_len(262147+ StructSize<PlayerStruct>()- 21720); /* FILEBUFF */ //sizeof(PlayerStruct)
 	SaveBuff = DiabloAllocPtr(v0);
 	SaveVersion = CurVersion; // for buffer save/load 
 	tbuff = SaveBuff;
