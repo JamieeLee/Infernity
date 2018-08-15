@@ -1121,7 +1121,9 @@ void __cdecl DrawAutomapGame()
 	{
 		sprintf(v3, "Level: %i", currlevel);
 		PrintGameStr(8, v0, v3, 3);
+		v0+=15;
 	}
+	PrintGameStr(8, v0, "INFERNITY", COL_RED);
 }
 // 5CCB10: using guessed type char setlvlnum;
 // 5CF31D: using guessed type char setlevel;
