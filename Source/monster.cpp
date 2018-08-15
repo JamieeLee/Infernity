@@ -134,7 +134,7 @@ MonsterData monsterdata[112] =
 	{ 128, 2000, "Monsters\\Mage\\Mage%c.CL2",	  1, "Monsters\\Mage\\Mage%c%i.WAV",	  0, 1, "Monsters\\Mage\\Cnselgd.TRN",	 { 12, 1,  20, 8,  28, 20 }, { 0, 0, 0, 0, 0, 0 }, "Cabalist",				28, 30, 29, 120,  120,  AI_COUNSLR,   512, 2, 110, 8,  14, 30, 0,   0,  0,  0,  0,  MC_DEMON,  99,  106, 0,	 7, 4929  },
 	{ 128, 2000, "Monsters\\Mage\\Mage%c.CL2",	  1, "Monsters\\Mage\\Mage%c%i.WAV",	  0, 1, "Monsters\\Mage\\Cnselbk.TRN",	 { 12, 1,  20, 8,  28, 20 }, { 0, 0, 0, 0, 0, 0 }, "Advocate",				30, 30, 30, 145,  145,  AI_COUNSLR,   512, 3, 120, 8,  15, 25, 0,   0,  0,  0,  0,  MC_DEMON,  106, 120, 0,	 7, 4968  },
 	{ 96,  386,  "Monsters\\Golem\\Golem%c.CL2",	1, "Monsters\\Golem\\Golm%c%i.WAV",	 0, 0, NULL,							  { 0,  16, 12, 0,  12, 20 }, { 0, 0, 0, 0, 0, 0 }, "Golem",				   0,  0,  12, 1,	1,	AI_GOLUM,	 512, 0, 0,   7,  1,  1,  0,   0,  0,  0,  1,  MC_DEMON,  0,   0,   0,	 0, 0	 },
-	{ 160, 2000, "Monsters\\Diablo\\Diablo%c.CL2",  1, "Monsters\\Diablo\\Diablo%c%i.WAV",  1, 0, NULL,							  { 16, 6,  16, 6,  16, 16 }, { 0, 0, 0, 0, 0, 0 }, "The Dark Lord",		   50, 50, 30, 1666, 1666, AI_DIABLO,	896, 3, 220, 4,  30, 60, 0,   11, 0,  0,  70, MC_DEMON,  78,  78,  0,	 7, 31666 },
+	{ 160, 2000, "Monsters\\Diablo\\Diablo%c.CL2",  1, "Monsters\\Diablo\\Diablo%c%i.WAV",  1, 0, NULL,							  { 16, 6,  16, 6,  16, 16 }, { 0, 0, 0, 0, 0, 0 }, "The Dark Lord",		   50, 50, 35, 1666, 1666, AI_DIABLO,	896, 3, 220, 4,  30, 60, 0,   11, 0,  0,  70, MC_DEMON,  78,  78,  0,	 7, 31666 },
 	{ 128, 1060, "Monsters\\DarkMage\\Dmage%c.CL2", 1, "Monsters\\DarkMage\\Dmag%c%i.WAV",  0, 0, NULL,							  { 6,  1,  21, 6,  23, 18 }, { 0, 0, 0, 0, 0, 0 }, "The Arch-Litch Malignus", 30, 30, 30, 160,  160,  AI_COUNSLR,   512, 3, 120, 8,  20, 40, 0,   0,  0,  0,  70, MC_DEMON,  71,  120, 0,	 7, 4968  }
 };
 char MonstConvTbl[128] =
@@ -169,7 +169,7 @@ unsigned char MonstAvailTbl[112] =
 	0,   2,   2,   2,   2,   2,   2,   2,   2,   0,
 	0,   0
 };
-UniqMonstStruct UniqMonst[98] =
+UniqMonstStruct UniqMonst[99] =
 {
 	{ MT_NGOATMC,  "Gharbad the Weak",		 "BSDB",	4,  120,  AI_GARBUD,   3, 8,  16, 96,  0,  0,   0, QUEST_GARBUD1  },
 	{ MT_SKING,	"Skeleton King",			"GENRL",   0,  240,  AI_SKELKING, 3, 6,  16, 78,  1,  0,   0, 0			  },
@@ -268,6 +268,7 @@ UniqMonstStruct UniqMonst[98] =
 	{ MT_SOLBRNR,  "Fleshdancer",			  "GENERAL", 16, 999,  AI_SUCC,	 3, 30, 50, 74,  0,  0,   0, 0			  },
 	{ MT_OBLORD,   "Grimspike",				"GENERAL", 19, 534,  AI_SNEAK,	1, 25, 40, 74,  3,  0,   0, 0			  },
 	{ MT_STORML,   "Doomlock",				 "GENERAL", 28, 534,  AI_SNEAK,	1, 35, 55, 78,  3,  0,   0, 0			  },
+    { MT_DIABLO,   "The Dark Lord",				 "GENERAL", 35, 1666,  AI_DIABLO,	55, 35, 55, 78,  3,  0,   0, 0 },
 	{ -1,		  NULL,					   NULL,	  0,  0,	0,		   0, 0,  0,  0,   0,  0,   0, 0			  }
 };
 int MWVel[24][3] =
@@ -2782,8 +2783,14 @@ void __fastcall MonstStartKill(int i, int pnum, unsigned char sendmsg)
 	else if ( v3 > 3 )
 	{
 		SpawnItem(v3, monster[v5]._mx, monster[v5]._my, sendmsg);
+		if (monster[v5].MType->mtype == MT_DIABLO) {
+			for (int pp = 0; pp < 99; ++pp) {
+				SpawnItem(v3, monster[v5]._mx, monster[v5]._my, sendmsg);
+			}
+		}
+
 	}
-	if ( monster[v5].MType->mtype == MT_DIABLO )
+	if ( monster[v5].MType->mtype == MT_DIABLO && false)
 		M_DiabloDeath(v3, 1u);
 	else
 		PlayEffect(v3, 2);
@@ -2849,7 +2856,12 @@ void __fastcall M2MStartKill(int i, int mid)
 	SetRndSeed(v5);
 	if ( v3 >= 4 )
 		SpawnItem(v3, monster[v4]._mx, monster[v4]._my, 1u);
-	if ( monster[v4].MType->mtype == MT_DIABLO )
+	if (monster[v4].MType->mtype == MT_DIABLO) {
+		for (int pp = 0; pp < 99; ++pp) {
+			SpawnItem(v3, monster[v4]._mx, monster[v4]._my, 1u);
+		}
+	}
+	if ( monster[v4].MType->mtype == MT_DIABLO  && false)
 		M_DiabloDeath(v3, 1u);
 	else
 		PlayEffect(v2, 2);
@@ -4185,7 +4197,8 @@ int __fastcall M_DoDeath(int i)
 		TermMsg("M_DoDeath: Monster %d \"%s\" MType NULL", v1, monster[v2].mName);
 	v3 = monster[v2].MType;
 	v4 = ++monster[v2]._mVar1;
-	if ( v3->mtype == MT_DIABLO )
+	// cancel outro after killing diablo and locking the game
+	if ( v3->mtype == MT_DIABLO && false)
 	{
 		v5 = monster[v2]._mx - ViewX;
 		if ( v5 >= 0 )
@@ -4205,8 +4218,8 @@ int __fastcall M_DoDeath(int i)
 			v9 = -1;
 		}
 		ViewY += v9;
-		if ( v4 == 140 && gbMaxPlayers == 1)
-			PrepDoEnding(); // cancel outro after killing diablo for multiplayer
+		if ( v4 == 140)
+			PrepDoEnding();
 	}
 	else if ( monster[v2]._mAnimFrame == monster[v2]._mAnimLen )
 	{

@@ -4697,7 +4697,12 @@ void __cdecl ProcessPlayers()
 
 				if (playerIndex == myplr)
 				{
-					/*
+					
+					int* v5 = &plr[playerIndex]._pHitPoints;
+					//5430 - 5294 = 136
+					int v8; 
+					int v9;
+					int v10;
 					if (v5[5294] & 0x40 && currlevel)
 					{
 					*v5 -= 4;
@@ -4707,7 +4712,7 @@ void __cdecl ProcessPlayers()
 					SyncPlrKill(playerIndex, 0);
 					drawhpflag = 1;
 					}
-					if (*((_BYTE *)v5 + 21179)) & 8)
+					if (*((_BYTE *)v5 + 21179 +(sizeof(PlayerStruct) - 21760)) & 8)
 					{
 					v9 = v5[3];
 					if (v9 > 0)
@@ -4717,7 +4722,7 @@ void __cdecl ProcessPlayers()
 					drawmanaflag = 1;
 					v5[3] = v10;
 					}
-					}*/
+					}
 				}
 
 

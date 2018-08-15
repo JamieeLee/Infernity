@@ -3322,6 +3322,14 @@ void __fastcall SpawnItem(int m, int x, int y, unsigned char sendmsg)
 	int ii; // edi
 	int onlygood; // [esp+Ch] [ebp-Ch]
 	int idx; // [esp+14h] [ebp-4h]
+	if (monster[m].MData->mType == MT_DIABLO) {
+		idx = RndUItem(m);
+		if (idx < 0)
+			goto LABEL_10;
+		goto LABEL_13;
+	}
+
+
 
 	if ( !monster[m]._uniqtype && ((monster[m].MData->mTreasure & 0x8000) == 0 || gbMaxPlayers == 1) )
 	{
@@ -3355,7 +3363,7 @@ LABEL_13:
 		GetSuperItemSpace(x, y, itemavail[0]);
 		itemactive[numitems] = ii;
 		itemavail[0] = itemavail[-numitems + 126];
-		if ( !monster[m]._uniqtype )
+		if ( (!monster[m]._uniqtype) && monster[m].MData->mType != MT_DIABLO)
 			SetupAllItems(ii, idx, GetRndSeed(), monster[m].MData->mLevel, 1, onlygood, 0, 0,IsInfernoEnabled(),x,y);
 			//SetupAllItems(ii, idx, GetRndSeed(), monster[m].MData->mLevel, 1, onlygood, 0, 0, true);
 		else

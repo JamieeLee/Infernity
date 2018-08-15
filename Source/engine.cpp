@@ -1987,43 +1987,9 @@ bool AreAffixesGood(char p1, char p2) {
 
 void GenerateRareUniqueAffix(int i, int x, int y, int minlvl, int maxlvl, std::set<char>powers) {
 
-	{
-		std::ofstream outfile;
-		outfile.open("test.txt", std::ios_base::app);
-		outfile << "GENERATING FOR UNIQ " << UniqueItemList[item[i]._iUid].UIName << "\n"; 
-			outfile.close();
-	}
-
-	{
-		std::ofstream outfile;
-		outfile.open("test.txt", std::ios_base::app);
-		outfile << "UNIQ POWERS: \n";
-		std::set<char>::iterator it;
-		for (it = powers.begin(); it != powers.end(); ++it)
-		{
-			outfile << "UNIQ POWER IN SET: "<<(int)*it<< "\n";
-		}
-		outfile << "UNIQ POWERS END: \n";
-		outfile.close();
-	}
-
-
-
 	int sufPref = sufPref = random(23, 2); 
-	{
-		std::ofstream outfile;
-		outfile.open("test.txt", std::ios_base::app);
-		outfile << "Generating super affix for unique!\n";
-		outfile.close();
-	}
 	if (sufPref == 0) {
 		//third affix is a prefix
-		{
-			std::ofstream outfile;
-			outfile.open("test.txt", std::ios_base::app);
-			outfile << "UNIQ affix is prefix!\n";
-			outfile.close();
-		}
 		int pref[256];
 		int prefIter = 0;
 		int local_pref_iter = 0;
@@ -2047,14 +2013,6 @@ void GenerateRareUniqueAffix(int i, int x, int y, int minlvl, int maxlvl, std::s
 			preidx2 = pref[random(23, local_pref_iter)];
 		} while (powers.find(PL_UPrefix[preidx2].PLPower) != powers.end());
 
-		{
-			std::ofstream outfile;
-			outfile.open("test.txt", std::ios_base::app);
-			outfile << "UNIQ prefix chosen! ="<<(int)PL_UPrefix[preidx2].PLPower<<"\n";
-			outfile.close();
-		}
-
-
 		SaveItemPower(
 			i,
 			PL_UPrefix[preidx2].PLPower,
@@ -2067,12 +2025,6 @@ void GenerateRareUniqueAffix(int i, int x, int y, int minlvl, int maxlvl, std::s
 	}
 	else {
 		//third affix is a suffix
-		{
-			std::ofstream outfile;
-			outfile.open("test.txt", std::ios_base::app);
-			outfile << "UNIQ affix is suffix!\n";
-			outfile.close();
-		}
 		int suf[256];
 		int sufIter = 0;
 		int local_suf_iter = 0;
@@ -2104,12 +2056,6 @@ void GenerateRareUniqueAffix(int i, int x, int y, int minlvl, int maxlvl, std::s
 			PL_USuffix[sufidx2].PLMinVal,
 			PL_USuffix[sufidx2].PLMaxVal,
 			PL_USuffix[sufidx2].PLMultVal);
-		{
-			std::ofstream outfile;
-			outfile.open("test.txt", std::ios_base::app);
-			outfile << "UNIQ suffix chosen! =" << (int)PL_USuffix[sufidx2].PLPower << "\n";
-			outfile.close();
-		}
 		item[i].rareAffix = PL_USuffix[sufidx2].PLPower + 1;
 	}
 	if (x >= 0 && y >= 0) {

@@ -50,33 +50,22 @@ void __fastcall AddWarpMissile(int i, int x, int y)
 
 void __cdecl SyncPortals()
 {
-	int v0; // edi
-	int *v1; // esi
-	int v2; // eax
-
-	v0 = 0;
-	v1 = &portal[0].level;
-	do
-	{
-		if ( *(v1 - 3) )
-		{
-			if ( currlevel )
+	for (int i = 0; i < 4; ++i) {
+		if (portal[i].open) {
+			if (currlevel)
 			{
-				v2 = currlevel;
-				if ( setlevel )
-					v2 = (unsigned char)setlvlnum;
-				if ( *v1 == v2 )
-					AddWarpMissile(v0, *(v1 - 2), *(v1 - 1));
+				int somelvl = currlevel;
+				if (setlevel)
+					somelvl = (unsigned char)setlvlnum;
+				if (portal[i].level == somelvl) {
+					AddWarpMissile(i, portal[i].x,portal[i].y);
+				}
 			}
-			else
-			{
-				AddWarpMissile(v0, WarpDropX[v0], WarpDropY[v0]);
+			else {
+				AddWarpMissile(i, WarpDropX[i], WarpDropY[i]);
 			}
 		}
-		v1 += 6;
-		++v0;
 	}
-	while ( (signed int)v1 < (signed int)&portal[4].level );
 }
 // 5CCB10: using guessed type char setlvlnum;
 // 5CF31D: using guessed type char setlevel;

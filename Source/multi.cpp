@@ -321,6 +321,12 @@ void __fastcall multi_player_left_msg(int pnum, int left)
 	v2 = pnum;
 	v3 = left;
 	v4 = pnum;
+	{
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "multi_player_left begin\n";
+		outfile.close();
+	}
 	if ( plr[pnum].plractive )
 	{
 		RemovePlrFromMap(pnum);
