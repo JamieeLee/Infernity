@@ -630,7 +630,7 @@ void DrawMonsterHealthBar(int monsterID)
 	name << mon->mName;
 	if (mon->leader > 0) { name << " (minion)";}
 	int namecolor = COL_WHITE;
-	if (specialMonster == 1 || name.str() == "The Dark Lord") { namecolor = COL_GOLD; }
+	if (specialMonster == 1) { namecolor = COL_GOLD; } //  || name.str() == "The Dark Lord"
 	PrintGameStr(newX - GetTextWidth((char*)name.str().c_str()) / 2, 30, (char*)name.str().c_str(), namecolor);
 	PrintGameStr(newX - GetTextWidth("/") / 2, 43, "/", COL_WHITE);
 	std::stringstream current;

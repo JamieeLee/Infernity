@@ -134,7 +134,7 @@ MonsterData monsterdata[112] =
 	{ 128, 2000, "Monsters\\Mage\\Mage%c.CL2",	  1, "Monsters\\Mage\\Mage%c%i.WAV",	  0, 1, "Monsters\\Mage\\Cnselgd.TRN",	 { 12, 1,  20, 8,  28, 20 }, { 0, 0, 0, 0, 0, 0 }, "Cabalist",				28, 30, 29, 120,  120,  AI_COUNSLR,   512, 2, 110, 8,  14, 30, 0,   0,  0,  0,  0,  MC_DEMON,  99,  106, 0,	 7, 4929  },
 	{ 128, 2000, "Monsters\\Mage\\Mage%c.CL2",	  1, "Monsters\\Mage\\Mage%c%i.WAV",	  0, 1, "Monsters\\Mage\\Cnselbk.TRN",	 { 12, 1,  20, 8,  28, 20 }, { 0, 0, 0, 0, 0, 0 }, "Advocate",				30, 30, 30, 145,  145,  AI_COUNSLR,   512, 3, 120, 8,  15, 25, 0,   0,  0,  0,  0,  MC_DEMON,  106, 120, 0,	 7, 4968  },
 	{ 96,  386,  "Monsters\\Golem\\Golem%c.CL2",	1, "Monsters\\Golem\\Golm%c%i.WAV",	 0, 0, NULL,							  { 0,  16, 12, 0,  12, 20 }, { 0, 0, 0, 0, 0, 0 }, "Golem",				   0,  0,  12, 1,	1,	AI_GOLUM,	 512, 0, 0,   7,  1,  1,  0,   0,  0,  0,  1,  MC_DEMON,  0,   0,   0,	 0, 0	 },
-	{ 160, 2000, "Monsters\\Diablo\\Diablo%c.CL2",  1, "Monsters\\Diablo\\Diablo%c%i.WAV",  1, 0, NULL,							  { 16, 6,  16, 6,  16, 16 }, { 0, 0, 0, 0, 0, 0 }, "The Dark Lord",		   50, 50, 35, 1666, 1666, AI_DIABLO,	896, 3, 220, 4,  30, 60, 0,   11, 0,  0,  70, MC_DEMON,  78,  78,  0,	 7, 31666 },
+	{ 160, 2000, "Monsters\\Diablo\\Diablo%c.CL2",  1, "Monsters\\Diablo\\Diablo%c%i.WAV",  1, 0, NULL,							  { 16, 6,  16, 6,  16, 16 }, { 0, 0, 0, 0, 0, 0 }, "The Dark Lord",		   16, 16, 35, 1666, 1666, AI_DIABLO,	896, 3, 220, 4,  30, 60, 0,   11, 0,  0,  70, MC_DEMON,  78,  78,  0,	 7, 31666 },
 	{ 128, 1060, "Monsters\\DarkMage\\Dmage%c.CL2", 1, "Monsters\\DarkMage\\Dmag%c%i.WAV",  0, 0, NULL,							  { 6,  1,  21, 6,  23, 18 }, { 0, 0, 0, 0, 0, 0 }, "The Arch-Litch Malignus", 30, 30, 30, 160,  160,  AI_COUNSLR,   512, 3, 120, 8,  20, 40, 0,   0,  0,  0,  70, MC_DEMON,  71,  120, 0,	 7, 4968  }
 };
 char MonstConvTbl[128] =
@@ -268,8 +268,28 @@ UniqMonstStruct UniqMonst[99] =
 	{ MT_SOLBRNR,  "Fleshdancer",			  "GENERAL", 16, 999,  AI_SUCC,	 3, 30, 50, 74,  0,  0,   0, 0			  },
 	{ MT_OBLORD,   "Grimspike",				"GENERAL", 19, 534,  AI_SNEAK,	1, 25, 40, 74,  3,  0,   0, 0			  },
 	{ MT_STORML,   "Doomlock",				 "GENERAL", 28, 534,  AI_SNEAK,	1, 35, 55, 78,  3,  0,   0, 0			  },
-    { MT_DIABLO,   "The Dark Lord",				 "GENERAL", 35, 1666,  AI_DIABLO,	55, 35, 55, 78,  3,  0,   0, 0 },
+	{ MT_DIABLO, "Tiny Pancake",	  "GENERAL", 0,  1666,  AI_DIABLO,  3, 30, 50, 78,  0,  0,   0, 0 },
 	{ -1,		  NULL,					   NULL,	  0,  0,	0,		   0, 0,  0,  0,   0,  0,   0, 0			  }
+
+		/*
+		
+		struct UniqMonstStruct
+{
+	char mtype;
+	char *mName;
+	char *mMode;
+	unsigned char mlevel;
+	unsigned short mmaxhp;
+	unsigned char mAi;
+	unsigned char mint;
+	unsigned char mMinDamage;
+	unsigned char mMaxDamage;
+	unsigned short mMagicRes;
+	unsigned short mUnqAttr;
+	unsigned char mUnqVar1;
+	unsigned char mUnqVar2;
+	int mtalkmsg;
+};*/
 };
 int MWVel[24][3] =
 {
@@ -494,7 +514,7 @@ void __cdecl GetLevelMTypes() /* note-decompile this function again and check */
 	{
 		AddMonsterType(MT_ADVOCATE, 1);
 		AddMonsterType(MT_RBLACK, 1);
-		AddMonsterType(MT_DIABLO, 2);
+		//AddMonsterType(MT_DIABLO, 4);
 	}
 	else if ( setlevel )
 	{
@@ -518,7 +538,7 @@ void __cdecl GetLevelMTypes() /* note-decompile this function again and check */
 
 		if ( gbMaxPlayers != 1 && currlevel == quests[12]._qlevel )
 		{
-			AddMonsterType(MT_SKING, 4);
+			AddMonsterType(	MT_SKING, 4);
 			max = 0;
 			v6 = &monsterdata[8].mMaxDLvl;
 			v7 = 8;
@@ -805,6 +825,8 @@ void __fastcall InitMonster(int i, int rd, int mtype, int x, int y)
 	int v27; // ecx
 	char v28; // dl
 
+
+
 	v5 = rd;
 	v6 = i;
 	monster[v6]._mmode = MM_STAND;
@@ -1004,6 +1026,12 @@ void __fastcall PlaceMonster(int i, int mtype, int x, int y)
 
 void __fastcall PlaceUniqueMonst(int uniqindex, int miniontype, int unpackfilesize)
 {
+	PlaceUniqueMonst(uniqindex, miniontype, unpackfilesize, false, -1, -1);
+}
+
+
+void __fastcall PlaceUniqueMonst(int uniqindex, int miniontype, int unpackfilesize, bool forceplace, int xpos, int ypos)
+{
 	MonsterStruct *v3; // esi
 	CMonster *v4; // ecx
 	int v5; // edx
@@ -1058,6 +1086,7 @@ void __fastcall PlaceUniqueMonst(int uniqindex, int miniontype, int unpackfilesi
 	v4 = (CMonster *)&UniqMonst[uniqindex];
 	v43 = miniontype;
 	v44 = v4;
+
 	if ( (uniquetrans + 19) << 8 < 6912 )
 	{
 		mtype = 0;
@@ -1210,14 +1239,25 @@ void __fastcall PlaceUniqueMonst(int uniqindex, int miniontype, int unpackfilesi
 			}
 			while ( (signed int)v15 < (signed int)dPiece[1] );
 		}
-		PlaceMonster(nummonsters, mtype, v8, v10);
+
+		if (forceplace) {
+			PlaceMonster(nummonsters, mtype, xpos,ypos);
+		}
+		else {
+			PlaceMonster(nummonsters, mtype, v8, v10);
+		}
 		v17 = (int)v44;
 		v3->_uniqtype = v48 + 1;
 		v18 = *(_BYTE *)(v17 + 12);
-		if ( v18 )
+		//char wutdat = *(_BYTE *)(int)&v44->Anims[0].Frames[1];
+
+		if (v18) {
 			_LOBYTE(v3->mLevel) = 2 * v18;
-		else
+		}
+		else {
 			_LOBYTE(v3->mLevel) += 5;
+		}
+
 		v19 = *(char **)(v17 + 4);
 		v3->mExp *= 2;
 		v3->mName = v19;
@@ -1555,19 +1595,24 @@ void __fastcall PlaceGroup(int mtype, int num, unsigned char leaderf, int leader
 void __cdecl LoadDiabMonsts()
 {
 	unsigned char *lpSetPiece; // esi
-
 	lpSetPiece = LoadFileInMem("Levels\\L4Data\\diab1.DUN", 0);
 	SetMapMonsters(lpSetPiece, 2 * diabquad1x, 2 * diabquad1y);
 	mem_free_dbg(lpSetPiece);
+	
+	
 	lpSetPiece = LoadFileInMem("Levels\\L4Data\\diab2a.DUN", 0);
 	SetMapMonsters(lpSetPiece, 2 * diabquad2x, 2 * diabquad2y);
 	mem_free_dbg(lpSetPiece);
+	
+	
 	lpSetPiece = LoadFileInMem("Levels\\L4Data\\diab3a.DUN", 0);
 	SetMapMonsters(lpSetPiece, 2 * diabquad3x, 2 * diabquad3y);
 	mem_free_dbg(lpSetPiece);
+	
 	lpSetPiece = LoadFileInMem("Levels\\L4Data\\diab4a.DUN", 0);
-	SetMapMonsters(lpSetPiece, 2 * diabquad4x, 2 * diabquad4y);
+	SetMapMonsters(lpSetPiece, 2 * diabquad4x, 2 * diabquad4y,"diablo");
 	mem_free_dbg(lpSetPiece);
+	
 }
 // 5289C4: using guessed type int diabquad1x;
 // 5289C8: using guessed type int diabquad1y;
@@ -1811,8 +1856,10 @@ LABEL_23:
 		goto LABEL_25;
 	}
 }
-
-void __fastcall SetMapMonsters(unsigned char *pMap, int startx, int starty)
+void __fastcall SetMapMonsters(unsigned char *pMap, int startx, int starty) {
+	SetMapMonsters(pMap, startx, starty, "");
+}
+void __fastcall SetMapMonsters(unsigned char *pMap, int startx, int starty,std::string ss)
 {
 	unsigned char *v3; // esi
 	unsigned short v4; // cx
@@ -1844,6 +1891,15 @@ void __fastcall SetMapMonsters(unsigned char *pMap, int startx, int starty)
 		PlaceUniqueMonst(5, 0, 0);
 		PlaceUniqueMonst(6, 0, 0);
 	}
+	if (ss == "diablo")
+	{
+		//{
+		//	std::ofstream outfile;
+		//	outfile.open("test.txt", std::ios_base::app);
+		//	outfile << "spawning unique diablo!\n";
+		//	outfile.close();
+		//}
+	}
 	v4 = *((_WORD *)v3 + 1);
 	v5 = *(unsigned short *)v3 * v4;
 	v6 = (unsigned short)(2 * *(_WORD *)v3);
@@ -1860,9 +1916,25 @@ void __fastcall SetMapMonsters(unsigned char *pMap, int startx, int starty)
 			{
 				if ( *(_WORD *)v8 )
 				{
-					v10 = AddMonsterType(MonstConvTbl[*(unsigned short *)v8-1], 2); /* fix */
-					v11 = nummonsters++;
-					PlaceMonster(v11, v10, i + v12 + 16, startya);
+
+					//AddMonsterType(MT_DIABLO, 4);
+					int mt = MonstConvTbl[*(unsigned short *)v8 - 1];
+					if (mt != MT_DIABLO) {
+						v10 = AddMonsterType(mt, 2); /* fix */
+					}
+					else {
+						v10 = AddMonsterType(mt, 4);
+					}
+
+			
+
+					if (mt != MT_DIABLO) {
+						v11 = nummonsters++;
+						PlaceMonster(v11, v10, i + v12 + 16, startya);
+					}
+					else {
+						PlaceUniqueMonst(97, 0, 0, true, i + v12 + 16, startya); // unique diablo
+					}
 				}
 				v8 = v14 + 2;
 				++i;
@@ -1899,6 +1971,9 @@ int __fastcall AddMonster(int x, int y, int dir, int mtype, int InMap)
 	i = monstactive[nummonsters++];
 	if ( InMap )
 		dMonster[x][y] = i + 1;
+
+
+
 	InitMonster(i, dir, mtype, x, y);
 	return i;
 }
@@ -2784,7 +2859,9 @@ void __fastcall MonstStartKill(int i, int pnum, unsigned char sendmsg)
 	{
 		SpawnItem(v3, monster[v5]._mx, monster[v5]._my, sendmsg);
 		if (monster[v5].MType->mtype == MT_DIABLO) {
-			for (int pp = 0; pp < 99; ++pp) {
+			int loop = By(gnDifficulty, 3, 5, 10);
+			if (loop == 10 && IsInfernoEnabled() == true) { loop = 40; }
+			for (int pp = 0; pp < loop; ++pp) {
 				SpawnItem(v3, monster[v5]._mx, monster[v5]._my, sendmsg);
 			}
 		}
@@ -2857,7 +2934,9 @@ void __fastcall M2MStartKill(int i, int mid)
 	if ( v3 >= 4 )
 		SpawnItem(v3, monster[v4]._mx, monster[v4]._my, 1u);
 	if (monster[v4].MType->mtype == MT_DIABLO) {
-		for (int pp = 0; pp < 99; ++pp) {
+		int loop = By(gnDifficulty, 3, 5, 10);
+		if (loop == 10 && IsInfernoEnabled() == true) { loop = 40; }
+		for (int pp = 0; pp < loop; ++pp) {
 			SpawnItem(v3, monster[v4]._mx, monster[v4]._my, 1u);
 		}
 	}
@@ -7559,7 +7638,7 @@ void __cdecl ProcessMonsters()
 			if ( v11 )
 			{
 				v16 = monster[v1]._msquelch;
-				if ( v16 && monster[v1]._mAi != MT_DIABLO ) /* BUG_FIX: change '_mAi' to 'MType->mtype' */
+				if ( v16 && monster[v1].MType->mtype != MT_DIABLO ) /* BUG_FIX: change '_mAi' to 'MType->mtype' */
 					monster[v1]._msquelch = v16 - 1;
 			}
 			else
