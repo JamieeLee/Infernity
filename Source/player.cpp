@@ -3514,6 +3514,7 @@ LABEL_85:
 
 bool __fastcall PlrHitPlr(int pnum, char p)
 {
+	if (FriendlyMode) { return 0;}//fix friendly fire
 	char v2; // bl
 	unsigned int v3; // esi
 	//int v4; // ST04_4
