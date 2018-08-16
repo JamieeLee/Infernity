@@ -482,6 +482,8 @@ void __fastcall DrawClippedPlayer(int pnum, int x, int y, int px, int py, int an
 //qndel - drawing monster hp bar
 void DrawMonsterHealthBar(int monsterID) 
 {
+
+	
 	MonsterStruct*  mon = &monster[monsterID];
 	int specialMonster = 0;
 	if (mon->_uniqtype) { specialMonster = 1; }
@@ -640,6 +642,11 @@ void DrawMonsterHealthBar(int monsterID)
 	PrintGameStr(newX + GetTextWidth("/"), 43, (char*)max.str().c_str(), COL_WHITE);
 	PrintGameStr(newX - GetTextWidth((char*)current.str().c_str()) - GetTextWidth("/"), 43, (char*)current.str().c_str(), COL_WHITE);
 	PrintGameStr(newX - width / 2, 59, resText, COL_GOLD);
+
+	std::stringstream kills;
+	kills << "Kills:" << monstkills[mon->MType->mtype];
+	PrintGameStr(newX- GetTextWidth("kills")/2-30, 59, (char*)(kills.str().c_str()), COL_WHITE);
+
 	if (drawImmu == true) {
 		PrintGameStr(newX - width / 2, 46, immuText, COL_GOLD);
 	}
