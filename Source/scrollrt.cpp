@@ -664,7 +664,7 @@ void __fastcall DrawView(int StartX, int StartY)
 	if ( automapflag )
 		DrawAutomap();
 
-	if (GetAsyncKeyState(VK_MENU) < 0) {// alt pressed
+	if (((GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && !(GetAsyncKeyState(VK_MENU) < 0)) || (!GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && (GetAsyncKeyState(VK_MENU) < 0)))) {// alt pressed
 		HighlightItemsNameOnMap();
 	}
 	//else HighlightedItem.ItemID = -1;
@@ -1196,7 +1196,7 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 				if ( v18 >= 1 && *(_DWORD *)v17 <= 0x32u && v18 <= *(_DWORD *)v17 )
 				{
 					v19 = a4 - v16->_iAnimWidth2;
-					if (v49 - 1 == pcursitem || GetAsyncKeyState(VK_MENU) < 0) {
+					if (v49 - 1 == pcursitem || ((GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && !(GetAsyncKeyState(VK_MENU) < 0)) || (!GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && (GetAsyncKeyState(VK_MENU) < 0)))) {
 						CelDrawHdrClrHL(181, v19, a5, v17, v16->_iAnimFrame, v16->_iAnimWidth, 0, 8);
 					}
 					Cel2DecodeHdrLight(v19, a5, (char *)v16->_iAnimData, v16->_iAnimFrame, v16->_iAnimWidth, 0, 8);
@@ -1334,7 +1334,7 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 					if ( v38 >= 1 && *(_DWORD *)v37 <= 0x32u && v38 <= *(_DWORD *)v37 )
 					{
 						v39 = a4 - v36->_iAnimWidth2;
-						if (v49 - 1 == pcursitem || GetAsyncKeyState(VK_MENU) < 0) {
+						if (v49 - 1 == pcursitem || ((GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && !(GetAsyncKeyState(VK_MENU) < 0)) || (!GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && (GetAsyncKeyState(VK_MENU) < 0)))) {
 							CelDrawHdrClrHL(181, v39, a5, v37, v36->_iAnimFrame, v36->_iAnimWidth, 0, 8);
 						}
 						Cel2DecodeHdrLight(
@@ -1468,7 +1468,7 @@ void __fastcall DrawClippedObject(int x, int y, int a3, int a4, int pre_flag, in
 			v16 = object[v10]._oAnimFrame;
 			if ( v16 >= 1 && *(_DWORD *)v15 <= 0x32u && v16 <= *(_DWORD *)v15 )
 			{
-				if (v20 == pcursobj || (GetAsyncKeyState(VK_MENU) < 0 && object[v10]._oSelFlag)) {
+				if (v20 == pcursobj || (((GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && !(GetAsyncKeyState(VK_MENU) < 0)) || (!GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && (GetAsyncKeyState(VK_MENU) < 0))) && object[v10]._oSelFlag)) {
 					CelDrawHdrClrHL(194, v12, v11, v15, v16, object[v10]._oAnimWidth, a6, dir);
 				}
 				v19 = object[v10]._oAnimWidth;
@@ -1872,7 +1872,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 				if ( v21 >= 1 && *(_DWORD *)v20 <= 0x32u && v21 <= *(_DWORD *)v20 )
 				{
 					v22 = v13 - v19->_iAnimWidth2;
-					if (v52 - 1 == pcursitem || GetAsyncKeyState(VK_MENU) < 0) {
+					if (v52 - 1 == pcursitem || ((GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && !(GetAsyncKeyState(VK_MENU) < 0)) || (!GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && (GetAsyncKeyState(VK_MENU) < 0)))) {
 						CelDrawHdrClrHL(181, v22, sy, v20, v19->_iAnimFrame, v19->_iAnimWidth, a5, 8);
 					}
 					Cel2DecodeHdrLight(v22, sy, (char *)v19->_iAnimData, v19->_iAnimFrame, v19->_iAnimWidth, a5, 8);
@@ -2012,7 +2012,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 					if ( v41 >= 1 && *(_DWORD *)v40 <= 0x32u && v41 <= *(_DWORD *)v40 )
 					{
 						v42 = v13 - v39->_iAnimWidth2;
-						if (v52 - 1 == pcursitem || GetAsyncKeyState(VK_MENU) < 0) {
+						if (v52 - 1 == pcursitem || ((GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && !(GetAsyncKeyState(VK_MENU) < 0)) || (!GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && (GetAsyncKeyState(VK_MENU) < 0)))) {
 							CelDrawHdrClrHL(181, v42, sy, v40, v41, v39->_iAnimWidth, a5, 8);
 						}
 						Cel2DecodeHdrLight(
@@ -2476,7 +2476,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 				if ( v20 >= 1 && *(_DWORD *)v19 <= 0x32u && v20 <= *(_DWORD *)v19 )
 				{
 					v21 = sx - v18->_iAnimWidth2;
-					if (v51 - 1 == pcursitem || GetAsyncKeyState(VK_MENU) < 0) {
+					if (v51 - 1 == pcursitem || ((GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && !(GetAsyncKeyState(VK_MENU) < 0)) || (!GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && (GetAsyncKeyState(VK_MENU) < 0)))) {
 						CelDecodeClr(181, v21, sy, v19, v18->_iAnimFrame, v18->_iAnimWidth, 0, a5);
 					}
 					CelDecodeHdrLightOnly(v21, sy, (char *)v18->_iAnimData, v18->_iAnimFrame, v18->_iAnimWidth, 0, a5);
@@ -2614,7 +2614,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 					if ( v40 >= 1 && *(_DWORD *)v39 <= 0x32u && v40 <= *(_DWORD *)v39 )
 					{
 						v41 = sx - v38->_iAnimWidth2;
-						if (v51 - 1 == pcursitem || GetAsyncKeyState(VK_MENU) < 0) {
+						if (v51 - 1 == pcursitem || ((GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && !(GetAsyncKeyState(VK_MENU) < 0)) || (!GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && (GetAsyncKeyState(VK_MENU) < 0)))) {
 							CelDecodeClr(181, v41, sy, v39, v38->_iAnimFrame, v38->_iAnimWidth, 0, a5);
 						}
 						CelDecodeHdrLightOnly(
@@ -2746,7 +2746,7 @@ void __fastcall DrawObject(int x, int y, int a3, int a4, int pre_flag, int a6, i
 			v16 = object[v10]._oAnimFrame;
 			if ( v16 >= 1 && *(_DWORD *)v15 <= 0x32u && v16 <= *(_DWORD *)v15 )
 			{
-				if (v18 == pcursobj || (GetAsyncKeyState(VK_MENU) < 0 && object[v10]._oSelFlag)) {
+				if (v18 == pcursobj || (((GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && !(GetAsyncKeyState(VK_MENU) < 0)) || (!GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && (GetAsyncKeyState(VK_MENU) < 0))) && object[v10]._oSelFlag)) {
 					CelDecodeClr(194, v12, v11, v15, v16, object[v10]._oAnimWidth, a6, dir);
 				}
 				if ( object[v10]._oLight )
