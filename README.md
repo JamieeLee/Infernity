@@ -56,6 +56,7 @@ I will order a pizza and think about you while eating ;)
 - 1.08 - Shrines display their effect in description (goat shrines and cauldron't still don't), removed permanent mana decrease from shrines = we got rid of all stuff that could permanently damage the character! So it's safe to use goat shrines/cauldrons
 - 1.09 - The most important update so far, adds 4 tabs to inventory. You can switch by clicking or shift+1/2/3/4
 - 1.10 - fixed all bugs related to inventory/multiplayer - this will allow to expand the player  structure in the future (can add more stuff)
+- 1.11 - motion interpolation for highlighted items, clicking highlighted name will walk to item/pick it up if nearby
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
