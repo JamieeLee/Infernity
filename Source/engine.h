@@ -50,6 +50,7 @@ int __fastcall random(int idx, int v);
 #include <string>
 #include <vector>
 #include <set>
+#include <stack>
 #include <map>
 #include <sstream>
 #include <fstream>

@@ -2006,6 +2006,10 @@ LABEL_14:
 }
 // 4B883C: using guessed type int infoclr;
 
+
+
+
+
 void __fastcall PrintGameStr(int x, int y, char *str, int color)
 {
 	char *v4; // edi
@@ -2273,6 +2277,66 @@ void __cdecl DrawChr()
 		a5[0] = 2;
 	sprintf(a4, "%i", v26 >> 6);
 	ADD_PlrStringXY(143, 332, 174, a4, a5[0]);
+}
+
+
+
+char __fastcall DrawMultiColorText(int xPos, int yPos, int xPosEnd, char* text, int fontColor)
+{
+	std::stack<char> colorStack;
+	char* textTmp;      // edx@1
+	int textLength = 0; // ecx@1
+	int maxWidth;       // esi@1
+	char currentLetter; // al@8
+	int offset;         // [sp+Ch] [bp-4h]@1
+	textTmp = text;
+	offset = screen_y_times_768[yPos + 160] + xPos + 64;
+	maxWidth = xPosEnd - xPos + 1;
+	if (*text) //get text length
+	{
+		while (*textTmp) {
+			if ((int)*textTmp < 0) {}
+			else {
+				textLength += fontkern[fontframe[fontidx[*textTmp]]] + 1;
+			}
+			textTmp++;
+		}
+	}
+	textTmp = text;             //end
+	if (textLength < maxWidth) // Center the text if necessary
+	{
+		offset += (maxWidth - textLength) >> 1;
+	} //end
+	while (*textTmp) {
+		if ((int)*textTmp < 0) {
+			if (colorStack.size() == 0) {
+				colorStack.push((int)*textTmp);
+			}
+			else {
+				if (colorStack.top() != (int)*textTmp) {
+					colorStack.push((int)*textTmp);
+				}
+				else {
+					colorStack.pop();
+				}
+
+			}
+
+		}
+		else {
+			currentLetter = fontframe[fontidx[*textTmp]];
+			if (currentLetter) {
+
+				int color = fontColor;
+				if (colorStack.size() != 0) { color = colorStack.top() + 128; }
+
+				CPrintString(offset, currentLetter, color);
+			}
+			offset += fontkern[currentLetter] + 1;
+		}
+		textTmp++;
+	}
+	return *(--textTmp);
 }
 
 void __fastcall ADD_PlrStringXY(int x, int y, int width, char *pszStr, char col)

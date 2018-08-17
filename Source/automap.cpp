@@ -231,6 +231,7 @@ void HighlightItemsNameOnMap()
 	int Screen_TopEnd = 160;
 	int Screen_LeftBorder = 64;
 	int ScreenWidth = 640;
+	int XOffset = 330;
 
 
 	std::vector<drawingQueue> q;
@@ -276,7 +277,6 @@ void HighlightItemsNameOnMap()
 	*/
 		int walkStandX = ScrollInfo._sxoff;// +plr[myplr]._pyoff;
 		int walkStandY = ScrollInfo._syoff;// +plr[myplr]._pxoff;
-
 		if (plr[myplr]._pmode == PM_WALK2 && ScrollInfo._sdir == 4) {
 					walkStandX+=32;
 					walkStandY+= 16;
@@ -294,7 +294,7 @@ void HighlightItemsNameOnMap()
 		int y2 = 16 * (row + col) + (200 * (walkStandY) / 100 >> 1) - 16;
 																		 //// / (CanRun(myplr) ? 2 : 1);
 		int centerXOffset = GetTextWidth(textOnGround) / 2; // offset to attempt to center the name above the item
-		int x = x2 - centerXOffset;// -96 - centerXOffset;
+		int x = x2 -centerXOffset;// -96 - centerXOffset;
 		int y = y2;
 		int x3 = x;// +95;
 		int y3 = y - 1;
@@ -310,7 +310,8 @@ void HighlightItemsNameOnMap()
 			if (item_local.rareAffix > 0) {
 				mag = 3;
 			}
-			q.push_back(drawingQueue(x, y, centerXOffset * 2, 13, item_local._ix, item_local._iy, itemactive[i], mag, t2));
+			//GetTextWidth(textOnGround)
+			q.push_back(drawingQueue(x, y, centerXOffset*2, 13, item_local._ix, item_local._iy, itemactive[i], mag, t2));
 		}
 	}
 	const int borderX = 5;
@@ -372,15 +373,16 @@ void HighlightItemsNameOnMap()
 		if(true){
 		//if (t.new_x > -Screen_LeftBorder * 2 && x3 + t.width / 2 < ScreenWidth + Screen_LeftBorder && y3 > 13 && y3 + 13 < ScreenHeight + Screen_TopEnd) {
 
-			int drawXOffset = 0;
+			int drawXOffset = -10;
 			if (invflag || sbookflag)
 				drawXOffset -= 160;
 			if (chrflag || questlog)
 				drawXOffset += 160;
 
+
 			int bgcolor = 0;
 			int highlightY = t.new_y + 168;// -175;
-			int highlightX = t.new_x +319+ drawXOffset;
+			int highlightX = t.new_x + XOffset-1+ drawXOffset ;
 			if (MouseX >= highlightX && MouseX <= highlightX + t.width + 1 && MouseY >= highlightY && MouseY <= highlightY + t.height) {
 				bgcolor = 134;
 				HighlightedItemID = t.ItemID;
@@ -391,13 +393,11 @@ void HighlightItemsNameOnMap()
 			
 
 
-			//DrawTransparentBackground(x3, y3, t.width + 1, t.height, 0, 0, bgcolor, bgcolor);
 			char color = By(t.magicLevel, COL_WHITE, COL_BLUE, COL_GOLD, COL_RED);
-			//DrawCustomText(t.new_x, t.new_y, 0, &t.text[0u], color);
-			int sx = t.new_x + 320 + drawXOffset;
-			int sy = t.new_y + 180;
+			int sx = t.new_x + XOffset + drawXOffset;// -GetTextWidth(&t.text[0u]) / 2;
+				int sy = t.new_y + 180;
 
-			int sx2 = t.new_x + 383 + drawXOffset;
+			int sx2 = t.new_x + XOffset +63 + drawXOffset;
 			int sy2 = t.new_y + 342;
 
 
@@ -409,42 +409,16 @@ void HighlightItemsNameOnMap()
 				continue;
 			}
 			DrawTransparentBackground(sx2,sy2, t.width + 1, t.height, 0, 0, bgcolor, bgcolor);
-			PrintGameStr(sx,sy,&t.text[0u], color);
-			//ADD_PlrStringXY(t.new_x, t.new_y, GetTextWidth(&t.text[0]), &t.text[0u], color);
+			//"\204X\204 values are \204next level\204 stats."
+			//DrawMultiColorText(sx, sy, t.width, "\204this\204 shit is \201on fire\201", COL_WHITE);
+			PrintGameStr(sx,sy, &t.text[0u], color);
+			//ADD_PlrStringXY(168,32, 299, "wtf", COL_GOLD);
 		}
 	}
 	
 	if (highlightItem == false) {
 		HighlightedItemID = -1;
 	}
-	
-
-#ifdef PREVHIGHLIGHT
-	char textOnGround[256];
-	for (int i = 0; i < CountItemsOnMap; i++) {
-		Item& item = ItemsOnGround[MapItemsFreeIndexes[i + 1]];
-		int row = item.MapRow - PlayerRowPos;
-		int col = item.MapCol - PlayerColPos;
-
-		// items on ground name highlighting (Qndel)
-		if (item.ItemCode == IC_11_GOLD) {
-			sprintf(textOnGround, "%i gold", item.QualityLevel);
-		}
-		else {
-			sprintf(textOnGround, "%s", item.Identified ? item.FullMagicalItemName : item.Name);
-		}
-		int x2 = 32 * (row - col) + (200 * (PlayerMovedX + PlayerShiftY) / 100 >> 1) + Xofs;
-		int y2 = 16 * (row + col) + (200 * (PlayerMovedY + PlayerShiftX) / 100 >> 1) + Yofs - 16;
-		int centerXOffset = GetTextWidth(textOnGround) / 2; // offset to attempt to center the name above the item
-															// don't think that red square is needs (there is item outline and blue square already)
-															//AutomapDrawOneItem( x2, y2 + item.CelWidth / 8, 155 ); // drawing a red square on the item
-		int x = x2 - 64 - centerXOffset;
-		int y = y2 - 156;
-		if (x > -Screen_LeftBorder * 2 && x + centerXOffset < ScreenWidth + Screen_LeftBorder && y > -8 && y < ScreenHeight) {
-			DrawLevelInfoText(x, y, textOnGround, By(item.MagicLevel, C_0_White, C_1_Blue, C_3_Gold, C_4_Orange));
-		}
-	}
-#endif
 }
 
 
