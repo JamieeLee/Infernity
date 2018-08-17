@@ -206,6 +206,7 @@ void __cdecl AutomapZoomOut()
 int HighlightedItemID=-1;
 int HighlightedItemRow = -1;
 int HighlightedItemCol = -1;
+bool ShouldHighlightItems = false;
 void HighlightItemsNameOnMap()
 {
 	class drawingQueue
@@ -371,10 +372,15 @@ void HighlightItemsNameOnMap()
 		if(true){
 		//if (t.new_x > -Screen_LeftBorder * 2 && x3 + t.width / 2 < ScreenWidth + Screen_LeftBorder && y3 > 13 && y3 + 13 < ScreenHeight + Screen_TopEnd) {
 
-			
+			int drawXOffset = 0;
+			if (invflag || sbookflag)
+				drawXOffset -= 160;
+			if (chrflag || questlog)
+				drawXOffset += 160;
+
 			int bgcolor = 0;
 			int highlightY = t.new_y + 168;// -175;
-			int highlightX = t.new_x +319;
+			int highlightX = t.new_x +319+ drawXOffset;
 			if (MouseX >= highlightX && MouseX <= highlightX + t.width + 1 && MouseY >= highlightY && MouseY <= highlightY + t.height) {
 				bgcolor = 134;
 				HighlightedItemID = t.ItemID;
@@ -388,10 +394,10 @@ void HighlightItemsNameOnMap()
 			//DrawTransparentBackground(x3, y3, t.width + 1, t.height, 0, 0, bgcolor, bgcolor);
 			char color = By(t.magicLevel, COL_WHITE, COL_BLUE, COL_GOLD, COL_RED);
 			//DrawCustomText(t.new_x, t.new_y, 0, &t.text[0u], color);
-			int sx = t.new_x + 320;
+			int sx = t.new_x + 320 + drawXOffset;
 			int sy = t.new_y + 180;
 
-			int sx2 = t.new_x + 383;
+			int sx2 = t.new_x + 383 + drawXOffset;
 			int sy2 = t.new_y + 342;
 
 

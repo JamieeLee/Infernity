@@ -75,6 +75,9 @@ bool CanRun(int pnum);
 int MonstersInCombat(int pnum);
 int GetTextWidth(char* s);
 void PrintDebugInfo();
+void PrintInCombat();
+int GetItemColor(int index);
+int GetItemHighlightColor(int index);
 void CheckInvSwitchButtons();
 bool SwitchInvTab(int newTab);
 void DrawTransparentBackground(int xPos, int yPos, int width, int height, int borderX, int borderY, uchar backgroundColor, uchar borderColor);
@@ -94,6 +97,7 @@ extern bool showDebugInfo;
 extern int HighlightedItemID;
 extern int HighlightedItemRow;
 extern int HighlightedItemCol;
+extern bool ShouldHighlightItems;
 
 // try versioning struct size
 #define countof( a ) __crt_countof( a ) 

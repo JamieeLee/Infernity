@@ -1894,6 +1894,16 @@ void PrintDebugInfo() {
 	}
 }
 
+void PrintInCombat() {
+	int mc = MonstersInCombat(myplr);
+	if (mc > 0 ){
+		std::stringstream ss;
+		ss << "enemies: " << mc;
+		PrintGameStr(550, 17, "In combat!", COL_RED);
+		PrintGameStr(550, 30, (char*)ss.str().c_str(), COL_RED);
+	}
+}
+
 void DrawXpBar()
 {
 	PlayerStruct *player = &plr[myplr];

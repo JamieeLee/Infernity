@@ -935,19 +935,17 @@ LABEL_48:
 		CheckLvlBtn();
 	if ( lvlbtndown )
 		return 0;
+
+	if (HighlightedItemID != -1)
+	{
+		_LOWORD(v3) = HighlightedItemID;
+		NetSendCmdLocParam1(1u, (invflag == 0) + CMD_GOTOGETITEM, HighlightedItemRow, HighlightedItemCol, v3);
+		return 0;
+	}
 	if ( leveltype != DTYPE_TOWN )
 	{
 		v7 = abs(plr[myplr].WorldX - cursmx) < 2 && abs(plr[myplr].WorldY - cursmy) < 2;
 		_HIWORD(v8) = _HIWORD(pcurs);
-
-		if (HighlightedItemID != -1)
-		{
-			_LOWORD(v3) = HighlightedItemID;
-			NetSendCmdLocParam1(1u, (invflag == 0) + CMD_GOTOGETITEM, HighlightedItemRow, HighlightedItemCol, v3);
-			return 0;
-		}
-
-
 		if (pcursitem != -1 && pcurs == 1 && v1 != 5 )
 		{
 				_LOWORD(v8) = pcursitem;

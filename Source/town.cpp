@@ -166,16 +166,10 @@ void __fastcall town_draw_clipped_town(void *unused, int x, int y, int sx, int s
 		v9 = v8 - 1;
 		v10 = v9;
 		v11 = sx - item[v10]._iAnimWidth2;
-		if ( v9 == pcursitem )
-			CelDrawHdrClrHL(
-				181,
-				v11,
-				sy,
-				(char *)item[v10]._iAnimData,
-				item[v10]._iAnimFrame,
-				item[v10]._iAnimWidth,
-				0,
-				8);
+		if (v9 == pcursitem || ShouldHighlightItems) {
+			int color = GetItemHighlightColor(v9);
+			CelDrawHdrClrHL(color,v11,sy,(char *)item[v10]._iAnimData,item[v10]._iAnimFrame,item[v10]._iAnimWidth,0,8);// was 181
+		}
 		Cel2DrawHdrOnly(v11, sy, (char *)item[v10]._iAnimData, item[v10]._iAnimFrame, item[v10]._iAnimWidth, 0, 8);
 	}
 	if ( dFlags[0][v7] & 0x10 )
@@ -466,16 +460,10 @@ void __fastcall town_draw_clipped_town_2(int x, int y, int a3, int a4, int a5, i
 		v11 = v10 - 1;
 		v12 = v11;
 		v13 = sx - item[v12]._iAnimWidth2;
-		if ( v11 == pcursitem )
-			CelDrawHdrClrHL(
-				181,
-				v13,
-				sy,
-				(char *)item[v12]._iAnimData,
-				item[v12]._iAnimFrame,
-				item[v12]._iAnimWidth,
-				a5,
-				8);
+		if (v11 == pcursitem || ShouldHighlightItems) {
+			int color = GetItemHighlightColor(v11);
+			CelDrawHdrClrHL(color,v13,sy,(char *)item[v12]._iAnimData,item[v12]._iAnimFrame,item[v12]._iAnimWidth,a5,8);//was 181
+		}
 		Cel2DrawHdrOnly(v13, sy, (char *)item[v12]._iAnimData, item[v12]._iAnimFrame, item[v12]._iAnimWidth, a5, 8);
 	}
 	if ( dFlags[0][v9] & 0x10 )
@@ -759,8 +747,10 @@ void __fastcall town_draw_town_all(void *buffer, int x, int y, int a4, int dir, 
 	{
 		id = dItem[x][y] - 1;
 		xx = sx - item[id]._iAnimWidth2;
-		if ( id == pcursitem )
-			CelDecodeClr(181, xx, sy, (char *)item[id]._iAnimData, item[id]._iAnimFrame, item[id]._iAnimWidth, 0, dir);
+		if (id == pcursitem || ShouldHighlightItems) {
+			int color = GetItemHighlightColor(id);
+			CelDecodeClr(color, xx, sy, (char *)item[id]._iAnimData, item[id]._iAnimFrame, item[id]._iAnimWidth, 0, dir);//was 181
+		}
 		CelDrawHdrOnly(xx, sy, (char *)item[id]._iAnimData, item[id]._iAnimFrame, item[id]._iAnimWidth, 0, dir);
 	}
 	if ( dFlags[x][y] & 0x10 )
@@ -1303,6 +1293,10 @@ void __fastcall T_DrawView(int StartX, int StartY)
 		T_DrawZoom(StartX, StartY);
 	if ( automapflag )
 		DrawAutomap();
+	ShouldHighlightItems = ((GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && !(GetAsyncKeyState(VK_MENU) < 0)) || (!GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && (GetAsyncKeyState(VK_MENU) < 0)));
+	if (ShouldHighlightItems) {// alt pressed
+		HighlightItemsNameOnMap();
+	}
 	if ( stextflag && !qtextflag )
 		DrawSText();
 	if ( invflag )
