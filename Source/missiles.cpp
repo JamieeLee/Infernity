@@ -1443,6 +1443,8 @@ bool __fastcall MonsterMHit(int pnum, int m, int mindam, int maxdam, int dist, i
 	v21 = pnuma;
 	if (pnuma == myplr)
 		monster[v7]._mhitpoints -= v19;
+
+	DrawFloatingDamage(v19, monster[v7]._mx, monster[v7]._my, v7, COL_RED);
 	v22 = plr[v12]._pIFlags;
 	if (v22 & 8)
 		monster[v7]._mFlags |= 8u;

@@ -116,6 +116,174 @@ int calculateDistanceSquared(int x, int y, int xx, int yy) {
 
 }
 unsigned char fix[9] = { 0u, 0u, 3u, 3u, 3u, 6u, 6u, 6u, 8u }; /* PM_ChangeLightOff local type */
+
+
+
+std::vector<FloatingText> FloatingTextQueue;
+void DrawFloatingTextAbovePlayer() {
+	if (GetConfigBoolVariable("showFloatingTexts") == false) {
+		return;
+	}
+	float DurationOfTextInSeconds = 2;
+	int PercentOfTheScreenToTravel = 20;
+	int percentToMerge = 80;
+	int ScreenWidth = 640;
+	int ScreenHeight = 480;
+	int MaxFPS = 20;
+
+
+	std::vector<int> indexes;
+	if (FloatingTextQueue.size() > 1 && indexes.size() == 0) {
+		indexes.push_back(FloatingTextQueue.size() - 1);
+	}
+	for (;;) {
+		if (!GetConfigBoolVariable("mergeFloatingTexts")) {
+			break;
+		}
+		for (uint j = 0; j<indexes.size(); ++j) {
+			FloatingText lastElem = FloatingTextQueue[indexes[j]];
+			if (lastElem.callerID != -1) {
+				for (uint i = 0; i < FloatingTextQueue.size() - 2; ++i) {
+					if (i == indexes[j]) {
+						continue;
+					}
+					if (lastElem.description == FloatingTextQueue[i].description && lastElem.callerID == FloatingTextQueue[i].callerID) {
+						if (abs(lastElem.iterations - FloatingTextQueue[i].iterations) < (MaxFPS*DurationOfTextInSeconds*percentToMerge / 100) && FloatingTextQueue[i].iterations < (int)((float)MaxFPS*DurationOfTextInSeconds)) {
+							indexes.push_back(i);
+							//merged = true;
+							FloatingTextQueue[i].value += lastElem.value;
+							FloatingTextQueue[indexes[j]].iterations = 9999999;
+							//FloatingTextQueue.pop_back();
+							//IronmanLevelCleared();
+							//break;
+						}
+					}
+				}
+			}
+			indexes.erase(indexes.begin() + j);
+		}
+		if (indexes.size() == 0) {
+			break;
+		}
+	}
+	for (int i = FloatingTextQueue.size() - 1; i >= 0; --i) {
+		std::string text = FloatingTextQueue[i].text;
+		int val = FloatingTextQueue[i].value;
+		int iterations = FloatingTextQueue[i].iterations;
+		int color = FloatingTextQueue[i].color;
+		if (iterations < (int)((float)MaxFPS*DurationOfTextInSeconds)) {
+			int x, y;
+
+
+			int walkStandX = ScrollInfo._sxoff;// +plr[myplr]._pyoff;
+			int walkStandY = ScrollInfo._syoff;// +plr[myplr]._pxoff;
+
+			if (plr[myplr]._pmode == PM_WALK2 && ScrollInfo._sdir == 4) {
+				walkStandX += 32;
+				walkStandY += 16;
+			}
+			else if (plr[myplr]._pmode == PM_WALK2 && ScrollInfo._sdir == 5) {
+				walkStandY += 32;
+			}
+
+			else if (plr[myplr]._pmode == PM_WALK2 && ScrollInfo._sdir == 6) {
+				walkStandX += -32;
+				walkStandY += 16;
+			}
+
+	
+
+
+
+			if (FloatingTextQueue[i].showOnCenter == true) {
+				x = 320 - GetTextWidth((char*)text.c_str()) / 2; //(ScreenWidth - GetTextWidth((char*)text.c_str())) / 2;
+				y = 160; //int((float)ScreenHeight / 2.3);
+			}
+			else {
+				x = FloatingTextQueue[i].posX;
+				y = FloatingTextQueue[i].posY;
+				int row = FloatingTextQueue[i].posX - plr[myplr].WorldX;
+				int col = FloatingTextQueue[i].posY - plr[myplr].WorldY;
+				int PlayerShiftY = 0;
+				int PlayerShiftX = 0;
+				x = 32 * (row - col) + (200 * (walkStandX) / 100 >> 1) - GetTextWidth((char*)text.c_str()) / 2;
+				y = 16 * (row + col) + (200 * (walkStandY) / 100 >> 1)  - 16;
+
+
+				int drawXOffset = 0;
+				if (invflag || sbookflag)
+					drawXOffset -= 160;
+				if (chrflag || questlog)
+					drawXOffset += 160;
+				x = x + 320 + drawXOffset;
+				y = y + 180;
+			}
+			double PI = 3.14159265;
+			double DistanceToTravel = ScreenHeight * PercentOfTheScreenToTravel / 100;
+			//y = ax + b
+			//a = tangent(angle)
+			double radian_angle = FloatingTextQueue[i].angle * PI / 180.0;
+			int dest_x = x + int(DistanceToTravel * cos(radian_angle));
+			int dest_y = y + int(DistanceToTravel * sin(radian_angle));
+			double a = tan(radian_angle);
+			double b = y - a * x;
+			double progress = iterations / (MaxFPS * DurationOfTextInSeconds);
+			int diff_x = dest_x - x;
+			int diff_y = dest_y - y;
+
+			int drawx = x - int(progress * diff_x);
+			int drawy = y - int(progress * diff_y);
+			if (drawx > 0 && drawy < ScreenWidth && drawy > 0 && drawy < ScreenHeight) {
+				char bfr[256];
+
+				//int callerID;
+				//int value;
+				//string description;
+				sprintf(bfr, text.c_str(), val);
+				PrintGameStr(drawx, drawy, bfr, color);
+			}
+			FloatingTextQueue[i].IncreaseIterations();
+		}
+		else {
+			FloatingTextQueue.erase(FloatingTextQueue.begin() + i);
+		}
+	}
+}
+void DrawFloatingExp(int xpGain, int row, int col) {
+	if (GetConfigBoolVariable("showFloatingExp")) {
+		if (GetConfigBoolVariable("showFloatingExpPercentGain")) {
+			PlayerStruct* player = &plr[myplr];
+			float levelProgress = 0;
+			int charLevel = player->_pLevel;
+			if (charLevel != 50) {
+				int curXp = ExpLvlsTbl[charLevel];
+				int prevXp = ExpLvlsTbl[charLevel - 1];
+				int prevXpDelta = curXp - prevXp;
+				int prevXpDelta_1 = xpGain;
+				levelProgress = (float)prevXpDelta_1 * 100 / (float)prevXpDelta;
+			}
+			char buff[10];
+			sprintf(buff, "%.2f", levelProgress);
+			std::stringstream ss;
+			ss << "+ %i XP (" << buff << "%%)";
+			FloatingTextQueue.push_back(FloatingText(ss.str(), COL_WHITE, row, col, false, -1, "gainXP", xpGain));
+		}
+		else {
+			FloatingTextQueue.push_back(FloatingText("+ %i XP", COL_WHITE, row, col, false, -1, "gainXP", xpGain));
+		}
+	}
+}
+
+void DrawFloatingDamage(int damage, int row, int col, int callerID, int color) {
+	if (GetConfigBoolVariable("showFloatingDamage") == false) {
+		return;
+	}
+	damage >>= 6;
+	//if (abs(damage) > ReceivedDamageThreshold) {
+		FloatingTextQueue.push_back(FloatingText("- %i HP", color, row, col, false, callerID, "damageDealtToMonster", abs(damage)));
+	//}
+}
+
 int MonstersInCombat(int pnum) {
 	int ret = 0;
 	for (int i = 4; i < 200; ++i) {
@@ -978,7 +1146,7 @@ void __fastcall NextPlrLevel(int pnum)
 }
 // 679660: using guessed type char gbMaxPlayers;
 
-void __fastcall AddPlrExperience(int pnum, int lvl, int exp)
+void __fastcall AddPlrExperience(int pnum, int lvl, int exp, int x, int y)
 {
 	int v3; // eax
 	int v4; // esi
@@ -1033,6 +1201,8 @@ void __fastcall AddPlrExperience(int pnum, int lvl, int exp)
 			}
 			v10 = &plr[v5]._pExperience;
 			*v10 += v7;
+			DrawFloatingExp(v7, x,y);
+
 			if ( plr[v5]._pExperience > MAXEXP )
 				*v10 = MAXEXP;
 			v11 = *v10;
@@ -1070,7 +1240,7 @@ void __fastcall AddPlrExperience(int pnum, int lvl, int exp)
 }
 // 679660: using guessed type char gbMaxPlayers;
 
-void __fastcall AddPlrMonstExper(int lvl, int exp, char pmask)
+void __fastcall AddPlrMonstExper(int lvl, int exp, char pmask, int x, int y)
 {
 	int v3; // ebx
 	int v4; // edi
@@ -1091,7 +1261,7 @@ void __fastcall AddPlrMonstExper(int lvl, int exp, char pmask)
 		//qndel - shared xp? 
 		//if ( (1 << myplr) & pmask )
 		v4 = 1;//xp not divided anymore
-			AddPlrExperience(myplr, v3, exp / v4);
+			AddPlrExperience(myplr, v3, exp / v4,x,y);
 	}
 }
 
@@ -3422,6 +3592,7 @@ LABEL_40:
 		v26 = v19 << 6;
 		if ( pnuma == myplr )
 			*(int *)((char *)&monster[0]._mhitpoints + v5) -= v26;
+		DrawFloatingDamage(v26, monster[m]._mx, monster[m]._my, m, COL_RED);
 		if ( v24 & 2 )
 		{
 			v27 = random(7, v26 >> 3);

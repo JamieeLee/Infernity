@@ -709,7 +709,7 @@ void __fastcall DrawView(int StartX, int StartY)
 	DrawInfoBox();
 	DrawLifeFlask();
 	DrawManaFlask();
-
+	DrawFloatingTextAbovePlayer();
 	if (pcursmonst != -1 && GetConfigBoolVariable("drawHealthBar")) {
 		DrawMonsterHealthBar(pcursmonst);
 	}

@@ -80,9 +80,12 @@ int GetItemColor(int index);
 int GetItemHighlightColor(int index);
 void CheckInvSwitchButtons();
 bool SwitchInvTab(int newTab);
+void DrawFloatingTextAbovePlayer();
+void DrawFloatingExp(int xpGain, int row, int col);
+void DrawFloatingDamage(int damage, int row, int col, int callerID, int color = COL_GOLD);
 void DrawTransparentBackground(int xPos, int yPos, int width, int height, int borderX, int borderY, uchar backgroundColor, uchar borderColor);
 template<typename T, typename... V> __forceinline T By(size_t i, T first, V... rest) { T val[] = { first, (T)rest... }; return val[i <= sizeof...(rest) ? i : sizeof...(rest)]; }
-
+extern std::vector<FloatingText> FloatingTextQueue;
 
 
 extern std::map<std::string, bool> BoolConfig;

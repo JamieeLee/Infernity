@@ -2843,8 +2843,9 @@ void __fastcall MonstStartKill(int i, int pnum, unsigned char sendmsg)
 		TermMsg("MonstStartKill: Monster %d \"%s\" MType NULL", v3, monster[v5].mName);
 	if ( v4 >= 0 )
 		monster[v5].mWhoHit |= 1 << v4;
-	if ( v4 < 4 && v3 > 4 )
-		AddPlrMonstExper(SLOBYTE(monster[v5].mLevel), (unsigned short)monster[v5].mExp, monster[v5].mWhoHit);
+	if (v4 < 4 && v3 > 4) {
+		AddPlrMonstExper(SLOBYTE(monster[v5].mLevel), (unsigned short)monster[v5].mExp, monster[v5].mWhoHit, monster[v5]._mx, monster[v5]._my);
+	}
 	v6 = monster[v5]._mRndSeed;
 	v7 = monster[v5].MType->mtype;
 	monster[v5]._mhitpoints = 0;
@@ -2925,7 +2926,7 @@ void __fastcall M2MStartKill(int i, int mid)
 	NetSendCmdLocParam1(0, CMD_MONSTDEATH, monster[v4]._mx, monster[v4]._my, v3);
 	monster[v4].mWhoHit |= 1 << v2;
 	if ( v2 < 4 )
-		AddPlrMonstExper(SLOBYTE(monster[v4].mLevel), (unsigned short)monster[v4].mExp, monster[v3].mWhoHit);
+		AddPlrMonstExper(SLOBYTE(monster[v4].mLevel), (unsigned short)monster[v4].mExp, monster[v3].mWhoHit, monster[v4]._mx, monster[v4]._my);
 	v5 = monster[v4]._mRndSeed;
 	v6 = monster[v4].MType->mtype;
 	monster[v4]._mhitpoints = 0;
