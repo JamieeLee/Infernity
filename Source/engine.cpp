@@ -1889,7 +1889,7 @@ void RevealMapByOtherPlayers(int x, int y, int pnum) {
 void PrintDebugInfo() {
 	if (showDebugInfo) {
 		std::stringstream ss;
-		ss << "debuginfo: " << (int)plr[myplr]._pmode << " SHIFTX " << PlayerShiftX << " SHIFTY " << PlayerShiftY << " DIR " << ScrollInfo._sdir;
+		ss << "debuginfo: " << sizeof(PlayerStruct);
 		PrintGameStr(50, 200, (char*)ss.str().c_str(), COL_WHITE);
 	}
 }

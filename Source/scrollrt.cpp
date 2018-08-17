@@ -667,6 +667,10 @@ void __fastcall DrawView(int StartX, int StartY)
 	if (ShouldHighlightItems) {// alt pressed
 		HighlightItemsNameOnMap();
 	}
+	DrawFloatingTextAbovePlayer();
+	if (pcursmonst != -1 && GetConfigBoolVariable("drawHealthBar")) {
+		DrawMonsterHealthBar(pcursmonst);
+	}
 	//else HighlightedItem.ItemID = -1;
 
 	if ( invflag )
@@ -709,10 +713,6 @@ void __fastcall DrawView(int StartX, int StartY)
 	DrawInfoBox();
 	DrawLifeFlask();
 	DrawManaFlask();
-	DrawFloatingTextAbovePlayer();
-	if (pcursmonst != -1 && GetConfigBoolVariable("drawHealthBar")) {
-		DrawMonsterHealthBar(pcursmonst);
-	}
 }
 // 4B84DC: using guessed type int dropGoldFlag;
 // 4B8968: using guessed type int sbookflag;

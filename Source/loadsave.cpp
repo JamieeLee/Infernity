@@ -385,6 +385,7 @@ void __fastcall LoadGame(bool firstflag)
 	automapflag = OLoad();
 	AutoMapScale = ILoad();
 	mem_free_dbg(ptr);
+	tbuff = 0; // fix crash plz
 	AutomapZoomReset();
 	ResyncQuests();
 	if ( leveltype )
@@ -603,7 +604,7 @@ void __cdecl SaveGame()
 	int v47; // [esp+114h] [ebp-4h]
 
 	//v0 = codec_get_encoded_len(262147); /* FILEBUFF */
-	v0 = codec_get_encoded_len(262147 + StructSize<PlayerStruct>() - 21720); /* FILEBUFF *///sizeof(PlayerStruct)
+	v0 = codec_get_encoded_len(262147 +StructSize<PlayerStruct>() - 21720); /* FILEBUFF *///sizeof(PlayerStruct)
 	ptr = DiabloAllocPtr(v0);
 	tbuff = ptr;
 	SaveVersion = CurVersion; // for buffer save/load 
@@ -910,6 +911,18 @@ void __cdecl SaveGame()
 	v43 = ptr;
 	v44 = codec_get_encoded_len((_BYTE *)tbuff - (_BYTE *)ptr);
 	pfile_write_save_file(v45, v43, (_BYTE *)tbuff - (_BYTE *)v43, v44);
+
+	{
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "save game\n";
+		outfile << "first encoded len: " << v0 << "\n";
+		outfile << "second encoded len: " << v44 << "\n";
+		outfile << "normal len: " << ((_BYTE *)tbuff - (_BYTE *)v43) << "\n";
+		outfile << "should be: " << (262147 + StructSize<PlayerStruct>() - 21720) << "\n";
+		outfile << "end save game\n";
+		outfile.close();
+	}
 	mem_free_dbg(v43);
 	*(_DWORD *)&gbValidSaveFile = 1;
 	pfile_rename_temp_to_perm();

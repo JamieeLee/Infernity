@@ -128,8 +128,9 @@ void DrawFloatingTextAbovePlayer() {
 	int PercentOfTheScreenToTravel = 20;
 	int percentToMerge = 80;
 	int ScreenWidth = 640;
-	int ScreenHeight = 480;
+	int ScreenHeight = 350;
 	int MaxFPS = 20;
+	int minHeight = 0;
 
 
 	std::vector<int> indexes;
@@ -233,7 +234,7 @@ void DrawFloatingTextAbovePlayer() {
 
 			int drawx = x - int(progress * diff_x);
 			int drawy = y - int(progress * diff_y);
-			if (drawx > 0 && drawy < ScreenWidth && drawy > 0 && drawy < ScreenHeight) {
+			if (drawx > 0 && drawy < ScreenWidth && drawy > minHeight && drawy < ScreenHeight) {
 				char bfr[256];
 
 				//int callerID;

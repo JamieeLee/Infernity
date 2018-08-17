@@ -1760,8 +1760,7 @@ LABEL_27:
 					}
 					return;
 				case 'V':
-					FloatingTextQueue.push_back(FloatingText("+ %i XP", COL_WHITE, -1, -1, true, -1, "gainXP", 123));
-					//NetSendCmdString(1 << myplr, gszVersionNumber);
+					NetSendCmdString(1 << myplr, gszVersionNumber);
 					return;
 				case 'v': {
 					showDebugInfo = !showDebugInfo;
