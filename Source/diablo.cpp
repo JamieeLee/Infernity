@@ -939,12 +939,21 @@ LABEL_48:
 	{
 		v7 = abs(plr[myplr].WorldX - cursmx) < 2 && abs(plr[myplr].WorldY - cursmy) < 2;
 		_HIWORD(v8) = _HIWORD(pcurs);
-		if ( pcursitem != -1 && pcurs == 1 && v1 != 5 )
+
+		if (HighlightedItemID != -1)
 		{
-			_LOWORD(v8) = pcursitem;
-			NetSendCmdLocParam1(1u, (invflag == 0) + CMD_GOTOGETITEM, cursmx, cursmy, v8);
+			_LOWORD(v3) = HighlightedItemID;
+			NetSendCmdLocParam1(1u, (invflag == 0) + CMD_GOTOGETITEM, HighlightedItemRow, HighlightedItemCol, v3);
+			return 0;
+		}
+
+
+		if (pcursitem != -1 && pcurs == 1 && v1 != 5 )
+		{
+				_LOWORD(v8) = pcursitem;
+				NetSendCmdLocParam1(1u, (invflag == 0) + CMD_GOTOGETITEM, cursmx, cursmy, v8);
 LABEL_96:
-			if ( pcursitem != -1 )
+			if ( pcursitem != -1)
 				return 0;
 			v6 = pcursobj == -1;
 			goto LABEL_98;
@@ -1755,9 +1764,11 @@ LABEL_27:
 				case 'V':
 					NetSendCmdString(1 << myplr, gszVersionNumber);
 					return;
-				case 'v':
+				case 'v': {
+					showDebugInfo = !showDebugInfo;
 					NetSendCmdString(1 << myplr, gszProductName);
 					return;
+				}
 				case 'Z':
 				case 'z':
 					zoomflag = zoomflag == 0;

@@ -203,7 +203,9 @@ void __cdecl AutomapZoomOut()
 
 
 
-//CObjectUnderCursor HighlightedItem;
+int HighlightedItemID=-1;
+int HighlightedItemRow = -1;
+int HighlightedItemCol = -1;
 void HighlightItemsNameOnMap()
 {
 	class drawingQueue
@@ -252,41 +254,46 @@ void HighlightItemsNameOnMap()
 		else {
 			sprintf(textOnGround, "%s", item_local._iIdentified ? item_local._iIName : item_local._iName);
 		}
-		//ScrollInfo._syoff +
 
-		int ScreenWidth = 640;
-		int ScreenHeight = 480;
 
-		int GUI_Width = 640,
-			GUI_Height = 480,
-			GUI_PanelWidth = 320,
-			GUI_PanelHeight = GUI_Height - 128, //qndel - 110 from expanding inventory/char panel
-			GUI_MainPanelHeight = 144;
-	// calc screen ratio offset for automap and item higlighting
-	double h = double(ScreenHeight - GUI_MainPanelHeight) / double(GUI_Height - GUI_MainPanelHeight);
-	double w = double(ScreenWidth) / double(GUI_Width);
-	int Xofs = (ScreenWidth - ScreenWidth % 64) / 2 + Screen_LeftBorder;
-	int Screen_TopBorder = 88;
-	int Yofs = Screen_TopBorder + 80 - int(w * w + w) + int(double(ScreenHeight - GUI_MainPanelHeight) / 2.0 * (w / h));
-	int walkStandX = plr[myplr].WorldX;
-	int walkStandY = plr[myplr].WorldY;
-	if (plr[myplr]._pmode == PM_WALK3) {
-		walkStandX = ScrollInfo._sxoff +plr[myplr]._pyoff;
-		walkStandY = ScrollInfo._syoff + plr[myplr]._pxoff;
+	/*
+		if (sdir) {
+		switch (sdir) {
+		case 1:										x = 1;	break; 
+		case 2:	y = -2;	x = 1;	break;
+		case 3:  y = -2;						 				break; 
+		case 4:	y = -2;	x = -1;	break;
+		case 5:										x = -1; 	break;
+		case 6:	y = 2;	x = -1;	break;
+		case 7:  y = 2;						 				break;
+		case 8:	 y = 2;	x = 1;	break;
+		}
 	}
+		PlayerShiftX = x;
+		PlayerShiftY = y;
+	
+	*/
+		int walkStandX = ScrollInfo._sxoff;// +plr[myplr]._pyoff;
+		int walkStandY = ScrollInfo._syoff;// +plr[myplr]._pxoff;
 
-	int x2 = 32 * (row - col) + (200 * (walkStandX) / 100 >> 1) + AutoMapXOfs;
-	int y2 = 16 * (row + col) + (200 * (walkStandY) / 100 >> 1) - 16 + AutoMapYOfs;
+		if (plr[myplr]._pmode == PM_WALK2 && ScrollInfo._sdir == 4) {
+					walkStandX+=32;
+					walkStandY+= 16;
+				}
+		else if (plr[myplr]._pmode == PM_WALK2 && ScrollInfo._sdir == 5) {
+			walkStandY +=32;
+		}
 
-	//int x2 = 32 * (row - col) + (200 * (ScrollInfo._sxoff + PlayerShiftY) / 100 >> 1) +  AutoMapXOfs;
-	//int y2 = 16 * (row + col) + (200 * (ScrollInfo._syoff + PlayerShiftX) / 100 >> 1) - 16 + AutoMapYOfs;
+		else if(plr[myplr]._pmode == PM_WALK2 && ScrollInfo._sdir == 6) {
+			walkStandX += -32;
+			walkStandY += 16;
+		}
 
-		/*
-		int x2 = 32 * (row - col) + (200 * (PlayerMovedX + PlayerShiftY) / 100 >> 1) + Xofs;
-		int y2 = 16 * (row + col) + (200 * (PlayerMovedY + PlayerShiftX) / 100 >> 1) + Yofs - 16;
-		*/
+		int x2 = 32 * (row - col) + (200 * (walkStandX) / 100 >> 1);
+		int y2 = 16 * (row + col) + (200 * (walkStandY) / 100 >> 1) - 16;
+																		 //// / (CanRun(myplr) ? 2 : 1);
 		int centerXOffset = GetTextWidth(textOnGround) / 2; // offset to attempt to center the name above the item
-		int x = x2;// -96 - centerXOffset;
+		int x = x2 - centerXOffset;// -96 - centerXOffset;
 		int y = y2;
 		int x3 = x;// +95;
 		int y3 = y - 1;
@@ -364,27 +371,27 @@ void HighlightItemsNameOnMap()
 		if(true){
 		//if (t.new_x > -Screen_LeftBorder * 2 && x3 + t.width / 2 < ScreenWidth + Screen_LeftBorder && y3 > 13 && y3 + 13 < ScreenHeight + Screen_TopEnd) {
 
-			/*
+			
 			int bgcolor = 0;
-			int highlightY = t.new_y - 175;
-			int highlightX = t.new_x + 30;
-			if (CursorX >= highlightX && CursorX <= highlightX + t.width + 1 && CursorY >= highlightY && CursorY <= highlightY + t.height) {
+			int highlightY = t.new_y + 168;// -175;
+			int highlightX = t.new_x +319;
+			if (MouseX >= highlightX && MouseX <= highlightX + t.width + 1 && MouseY >= highlightY && MouseY <= highlightY + t.height) {
 				bgcolor = 134;
-				HighlightedItem.ItemID = t.ItemID;
-				HighlightedItem.Row = t.Row;
-				HighlightedItem.Col = t.Col;
+				HighlightedItemID = t.ItemID;
+				HighlightedItemRow = t.Row;
+				HighlightedItemCol = t.Col;
 				highlightItem = true;
 			}
-			*/
+			
 
 
 			//DrawTransparentBackground(x3, y3, t.width + 1, t.height, 0, 0, bgcolor, bgcolor);
 			char color = By(t.magicLevel, COL_WHITE, COL_BLUE, COL_GOLD, COL_RED);
 			//DrawCustomText(t.new_x, t.new_y, 0, &t.text[0u], color);
-			int sx = t.new_x + 320 - t.width / 2;
+			int sx = t.new_x + 320;
 			int sy = t.new_y + 180;
 
-			int sx2 = t.new_x + 383 - t.width / 2;
+			int sx2 = t.new_x + 383;
 			int sy2 = t.new_y + 342;
 
 
@@ -400,11 +407,11 @@ void HighlightItemsNameOnMap()
 			//ADD_PlrStringXY(t.new_x, t.new_y, GetTextWidth(&t.text[0]), &t.text[0u], color);
 		}
 	}
-	/*
+	
 	if (highlightItem == false) {
-		HighlightedItem.ItemID = -1;
+		HighlightedItemID = -1;
 	}
-	*/
+	
 
 #ifdef PREVHIGHLIGHT
 	char textOnGround[256];

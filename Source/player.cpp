@@ -23,6 +23,7 @@ int plr_dframe_size; // idb
 
 int PlayerShiftX = 0;
 int PlayerShiftY = 0;
+bool showDebugInfo = false;
 
 int player_inf = 0x7F800000; // weak
 char ArmourChar[4] = { 'L', 'M', 'H', 0 };
@@ -1654,8 +1655,6 @@ void __fastcall PM_ChangeOffset(int pnum)
 	{
 		ScrollInfo._sxoff += (old_pvar6 >> 8) - (plr[pnum]._pxoff);
 		ScrollInfo._syoff += (old_pvar7 >> 8) - (plr[pnum]._pyoff);
-		PlayerShiftX = (old_pvar6 >> 8) - (plr[pnum]._pxoff);;
-		PlayerShiftY = (old_pvar7 >> 8) - (plr[pnum]._pyoff);;
 	}
 	PM_ChangeLightOff(pnum);
 }
@@ -1833,6 +1832,7 @@ void __fastcall StartWalk2(int pnum, int xvel, int yvel, int xoff, int yoff, int
 		if ( EndDir == 7 )
 			v19 = 1;
 		InitPlayerLoc(arglist, v19);
+
 		if ( arglist == myplr )
 		{
 			if ( zoomflag )

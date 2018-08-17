@@ -723,6 +723,7 @@ void __fastcall DrawView(int StartX, int StartY)
 // 646D00: using guessed type char qtextflag;
 // 69BD04: using guessed type int questlog;
 
+
 void __fastcall DrawGame(int x, int y)
 {
 	int v2; // esi
@@ -804,6 +805,7 @@ LABEL_15:
 		default:
 			break;
 	}
+
 	a6 = 0;
 	screen_buf_end = (int)gpBuffer + screen_y_times_768[160];
 	do

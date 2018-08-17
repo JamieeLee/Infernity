@@ -90,6 +90,10 @@ extern uint CurVersion;
 extern int bullshitStructSize;
 extern int PlayerShiftX;
 extern int PlayerShiftY;
+extern bool showDebugInfo;
+extern int HighlightedItemID;
+extern int HighlightedItemRow;
+extern int HighlightedItemCol;
 
 // try versioning struct size
 #define countof( a ) __crt_countof( a ) 
