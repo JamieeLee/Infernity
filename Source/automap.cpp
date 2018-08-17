@@ -252,8 +252,39 @@ void HighlightItemsNameOnMap()
 		else {
 			sprintf(textOnGround, "%s", item_local._iIdentified ? item_local._iIName : item_local._iName);
 		}
-		int x2 = 32 * (row - col);// +(200 * ScrollInfo._sxoff / 100 >> 1) + AutoMapXOfs;
-		int y2 = 16 * (row + col);// +(200 * ScrollInfo._syoff / 100 >> 1) + AutoMapYOfs - 16;
+		//ScrollInfo._syoff +
+
+		int ScreenWidth = 640;
+		int ScreenHeight = 480;
+
+		int GUI_Width = 640,
+			GUI_Height = 480,
+			GUI_PanelWidth = 320,
+			GUI_PanelHeight = GUI_Height - 128, //qndel - 110 from expanding inventory/char panel
+			GUI_MainPanelHeight = 144;
+	// calc screen ratio offset for automap and item higlighting
+	double h = double(ScreenHeight - GUI_MainPanelHeight) / double(GUI_Height - GUI_MainPanelHeight);
+	double w = double(ScreenWidth) / double(GUI_Width);
+	int Xofs = (ScreenWidth - ScreenWidth % 64) / 2 + Screen_LeftBorder;
+	int Screen_TopBorder = 88;
+	int Yofs = Screen_TopBorder + 80 - int(w * w + w) + int(double(ScreenHeight - GUI_MainPanelHeight) / 2.0 * (w / h));
+	int walkStandX = plr[myplr].WorldX;
+	int walkStandY = plr[myplr].WorldY;
+	if (plr[myplr]._pmode == PM_WALK3) {
+		walkStandX = ScrollInfo._sxoff +plr[myplr]._pyoff;
+		walkStandY = ScrollInfo._syoff + plr[myplr]._pxoff;
+	}
+
+	int x2 = 32 * (row - col) + (200 * (walkStandX) / 100 >> 1) + AutoMapXOfs;
+	int y2 = 16 * (row + col) + (200 * (walkStandY) / 100 >> 1) - 16 + AutoMapYOfs;
+
+	//int x2 = 32 * (row - col) + (200 * (ScrollInfo._sxoff + PlayerShiftY) / 100 >> 1) +  AutoMapXOfs;
+	//int y2 = 16 * (row + col) + (200 * (ScrollInfo._syoff + PlayerShiftX) / 100 >> 1) - 16 + AutoMapYOfs;
+
+		/*
+		int x2 = 32 * (row - col) + (200 * (PlayerMovedX + PlayerShiftY) / 100 >> 1) + Xofs;
+		int y2 = 16 * (row + col) + (200 * (PlayerMovedY + PlayerShiftX) / 100 >> 1) + Yofs - 16;
+		*/
 		int centerXOffset = GetTextWidth(textOnGround) / 2; // offset to attempt to center the name above the item
 		int x = x2;// -96 - centerXOffset;
 		int y = y2;
@@ -261,7 +292,8 @@ void HighlightItemsNameOnMap()
 		int y3 = y - 1;
 		//if( x > -Screen_LeftBorder * 2 && x + centerXOffset < ScreenWidth + Screen_LeftBorder && y > -8 && y < ScreenHeight ){
 		//if (x > -Screen_LeftBorder * 2 && x3 + centerXOffset < ScreenWidth + Screen_LeftBorder && y3 > 13 && y3 + 13 < ScreenHeight + Screen_TopEnd) {
-		if(true){
+		//if(x >= 0 && x <= 640 && y >= 0 && y <= 480){
+			if(true){
 			// add to drawing queue
 			//DrawLevelInfoText( x, y, textOnGround, By( item.MagicLevel, C_0_White, C_1_Blue, C_3_Gold, C_4_Orange) );
 			std::string t2(textOnGround);

@@ -88,6 +88,8 @@ extern int maxGoldPile;
 extern uint SaveVersion;
 extern uint CurVersion;
 extern int bullshitStructSize;
+extern int PlayerShiftX;
+extern int PlayerShiftY;
 
 // try versioning struct size
 #define countof( a ) __crt_countof( a ) 
