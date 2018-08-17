@@ -28,13 +28,12 @@ I will order a pizza and think about you while eating ;)
 - Add monster resistances/immunities on the health bar
 - Show other players on minimap
 - Items won't drop on death
+- Fix friendly fire
 - Diablo is a unique monster and drops items - more on higher difficulties
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
 - Fixing possible overflows in monster AC/to hit/etc. on difficulties above normal.
-- Fix friendly fire
-
 
 ![Too much text? Here's a cat to keep you going](https://laughingsquid.com/wp-content/uploads/2013/05/57136754_o1.jpg "Can has kitten")
 
