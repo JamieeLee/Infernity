@@ -1430,6 +1430,12 @@ bool __fastcall MonsterMHit(int pnum, int m, int mindam, int maxdam, int dist, i
 		else
 			v19 = (plr[v12]._pDamageMod >> 1) + v20;
 	}
+
+	if (plr[v12]._pIFlags & 0x40000000 && monster[v7].MData->mMonstClass == 1) {//civerb affix for missiles
+		v19 *= 3;
+	}
+
+
 	if (!(_BYTE)shift)
 		v19 <<= 6;
 	if (v26)
