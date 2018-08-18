@@ -1320,7 +1320,7 @@ LABEL_110:
 							case VK_F3:
 								if ( pcursitem != -1 )
 								{
-									sprintf(tempstr, "IDX = %i  :  Seed = %i  :  CF = %i, RARE=%d, CANBERARE=%d", item[pcursitem].IDidx, item[pcursitem]._iSeed, item[pcursitem]._iCreateInfo, IsItemRare(item[pcursitem].isRare, item[pcursitem].rareAffix),ShouldItemBeRare(item[pcursitem].isRare));
+									sprintf(tempstr, "IDX = %i  :  Seed = %i  :  CF = %i, RAFF=%d, PREF=%d, SUF=%d, CBR=%d", item[pcursitem].IDidx, item[pcursitem]._iSeed, item[pcursitem]._iCreateInfo, item[pcursitem].rareAffix,item[pcursitem]._iPrePower,item[pcursitem]._iSufPower,ShouldItemBeRare(item[pcursitem].isRare));
 									NetSendCmdString(1 << myplr, tempstr);
 								}
 								sprintf(tempstr, "Numitems : %i", numitems);

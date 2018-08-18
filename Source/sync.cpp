@@ -229,11 +229,12 @@ char __fastcall SyncPlrInv(TSyncHeader *pItem)
 	v6 = &plr[myplr].InvBody[sgnSyncPInv];
 	if ( v6->_itype == -1 )
 	{
-		_LOBYTE(pItem->dwItemBuff) = -1;
+		1;
+		//_LOBYTE(pItem->dwItemBuff) = -1;
 	}
 	else
 	{
-		_LOBYTE(pItem->dwItemBuff) = sgnSyncPInv;
+		//_LOBYTE(pItem->dwItemBuff) = sgnSyncPInv;
 		*(_WORD *)((char *)&pItem->dwItemBuff + 1) = v6->IDidx;
 		*(_WORD *)((char *)&pItem->dwItemBuff + 3) = v6->_iCreateInfo;
 		*(_DWORD *)(&pItem->bPInvLoc + 1) = v6->_iSeed;

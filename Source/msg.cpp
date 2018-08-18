@@ -809,8 +809,8 @@ void __cdecl DeltaLoadLevel()
 						v17 = *(unsigned short *)((char *)&sgLevels[0].item[0].wValue + v13);
 						v18 = *(int *)((char *)&sgLevels[0].item[0].dwSeed + v13);
 						_LOWORD(v13) = *(short *)((char *)&sgLevels[0].item[0].wCI + v13);
-						RecreateItem(v14, v16, v13, v18, v17, *(int *)((char *)&sgLevels[0].item[0].dwBuff + v13));
 						v19 = v8 + 4721 * currlevel;
+						RecreateItem(v14, v16, v13, v18, v17, *(int *)((char *)&sgLevels[0].item[0].dwBuff + v19));
 						if ( *(&sgLevels[0].item[0].bId + v19) )
 							item[v14]._iIdentified = 1;
 						v20 = v14;
