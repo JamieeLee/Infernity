@@ -4,19 +4,19 @@
 
 int diablo_cpp_init_value; // weak
 HWND ghMainWnd;
-int glMid1Seed[17];
-int glMid2Seed[17];
-int gnLevelTypeTbl[17];
+int glMid1Seed[NUMLEVELS];
+int glMid2Seed[NUMLEVELS];
+int gnLevelTypeTbl[NUMLEVELS];
 int MouseY; // idb
 int MouseX; // idb
 bool gbGameLoopStartup; // idb
-int glSeedTbl[17];
+int glSeedTbl[NUMLEVELS];
 int gbRunGame; // weak
-int glMid3Seed[17];
+int glMid3Seed[NUMLEVELS];
 int gbRunGameResult; // weak
 int zoomflag; // weak
 int gbProcessPlayers; // weak
-int glEndSeed[17];
+int glEndSeed[NUMLEVELS];
 int dword_5256E8; // weak
 HINSTANCE ghInst; // idb
 int DebugMonsters[10];
@@ -153,7 +153,7 @@ void __fastcall run_game_loop(int uMsg)
 	bool v5; // zf
 	//int v6; // eax
 	signed int v7; // [esp+8h] [ebp-24h]
-	LRESULT (__stdcall *saveProc)(HWND, UINT, WPARAM, LPARAM); // [esp+Ch] [ebp-20h]
+	WNDPROC saveProc; // [esp+Ch] [ebp-20h]
 	struct tagMSG msg; // [esp+10h] [ebp-1Ch]
 
 	nthread_ignore_mutex(1);
@@ -261,7 +261,7 @@ void __cdecl free_game()
 	FreeQuestText();
 	FreeStoreMem();
 
-	for(i = 0; i < 4; i++)
+	for(i = 0; i < MAX_PLRS; i++)
 		FreePlayerGFX(i);
 
 	FreeItemGFX();
@@ -662,16 +662,16 @@ LABEL_10:
 // 646D00: using guessed type char qtextflag;
 // 6AA705: using guessed type char stextflag;
 
-LRESULT __stdcall DisableInputWndProc(HWND hWnd, int uMsg, int wParam, int lParam)
+LRESULT __stdcall DisableInputWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	bool v5; // zf
 
-	if ( uMsg <= (unsigned int)WM_LBUTTONDOWN )
+	if ( uMsg <= WM_LBUTTONDOWN )
 	{
 		if ( uMsg != WM_LBUTTONDOWN )
 		{
-			if ( uMsg >= (unsigned int)WM_KEYFIRST
-			  && (uMsg <= (unsigned int)WM_CHAR
+			if ( uMsg >= WM_KEYFIRST
+			  && (uMsg <= WM_CHAR
 			   || uMsg == WM_SYSKEYDOWN
 			   || uMsg == WM_SYSCOMMAND
 			   || uMsg == WM_MOUSEFIRST) )
@@ -724,7 +724,7 @@ LABEL_23:
 }
 // 525748: using guessed type char sgbMouseDown;
 
-int __stdcall GM_Game(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT __stdcall GM_Game(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	if ( uMsg > WM_LBUTTONDOWN )
 	{
@@ -2040,7 +2040,7 @@ void __fastcall LoadGameLevel(bool firstflag, int lvldir)
 			GetPortalLvlPos();
 		IncProgress();
 
-		for(i = 0; i < 4; i++)
+		for(i = 0; i < MAX_PLRS; i++)
 		{
 			if ( plr[i].plractive )
 			{
@@ -2138,7 +2138,7 @@ LABEL_53:
 	if ( lvldir == 5 )
 		GetPortalLvlPos();
 
-	for(i = 0; i < 4; i++)
+	for(i = 0; i < MAX_PLRS; i++)
 	{
 		if ( plr[i].plractive )
 		{
@@ -2168,7 +2168,7 @@ LABEL_53:
 LABEL_72:
 	SyncPortals();
 
-	for(i = 0; i < 4; i++)
+	for(i = 0; i < MAX_PLRS; i++)
 	{
 		if ( plr[i].plractive && plr[i].plrlevel == currlevel && (!plr[i]._pLvlChanging || i == myplr) )
 		{
