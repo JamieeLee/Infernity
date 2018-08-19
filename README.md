@@ -38,7 +38,6 @@ I will order a pizza and think about you while eating ;)
 ![Too much text? Here's a cat to keep you going](https://laughingsquid.com/wp-content/uploads/2013/05/57136754_o1.jpg "Can has kitten")
 
 # Installing
-<<<<<<< HEAD
 - Get `infernity.exe` [here](https://github.com/qndel/Infernity/blob/master/Source/Infernity.exe)
 - Get `infernity_config.ini`  [here](https://github.com/qndel/Infernity/blob/master/Source/infernity_config.ini)
 - Create a file named `enable_inferno` in your diablo folder.
@@ -65,53 +64,6 @@ Some screenshots from the mod (You can find more screenshots on discord):
 ![Screenshot 2: Three affixes](https://cdn.discordapp.com/attachments/474387916043321364/474426181106794516/unknown.png "Three affixes")
 
 ![Screenshot 3: Shrines revealed](https://media.discordapp.net/attachments/474387916043321364/477974757116215306/unknown.png?width=460&height=936 "Shrines revealed!")
-=======
-Once compiled, the Devilution binary will serve as a replacement for `Diablo.exe`. The following files from the original game patched to 1.09(b) need to be present: `DIABDAT.MPQ`, `DiabloUI.dll`, `SmackW32.dll`, `Standard.snp`, and `Storm.dll`. If `COPYPROT` was defined when compiling, the Diablo CD will also be required.
-
-Additionally, Strange Bytes' [DirectDraw patch](http://www.strangebytes.com/index.php/projects/1-diablo-1-windows-7-vista-patch) is recommended to help fix compatibility issues and run the game in windowed mode.
-
-# Multiplayer
-TODO
-
-# Contributing
-[Guidelines](Support/CONTRIBUTING.md)
-
-# Modding
-Here are some screenshots of a few things I tinkered around with, to demonstrate the relative ease of improving the game:
-
-![Screenshot 1: Monster lifebar+items](https://s33.postimg.cc/6xnnhhlmn/diabuimon.png "Monster lifebar+items")
-
-![Screenshot 2: New trade screen](https://s22.postimg.cc/5i5k91vht/diabstore.png "New trade screen, items that couldn't spawn")
-
-# F.A.Q.
-> Wow, does this mean I can download and play Diablo for free now?
-
-No, you'll need access to the data from the original game. Blizzard has discontinued Diablo, but there's plenty of used copies floating around. (I'm still using an original 1996-disc in 2018 without problems)
-> Cool, so I fired your mod up, but there's no 1080p or new features?
-
-Devilution aims to keep the original code unaltered, for documentation purposes.
-> So will you ever add cross-platform support or new features in the future?
-
-Yes! However, this will be a **_side project_** based on Devilution. I have yet to announce the project.
-> When and what can I expect from the upcoming project?
-
-Honestly I have no idea. More than 1,200 hours went into creating Devilution, and I have other things going on right now. Maybe in 6-12 months? The goal is to create a native Linux port, convert to OpenGL, modernize the UI, etc. you get the drill. There has to be some surprises. ;)
-> Ok, so I'm playing Devilution now and all the sudden it crashed. NOW WHAT??
-
-Open an issue and provide as much information as possible (OS version, etc.) including any crash logs.
-> I thought I'd fix the crash myself, but after looking at the code its a disaster. Do you speak v2-34-v8?
-
-That is the result of decompiled code. Whenever a program is compiled, much of the source is optimized and stripped away, so it's nearly impossible to decompile it back. Have patience. Everything will be cleaned up eventually. :)
-> Will you be reverse engineering Diablo II next? Ooooh please!
-
-Absolutely not. Diablo II would require far more work and is still supported by Blizzard. Setting that aside, there are rumors that the game will be remastered which takes the point out of it.
-> Are you interested in working for me? I have this game I want you to reverse...
-
-Sorry, but no. This project is time consuming enough as it is, and it's just a hobby.
-> I think that's about all, but is Devilution even legal?
-
-That's a tricky question. Under the DMCA, reverse-engineering has exceptions for the purpose of documentation and interoperability. Devilution provides the necessary documentation needed to achieve the latter. However, it falls into an entirely gray area. The real question is whether or not Blizzard deems it necessary to take action.
->>>>>>> f3fc93491a15ac08e0c9986cabd659d32f51bfc7
 
 # Credits
 ## https://github.com/diasurgical/devilution - for the code
