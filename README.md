@@ -30,6 +30,7 @@ I will order a pizza and think about you while eating ;)
 - Items won't drop on death
 - Fix friendly fire
 - Diablo is a unique monster and drops items - more on higher difficulties
+- Showing current/max on health/mana orbs
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
