@@ -31,6 +31,7 @@ I will order a pizza and think about you while eating ;)
 - Fix friendly fire
 - Diablo is a unique monster and drops items - more on higher difficulties
 - Showing current/max on health/mana orbs
+- Alternate weapon slot + switching between weapons
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
@@ -57,6 +58,7 @@ I will order a pizza and think about you while eating ;)
 - 1.09 - The most important update so far, adds 4 tabs to inventory. You can switch by clicking or shift+1/2/3/4
 - 1.10 - fixed all bugs related to inventory/multiplayer - this will allow to expand the player  structure in the future (can add more stuff)
 - 1.11 - motion interpolation for highlighted items, clicking highlighted name will walk to item/pick it up if nearby
+- 1.12 - added alternate weapon slot and switching between weapons using 'v' hotkey
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
