@@ -8,7 +8,7 @@ Serious bugs (crash/fault)
 - TBA
 
 Minor bugs (noticeable but can be avoided)
-- Generation of Cathedral/Catacombs walls and floors are slightly inaccurate
+- Lighting of objects/items in dungeon is slightly lighter than it should be
 - Some tiles are drawn fully lit when they should be transparent `world.cpp`
 - Timed messages are broken and have been disabled `tmsg.cpp`
 - Server commands are broken and have been disabled `msgcmd.cpp`
