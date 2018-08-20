@@ -59,6 +59,7 @@ void ReloadConfig();
 bool GetConfigBoolVariable(std::string s);
 int GetConfigIntVariable(std::string s);
 void DrawXpBar();
+void DrawNumbersOnHealthMana();
 char GetAutomapTypeColor(int tx, int ty, bool view);
 void SetAutomapViewByOtherPlayer(int x, int y, int playerNum);
 void RevealMapByOtherPlayers(int x,int y,int playerNum);

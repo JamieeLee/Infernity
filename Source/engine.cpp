@@ -1904,6 +1904,40 @@ void PrintInCombat() {
 	}
 }
 
+void DrawNumbersOnHealthMana() {
+	int ScreenWidth = 640;
+	int ScreenHeight = 480;
+	if (GetConfigBoolVariable("showNumbersOnHealth")) {
+		string separator = "/";
+		stringstream curHP;
+		curHP << (plr[myplr]._pHitPoints >> 6);
+		stringstream maxHP;
+		maxHP << (plr[myplr]._pMaxHP >> 6);
+		int color = COL_WHITE;
+		if (plr[myplr]._pMaxHP == plr[myplr]._pHitPoints) {
+			color = COL_BLUE;
+		}
+		PrintGameStr(ScreenWidth / 2 - 182, ScreenHeight - 80, (char*)separator.c_str(), COL_WHITE);
+		PrintGameStr(ScreenWidth / 2 - 182 + GetTextWidth("/"), ScreenHeight - 80, (char*)maxHP.str().c_str(), color);
+		PrintGameStr(ScreenWidth / 2 - 182 - GetTextWidth((char*)curHP.str().c_str()), ScreenHeight - 80, (char*)curHP.str().c_str(), color);
+	}
+	if (GetConfigBoolVariable("showNumbersOnMana")) {
+		string separator = "/";
+		stringstream s_curMana;
+		s_curMana << (plr[myplr]._pMana >> 6);
+		stringstream s_maxMana;
+		s_maxMana << (plr[myplr]._pMaxMana >> 6);
+		int offset = 182;
+		int color = COL_WHITE;
+		if (plr[myplr]._pMana == plr[myplr]._pMaxMana) {
+			color = COL_BLUE;
+		}
+		PrintGameStr(ScreenWidth / 2 + offset, ScreenHeight - 80, (char*)separator.c_str(), COL_WHITE);
+		PrintGameStr(ScreenWidth / 2 + offset + GetTextWidth("/"), ScreenHeight - 80, (char*)s_maxMana.str().c_str(), color);
+		PrintGameStr(ScreenWidth / 2 + offset - GetTextWidth((char*)s_curMana.str().c_str()), ScreenHeight - 80, (char*)s_curMana.str().c_str(), color);
+	}
+
+}
 void DrawXpBar()
 {
 	PlayerStruct *player = &plr[myplr];

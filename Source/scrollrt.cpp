@@ -3626,6 +3626,7 @@ void __cdecl DrawAndBlit()
 		if ( drawsbarflag )
 			DrawInvBelt();
 		DrawXpBar();
+		DrawNumbersOnHealthMana();
 		PrintDebugInfo();
 		PrintInCombat();
 		if ( talkflag )
