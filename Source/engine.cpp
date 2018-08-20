@@ -1889,7 +1889,7 @@ void RevealMapByOtherPlayers(int x, int y, int pnum) {
 void PrintDebugInfo() {
 	if (showDebugInfo) {
 		std::stringstream ss;
-		ss << "debuginfo: " << sizeof(PlayerStruct);
+		ss << "debuginfo: " << sizeof(PlayerStruct) << " mx " << MouseX << " my: " << MouseY;
 		PrintGameStr(50, 200, (char*)ss.str().c_str(), COL_WHITE);
 	}
 }
@@ -1952,6 +1952,7 @@ void DrawXpBar()
 	int barRows = 3;
 	int yPos = 632;
 	int barColor = 242;/*242white, 142red, 200yellow, 182blue*/
+	int emptyBarColor = 0;
 	int frameColor = 242;
 	int dividerHeight = 4;
 
@@ -1964,6 +1965,18 @@ void DrawXpBar()
 		prevXpDelta_1 = player->_pExperience - prevXp;
 		if (player->_pExperience >= prevXp) {
 			visibleBar = barSize * (unsigned __int64)prevXpDelta_1 / prevXpDelta;
+
+			for (int i = 0; i < visibleBar; ++i) {
+				for (int j = 0; j < barRows; ++j) {
+					ColorPixel((768 - barSize) / 2 + i + offset, yPos - barRows / 2 + j, barColor);
+				}
+			}
+
+			for (int i = visibleBar; i < barSize; ++i) {
+				for (int j = 0; j < barRows; ++j) {
+					ColorPixel((768 - barSize) / 2 + i + offset, yPos - barRows / 2 + j, emptyBarColor);
+				}
+			}
 			//draw frame
 			//horizontal
 			for (int i = -1; i <= barSize; ++i) {
@@ -1983,11 +1996,6 @@ void DrawXpBar()
 				}
 			}
 			//draw frame
-			for (int i = 0; i < visibleBar; ++i) {
-				for (int j = 0; j < barRows; ++j) {
-					ColorPixel((768 - barSize) / 2 + i + offset, yPos - barRows/2+j, barColor);
-				}
-			}
 		}
 	}
 }

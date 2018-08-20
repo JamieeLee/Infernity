@@ -290,8 +290,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	diablo_reload_process(hInstance);
 #endif
 	ghInst = v4;
-	if ( RestrictedTest() )
-		ErrOkDlg(IDD_DIALOG10, 0, "C:\\Src\\Diablo\\Source\\DIABLO.CPP", 877);
+	if (RestrictedTest())
+		//ErrOkDlg(IDD_DIALOG10, 0, "C:\\Src\\Diablo\\Source\\DIABLO.CPP", 877);
+		1; // Disable that bullshit popup
 	if ( ReadOnlyTest() )
 	{
 		if ( !GetModuleFileNameA(ghInst, Filename, 0x104u) )
