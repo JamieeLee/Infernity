@@ -472,6 +472,11 @@ LABEL_11:
 							memcpy(v11, v6, sizeof(PkPlayerStruct2));
 							v13 = 1;
 						}
+						else if (dwBytes == sizeof(PkPlayerStruct3))
+						{
+							memcpy(v11, v6, sizeof(PkPlayerStruct3));
+							v13 = 1;
+						}
 						goto LABEL_13;
 					}
 				}

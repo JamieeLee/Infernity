@@ -1517,6 +1517,22 @@ void __cdecl diablo_pause_game()
 // 525740: using guessed type int PauseMode;
 // 679660: using guessed type char gbMaxPlayers;
 
+void SwitchWeapons() {
+	if (plr[myplr]._pmode != 1 && plr[myplr]._pmode != 2 && plr[myplr]._pmode != 3 && plr[myplr]._pmode != 8) {
+		ItemStruct wtf = plr[myplr].InvBody[4];
+		ItemStruct wtf2 = plr[myplr].InvBody[5];
+
+		qmemcpy(&plr[myplr].InvBody[4], &plr[myplr].alternateWeapons[0], StructSize<ItemStruct>());
+		qmemcpy(&plr[myplr].InvBody[5], &plr[myplr].alternateWeapons[1], StructSize<ItemStruct>());
+
+		qmemcpy(&plr[myplr].alternateWeapons[0], &wtf, StructSize<ItemStruct>());
+		qmemcpy(&plr[myplr].alternateWeapons[1], &wtf2, StructSize<ItemStruct>());
+		plr[myplr].currentWeaponSet = (plr[myplr].currentWeaponSet == 0 ? 1 : 0);
+		CalcPlrInv(myplr, 1);
+		PlaySFX(IS_TITLEMOV);
+	}
+}
+
 void __fastcall PressChar(int vkey)
 {
 	int v1; // ebx
@@ -1761,11 +1777,13 @@ LABEL_27:
 					}
 					return;
 				case 'V':
-					NetSendCmdString(1 << myplr, gszVersionNumber);
+					//NetSendCmdString(1 << myplr, gszVersionNumber);
+					showDebugInfo = !showDebugInfo;
 					return;
 				case 'v': {
-					showDebugInfo = !showDebugInfo;
-					NetSendCmdString(1 << myplr, gszProductName);
+					//showDebugInfo = !showDebugInfo;
+					//NetSendCmdString(1 << myplr, gszProductName);
+					SwitchWeapons();
 					return;
 				}
 				case 'Z':

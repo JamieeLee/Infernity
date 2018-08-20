@@ -102,7 +102,13 @@ void __fastcall PackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool manashi
 			//PackItem(pki++, pi++);
 			PackItem(&pPack->InvListExpanded[j][i], &pPlayer->InvListExpanded[j][i]);
 		}
+
+
 	}
+
+	PackItem(&pPack->alternateWeapons[0], &pPlayer->alternateWeapons[0]);
+	PackItem(&pPack->alternateWeapons[1], &pPlayer->alternateWeapons[1]);
+	pPack->currentWeaponSet = pPlayer->currentWeaponSet;
 
 	
 }
@@ -288,9 +294,19 @@ void __fastcall UnPackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool killo
 		}
 		//SwitchInvTab(pPack->currentInventoryIndex);
 	}
+
+	if (pPlayer->version > 1) {
+		pPlayer->currentWeaponSet = pPack->currentWeaponSet;
+		UnPackItem(&pPack->alternateWeapons[0], &pPlayer->alternateWeapons[0]);
+		UnPackItem(&pPack->alternateWeapons[1], &pPlayer->alternateWeapons[1]);
+	}
+	else {
+		memset(&pPlayer->alternateWeapons[0], 0, StructSize<ItemStruct>());
+		memset(&pPlayer->alternateWeapons[1], 0, StructSize<ItemStruct>());
+		pPlayer->alternateWeapons[0]._itype = -1;
+		pPlayer->alternateWeapons[1]._itype = -1;
+	}
 	CalcPlrInv(pnum, 0);
-
-
 }
 
 // Note: last slot of item[MAXITEMS+1] used as temporary buffer

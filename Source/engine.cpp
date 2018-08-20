@@ -25,7 +25,7 @@ struct engine_cpp_init_1
 // 52B968: using guessed type int engine_cpp_init_value;
 
 uint SaveVersion = -1;
-uint CurVersion = 1;
+uint CurVersion = 2;
 
 
 

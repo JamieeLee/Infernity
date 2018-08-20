@@ -708,7 +708,7 @@ struct PkItemStruct
 /* __declspec(align(2)) */
 #pragma pack(push, 1)
 
-#define LATEST_PKPLAYER_STRUCT PkPlayerStruct2
+#define LATEST_PKPLAYER_STRUCT PkPlayerStruct3
 struct PkPlayerStruct
 {
 	FILETIME archiveTime;
@@ -761,6 +761,12 @@ struct PkPlayerStruct2:PkPlayerStruct
 	char InvGridExpanded[4][40];
 	int NumInvExpanded[4];
 	int currentInventoryIndex;
+};
+
+struct PkPlayerStruct3 :PkPlayerStruct2
+{
+	PkItemStruct alternateWeapons[2];
+	int currentWeaponSet;
 };
 #pragma pack(pop)
 
@@ -990,6 +996,8 @@ struct PlayerStruct
 	char InvGridExpanded[4][40];
 	int NumInvExpanded[4];
 	int currentInventoryIndex;
+	ItemStruct alternateWeapons[2];
+	int currentWeaponSet;
 };
 
 struct QuestStruct

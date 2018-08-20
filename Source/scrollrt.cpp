@@ -3583,6 +3583,22 @@ void __fastcall DoBlitScreen(int dwX, int dwY, int dwWdt, int dwHgt)
 	}
 }
 
+bool weaponSwitchIconsLoaded = false;
+void *weaponSwitchIcons;
+
+void DrawWeaponSwitchIcons() {
+
+	if (weaponSwitchIconsLoaded == false) {
+		weaponSwitchIconsLoaded = true;
+		weaponSwitchIcons = LoadFileInMem("CtrlPan\\P8But2.CEL", 0);
+	}
+	CelDecodeOnly(431, 233, weaponSwitchIcons, panbtn[7] + 3+(plr[myplr].currentWeaponSet==0), 33);
+	CelDecodeOnly(397, 233, weaponSwitchIcons, panbtn[7] + 5+(plr[myplr].currentWeaponSet != 0), 33);
+	int offset = 231;
+	CelDecodeOnly(431+offset, 233, weaponSwitchIcons, panbtn[7] + 3+(plr[myplr].currentWeaponSet == 0), 33);
+	CelDecodeOnly(397+offset, 233, weaponSwitchIcons, panbtn[7] + 5+(plr[myplr].currentWeaponSet != 0), 33);
+}
+
 void __cdecl DrawAndBlit()
 {
 	bool ddsdesc; // ebp
@@ -3625,6 +3641,9 @@ void __cdecl DrawAndBlit()
 			DrawCtrlPan();
 		if ( drawsbarflag )
 			DrawInvBelt();
+		if (invflag) {
+			DrawWeaponSwitchIcons();
+		}
 		DrawXpBar();
 		DrawNumbersOnHealthMana();
 		PrintDebugInfo();

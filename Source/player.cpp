@@ -1072,6 +1072,11 @@ LABEL_28:
 		}
 	}
 	plr[v4].NumInvExpanded[0] = 2;
+	memset(&plr[v4].alternateWeapons[0],0,StructSize<ItemStruct>());
+	memset(&plr[v4].alternateWeapons[1], 0, StructSize<ItemStruct>());
+	plr[v4].alternateWeapons[0]._itype = -1;
+	plr[v4].alternateWeapons[1]._itype = -1;
+	plr[v4].currentWeaponSet = 0;
 	SetRndSeed(0);
 }
 
