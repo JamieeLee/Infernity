@@ -1203,6 +1203,9 @@ void __fastcall AddPlrExperience(int pnum, int lvl, int exp, int x, int y)
 				if ( v7 >= ExpLvlsTbl[v8] / 20 )
 					v7 = ExpLvlsTbl[v8] / 20;
 				v9 = 200 * v8;
+				if (gnDifficulty == DIFF_HELL && IsInfernoEnabled() == true) {
+					v9 = 1000 * v8;
+				}
 				if ( v7 >= v9 )
 					v7 = v9;
 			}
