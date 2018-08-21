@@ -1889,7 +1889,7 @@ void RevealMapByOtherPlayers(int x, int y, int pnum) {
 void PrintDebugInfo() {
 	if (showDebugInfo) {
 		std::stringstream ss;
-		ss << "debuginfo: " << sizeof(PlayerStruct) << " mx " << MouseX << " my: " << MouseY;
+		ss << "debuginfo: " << (GetAsyncKeyState(VK_SHIFT) < 0) << " " << (plr[myplr]._pmode <= PM_WALK3) << " " << (plr[myplr].HoldItem._itype != ITYPE_NONE) << " " << CanPutToBelt(plr[myplr].HoldItem._iMiscId) << " " << FreeSlotOnBelt();
 		PrintGameStr(50, 200, (char*)ss.str().c_str(), COL_WHITE);
 	}
 }
