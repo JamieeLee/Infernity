@@ -1897,7 +1897,7 @@ int __fastcall On_GOTOGETITEM(struct TCmdLocParam1 *pCmd, int pnum)
 	if ( gbBufferMsgs != 1 )
 	{
 		v3 = pnum;
-		if ( currlevel == plr[pnum].plrlevel )
+		if ( currlevel == plr[pnum].plrlevel)
 		{
 			MakePlrPath(pnum, (unsigned char)pCmd->x, (unsigned char)pCmd->y, 0);
 			plr[v3].destAction = 15;
@@ -1983,6 +1983,11 @@ int __fastcall On_GETITEM(struct TCmdGItem *pCmd, int pnum)
 	int v8; // edx
 	int v9; // eax
 	int v10; // edx
+
+	if (pnum == myplr) { 
+		memset(&plr[myplr].HoldItem, 0, StructSize<ItemStruct>());//duping fix ?
+		plr[myplr].HoldItem._itype = -1; 
+	}
 
 	v2 = pCmd;
 	if ( gbBufferMsgs == 1 )
@@ -2129,7 +2134,7 @@ int __fastcall On_GOTOAGETITEM(struct TCmdLocParam1 *pCmd, int pnum)
 	if ( gbBufferMsgs != 1 )
 	{
 		v3 = pnum;
-		if ( currlevel == plr[pnum].plrlevel )
+		if ( currlevel == plr[pnum].plrlevel)
 		{
 			MakePlrPath(pnum, (unsigned char)pCmd->x, (unsigned char)pCmd->y, 0);
 			plr[v3].destAction = 16;
@@ -2197,6 +2202,12 @@ int __fastcall On_AGETITEM(struct TCmdGItem *pCmd, int pnum)
 	int v8; // edx
 
 	v2 = pCmd;
+
+	if (pnum == myplr || v2->bPnum == myplr) {
+		memset(&plr[myplr].HoldItem, 0, StructSize<ItemStruct>());//duping fix ?
+		plr[myplr].HoldItem._itype = -1;
+	}
+
 	if ( gbBufferMsgs == 1 )
 	{
 		msg_send_packet((unsigned short)pnum, pCmd, 30);

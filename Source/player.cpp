@@ -1149,6 +1149,7 @@ void __fastcall NextPlrLevel(int pnum)
 	}
 	if ( v1 == v9 )
 		drawmanaflag = 1;
+	PlaySFX(IS_CAST3);
 }
 // 679660: using guessed type char gbMaxPlayers;
 

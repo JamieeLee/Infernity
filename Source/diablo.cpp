@@ -1532,7 +1532,6 @@ void SwitchWeapons() {
 		PlaySFX(IS_TITLEMOV);
 	}
 }
-
 void __fastcall PressChar(int vkey)
 {
 	int v1; // ebx
