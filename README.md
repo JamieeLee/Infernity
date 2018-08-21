@@ -32,6 +32,7 @@ I will order a pizza and think about you while eating ;)
 - Diablo is a unique monster and drops items - more on higher difficulties
 - Showing current/max on health/mana orbs
 - Alternate weapon slot + switching between weapons
+- Fixed duping
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
