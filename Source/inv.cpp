@@ -1944,19 +1944,14 @@ int FreeSlotOnBelt() {
 void __cdecl CheckInvItem()
 {
 	if (pcurs < CURSOR_FIRSTITEM) {
-		if (GetAsyncKeyState(VK_SHIFT) < 0) {
-			if (plr[myplr]._pmode <= PM_WALK3 && plr[myplr].HoldItem._itype != ITYPE_NONE && CanPutToBelt(plr[myplr].HoldItem._iMiscId) && MouseY <= 340 && MouseY >= 221 && MouseX >= 337 && MouseX <= 624 && FreeSlotOnBelt() != -1){
+			if (GetAsyncKeyState(VK_SHIFT) < 0 && plr[myplr]._pmode <= PM_WALK3 && plr[myplr].HoldItem._itype != ITYPE_NONE && CanPutToBelt(plr[myplr].HoldItem._iMiscId) && MouseY <= 340 && MouseY >= 221 && MouseX >= 337 && MouseX <= 624 && FreeSlotOnBelt() != -1){
 				CheckInvCut(myplr, MouseX, MouseY,true);
 				CheckInvPaste(myplr, 200+ FreeSlotOnBelt()*30,359,true);
 				CalcPlrInv(myplr, 1);
-			}
 		}
 		else {
-
 			CheckInvCut(myplr, MouseX, MouseY);
-			
 		}
-		
 	}
 	else {
 		CheckInvPaste(myplr, MouseX, MouseY);
