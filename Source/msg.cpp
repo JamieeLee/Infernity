@@ -1984,11 +1984,6 @@ int __fastcall On_GETITEM(struct TCmdGItem *pCmd, int pnum)
 	int v9; // eax
 	int v10; // edx
 
-	if (pnum == myplr) { 
-		memset(&plr[myplr].HoldItem, 0, StructSize<ItemStruct>());//duping fix ?
-		plr[myplr].HoldItem._itype = -1; 
-	}
-
 	v2 = pCmd;
 	if ( gbBufferMsgs == 1 )
 	{
@@ -2200,7 +2195,6 @@ int __fastcall On_AGETITEM(struct TCmdGItem *pCmd, int pnum)
 	int v6; // edx
 	int v7; // eax
 	int v8; // edx
-
 	v2 = pCmd;
 
 	if (pnum == myplr || v2->bPnum == myplr) {
