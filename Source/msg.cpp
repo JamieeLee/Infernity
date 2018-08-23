@@ -357,7 +357,7 @@ char *__fastcall DeltaExportJunk(char *dst)
 
 	for (int playerIndex = 0; playerIndex < 4; playerIndex++) {
 		DPortal& portalInfo = PortalsAndQuestsStuff.portal[playerIndex];;
-		if (portalInfo.x == -1) {
+		if (portalInfo.x == -LOBYTE(-1)) {
 			*(uchar*)curDst++ = -1;
 		}
 		else {
@@ -534,12 +534,12 @@ void __fastcall delta_leave_sync(unsigned char bLevel)
 
 bool __fastcall delta_portal_inited(int i)
 {
-	return PortalsAndQuestsStuff.portal[i].x == -1;
+	return PortalsAndQuestsStuff.portal[i].x == LOBYTE(-1);
 }
 
 bool __fastcall delta_quest_inited(int i)
 {
-	return PortalsAndQuestsStuff.quests[i].qstate != -1;
+	return PortalsAndQuestsStuff.quests[i].qstate != LOBYTE(-1);
 }
 
 void __fastcall DeltaAddItem(int ii)
@@ -1355,7 +1355,7 @@ void __fastcall NetSendCmdString(int a1, const char *pszStr)
 
 void __fastcall RemovePlrPortal(int pnum)
 {
-	memset((char *)&PortalsAndQuestsStuff + 5 * pnum, 255, 5u);
+	memset(&PortalsAndQuestsStuff.portal[pnum], -1, sizeof(DPortal));
 	sgbDeltaChanged = 1;
 }
 // 67618C: using guessed type char sgbDeltaChanged;
@@ -1700,7 +1700,6 @@ void *__fastcall DeltaImportMonster(void *src, void *dst)
 
 void __fastcall DeltaImportJunk(int src)
 {
-
 	{
 		std::ofstream outfile;
 		outfile.open("test.txt", std::ios_base::app);
@@ -3578,7 +3577,6 @@ LABEL_19:
 void __fastcall delta_open_portal(int pnum, int x, int y, int bLevel, int bLType, int bSetLvl)
 {
 	int v6; // eax
-
 	v6 = pnum;
 	sgbDeltaChanged = 1;
 	PortalsAndQuestsStuff.portal[v6].y = y;
