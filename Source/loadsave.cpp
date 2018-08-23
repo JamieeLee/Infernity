@@ -475,7 +475,7 @@ void __fastcall LoadPlayer(int i)
 	memcpy(&plr[i].InvListExpanded,tbuff, size2);
 	tbuff = (char *)tbuff + size2;
 	
-	if (SaveVersion == 0) {
+	if (SaveVersion <= 0) {
 		for (int ii = 0; ii < 4; ++ii) {
 			plr[i].NumInvExpanded[ii] = 0;
 			for (int j = 0; j < 40; ++j) {
@@ -485,7 +485,14 @@ void __fastcall LoadPlayer(int i)
 		}
 		plr[i].NumInvExpanded[0] = plr[i]._pNumInv;
 	}
-	
+
+	if (SaveVersion <= 1) {
+		memset(&plr[i].alternateWeapons[0], 0, StructSize<ItemStruct>());
+		memset(&plr[i].alternateWeapons[1], 0, StructSize<ItemStruct>());
+		plr[i].alternateWeapons[0]._itype = -1;
+		plr[i].alternateWeapons[1]._itype = -1;
+		plr[i].currentWeaponSet = 0;
+	}
 }
 
 void __fastcall LoadMonster(int i)
