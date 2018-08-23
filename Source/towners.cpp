@@ -729,7 +729,7 @@ void __cdecl InitTowners()
 	boyloadflag = 0;
 	InitSmith();
 	InitHealer();
-	if ( quests[6]._qactive && quests[6]._qactive != 3 )
+	if ( quests[6]._qactive && quests[6]._qactive != 3) // butcher in multiplayer ?
 		InitTownDead();
 	InitBarOwner();
 	InitTeller();
@@ -816,7 +816,7 @@ void __cdecl TownDead()
 	TownCtrlMsg(v0);
 	if ( qtextflag )
 		goto LABEL_6;
-	if ( (quests[6]._qactive != 2 || quests[6]._qlog) && quests[6]._qactive != 1 )
+	if (( (quests[6]._qactive != 2 || quests[6]._qlog) && quests[6]._qactive != 1  ))
 	{
 		v1 = v0;
 		towner[v1]._tAnimDelay = 1000;
