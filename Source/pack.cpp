@@ -84,6 +84,7 @@ void __fastcall PackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool manashi
 		pPack->pManaShield = 0;
 
 	pPack->version = CurVersion;	
+	
 	pPack->currentInventoryIndex=pPlayer->currentInventoryIndex;
 
 
@@ -109,8 +110,6 @@ void __fastcall PackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool manashi
 	PackItem(&pPack->alternateWeapons[0], &pPlayer->alternateWeapons[0]);
 	PackItem(&pPack->alternateWeapons[1], &pPlayer->alternateWeapons[1]);
 	pPack->currentWeaponSet = pPlayer->currentWeaponSet;
-
-	
 }
 // 679660: using guessed type char gbMaxPlayers;
 
@@ -273,6 +272,7 @@ void __fastcall UnPackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool killo
 	pPlayer->pManaShield = pPack->pManaShield;
 	pPlayer->version = pPack->version;
 	SaveVersion = pPlayer->version;
+	
 	if (pPlayer->version > 0) {
 		pPlayer->currentInventoryIndex = pPack->currentInventoryIndex;
 

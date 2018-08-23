@@ -879,7 +879,7 @@ void __fastcall ClearPlrRVars(PlayerStruct *p)
 {
 	p->bReserved[0] = 0;
 	p->bReserved[1] = 0;
-	//p->bReserved[2] = 0;
+	p->bReserved[2] = 0;
 	p->wReserved[0] = 0;
 	p->wReserved[1] = 0;
 	p->wReserved[2] = 0;
@@ -1061,6 +1061,7 @@ LABEL_28:
 	CreatePlrItems(arglist);
 
 	plr[v4].version = CurVersion;
+	
 	plr[v4].currentInventoryIndex = 0;
 	memset(plr[v4].InvGridExpanded, 0, sizeof(char) * 40);
 	memset(plr[v4].InvListExpanded, 0, sizeof(ItemStruct) * 40);
@@ -1077,6 +1078,7 @@ LABEL_28:
 	plr[v4].alternateWeapons[0]._itype = -1;
 	plr[v4].alternateWeapons[1]._itype = -1;
 	plr[v4].currentWeaponSet = 0;
+	
 	SetRndSeed(0);
 }
 

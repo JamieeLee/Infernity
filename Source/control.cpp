@@ -2480,6 +2480,7 @@ void clearShit(int pnum) {
 }
 
 bool SwitchInvTab(int newTab) {
+
 	ItemStruct* invs = plr[myplr].InvList;
 
 	//if (pcurs < CURSOR_FIRSTITEM) {

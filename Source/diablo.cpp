@@ -278,8 +278,11 @@ bool __cdecl diablo_get_not_running()
 	return GetLastError() != ERROR_ALREADY_EXISTS;
 }
 
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
 	HINSTANCE v4; // esi
 	//int v11; // ecx
 	char Filename[260]; // [esp+8h] [ebp-10Ch]
@@ -1518,6 +1521,7 @@ void __cdecl diablo_pause_game()
 // 679660: using guessed type char gbMaxPlayers;
 
 void SwitchWeapons() {
+	
 	if (plr[myplr]._pmode != 1 && plr[myplr]._pmode != 2 && plr[myplr]._pmode != 3 && plr[myplr]._pmode != 8) {
 		ItemStruct wtf = plr[myplr].InvBody[4];
 		ItemStruct wtf2 = plr[myplr].InvBody[5];
@@ -1531,6 +1535,7 @@ void SwitchWeapons() {
 		CalcPlrInv(myplr, 1);
 		PlaySFX(IS_TITLEMOV);
 	}
+	
 }
 void __fastcall PressChar(int vkey)
 {

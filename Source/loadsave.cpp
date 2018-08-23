@@ -464,15 +464,17 @@ bool __cdecl OLoad()
 
 void __fastcall LoadPlayer(int i)
 {
-	/*
-	memcpy(&plr[i], tbuff, 0x54B0u);
-	tbuff = (char *)tbuff + 21680;*/
+	
+	//memcpy(&plr[i], tbuff, 0x54B0u);
+	//tbuff = (char *)tbuff + 21680;
+	int wtfsize = 21680;// StructSize<PlayerStruct>();
+	int size2 = StructSize<PlayerStruct>() - 21720;
 
-
-
-	memcpy(&plr[i], tbuff, StructSize<PlayerStruct>());
-	tbuff = (char *)tbuff + StructSize<PlayerStruct>();
-
+	memcpy(&plr[i], tbuff, wtfsize);
+	tbuff = (char *)tbuff + wtfsize;
+	memcpy(&plr[i].InvListExpanded,tbuff, size2);
+	tbuff = (char *)tbuff + size2;
+	
 	if (SaveVersion == 0) {
 		for (int ii = 0; ii < 4; ++ii) {
 			plr[i].NumInvExpanded[ii] = 0;
@@ -483,6 +485,7 @@ void __fastcall LoadPlayer(int i)
 		}
 		plr[i].NumInvExpanded[0] = plr[i]._pNumInv;
 	}
+	
 }
 
 void __fastcall LoadMonster(int i)
@@ -604,7 +607,7 @@ void __cdecl SaveGame()
 	int v47; // [esp+114h] [ebp-4h]
 
 	//v0 = codec_get_encoded_len(262147); /* FILEBUFF */
-	v0 = codec_get_encoded_len(262147 +StructSize<PlayerStruct>() - 21720); /* FILEBUFF *///sizeof(PlayerStruct)
+	v0 = codec_get_encoded_len(262147 +StructSize<PlayerStruct>() - 21720); /* FILEBUFF *///sizeof(PlayerStruct)-21720
 	ptr = DiabloAllocPtr(v0);
 	tbuff = ptr;
 	SaveVersion = CurVersion; // for buffer save/load 
@@ -973,12 +976,17 @@ void __fastcall OSave(unsigned char v)
 
 void __fastcall SavePlayer(int i)
 {
-	/*
-	memcpy(tbuff, &plr[i], 0x54B0u);
-	tbuff = (char *)tbuff + 21680;*/
+	
+	//memcpy(tbuff, &plr[i], 0x54B0u);
+	//tbuff = (char *)tbuff + 21680;
 
-	memcpy(tbuff, &plr[i], StructSize<PlayerStruct>());
-	tbuff = (char *)tbuff + StructSize<PlayerStruct>();
+	int wtfsize = 21680;// StructSize<PlayerStruct>();
+	int size2 = StructSize<PlayerStruct>() - 21720;
+
+	memcpy(tbuff, &plr[i], wtfsize);
+	tbuff = (char *)tbuff + wtfsize;
+	memcpy(tbuff, &plr[i].InvListExpanded, size2);
+	tbuff = (char *)tbuff + size2;
 }
 
 void __fastcall SaveMonster(int i)
@@ -1054,7 +1062,7 @@ void __cdecl SaveLevel()
 	if ( !currlevel )
 		glSeedTbl[0] = GetRndSeed();
 	//v0 = codec_get_encoded_len(262147); /* FILEBUFF */
-	v0 = codec_get_encoded_len(262147+ StructSize<PlayerStruct>()- 21720); /* FILEBUFF */ //sizeof(PlayerStruct)
+	v0 = codec_get_encoded_len(262147+ StructSize<PlayerStruct>()-21720); /* FILEBUFF */ //sizeof(PlayerStruct)- 21720
 	SaveBuff = DiabloAllocPtr(v0);
 	SaveVersion = CurVersion; // for buffer save/load 
 	tbuff = SaveBuff;

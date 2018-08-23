@@ -3587,7 +3587,7 @@ bool weaponSwitchIconsLoaded = false;
 void *weaponSwitchIcons;
 
 void DrawWeaponSwitchIcons() {
-
+	
 	if (weaponSwitchIconsLoaded == false) {
 		weaponSwitchIconsLoaded = true;
 		weaponSwitchIcons = LoadFileInMem("CtrlPan\\P8But2.CEL", 0);
@@ -3597,6 +3597,7 @@ void DrawWeaponSwitchIcons() {
 	int offset = 231;
 	CelDecodeOnly(431+offset, 233, weaponSwitchIcons, panbtn[7] + 3+(plr[myplr].currentWeaponSet != 0), 33);
 	CelDecodeOnly(397+offset, 233, weaponSwitchIcons, panbtn[7] + 5+(plr[myplr].currentWeaponSet == 0), 33);
+	
 }
 
 void __cdecl DrawAndBlit()

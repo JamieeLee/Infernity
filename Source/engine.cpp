@@ -1889,7 +1889,7 @@ void RevealMapByOtherPlayers(int x, int y, int pnum) {
 void PrintDebugInfo() {
 	if (showDebugInfo) {
 		std::stringstream ss;
-		ss << "debuginfo: " << (int)quests[6]._qactive;
+		ss << "debuginfo: " << sizeof(LATEST_PKPLAYER_STRUCT);
 		PrintGameStr(50, 200, (char*)ss.str().c_str(), COL_WHITE);
 	}
 }
