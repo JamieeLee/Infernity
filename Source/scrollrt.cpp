@@ -316,7 +316,7 @@ LABEL_14:
 	while ( (signed int)v8 < (signed int)&plr[4]._pHitPoints );
 }
 
-void __fastcall DrawPlayer(int pnum, int x, int y, int px, int py, int animdata, int animframe, int animwidth, int a9, int a10)
+void __fastcall DrawPlayer(int pnum, int x, int y, int px, int py, unsigned char *animdata, int animframe, int animwidth, int a9, int a10)
 {
 	char *v10; // edx
 	int v11; // eax
@@ -397,7 +397,7 @@ void __fastcall DrawPlayer(int pnum, int x, int y, int px, int py, int animdata,
 // 5CF31D: using guessed type char setlevel;
 // 69BEF8: using guessed type int light_table_index;
 
-void __fastcall DrawClippedPlayer(int pnum, int x, int y, int px, int py, int animdata, int animframe, int animwidth, int a9, int a10)
+void __fastcall DrawClippedPlayer(int pnum, int x, int y, int px, int py, unsigned char *animdata, int animframe, int animwidth, int a9, int a10)
 {
 	char *v10; // edx
 	int v11; // eax
@@ -1303,7 +1303,7 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 					v27 = a4 + v24->_mxoff - v25->flags_2;
 					if ( v23 == pcursmonst || (GetConfigBoolVariable("highlightMonstersInCombat") && monster[v23].isActivated))
 					{
-						Cl2DecodeClrHL(233, v27, v26, (char *)v24->_mAFNum, v24->_mAnimFrame, v25->flags_1, 0, 8);
+						Cl2DecodeClrHL(233, v27, v26, (char *)v24->_mAnimData, v24->_mAnimFrame, v25->flags_1, 0, 8);
 						v23 = draw_monster_num;
 					}
 					DrawClippedMonster(a1a, sy, v27, v26, v23, 0, 8);
@@ -1360,7 +1360,7 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 					v35 = a4 + v32->_mxoff - v33->flags_2;
 					if ( v31 == pcursmonst || (GetConfigBoolVariable("highlightMonstersInCombat") && monster[v31].isActivated))
 					{
-						Cl2DecodeClrHL(233, v35, v34, (char *)v32->_mAFNum, v32->_mAnimFrame, v33->flags_1, 0, 8);
+						Cl2DecodeClrHL(233, v35, v34, (char *)v32->_mAnimData, v32->_mAnimFrame, v33->flags_1, 0, 8);
 						v31 = draw_monster_num;
 					}
 					DrawClippedMonster(a1a, sy, v35, v34, v31, 0, 8);
@@ -1431,7 +1431,7 @@ void __fastcall DrawClippedMonster(int x, int y, int a3, int a4, int mon_id, int
 	if ( (unsigned int)mon_id < 0xC8 )
 	{
 		v7 = mon_id;
-		v8 = (char *)monster[mon_id]._mAFNum;
+		v8 = (char *)monster[mon_id]._mAnimData;
 		if ( v8 )
 		{
 			v9 = monster[v7]._mAnimFrame;
@@ -1981,7 +1981,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 					v30 = sx + v27->_mxoff - v28->flags_2;
 					if ( v26 == pcursmonst )
 					{
-						Cl2DecodeClrHL(233, v30, v29, (char *)v27->_mAFNum, v27->_mAnimFrame, v28->flags_1, a5, 8);
+						Cl2DecodeClrHL(233, v30, v29, (char *)v27->_mAnimData, v27->_mAnimFrame, v28->flags_1, a5, 8);
 						v26 = draw_monster_num;
 					}
 					DrawClippedMonster(a1, y, v30, v29, v26, a5, 8);
@@ -2039,7 +2039,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 					v38 = sx + v35->_mxoff - v36->flags_2;
 					if ( v34 == pcursmonst )
 					{
-						Cl2DecodeClrHL(233, v38, v37, (char *)v35->_mAFNum, v35->_mAnimFrame, v36->flags_1, a5, 8);
+						Cl2DecodeClrHL(233, v38, v37, (char *)v35->_mAnimData, v35->_mAnimFrame, v36->flags_1, a5, 8);
 						v34 = draw_monster_num;
 					}
 					DrawClippedMonster(a1, y, v38, v37, v34, a5, 8);
@@ -2587,7 +2587,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 					v29 = sx + v26->_mxoff - v27->flags_2;
 					if ( v25 == pcursmonst )
 					{
-						Cl2DecodeFrm2(233, v29, v28, (char *)v26->_mAFNum, v26->_mAnimFrame, v27->flags_1, 0, a5);
+						Cl2DecodeFrm2(233, v29, v28, (char *)v26->_mAnimData, v26->_mAnimFrame, v27->flags_1, 0, a5);
 						v25 = draw_monster_num;
 					}
 					DrawMonster(xa, y, v29, v28, v25, 0, a5);
@@ -2644,7 +2644,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 					v37 = sx + v34->_mxoff - v35->flags_2;
 					if ( v33 == pcursmonst )
 					{
-						Cl2DecodeFrm2(233, v37, v36, (char *)v34->_mAFNum, v34->_mAnimFrame, v35->flags_1, 0, a5);
+						Cl2DecodeFrm2(233, v37, v36, (char *)v34->_mAnimData, v34->_mAnimFrame, v35->flags_1, 0, a5);
 						v33 = draw_monster_num;
 					}
 					DrawMonster(xa, y, v37, v36, v33, 0, a5);
@@ -2715,7 +2715,7 @@ void __fastcall DrawMonster(int x, int y, int a3, int a4, int mon_id, int a6, in
 	if ( (unsigned int)mon_id < 0xC8 )
 	{
 		v7 = mon_id;
-		v8 = (char *)monster[mon_id]._mAFNum;
+		v8 = (char *)monster[mon_id]._mAnimData;
 		if ( v8 )
 		{
 			v9 = monster[v7]._mAnimFrame;
@@ -3083,12 +3083,12 @@ void __cdecl ClearScreenBuffer()
 {
 	int i; // edx
 
-	dx_lock_mutex();
+	lock_buf_priv();
 
 	for(i = 0; i < 480; i++)
 		memset(gpBuffer->row[i].pixels, 0, 640);
 
-	dx_unlock_mutex();
+	unlock_buf_priv();
 }
 
 #ifdef _DEBUG
@@ -3228,16 +3228,16 @@ void __fastcall scrollrt_draw_game_screen(bool draw_cursor)
 	}
 	if ( draw_cursor )
 	{
-		dx_lock_mutex();
+		lock_buf_priv();
 		scrollrt_draw_cursor_item();
-		dx_unlock_mutex();
+		unlock_buf_priv();
 	}
 	DrawMain(dwHgt, 0, 0, 0, 0, 0);
 	if ( draw_cursor )
 	{
-		dx_lock_mutex();
+		lock_buf_priv();
 		scrollrt_draw_cursor_back_buffer();
-		dx_unlock_mutex();
+		unlock_buf_priv();
 	}
 }
 // 52571C: using guessed type int drawpanflag;
@@ -3567,7 +3567,7 @@ void __fastcall DoBlitScreen(int dwX, int dwY, int dwWdt, int dwHgt)
 		v6 = 768 - dwWdt;
 		error_codea = (unsigned int)dwWdt >> 2;
 		v16 = v6;
-		dx_lock_mutex();
+		lock_buf_priv();
 		v7 = (char *)gpBuffer + v14;
 		v8 = (char *)DDS_desc.lpSurface + v15;
 		v9 = dwHgt;
@@ -3579,7 +3579,7 @@ void __fastcall DoBlitScreen(int dwX, int dwY, int dwWdt, int dwHgt)
 			--v9;
 		}
 		while ( v9 );
-		dx_unlock_mutex();
+		unlock_buf_priv();
 	}
 }
 
@@ -3626,7 +3626,7 @@ void __cdecl DrawAndBlit()
 			dwHgt = 480;//dwHgt = 352;
 		}
 		drawpanflag = 0;
-		dx_lock_mutex();
+		lock_buf_priv();
 		if ( leveltype )
 			DrawView(ViewX, ViewY);
 		else
@@ -3654,11 +3654,11 @@ void __cdecl DrawAndBlit()
 			dwHgt = 480;
 		}
 		scrollrt_draw_cursor_item();
-		dx_unlock_mutex();
+		unlock_buf_priv();
 		DrawMain(dwHgt, ddsdesc, drawhpflag, drawmanaflag, drawsbarflag, drawbtnflag);
-		dx_lock_mutex();
+		lock_buf_priv();
 		scrollrt_draw_cursor_back_buffer();
-		dx_unlock_mutex();
+		unlock_buf_priv();
 		drawhpflag = 0;
 		drawmanaflag = 0;
 		drawbtnflag = 0;
