@@ -12,7 +12,7 @@ extern TMegaPkt *sgpCurrPkt;
 extern char sgRecvBuf[4722];
 extern unsigned char sgbRecvCmd; // idb
 extern LocalLevel sgLocals[NUMLEVELS];
-extern DJunk sgJunk[4];
+extern PortalsAndQuestsInfo PortalsAndQuestsStuff;
 extern TMegaPkt *sgpMegaPkt;
 extern char sgbDeltaChanged; // weak
 extern char sgbDeltaChunks; // weak
@@ -73,7 +73,7 @@ void __fastcall DeltaImportData(unsigned char cmd, int recv_offset);
 void *__fastcall DeltaImportItem(void *src, void *dst);
 void *__fastcall DeltaImportObject(void *src, void *dst);
 void *__fastcall DeltaImportMonster(void *src, void *dst);
-char __fastcall DeltaImportJunk(int a1);
+void __fastcall DeltaImportJunk(int a1);
 int __fastcall On_SYNCDATA(void *packet, int pnum);
 int __fastcall On_WALKXY(struct TCmdLoc *pCmd, int pnum);
 int __fastcall On_ADDSTR(struct TCmdParam1 *pCmd, int pnum);
@@ -138,7 +138,7 @@ int __fastcall On_DROPITEM(struct TCmdPItem *pCmd, int pnum);
 int __fastcall On_SEND_PLRINFO(struct TCmdPlrInfoHdr *pCmd, int pnum);
 int __fastcall On_ACK_PLRINFO(struct TCmdPlrInfoHdr *pCmd, int pnum);
 int __fastcall On_PLAYER_JOINLEVEL(struct TCmdLocParam1 *pCmd, int pnum);
-int __fastcall On_ACTIVATEPORTAL(DJunk *pCmd, int pnum);
+int __fastcall On_ACTIVATEPORTAL(PortalsAndQuestsInfo *pCmd, int pnum);
 void __fastcall delta_open_portal(int pnum, int x, int y, int bLevel, int bLType, int bSetLvl);
 int __fastcall On_DEACTIVATEPORTAL(struct TCmd *pCmd, int pnum);
 int __fastcall On_RETOWN(struct TCmd *pCmd, int pnum);

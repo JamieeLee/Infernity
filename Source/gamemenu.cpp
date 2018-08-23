@@ -90,7 +90,7 @@ void __cdecl gamemenu_new_game()
 		plr[i]._pmode = PM_QUIT;
 		plr[i]._pInvincible = 1;
 	}
-	DeactivatePortal(myplr);
+	//DeactivatePortal(myplr); //qndel - old broken portal fix
 	deathflag = 0;
 	drawpanflag = 255;
 	scrollrt_draw_game_screen(1);

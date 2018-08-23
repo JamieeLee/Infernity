@@ -682,7 +682,7 @@ struct MultiQuests
 	unsigned char qvar1;
 };
 
-struct DJunk
+struct PortalsAndQuestsInfo
 {
 	DPortal portal[MAXPORTAL];
 	MultiQuests quests[MAXMULTIQUESTS];

@@ -12,7 +12,7 @@ TMegaPkt *sgpCurrPkt;
 char sgRecvBuf[4722];
 unsigned char sgbRecvCmd; // idb
 LocalLevel sgLocals[NUMLEVELS];
-DJunk sgJunk[4];
+PortalsAndQuestsInfo PortalsAndQuestsStuff;
 TMegaPkt *sgpMegaPkt;
 char sgbDeltaChanged; // weak
 char sgbDeltaChunks; // weak
@@ -240,6 +240,14 @@ void __cdecl msg_pre_packet()
 
 void __fastcall DeltaExportData(int pnum)
 {
+
+	{
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "exporting data\n";
+		outfile.close();
+	}
+
 	char *v1; // edi
 	DObjectStr *v2; // esi
 	void *v3; // ebx
@@ -343,49 +351,38 @@ void *__fastcall DeltaExportMonster(void *dst, void *src)
 	return v3;
 }
 
-char *__fastcall DeltaExportJunk(char *a1)
+char *__fastcall DeltaExportJunk(char *dst)
 {
-	char *v1; // ebx
-	DJunk *v2; // edi
-	MultiQuests *v3; // esi
-	unsigned char *v4; // edi
-	int *v5; // ebp
+	char* curDst = (char*)dst;
 
-	v1 = a1;
-	v2 = sgJunk;
-	v3 = sgJunk[0].quests;
-	do
-	{
-		if ( v2->portal[0].x == -1 )
-		{
-			*v1++ = -1;
+	for (int playerIndex = 0; playerIndex < 4; playerIndex++) {
+		DPortal& portalInfo = PortalsAndQuestsStuff.portal[playerIndex];;
+		if (portalInfo.x == -1) {
+			*(uchar*)curDst++ = -1;
 		}
-		else
-		{
-			memcpy(v1, v2, 5u);
-			v1 += 5;
+		else {
+			memcpy((void*)curDst, &portalInfo, sizeof DPortal);
+			curDst += sizeof DPortal;
 		}
-		v2 = (DJunk *)((char *)v2 + 5);
 	}
-	while ( (signed int)v2 < (signed int)sgJunk[0].quests );
-	v4 = &quests[0]._qactive;
-	v5 = &questlist[0]._qflags;
-	do
-	{
-		if ( *(_BYTE *)v5 & 1 )
-		{
-			v3->qlog = v4[18];
-			v3->qstate = *v4;
-			v3->qvar1 = v4[13];
-			memcpy(v1, v3, 3u);
-			v1 += 3;
-			++v3;
+
+	int mpQuestIndex = 0;
+	for (int questIndex = 0; questIndex < MAXQUESTS; questIndex++) {
+		QuestStruct& quest = quests[questIndex];
+		QuestData& baseQuest = questlist[questIndex];
+		MultiQuests& questInfo = PortalsAndQuestsStuff.quests[mpQuestIndex];
+		if (!(baseQuest._qflags & 1)) {
+			continue;
 		}
-		v5 += 5;
-		v4 += 24;
+		questInfo.qstate = quest._qactive;
+		questInfo.qlog = quest._qlog;
+		questInfo.qvar1 = quest._qvar1;
+		memcpy((void*)curDst, &questInfo, sizeof MultiQuests);
+
+		curDst += sizeof MultiQuests;
+		mpQuestIndex++;
 	}
-	while ( (signed int)v5 < (signed int)&questlist[16]._qflags );
-	return v1;
+	return (char*)curDst;
 }
 
 int __fastcall msg_comp_level(char *buffer, int size)
@@ -404,7 +401,7 @@ int __fastcall msg_comp_level(char *buffer, int size)
 void __cdecl delta_init()
 {
 	sgbDeltaChanged = 0;
-	memset(sgJunk, 255, 0x20u);
+	memset(&PortalsAndQuestsStuff, -1, sizeof(PortalsAndQuestsStuff));
 	memset(sgLevels, 255, 0x13981u);
 	memset(sgLocals, 0, 0x6A40u);
 	deltaload = 0;
@@ -537,12 +534,12 @@ void __fastcall delta_leave_sync(unsigned char bLevel)
 
 bool __fastcall delta_portal_inited(int i)
 {
-	return sgJunk[0].portal[i].x == -1;
+	return PortalsAndQuestsStuff.portal[i].x == -1;
 }
 
 bool __fastcall delta_quest_inited(int i)
 {
-	return sgJunk[0].quests[i].qstate != -1;
+	return PortalsAndQuestsStuff.quests[i].qstate != -1;
 }
 
 void __fastcall DeltaAddItem(int ii)
@@ -1358,7 +1355,7 @@ void __fastcall NetSendCmdString(int a1, const char *pszStr)
 
 void __fastcall RemovePlrPortal(int pnum)
 {
-	memset((char *)sgJunk + 5 * pnum, 255, 5u);
+	memset((char *)&PortalsAndQuestsStuff + 5 * pnum, 255, 5u);
 	sgbDeltaChanged = 1;
 }
 // 67618C: using guessed type char sgbDeltaChanged;
@@ -1500,7 +1497,7 @@ int __fastcall ParseCmd(int pnum, TCmd *pCmd)
 		case CMD_SATTACKXY:
 			return On_SATTACKXY((struct TCmdLoc *)v3, pnum);
 		case CMD_ACTIVATEPORTAL:
-			return On_ACTIVATEPORTAL((DJunk *)v3, pnum);
+			return On_ACTIVATEPORTAL((PortalsAndQuestsInfo *)v3, pnum);
 		case CMD_DEACTIVATEPORTAL:
 			return On_DEACTIVATEPORTAL(v3, pnum);
 		case CMD_HEALOTHER:
@@ -1601,8 +1598,18 @@ void __fastcall DeltaImportData(unsigned char cmd, int recv_offset)
 	int v3; // esi
 	void *v4; // eax
 	void *v5; // eax
-
 	v2 = cmd;
+
+
+	{
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "IMPORTING DATA ("<<(int)v2<<")\n";
+		outfile.close();
+	}
+
+
+
 	if ( sgRecvBuf[0] )
 		encrypt_decompress(&sgRecvBuf[1], recv_offset, 4721);
 	if ( v2 == CMD_DLEVEL_JUNK )
@@ -1691,63 +1698,48 @@ void *__fastcall DeltaImportMonster(void *src, void *dst)
 	return v3;
 }
 
-char __fastcall DeltaImportJunk(int a1)
+void __fastcall DeltaImportJunk(int src)
 {
-	_BYTE *v1; // ebx
-	int v2; // edi
-	DJunk *v3; // esi
-	char result; // al
-	MultiQuests *v5; // esi
-	unsigned char *v6; // edi
-	int *v7; // ebp
 
-	v1 = (_BYTE *)a1;
-	v2 = 0;
-	v3 = sgJunk;
-	do
 	{
-		if ( *v1 == -1 )
-		{
-			memset(v3, 255, 5u);
-			++v1;
-			SetPortalStats(v2, 0, 0, 0, 0, 0);
-		}
-		else
-		{
-			memcpy(v3, v1, 5u);
-			v1 += 5;
-			SetPortalStats(
-				v2,
-				1,
-				(unsigned char)v3->portal[0].x,
-				(unsigned char)v3->portal[0].y,
-				(unsigned char)v3->portal[0].level,
-				(unsigned char)v3->portal[0].ltype);
-		}
-		v3 = (DJunk *)((char *)v3 + 5);
-		++v2;
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "IMPORTING JUNK\n";
+		outfile.close();
 	}
-	while ( (signed int)v3 < (signed int)sgJunk[0].quests );
-	v5 = sgJunk[0].quests;
-	v6 = &quests[0]._qactive;
-	v7 = &questlist[0]._qflags;
-	do
-	{
-		if ( *(_BYTE *)v7 & 1 )
-		{
-			memcpy(v5, v1, 3u);
-			*(_DWORD *)(v6 + 18) = (unsigned char)v5->qlog;
-			*v6 = v5->qstate;
-			result = v5->qvar1;
-			v1 += 3;
-			v6[13] = result;
-			++v5;
+	char* data = (char*)src;
+
+	for (int playerIndex = 0; playerIndex < 4; playerIndex++) {
+		DPortal& portalInfo = PortalsAndQuestsStuff.portal[playerIndex];
+		if (*data == -1) {
+			memset(&portalInfo, -1, sizeof(DPortal));
+			SetPortalStats(playerIndex, 0, 0, 0, 0, 0);
+			data++;
 		}
-		v7 += 5;
-		v6 += 24;
+		else {
+			memcpy(&portalInfo, (void*)data, sizeof(DPortal));
+			SetPortalStats(playerIndex, 1, portalInfo.x, portalInfo.y, portalInfo.level, portalInfo.ltype);
+			data += sizeof(DPortal);
+		}
 	}
-	while ( (signed int)v7 < (signed int)&questlist[16]._qflags );
-	return result;
+
+
+	int mpQuestIndex = 0;
+	for (int questIndex = 0; questIndex < MAXQUESTS; questIndex++) {
+		QuestStruct& quest = quests[questIndex];
+		QuestData& baseQuest = questlist[questIndex];
+		MultiQuests& questInfo = PortalsAndQuestsStuff.quests[mpQuestIndex];
+		if (!(baseQuest._qflags & 1)) {
+			continue;
+		}
+		memcpy(&questInfo, (void*)data, sizeof MultiQuests);
+		quest._qactive = questInfo.qstate;
+		quest._qlog = questInfo.qlog;
+		quest._qvar1 = questInfo.qvar1;
+
+		data += sizeof MultiQuests;
+		mpQuestIndex++;
+	}
 }
 
 int __fastcall On_SYNCDATA(void *packet, int pnum)
@@ -3506,11 +3498,11 @@ int __fastcall On_PLAYER_JOINLEVEL(struct TCmdLocParam1 *pCmd, int pnum)
 // 676194: using guessed type char gbBufferMsgs;
 // 67862C: using guessed type char gbActivePlayers;
 
-int __fastcall On_ACTIVATEPORTAL(DJunk *pCmd, int pnum)
+int __fastcall On_ACTIVATEPORTAL(PortalsAndQuestsInfo *pCmd, int pnum)
 {
 	signed int v2; // ebx
 	int v3; // edi
-	DJunk *v4; // esi
+	PortalsAndQuestsInfo *v4; // esi
 	int v5; // eax
 	int v6; // edx
 	int v7; // ecx
@@ -3589,11 +3581,11 @@ void __fastcall delta_open_portal(int pnum, int x, int y, int bLevel, int bLType
 
 	v6 = pnum;
 	sgbDeltaChanged = 1;
-	sgJunk[0].portal[v6].y = y;
-	sgJunk[0].portal[v6].level = bLevel;
-	sgJunk[0].portal[v6].ltype = bLType;
-	sgJunk[0].portal[v6].x = x;
-	sgJunk[0].portal[v6].setlvl = bSetLvl;
+	PortalsAndQuestsStuff.portal[v6].y = y;
+	PortalsAndQuestsStuff.portal[v6].level = bLevel;
+	PortalsAndQuestsStuff.portal[v6].ltype = bLType;
+	PortalsAndQuestsStuff.portal[v6].x = x;
+	PortalsAndQuestsStuff.portal[v6].setlvl = bSetLvl;
 }
 // 67618C: using guessed type char sgbDeltaChanged;
 
