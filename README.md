@@ -60,6 +60,7 @@ I will order a pizza and think about you while eating ;)
 - 1.10 - fixed all bugs related to inventory/multiplayer - this will allow to expand the player  structure in the future (can add more stuff)
 - 1.11 - motion interpolation for highlighted items, clicking highlighted name will walk to item/pick it up if nearby
 - 1.12 - added alternate weapon slot and switching between weapons using 'v' hotkey
+- 1.13 - fixes all issues with loading in single player, butcher should be in multiplayer too, portals shouldn't break in multiplayer
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
