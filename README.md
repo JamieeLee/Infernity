@@ -77,6 +77,7 @@ Some screenshots from the mod (You can find more screenshots on discord):
 ## https://github.com/diasurgical/devilution - for the code
 ## RadTang - for the name
 ## GainTrain - for the idea
+## Thrall - for the Horde
 
 # Legal
 This software is being released to the Public Domain. No assets of Diablo are being provided. You must own a copy of Diablo and have access to the assets beforehand in order to use this software.
