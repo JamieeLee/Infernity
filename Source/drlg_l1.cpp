@@ -540,7 +540,7 @@ void __cdecl DRLG_LoadL1SP()
 		pSetPiece = LoadFileInMem("Levels\\L1Data\\rnd6.DUN", 0);
 		setloadflag = 1;
 	}
-	if ( QuestStatus(12) && gbMaxPlayers == 1 ) // test if this makes leoric's dungeon spawn only in single
+	if ( QuestStatus(12) /*&& gbMaxPlayers == 1*/ ) // test if this makes leoric's dungeon spawn only in single
 	{
 		pSetPiece = LoadFileInMem("Levels\\L1Data\\SKngDO.DUN", 0);
 		setloadflag = 1;

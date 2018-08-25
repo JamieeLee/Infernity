@@ -15,6 +15,7 @@ int ReturnLvlX; // idb
 int ReturnLvlT; // idb
 int ALLQUESTS; // idb
 int ReturnLvl; // idb
+bool QuestsInMultiplayer = false;
 
 QuestData questlist[MAXQUESTS] =
 {
@@ -192,7 +193,7 @@ void __cdecl CheckQuests()
 			NetSendCmdQuest(1u, 0xFu);
 		}
 	}
-	if ( gbMaxPlayers != 1 )
+	if ( gbMaxPlayers != 1 && !QuestsInMultiplayer) // quests in multiplayer
 		return;
 LABEL_6:
 	if ( currlevel == quests[15]._qlevel && !setlevel && quests[15]._qvar1 >= 2u )
@@ -277,7 +278,7 @@ bool __cdecl ForceQuests()
 	int v2; // edi
 	int v3; // edx
 
-	if ( gbMaxPlayers != 1 )
+	if ( gbMaxPlayers != 1 && !QuestsInMultiplayer)
 		return 0; // enable quests in multiplayer
 	v0 = (QuestStruct *)((char *)quests + 12);
 	while ( v0 == (QuestStruct *)&quests[15]._qslvl || currlevel != v0[-1]._qslvl || !v0->_qlevel )

@@ -88,6 +88,7 @@ void DrawFloatingDamage(int damage, int row, int col, int callerID, int color = 
 void DrawTransparentBackground(int xPos, int yPos, int width, int height, int borderX, int borderY, uchar backgroundColor, uchar borderColor);
 template<typename T, typename... V> __forceinline T By(size_t i, T first, V... rest) { T val[] = { first, (T)rest... }; return val[i <= sizeof...(rest) ? i : sizeof...(rest)]; }
 extern std::vector<FloatingText> FloatingTextQueue;
+extern bool QuestsInMultiplayer;
 
 
 extern std::map<std::string, bool> BoolConfig;

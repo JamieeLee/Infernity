@@ -1327,7 +1327,7 @@ LABEL_34:
 		}
 		goto LABEL_34;
 	}
-	if ( gbMaxPlayers == 1 ) // quests in multiplayer
+	if ( gbMaxPlayers == 1) // quests in multiplayer
 		goto LABEL_46;
 	v5 = 0;
 	if ( v0[1] == 5 && plr[v1]._pLevel < 8 )
