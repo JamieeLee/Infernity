@@ -69,8 +69,8 @@ Some screenshots from the mod (You can find more screenshots on discord):
 ![Screenshot 2: Three affixes](https://cdn.discordapp.com/attachments/474387916043321364/474426181106794516/unknown.png "Three affixes")
 
 ![Screenshot 3: Shrines revealed](https://media.discordapp.net/attachments/474387916043321364/477974757116215306/unknown.png?width=460&height=936 "Shrines revealed!")
-![Screenshot 4: Bonus affixes](https://imgur.com/py6Ibzi "Bonus affix!")
-![Screenshot 5: Frame colors](https://imgur.com/TqMLJx3 "Frame colors!")
+![Screenshot 4: Bonus affixes](https://i.imgur.com/py6Ibzi.gif "Bonus affix!")
+![Screenshot 5: Frame colors](https://i.imgur.com/TqMLJx3.png "Frame colors!")
 
 
 # Credits
