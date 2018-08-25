@@ -3091,7 +3091,6 @@ LABEL_16:
 		plr[v4].plrlevel = lvl;
 		goto LABEL_11;
 	}
-	setlvlnum = lvl;
 LABEL_11:
 	if ( v4 == myplr )
 	{

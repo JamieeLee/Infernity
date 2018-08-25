@@ -1889,7 +1889,7 @@ void RevealMapByOtherPlayers(int x, int y, int pnum) {
 void PrintDebugInfo() {
 	if (showDebugInfo) {
 		std::stringstream ss;
-		ss << "debuginfo: " << sizeof(LATEST_PKPLAYER_STRUCT);
+		ss << "debuginfo: " << (int)quests[12]._qactive;
 		PrintGameStr(50, 200, (char*)ss.str().c_str(), COL_WHITE);
 	}
 }
@@ -2006,6 +2006,7 @@ bool AreAffixesGood(char p1, char p2) {
 	sadAffix[IPL_ALLRES] = { IPL_FIRERES ,IPL_MAGICRES, IPL_LIGHTRES };
 	sadAffix[IPL_TOHIT] = { IPL_TOHIT_DAMP,IPL_TOHIT_CURSE,IPL_TOHIT_DAMP_CURSE };
 	sadAffix[IPL_INDESTRUCTIBLE] = { IPL_DUR };
+	sadAffix[IPL_DAMP] = { IPL_TOHIT_DAMP,IPL_TOHIT_DAMP_CURSE,IPL_DAMP_CURSE };
 
 	sadAffix[IPL_MAG] = { IPL_MAG_CURSE,IPL_ATTRIBS,IPL_ATTRIBS_CURSE };
 	sadAffix[IPL_DEX] = { IPL_DEX_CURSE ,IPL_ATTRIBS,IPL_ATTRIBS_CURSE };
@@ -2022,7 +2023,7 @@ bool AreAffixesGood(char p1, char p2) {
 	sadAffix[IPL_LIFE] = { IPL_LIFE_CURSE };
 	sadAffix[IPL_MANA] = { IPL_MANA_CURSE };
 	sadAffix[IPL_DUR_CURSE] = { IPL_DUR,IPL_INDESTRUCTIBLE };
-	sadAffix[IPL_TOHIT_DAMP_CURSE] = { IPL_TOHIT_CURSE,IPL_TOHIT,IPL_TOHIT_DAMP };
+	sadAffix[IPL_TOHIT_DAMP_CURSE] = { IPL_TOHIT_CURSE,IPL_TOHIT,IPL_TOHIT_DAMP,IPL_DAMP };
 	sadAffix[IPL_TOHIT_CURSE] = { IPL_TOHIT,IPL_TOHIT_DAMP_CURSE,IPL_TOHIT_DAMP };
 
 

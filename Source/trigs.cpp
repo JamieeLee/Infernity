@@ -1327,7 +1327,7 @@ LABEL_34:
 		}
 		goto LABEL_34;
 	}
-	if ( gbMaxPlayers == 1 )
+	if ( gbMaxPlayers == 1 ) // quests in multiplayer
 		goto LABEL_46;
 	v5 = 0;
 	if ( v0[1] == 5 && plr[v1]._pLevel < 8 )
@@ -1355,7 +1355,7 @@ LABEL_34:
 	{
 LABEL_46:
 		v9 = v0[1];
-LABEL_33:
+	LABEL_33:
 		StartNewLvl(myplr, *v0, v9);
 		goto LABEL_34;
 	}

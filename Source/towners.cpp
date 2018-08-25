@@ -729,7 +729,7 @@ void __cdecl InitTowners()
 	boyloadflag = 0;
 	InitSmith();
 	InitHealer();
-	if ( quests[6]._qactive && quests[6]._qactive != 3) // butcher in multiplayer ?
+	if ( quests[6]._qactive && quests[6]._qactive != 3)
 		InitTownDead();
 	InitBarOwner();
 	InitTeller();

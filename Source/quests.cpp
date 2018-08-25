@@ -278,7 +278,7 @@ bool __cdecl ForceQuests()
 	int v3; // edx
 
 	if ( gbMaxPlayers != 1 )
-		return 0;
+		return 0; // enable quests in multiplayer
 	v0 = (QuestStruct *)((char *)quests + 12);
 	while ( v0 == (QuestStruct *)&quests[15]._qslvl || currlevel != v0[-1]._qslvl || !v0->_qlevel )
 	{
