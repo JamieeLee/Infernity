@@ -208,7 +208,7 @@ void __cdecl lock_buf_priv()
 		if ( v1 )
 			DDErrMsg(v1, 235, "C:\\Src\\Diablo\\Source\\dx.cpp");
 		v0 = (Screen *)v2.lpSurface;
-		screen_buf_end += (int)v2.lpSurface;
+		gpBufEnd += (unsigned int)v2.lpSurface;
 LABEL_8:
 		gpBuffer = v0;
 		goto LABEL_9;
@@ -218,7 +218,7 @@ LABEL_8:
 LABEL_9:
 	++sgdwLockCount;
 }
-// 69CF0C: using guessed type int screen_buf_end;
+// 69CF0C: using guessed type int gpBufEnd;
 
 void __cdecl unlock_buf_priv()
 {
@@ -233,7 +233,7 @@ void __cdecl unlock_buf_priv()
 	{
 		v0 = gpBuffer;
 		gpBuffer = 0;
-		screen_buf_end -= (signed int)v0;
+		gpBufEnd -= (signed int)v0;
 		if ( !sgpBackBuf )
 		{
 			v1 = lpDDSBackBuf->Unlock(NULL);
@@ -243,7 +243,7 @@ void __cdecl unlock_buf_priv()
 	}
 	LeaveCriticalSection(&sgMemCrit);
 }
-// 69CF0C: using guessed type int screen_buf_end;
+// 69CF0C: using guessed type int gpBufEnd;
 
 void __cdecl dx_cleanup()
 {

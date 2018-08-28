@@ -8,7 +8,7 @@ int scrollrt_cpp_init_value; // weak
 unsigned int sgdwCursWdtOld; // idb
 int sgdwCursX; // idb
 int sgdwCursY; // idb
-int screen_buf_end; // weak
+unsigned char *gpBufEnd; // weak
 int sgdwCursHgt;
 int level_cel_block; // weak
 int sgdwCursXOld; // idb
@@ -807,7 +807,7 @@ void __fastcall DrawGame(int x, int y)
 	}
 
 	a6 = 0;
-	screen_buf_end = (int)gpBuffer + screen_y_times_width[160];
+	gpBufEnd = (unsigned char*)gpBuffer + screen_y_times_width[160];
 	do
 	{
 		scrollrt_draw_upper(v3, ya++, v2, v4, a5, a6, 0);
@@ -818,7 +818,7 @@ void __fastcall DrawGame(int x, int y)
 		v4 = v5 + 16;
 		++a6;
 	} while (a6 < 4);
-	screen_buf_end = (int)gpBuffer + screen_y_times_width[512];
+	gpBufEnd = (unsigned char*)gpBuffer + screen_y_times_width[512];
 	if (v11 > 0)
 	{
 		do
@@ -933,7 +933,7 @@ LABEL_15:
 	}
 
 	a6 = 0;
-	screen_buf_end = (int)gpBuffer + screen_y_times_width[0];//160
+	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[160];
 	do
 	{
 		scrollrt_draw_upper(v3, ya++, v2, v4, a5, a6, 0);
@@ -946,7 +946,7 @@ LABEL_15:
 	}
 	while ( a6 < 16 );
 	/*
-	screen_buf_end = (int)gpBuffer + screen_y_times_width[WorkingHeight];//512
+	gpBufEnd = gpBuffer + screen_y_times_width[WorkingHeight];//512
 	if ( v11 > 0 )
 	{
 		do
@@ -982,7 +982,7 @@ LABEL_15:
 // 5C3000: using guessed type int scr_pix_width;
 // 5C3004: using guessed type int scr_pix_height;
 // 69BD04: using guessed type int questlog;
-// 69CF0C: using guessed type int screen_buf_end;
+// 69CF0C: using guessed type int gpBufEnd;
 // 69CF20: using guessed type char arch_draw_type;
 
 void __fastcall scrollrt_draw_lower(int x, int y, int sx, int sy, int a5, int some_flag)
@@ -1368,7 +1368,7 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 	if ( v49 )
 	{
 		v16 = &item[v49-1];
-		if ( !v16->_iPostDraw && (unsigned char)v49 <= 0x7Fu )
+		if ( !v16->_iPostDraw && (unsigned char)v49 <= MAXITEMS )
 		{
 			v17 = (char *)v16->_iAnimData;
 			if ( v17 )
@@ -1419,7 +1419,7 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 	{
 		v23 = -1 - v41;
 		draw_monster_num = -1 - v41;
-		if ( (unsigned int)(-1 - v41) < 0xC8 )
+		if ( (unsigned int)(-1 - v41) < MAXMONSTERS )
 		{
 			v24 = &monster[v23];
 			if ( !(v24->_mFlags & 1) )
@@ -1476,7 +1476,7 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 	{
 		v31 = v40 - 1;
 		draw_monster_num = v40 - 1;
-		if ( (unsigned int)(v40 - 1) < 0xC8 )
+		if ( (unsigned int)(v40 - 1) < MAXMONSTERS )
 		{
 			v32 = &monster[v31];
 			if ( !(v32->_mFlags & 1) )
@@ -1507,7 +1507,7 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 		v36 = &item[v49-1];
 		if ( v36->_iPostDraw )
 		{
-			if ( (unsigned char)v49 <= 0x7Fu )
+			if ( (unsigned char)v49 <= MAXITEMS )
 			{
 				v37 = (char *)v36->_iAnimData;
 				if ( v37 )
@@ -1556,7 +1556,7 @@ void __fastcall DrawClippedMonster(int x, int y, int a3, int a4, int mon_id, int
 	CMonster *v11; // eax
 	char mon_ida; // [esp+1Ch] [ebp+10h]
 
-	if ( (unsigned int)mon_id < 0xC8 )
+	if ( (unsigned int)mon_id < MAXMONSTERS )
 	{
 		v7 = mon_id;
 		v8 = (char *)monster[mon_id]._mAnimData;
@@ -1643,7 +1643,7 @@ void __fastcall DrawClippedObject(int x, int y, int a3, int a4, int pre_flag, in
 		v11 = a4;
 		v12 = a3 - object[v10]._oAnimWidth2;
 	}
-	if ( v9 < 0x7Fu )
+	if ( v9 < MAXOBJECTS )
 	{
 		v15 = (char *)object[v10]._oAnimData;
 		if ( v15 )
@@ -2046,7 +2046,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 	if ( v52 )
 	{
 		v19 = &item[v52-1];
-		if ( !v19->_iPostDraw && (unsigned char)v52 <= 0x7Fu )
+		if ( !v19->_iPostDraw && (unsigned char)v52 <= MAXITEMS )
 		{
 			v20 = (char *)v19->_iAnimData;
 			if ( v20 )
@@ -2097,7 +2097,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 	{
 		v26 = -1 - v44;
 		draw_monster_num = -1 - v44;
-		if ( (unsigned int)(-1 - v44) < 0xC8 )
+		if ( (unsigned int)(-1 - v44) < MAXMONSTERS )
 		{
 			v27 = &monster[v26];
 			if ( !(v27->_mFlags & 1) )
@@ -2155,7 +2155,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 	{
 		v34 = v43 - 1;
 		draw_monster_num = v43 - 1;
-		if ( (unsigned int)(v43 - 1) < 0xC8 )
+		if ( (unsigned int)(v43 - 1) < MAXMONSTERS )
 		{
 			v35 = &monster[v34];
 			if ( !(v35->_mFlags & 1) )
@@ -2187,7 +2187,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 		v39 = &item[v52-1];
 		if ( v39->_iPostDraw )
 		{
-			if ( (unsigned char)v52 <= 0x7Fu )
+			if ( (unsigned char)v52 <= MAXITEMS )
 			{
 				v40 = (char *)v39->_iAnimData;
 				if ( v40 )
@@ -2652,7 +2652,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 	if ( v51 )
 	{
 		v18 = &item[v51-1];
-		if ( !v18->_iPostDraw && (unsigned char)v51 <= 0x7Fu )
+		if ( !v18->_iPostDraw && (unsigned char)v51 <= MAXITEMS )
 		{
 			v19 = (char *)v18->_iAnimData;
 			if ( v19 )
@@ -2703,7 +2703,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 	{
 		v25 = -1 - v43;
 		draw_monster_num = -1 - v43;
-		if ( (unsigned int)(-1 - v43) < 0xC8 )
+		if ( (unsigned int)(-1 - v43) < MAXMONSTERS )
 		{
 			v26 = &monster[v25];
 			if ( !(v26->_mFlags & 1) )
@@ -2760,7 +2760,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 	{
 		v33 = v42 - 1;
 		draw_monster_num = v42 - 1;
-		if ( (unsigned int)(v42 - 1) < 0xC8 )
+		if ( (unsigned int)(v42 - 1) < MAXMONSTERS )
 		{
 			v34 = &monster[v33];
 			if ( !(v34->_mFlags & 1) )
@@ -2791,7 +2791,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 		v38 = &item[v51-1];
 		if ( v38->_iPostDraw )
 		{
-			if ( (unsigned char)v51 <= 0x7Fu )
+			if ( (unsigned char)v51 <= MAXITEMS )
 			{
 				v39 = (char *)v38->_iAnimData;
 				if ( v39 )
@@ -2840,7 +2840,7 @@ void __fastcall DrawMonster(int x, int y, int a3, int a4, int mon_id, int a6, in
 	CMonster *v11; // eax
 	char mon_ida; // [esp+1Ch] [ebp+10h]
 
-	if ( (unsigned int)mon_id < 0xC8 )
+	if ( (unsigned int)mon_id < MAXMONSTERS )
 	{
 		v7 = mon_id;
 		v8 = (char *)monster[mon_id]._mAnimData;
@@ -2925,7 +2925,7 @@ void __fastcall DrawObject(int x, int y, int a3, int a4, int pre_flag, int a6, i
 		v11 = a4;
 		v12 = a3 - object[v10]._oAnimWidth2;
 	}
-	if ( v9 < 0x7Fu )
+	if ( v9 < MAXOBJECTS )
 	{
 		v15 = (char *)object[v10]._oAnimData;
 		if ( v15 )
@@ -3114,7 +3114,7 @@ LABEL_9:
 			break;
 	}
 	a6 = 0;
-	screen_buf_end = (int)gpBuffer + screen_y_times_width[143];
+	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[143];
 	do
 	{
 		scrollrt_draw_upper(v3, ya++, v2, v4, a5, a6, 0);
@@ -3126,7 +3126,7 @@ LABEL_9:
 		++a6;
 	}
 	while ( a6 < 4 );
-	screen_buf_end = (int)gpBuffer + screen_y_times_width[320];
+	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[320];
 	if ( v18 > 0 )
 	{
 		do
@@ -3203,7 +3203,7 @@ LABEL_24:
 // 5C3000: using guessed type int scr_pix_width;
 // 5C3004: using guessed type int scr_pix_height;
 // 69BD04: using guessed type int questlog;
-// 69CF0C: using guessed type int screen_buf_end;
+// 69CF0C: using guessed type int gpBufEnd;
 // 69CF20: using guessed type char arch_draw_type;
 
 void __cdecl ClearScreenBuffer()
@@ -3484,7 +3484,7 @@ void __cdecl scrollrt_draw_cursor_item()
 				}
 				v9 = v2 + 1;
 				v10 = v3 + 1;
-				screen_buf_end = (int)gpBuffer + screen_y_times_width[ScreenWidth] - v0 - 2;
+				gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[ScreenWidth] - v0 - 2;
 				if ( pcurs < 12 )
 				{
 					Cel2DrawHdrOnly(v9 + 64, v1 + v10 + 159, (char *)pCursCels, pcurs, v0, 0, 8);
@@ -3509,7 +3509,7 @@ void __cdecl scrollrt_draw_cursor_item()
 	}
 }
 // 4B8C9C: using guessed type int cursH;
-// 69CF0C: using guessed type int screen_buf_end;
+// 69CF0C: using guessed type int gpBufEnd;
 
 void __fastcall DrawMain(int dwHgt, int draw_desc, int draw_hp, int draw_mana, int draw_sbar, int draw_btn)
 {

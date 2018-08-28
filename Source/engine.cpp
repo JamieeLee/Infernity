@@ -659,7 +659,7 @@ void __fastcall Cel2DecDatOnly(char *pDecodeTo, char *pRLEBytes, int frame_conte
 						goto LABEL_17;
 				}
 				v6 -= v7;
-				if ( (unsigned int)v5 < screen_buf_end)
+				if ( v5 < (char *)gpBufEnd )
 				{
 					v8 = v7 >> 1;
 					if ( !(v7 & 1) || (*v5 = *v4, ++v4, ++v5, v8) )
@@ -687,7 +687,7 @@ LABEL_17:
 		while ( &v11[frame_content_size] != v4 );
 	}
 }
-// 69CF0C: using guessed type int screen_buf_end;
+// 69CF0C: using guessed type int gpBufEnd;
 
 void __fastcall Cel2DrawHdrOnly(int screen_x, int screen_y, char *pCelBuff, int frame, int frame_width, int a6, int direction)
 {
@@ -788,7 +788,7 @@ void __fastcall Cel2DecDatLightOnly(char *pDecodeTo, char *pRLEBytes, int frame_
 						goto LABEL_13;
 				}
 				v7 -= v8;
-				if ( (unsigned int)v5 < screen_buf_end )
+				if ( v5 < (char *)gpBufEnd )
 				{
 					v9 = v7;
 					Cel2DecDatLightEntry(v8, a3, v5, v4);
@@ -808,7 +808,7 @@ LABEL_13:
 	}
 }
 // 69BEF8: using guessed type int light_table_index;
-// 69CF0C: using guessed type int screen_buf_end;
+// 69CF0C: using guessed type int gpBufEnd;
 
 void __fastcall Cel2DecDatLightEntry(unsigned char shift, char *LightIndex, char *&pDecodeTo, char *&pRLEBytes)
 {
@@ -903,7 +903,7 @@ void __fastcall Cel2DecDatLightTrans(char *pDecodeTo, char *pRLEBytes, int frame
 					v26 = v6;
 					_EBX = v27;
 					v7 -= v8;
-					if ( v5 < screen_buf_end )
+					if ( v5 < (unsigned int)gpBufEnd )
 					{
 						if ( (v5 & 1) == v28 )
 						{
@@ -1014,7 +1014,7 @@ LABEL_26:
 	}
 }
 // 69BEF8: using guessed type int light_table_index;
-// 69CF0C: using guessed type int screen_buf_end;
+// 69CF0C: using guessed type int gpBufEnd;
 
 void __fastcall Cel2DecodeHdrLight(int screen_x, int screen_y, char *pCelBuff, int frame, int frame_width, int a6, int direction)
 {
@@ -1180,7 +1180,7 @@ void __fastcall Cel2DrawHdrLightRed(int screen_x, int screen_y, char *pCelBuff, 
 								goto LABEL_21;
 						}
 						v18 -= v20;
-						if ( (unsigned int)v16 < screen_buf_end )
+						if ( v16 < gpBufEnd )
 						{
 							do
 							{
@@ -1208,7 +1208,7 @@ LABEL_21:
 	}
 }
 // 525728: using guessed type int light4flag;
-// 69CF0C: using guessed type int screen_buf_end;
+// 69CF0C: using guessed type int gpBufEnd;
 
 void __fastcall CelDecodeRect(char *pBuff, int always_0, int dst_height, int dst_width, char *pCelBuff, int frame, int frame_width)
 {
@@ -1408,9 +1408,9 @@ void __fastcall CelDrawHdrClrHL(char colour, int screen_x, int screen_y, char *p
 								goto LABEL_28;
 						}
 						v12 -= v13;
-						if ( (unsigned int)v11 < screen_buf_end )
+						if ( v11 < (char *)gpBufEnd )
 						{
-							if ( (unsigned int)v11 >= screen_buf_end - WorkingWidth)
+							if ( v11 >= (char *)gpBufEnd - WorkingWidth)
 							{
 								v16 = v13;
 								do
@@ -1461,7 +1461,7 @@ LABEL_28:
 		}
 	}
 }
-// 69CF0C: using guessed type int screen_buf_end;
+// 69CF0C: using guessed type int gpBufEnd;
 
 void __fastcall ENG_set_pixel(int screen_x, int screen_y, char pixel)
 {
@@ -1470,11 +1470,11 @@ void __fastcall ENG_set_pixel(int screen_x, int screen_y, char pixel)
 	if ( screen_y >= 0 && screen_y < ScreenWidth && screen_x >= 64 && screen_x < (WorkingWidth-64) )
 	{
 		v3 = (char *)gpBuffer + screen_y_times_width[screen_y] + screen_x;
-		if ( (unsigned int)v3 < screen_buf_end )
+		if ( v3 < (char *)gpBufEnd )
 			*v3 = pixel;
 	}
 }
-// 69CF0C: using guessed type int screen_buf_end;
+// 69CF0C: using guessed type int gpBufEnd;
 
 void __fastcall engine_draw_pixel(int x, int y)
 {
@@ -1492,7 +1492,7 @@ void __fastcall engine_draw_pixel(int x, int y)
 	{
 		v2 = (unsigned char *)gpBuffer + screen_y_times_width[y] + x;
 LABEL_14:
-		if ( (unsigned int)v2 < screen_buf_end )
+		if ( v2 < gpBufEnd )
 			*v2 = gbPixelCol;
 		return;
 	}
@@ -1500,7 +1500,7 @@ LABEL_14:
 // 52B96C: using guessed type char gbPixelCol;
 // 52B970: using guessed type int dword_52B970;
 // 52B99C: using guessed type int dword_52B99C;
-// 69CF0C: using guessed type int screen_buf_end;
+// 69CF0C: using guessed type int gpBufEnd;
 
 void __fastcall DrawLine(int x0, int y0, int x1, int y1, char col)
 {
@@ -2909,7 +2909,7 @@ void __fastcall Cl2DecDatFrm4(char *buffer, char *a2, int a3, int frame_width)
 			if ( (char)v6 <= 65 )
 			{
 				v8 -= v6;
-				if ( (signed int)v5 < screen_buf_end )
+				if ( v5 < (char *)gpBufEnd )
 				{
 					v7 -= v6;
 					do
@@ -2929,7 +2929,7 @@ void __fastcall Cl2DecDatFrm4(char *buffer, char *a2, int a3, int frame_width)
 				_LOBYTE(v6) = v6 - 65;
 				--v8;
 				v9 = *v4++;
-				if ( (signed int)v5 < screen_buf_end )
+				if ( v5 < (char *)gpBufEnd )
 				{
 					v7 -= v6;
 					do
@@ -2974,7 +2974,7 @@ LABEL_12:
 	}
 	while ( v8 );
 }
-// 69CF0C: using guessed type int screen_buf_end;
+// 69CF0C: using guessed type int gpBufEnd;
 
 void __fastcall Cl2DecodeClrHL(char colour, int screen_x, int screen_y, char *pCelBuff, int nCel, int frame_width, int a7, int a8)
 {
@@ -3000,20 +3000,20 @@ void __fastcall Cl2DecodeClrHL(char colour, int screen_x, int screen_y, char *pC
 				{
 					if ( a8 == 8 || (v11 = *(unsigned short *)&v9[a8], !*(_WORD *)&v9[a8]) )
 						v11 = *(_DWORD *)&pCelBuff[4 * nCel + 4] - v8;
-					screen_buf_end -= WorkingWidth;
+					gpBufEnd -= WorkingWidth;
 					Cl2DecDatClrHL(
 						(char *)gpBuffer + screen_y_times_width[screen_y - 16 * a7] + v12,
 						&v9[v10],
 						v11 - v10,
 						frame_width,
 						a5);
-					screen_buf_end += WorkingWidth;
+					gpBufEnd += WorkingWidth;
 				}
 			}
 		}
 	}
 }
-// 69CF0C: using guessed type int screen_buf_end;
+// 69CF0C: using guessed type int gpBufEnd;
 
 void __fastcall Cl2DecDatClrHL(char *dst_buf, char *frame_content, int a3, int frame_width, char colour)
 {
@@ -3043,7 +3043,7 @@ void __fastcall Cl2DecDatClrHL(char *dst_buf, char *frame_content, int a3, int f
 			if ( (char)v7 <= 65 )
 			{
 				v9 -= v7;
-				if ( (signed int)v6 < screen_buf_end )
+				if ( v6 < (char *)gpBufEnd )
 				{
 					v8 -= v7;
 					do
@@ -3069,7 +3069,7 @@ void __fastcall Cl2DecDatClrHL(char *dst_buf, char *frame_content, int a3, int f
 				_LOBYTE(v7) = v7 - 65;
 				--v9;
 				v11 = *v5++;
-				if ( v11 && (signed int)v6 < screen_buf_end )
+				if ( v11 && v6 < (char *)gpBufEnd )
 				{
 					*(v6 - 1) = v10;
 					v8 -= v7;
@@ -3118,7 +3118,7 @@ LABEL_15:
 	}
 	while ( v9 );
 }
-// 69CF0C: using guessed type int screen_buf_end;
+// 69CF0C: using guessed type int gpBufEnd;
 
 void __fastcall Cl2DecodeFrm5(int screen_x, int screen_y, char *pCelBuff, int nCel, int frame_width, int a6, int a7, char a8)
 {
@@ -3197,7 +3197,7 @@ void __fastcall Cl2DecDatLightTbl2(char *dst_buf, char *a2, int a3, int frame_wi
 			if ( (char)v9 <= 65 )
 			{
 				v8 -= v9;
-				if ( (signed int)v6 < screen_buf_end )
+				if ( v6 < (char *)gpBufEnd )
 				{
 					v7 -= v9;
 					do
@@ -3218,7 +3218,7 @@ void __fastcall Cl2DecDatLightTbl2(char *dst_buf, char *a2, int a3, int frame_wi
 				--v8;
 				_LOBYTE(v10) = *v5++;
 				v11 = a5[v10];
-				if ( (signed int)v6 < screen_buf_end )
+				if ( v6 < (char *)gpBufEnd )
 				{
 					v7 -= v9;
 					do
@@ -3264,7 +3264,7 @@ LABEL_12:
 	while ( v8 );
 }
 // 52B978: using guessed type int sgnWidth;
-// 69CF0C: using guessed type int screen_buf_end;
+// 69CF0C: using guessed type int gpBufEnd;
 
 void __fastcall Cl2DecodeFrm6(int screen_x, int screen_y, char *pCelBuff, int nCel, int frame_width, int a6, int a7)
 {

@@ -653,8 +653,8 @@ LABEL_10:
 		v1 = 351;
 	if ( !zoomflag )
 	{
-		v0 >>= 1;
-		v1 >>= 1;
+		//v0 >>= 1;
+		//v1 >>= 1;
 	}
 	v2 = v0 - ScrollInfo._sxoff;
 	v3 = v1 - ScrollInfo._syoff;
@@ -669,8 +669,8 @@ LABEL_10:
 		v2 = ScreenWidth;
 	if ( v3 < 0 )
 		v3 = 0;
-	if ( v3 >= 480 )
-		v3 = 480;
+	if ( v3 >= ScreenHeight )
+		v3 = ScreenHeight;
 	v4 = v3 >> 5;
 	v5 = v3 & 0x1F;
 	v76 = v2 & 0x3F;
