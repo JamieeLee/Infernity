@@ -1210,6 +1210,14 @@ LABEL_21:
 // 525728: using guessed type int light4flag;
 // 69CF0C: using guessed type int gpBufEnd;
 
+int GetHeightDiff() {
+	return ScreenHeight - 480;
+}
+int GetWidthDiff() {
+	return ScreenWidth - 640;
+}
+
+
 void __fastcall CelDecodeRect(char *pBuff, int always_0, int dst_height, int dst_width, char *pCelBuff, int frame, int frame_width)
 {
 	char *v7; // ebx
@@ -1905,8 +1913,8 @@ void PrintInCombat() {
 }
 
 void DrawNumbersOnHealthMana() {
-	int ScreenWidth = 640;
-	int ScreenHeight = 480;
+	//int ScreenWidth = 640;
+	//int ScreenHeight = 480;
 	if (GetConfigBoolVariable("showNumbersOnHealth")) {
 		string separator = "/";
 		stringstream curHP;

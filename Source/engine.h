@@ -13,7 +13,6 @@ extern int sgnWidth;
 extern int sglGameSeed; // weak
 extern int SeedCount; // weak
 extern int dword_52B99C; // bool valid - if x/y are in bounds
-
 void __cdecl engine_cpp_init_1();
 void __fastcall CelDrawDatOnly(char *pDecodeTo, char *pRLEBytes, int dwRLESize, int dwRLEWdt);
 void __fastcall CelDecodeOnly(int screen_x, int screen_y, void *pCelBuff, int frame, int frame_width);
@@ -93,6 +92,9 @@ extern int ScreenWidth;
 extern int ScreenHeight;
 extern int WorkingWidth;
 extern int WorkingHeight;
+int GetHeightDiff();
+int GetWidthDiff();
+extern int CurFineMap;
 
 
 extern std::map<std::string, bool> BoolConfig;

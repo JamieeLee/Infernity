@@ -969,8 +969,9 @@ void __fastcall DrawPanelBox(int x, int y, int w, int h, int sx, int sy)
 	unsigned int v9; // ecx
 	char v10; // cf
 	unsigned int v11; // ecx
-
-	v6 = (char *)pBtmBuff + 640 * y + x;
+	sy += GetHeightDiff();
+	sx += GetWidthDiff() / 2;
+	v6 = (char *)pBtmBuff + ScreenWidth * y + x;
 	v7 = &gpBuffer->row_unused_1[sy].col_unused_1[sx];
 	v8 = h;
 	do
@@ -987,7 +988,7 @@ void __fastcall DrawPanelBox(int x, int y, int w, int h, int sx, int sy)
 				v7 += 4 * v11;
 			}
 		}
-		v6 = &v6[-w + 640];
+		v6 = &v6[-w + ScreenWidth];
 		v7 = &v7[-w + WorkingWidth];
 		--v8;
 	}
@@ -999,6 +1000,10 @@ void __fastcall SetFlaskHeight(char *buf, int min, int max, int c, int r)
 	char *v5; // esi
 	char *v6; // edi
 	int v7; // edx
+
+	c += GetWidthDiff()/2;
+	r += GetHeightDiff();
+
 
 	v5 = &buf[88 * min];
 	v6 = &gpBuffer->row_unused_1[r].col_unused_1[c];
@@ -1012,7 +1017,7 @@ void __fastcall SetFlaskHeight(char *buf, int min, int max, int c, int r)
 	}
 	while ( v7 );
 }
-
+/*
 void __fastcall DrawFlask(void *a1, int a2, int a3, void *a4, int a5, int a6)
 {
 	char *v6; // esi
@@ -1021,6 +1026,9 @@ void __fastcall DrawFlask(void *a1, int a2, int a3, void *a4, int a5, int a6)
 	signed int v9; // ecx
 	char v10; // al
 	int v11; // [esp+Ch] [ebp-4h]
+
+	a3 += GetWidthDiff()/2;
+	a2 += GetHeightDiff();
 
 	v11 = a2;
 	v6 = (char *)a1 + a3;
@@ -1043,6 +1051,26 @@ void __fastcall DrawFlask(void *a1, int a2, int a3, void *a4, int a5, int a6)
 		--v8;
 	}
 	while ( v8 );
+}
+*/
+
+
+
+void __fastcall DrawFlask(void* srcSurface, int srcWidth, int srcOffset, void* dstSurface, int dstOffset, int ySize)
+{
+	uchar* src = (uchar*)srcSurface + srcOffset;
+	uchar* dst = (uchar*)dstSurface + dstOffset + WorkingWidth * GetHeightDiff() + GetWidthDiff() / 2;
+	for (int y = 0; y < ySize; y++) {
+		for (int x = 0; x < 59; x++) {
+			if (*src) {
+				*dst = *src; 
+			}
+			src++;
+			dst++;
+		}
+		src += srcWidth - 59;
+		dst += WorkingWidth - 59;
+	}
 }
 
 void __cdecl DrawLifeFlask()
@@ -1162,21 +1190,21 @@ void __cdecl InitControlPan()
 	char v4; // al
 	unsigned char *v5; // eax
 
-	v0 = 0x16800;
-	if ( gbMaxPlayers != 1 )
-		v0 = 0x2D000;
+	v0 = WorkingWidth * 144;// 0x16800;
+	if (gbMaxPlayers != 1)
+		v0 = WorkingWidth * 288;// 0x2D000;
 	pBtmBuff = DiabloAllocPtr(v0);
 	memset(pBtmBuff, 0, v0);
-	pManaBuff = DiabloAllocPtr(WorkingWidth*10+64);
-	memset(pManaBuff, 0, WorkingWidth * 10 + 64);
-	pLifeBuff = DiabloAllocPtr(WorkingWidth * 10 + 64);//1e40
-	memset(pLifeBuff, 0, WorkingWidth * 10 + 64);
+	pManaBuff = DiabloAllocPtr(88*88);
+	memset(pManaBuff, 0, 88 * 88);
+	pLifeBuff = DiabloAllocPtr(88 * 88);//1e40
+	memset(pLifeBuff, 0, 88 * 88);
 	pPanelText = LoadFileInMem("CtrlPan\\SmalText.CEL", 0);
 	pChrPanel = LoadFileInMem("Data\\Char.CEL", 0);
 	pSpellCels = LoadFileInMem("CtrlPan\\SpelIcon.CEL", 0);
 	SetSpellTrans(0);
 	pStatusPanel = LoadFileInMem("CtrlPan\\Panel8.CEL", 0);
-	CelDecodeRect((char *)pBtmBuff, 0, 143, 640, (char *)pStatusPanel, 1, 640);
+	CelDecodeRect((char *)pBtmBuff, 0, 143, ScreenWidth, (char *)pStatusPanel, 1, 640);
 	v1 = pStatusPanel;
 	pStatusPanel = 0;
 	mem_free_dbg(v1);
@@ -2773,7 +2801,7 @@ void __cdecl RedBack()
 	{
 		v7 = gpBuffer->row[0].pixels;
 		_EBX = &pLightTbl[v12];
-		v9 = 352;
+		v9 = 352+GetHeightDiff();
 		do
 		{
 			v10 = ScreenWidth;
@@ -2795,7 +2823,7 @@ void __cdecl RedBack()
 	{
 		v1 = gpBuffer->row[0].pixels;
 		_EBX = &pLightTbl[v12];
-		v3 = 352;
+		v3 = +GetHeightDiff();
 		do
 		{
 			v4 = ScreenWidth;

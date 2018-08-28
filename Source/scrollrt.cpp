@@ -494,7 +494,6 @@ void DrawMonsterHealthBar(int monsterID)
 	float FilledPercent = (float)currentLife / (float)maxLife;
 	const int yPos = 180;
 	const int width = 250;
-	int ScreenWidth = 640;
 	int Screen_LeftBorder = 64;
 	const int xPos = (ScreenWidth) / 2 - Screen_LeftBorder;
 	const int height = 25;
@@ -3568,25 +3567,25 @@ LABEL_17:
 			DoBlitScreen(0, 0, ScreenWidth, a4);
 		if ( a4 < ScreenHeight)
 		{
-			if ( draw_sbar )
-				DoBlitScreen(204, 357, 232, 28);
-			if ( draw_desc )
-				DoBlitScreen(176, 398, 288, 60);
-			if ( draw_mana )
+			if ( draw_sbar)
+				DoBlitScreen(204, 357 + GetHeightDiff(), 232, 28);
+			if ( draw_desc)
+				DoBlitScreen(176, 398 + GetHeightDiff(), 288, 60);
+			if ( draw_mana)
 			{
-				DoBlitScreen(460, 352, 88, 72);
-				DoBlitScreen(564, 416, 56, 56);
+				DoBlitScreen(460, 352 + GetHeightDiff(), 88, 72);
+				DoBlitScreen(564, 416 + GetHeightDiff(), 56, 56);
 			}
-			if ( draw_hp )
-				DoBlitScreen(96, 352, 88, 72);
+			if ( draw_hp)
+				DoBlitScreen(96, 352 + GetHeightDiff(), 88, 72);
 			if ( draw_btn )
 			{
-				DoBlitScreen(8, 357, 72, 119);
-				DoBlitScreen(556, 357, 72, 48);
+				DoBlitScreen(8, 357 + GetHeightDiff(), 72, 119);
+				DoBlitScreen(556, 357 + GetHeightDiff(), 72, 48);
 				if ( (unsigned char)gbMaxPlayers > 1u )
 				{
-					DoBlitScreen(84, 443, 36, 32);
-					DoBlitScreen(524, 443, 36, 32);
+					DoBlitScreen(84, 443 + GetHeightDiff(), 36, 32);
+					DoBlitScreen(524, 443 + GetHeightDiff(), 36, 32);
 				}
 			}
 			if ( sgdwCursWdtOld )

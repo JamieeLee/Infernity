@@ -127,7 +127,6 @@ void DrawFloatingTextAbovePlayer() {
 	float DurationOfTextInSeconds = 2;
 	int PercentOfTheScreenToTravel = 20;
 	int percentToMerge = 80;
-	int ScreenWidth = 640;
 	int ScreenHeight = 350;
 	int MaxFPS = 20;
 	int minHeight = 0;

@@ -17,8 +17,8 @@ HMODULE ghDiabMod; // idb
 
 int dx_inf = 0x7F800000; // weak
 
-int ScreenWidth = 800;
-int ScreenHeight = 600;
+int ScreenWidth = 1280;
+int ScreenHeight = 960;
 int WorkingWidth  = ScreenWidth+128;
 int WorkingHeight = ScreenHeight+176;
 

@@ -649,8 +649,8 @@ LABEL_9:
 		v0 = 0;
 	}
 LABEL_10:
-	if ( MouseY > 351 && track_isscrolling() )
-		v1 = 351;
+	if ( MouseY >= (352 + GetHeightDiff()) && track_isscrolling() )
+		v1 = (352+GetHeightDiff());
 	if ( !zoomflag )
 	{
 		v0 >>= 1;
@@ -730,7 +730,7 @@ LABEL_40:
 		cursmy = v8;
 		return;
 	}
-	if ( MouseY > 352 )
+	if ( MouseY > +GetHeightDiff())
 	{
 		CheckPanelInfo();
 		return;
@@ -746,6 +746,7 @@ LABEL_40:
 		return;
 	if ( leveltype == DTYPE_TOWN )
 	{
+		CurFineMap = dPiece[v6][v8];
 		if ( v83 )
 		{
 			v27 = 112 * v6;

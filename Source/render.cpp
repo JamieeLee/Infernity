@@ -1,7 +1,7 @@
 //HEADER_GOES_HERE
 
 #include "../types.h"
-
+int CurFineMap = 0;
 int WorldBoolFlag = 0;
 unsigned int gdwCurrentMask = 0;
 // char world_4B3264 = 0;
