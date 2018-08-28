@@ -867,14 +867,14 @@ void __fastcall DrawGame2(int x, int y)
 	v3 = x - 10;
 	ya = y - 1;
 	a5 = 20;
-	v4 = ScrollInfo._syoff + 175 + 200;//175
+	v4 = ScrollInfo._syoff + 175 + 400;//175
 	scr_pix_width = ScreenWidth;
 	scr_pix_height = 552;//332
 	dword_5C2FFC = 11;
 	v11 = 16;//8
 
-	ya = y +5;
-	v3 -= 4;
+	ya = y - 12;
+	v3 -= 19;
 
 
 	if ( chrflag || questlog )
@@ -905,7 +905,7 @@ LABEL_9:
 		case DIR_NW:
 			goto LABEL_13;
 		case DIR_N:
-			v11 = 9;
+			v11 = 17;
 			goto LABEL_13;
 		case DIR_NE:
 			goto LABEL_15;
@@ -926,7 +926,7 @@ LABEL_13:
 			v3 -= 2;
 			++a5;
 LABEL_15:
-			v11 = 9;
+			v11 = 17;
 			break;
 		default:
 			break;
@@ -940,13 +940,13 @@ LABEL_15:
 		v5 = v4 + 16;
 		v6 = v2 - 32;
 		scrollrt_draw_upper(v3++, ya, v6, v5, a5, a6, 1);
-		v2 = v6 + 32;
-		v4 = v5 + 16;
+		v2 = v6 + 32;//32
+		v4 = v5 + 16;//16
 		++a6;
 	}
-	while ( a6 < 16 );
-	/*
-	gpBufEnd = gpBuffer + screen_y_times_width[WorkingHeight];//512
+	while ( a6 < 20 );
+	
+	gpBufEnd = (unsigned char*)gpBuffer + screen_y_times_width[WorkingHeight];//512
 	if ( v11 > 0 )
 	{
 		do
@@ -973,8 +973,8 @@ LABEL_15:
 		v4 = v9 + 16;
 		++a6a;
 	}
-	while ( a6a < 16 );
-	*/
+	while ( a6a < 20 );
+	
 }
 // 4B8968: using guessed type int sbookflag;
 // 5C2FF8: using guessed type int dword_5C2FF8;

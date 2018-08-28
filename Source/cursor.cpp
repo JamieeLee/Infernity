@@ -653,8 +653,8 @@ LABEL_10:
 		v1 = 351;
 	if ( !zoomflag )
 	{
-		//v0 >>= 1;
-		//v1 >>= 1;
+		v0 >>= 1;
+		v1 >>= 1;
 	}
 	v2 = v0 - ScrollInfo._sxoff;
 	v3 = v1 - ScrollInfo._syoff;

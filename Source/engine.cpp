@@ -2296,7 +2296,8 @@ unsigned char *__fastcall DiabloAllocPtr(int dwBytes)
 
 	v1 = dwBytes;
 	EnterCriticalSection(&sgMemCrit);
-	v2 = (unsigned char *)SMemAlloc(v1, "C:\\Src\\Diablo\\Source\\ENGINE.CPP", 2236, 0);
+	//v2 = (unsigned char *)SMemAlloc(v1, "C:\\Src\\Diablo\\Source\\ENGINE.CPP", 2236, 0);
+	v2 = (unsigned char*)malloc(v1);
 	LeaveCriticalSection(&sgMemCrit);
 	if ( !v2 )
 	{
@@ -2314,7 +2315,8 @@ void __fastcall mem_free_dbg(void *p)
 	if ( p )
 	{
 		EnterCriticalSection(&sgMemCrit);
-		SMemFree(v1, "C:\\Src\\Diablo\\Source\\ENGINE.CPP", 2317, 0);
+		free(p);
+		//SMemFree(v1, "C:\\Src\\Diablo\\Source\\ENGINE.CPP", 2317, 0);
 		LeaveCriticalSection(&sgMemCrit);
 	}
 }

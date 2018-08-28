@@ -424,7 +424,7 @@ struct DeadStruct
 struct ScreenRow
 {
 	char col_unused_1[64];
-	char pixels[1280];
+	char pixels[800];
 	char col_unused_2[64];
 };
 

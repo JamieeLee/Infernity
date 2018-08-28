@@ -9040,7 +9040,7 @@ void __fastcall world_draw_black_tile(unsigned char *pbDst)
 			--j;
 		}
 		while ( j );
-		tmp_pbDst = &tmp_pbDst[xx_32 - 832];
+		tmp_pbDst = &tmp_pbDst[xx_32 - (WorkingWidth + 64)];
 		if ( !xx_32 )
 			break;
 		xx_32 -= 2;
@@ -9058,7 +9058,7 @@ void __fastcall world_draw_black_tile(unsigned char *pbDst)
 			--j;
 		}
 		while ( j );
-		tmp_pbDst = &tmp_pbDst[yy_32 - 832];
+		tmp_pbDst = &tmp_pbDst[yy_32 - (WorkingWidth + 64)];
 		--i;
 		yy_32 += 2;
 	}

@@ -1101,9 +1101,7 @@ void __cdecl DrawManaFlask()
 		v1 = 11;
 	v2 = v1 + 2;
 	DrawFlask(pManaBuff, 88, 277, gpBuffer, 499 * WorkingWidth + 539, v2);
-	//DrawFlask(pManaBuff, 88, 277, gpBuffer, 383771, v2);
 	if ( v2 != 13 )
-		//DrawFlask(pBtmBuff, ScreenWidth, ScreenWidth * v2 + 2395, gpBuffer, WorkingWidth * v2 + 383771, 13 - v2);
 		DrawFlask(pBtmBuff, ScreenWidth, ScreenWidth * v2 + WorkingWidth*3+91, gpBuffer, WorkingWidth * v2 + 499*WorkingWidth+539, 13 - v2);
 }
 

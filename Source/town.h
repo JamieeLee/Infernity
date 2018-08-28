@@ -14,6 +14,7 @@ void __fastcall town_draw_e_flag(void *buffer, int x, int y, int a4, int dir, in
 void __fastcall town_draw_town_all(void *buffer, int x, int y, int a4, int dir, int sx, int sy, int some_flag);
 void __fastcall town_draw_upper(int x, int y, int sx, int sy, int a5, int a6, int some_flag);
 void __fastcall T_DrawGame(int x, int y);
+void __fastcall T_DrawGame2(int x, int y);
 void __fastcall T_DrawZoom(int x, int y);
 void __fastcall T_DrawView(int StartX, int StartY);
 void __cdecl town_init_dpiece_defs_map();

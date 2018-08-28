@@ -19,7 +19,7 @@ void __fastcall town_clear_upper_buf(unsigned char *a1)
 	{
 		v4 = &v1[v2];
 		memset(v4, 0, 4 * v3);
-		v1 = &v4[4 * v3 - 832 + v2];
+		v1 = &v4[4 * v3 - (WorkingWidth + 64) + v2];
 		if ( !v2 )
 		{
 			v5 = 2;
@@ -30,7 +30,7 @@ void __fastcall town_clear_upper_buf(unsigned char *a1)
 					break;
 				v7 = &v1[v5];
 				memset(v7, 0, 4 * v6);
-				v1 = &v7[4 * v6-- - 832 + v5];
+				v1 = &v7[4 * v6-- - (WorkingWidth + 64) + v5];
 				v5 += 2;
 			}
 			while ( v5 != 32 );
@@ -68,7 +68,7 @@ void __fastcall town_clear_low_buf(unsigned char *y_related)
 		{
 			v4 = v1 + 64;
 		}
-		v1 = v4 - 832;
+		v1 = v4 - (WorkingWidth + 64);
 		if ( !v2 )
 			break;
 		v2 -= 2;
@@ -87,7 +87,7 @@ void __fastcall town_clear_low_buf(unsigned char *y_related)
 		{
 			v8 = v1 + 64;
 		}
-		v1 = v8 - 832;
+		v1 = v8 - (WorkingWidth + 64);
 		--v7;
 		v6 += 2;
 	}
@@ -580,7 +580,7 @@ void __fastcall town_draw_lower_2(int x, int y, int sx, int sy, int a5, int a6, 
 			{
 				v8 = sy;
 				v9 = &screen_y_times_width[sy];
-				a1 = (unsigned char *)gpBuffer + *v9 + sx - WorkingWidth * 31 + 736; //24544
+				a1 = (unsigned char *)gpBuffer + *v9 + sx - (WorkingWidth * 31 + 736); //24544
 				sxa = 0;
 				v10 = &dpiece_defs_map_1[0][0][16 * gendung_get_dpiece_num_from_coord(x, y) + 3];
 				v23 = v10;
@@ -1007,6 +1007,140 @@ void __fastcall T_DrawGame(int x, int y)
 	scr_pix_height = 352;
 	dword_5C2FFC = 11;
 	v11 = 5;
+	if (chrflag || questlog)
+	{
+		ya = y - 3;
+		v3 += 2;
+		v2 = ScrollInfo._sxoff + 352;
+		a5 = 6;
+	}
+	if (invflag || sbookflag)
+	{
+		ya -= 2;
+		v3 += 2;
+		v2 -= 32;
+		a5 = 6;
+	}
+	switch (ScrollInfo._sdir)
+	{
+	case DIR_SW:
+		v4 = ScrollInfo._syoff + 143;
+		--v3;
+		--ya;
+		goto LABEL_15;
+	case DIR_W:
+		v4 = ScrollInfo._syoff + 143;
+		--v3;
+		--ya;
+		goto LABEL_14;
+	case DIR_NW:
+		goto LABEL_12;
+	case DIR_N:
+		goto LABEL_14;
+	case DIR_NE:
+		goto LABEL_15;
+	case DIR_E:
+		v2 -= 64;
+		--v3;
+		++ya;
+		goto LABEL_14;
+	case DIR_SE:
+		v2 -= 64;
+		--v3;
+		++ya;
+	LABEL_12:
+		++a5;
+		break;
+	case DIR_OMNI:
+		v2 -= 64;
+		v4 = ScrollInfo._syoff + 143;
+		v3 -= 2;
+	LABEL_14:
+		++a5;
+	LABEL_15:
+		v11 = 6;
+		break;
+	default:
+		break;
+	}
+	a6 = 0;
+	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[160];
+	do
+	{
+		town_draw_upper(v3, ya++, v2, v4, a5, a6, 0);
+		v5 = v4 + 16;
+		v6 = v2 - 32;
+		town_draw_upper(v3++, ya, v6, v5, a5, a6, 1);
+		v2 = v6 + 32;
+		v4 = v5 + 16;
+		++a6;
+	} while (a6 < 7);
+	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[512];
+	if (v11 > 0)
+	{
+		do
+		{
+			town_draw_lower(v3, ya++, v2, v4, a5, 0);
+			v7 = v4 + 16;
+			v8 = v2 - 32;
+			town_draw_lower(v3++, ya, v8, v7, a5, 1);
+			v2 = v8 + 32;
+			v4 = v7 + 16;
+			--v11;
+		} while (v11);
+	}
+	a6a = 0;
+	do
+	{
+		town_draw_lower_2(v3, ya++, v2, v4, a5, a6a, 0);
+		v9 = v4 + 16;
+		v10 = v2 - 32;
+		town_draw_lower_2(v3++, ya, v10, v9, a5, a6a, 1);
+		v2 = v10 + 32;
+		v4 = v9 + 16;
+		++a6a;
+	} while (a6a < 7);
+}
+
+void __fastcall T_DrawGame2(int x, int y)
+{
+	int v2; // esi
+	int v3; // edi
+	int v4; // ebx
+	int v5; // ebx
+	int v6; // esi
+	int v7; // ebx
+	int v8; // esi
+	int v9; // ebx
+	int v10; // esi
+	signed int v11; // [esp+Ch] [ebp-10h]
+	signed int a6; // [esp+10h] [ebp-Ch]
+	signed int a6a; // [esp+10h] [ebp-Ch]
+	signed int a5; // [esp+14h] [ebp-8h]
+	int ya; // [esp+18h] [ebp-4h]
+
+	v2 = ScrollInfo._sxoff + 64;
+	v3 = x - 10;
+	ya = y - 1;
+	v4 = ScrollInfo._syoff;
+	dword_5C2FF8 = 10;
+	a5 = 10;
+	//scr_pix_width = ScreenWidth;
+	//scr_pix_height = 352;
+	//dword_5C2FFC = 11;
+	v11 = 5;
+
+
+	//ya = y - 8;
+	//v3 -= 19;
+
+	//v2 -= 64;
+	//--v3;
+	//++ya;
+	//a5++;
+
+
+
 	if ( chrflag || questlog )
 	{
 		ya = y - 3;
@@ -1064,7 +1198,7 @@ LABEL_15:
 			break;
 	}
 	a6 = 0;
-	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[160];
+	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[0];//160
 	do
 	{
 		town_draw_upper(v3, ya++, v2, v4, a5, a6, 0);
@@ -1076,7 +1210,7 @@ LABEL_15:
 		++a6;
 	}
 	while ( a6 < 7 );
-	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[512];
+	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[WorkingHeight];//512
 	if ( v11 > 0 )
 	{
 		do
@@ -1459,7 +1593,7 @@ void __fastcall T_DrawView(int StartX, int StartY)
 	if ( zoomflag )
 		T_DrawGame(StartX, StartY);
 	else
-		T_DrawZoom2(StartX, StartY);
+		T_DrawGame2(StartX, StartY); //T_DrawZoom
 	if ( automapflag )
 		DrawAutomap();
 	ShouldHighlightItems = ((GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && !(GetAsyncKeyState(VK_MENU) < 0)) || (!GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && (GetAsyncKeyState(VK_MENU) < 0)));
