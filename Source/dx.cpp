@@ -17,6 +17,11 @@ HMODULE ghDiabMod; // idb
 
 int dx_inf = 0x7F800000; // weak
 
+int ScreenWidth = 1280;
+int ScreenHeight = 960;
+int WorkingWidth  = ScreenWidth+128;
+int WorkingHeight = ScreenHeight+176;
+
 struct dx_cpp_init_1
 {
 	dx_cpp_init_1()
@@ -83,7 +88,7 @@ void __fastcall dx_init(HWND hWnd)
 	{
 		ErrDlg(IDD_DIALOG1, v4, "C:\\Src\\Diablo\\Source\\dx.cpp", 170);
 	}
-	if ( lpDDInterface->SetDisplayMode(640, 480, 8) )
+	if ( lpDDInterface->SetDisplayMode(ScreenWidth, ScreenHeight, 8) )
 	{
 		v6 = GetSystemMetrics(SM_CXSCREEN);
 		v7 = GetSystemMetrics(SM_CYSCREEN);
@@ -119,19 +124,19 @@ void __cdecl dx_create_back_buffer()
 		if ( !v1 )
 		{
 			lpDDSPrimary->Unlock(NULL);
-			sgpBackBuf = DiabloAllocPtr(0x7B000);
+			sgpBackBuf = DiabloAllocPtr(WorkingWidth*WorkingHeight);
 			return;
 		}
 		if ( v1 != DDERR_CANTLOCKSURFACE )
 			ErrDlg(IDD_DIALOG1, v1, "C:\\Src\\Diablo\\Source\\dx.cpp", 81);
 	}
 	memset(&v4, 0, 0x6Cu);
-	v4.dwWidth = 768;
-	v4.lPitch = 768;
+	v4.dwWidth = WorkingWidth;
+	v4.lPitch = WorkingWidth;
 	v4.dwSize = 108;
 	v4.dwFlags = DDSD_PIXELFORMAT|DDSD_PITCH|DDSD_WIDTH|DDSD_HEIGHT|DDSD_CAPS;
 	v4.ddsCaps.dwCaps = DDSCAPS_SYSTEMMEMORY|DDSCAPS_OFFSCREENPLAIN;
-	v4.dwHeight = 656;
+	v4.dwHeight = WorkingHeight;
 	v4.ddpfPixelFormat.dwSize = 32;
 	v2 = lpDDSPrimary->GetPixelFormat(&v4.ddpfPixelFormat);
 	if ( v2 )

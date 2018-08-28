@@ -306,7 +306,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	srand(GetTickCount());
 	encrypt_init_lookup_table();
 	exception_get_filter();
-	if ( !diablo_find_window("INFERNITY") && diablo_get_not_running() )
+	if ( !diablo_find_window("INFERNITY") && diablo_get_not_running() ) // remove to enable running multiple times
 	{
 		diablo_init_screen();
 		diablo_parse_flags(lpCmdLine);
@@ -486,14 +486,14 @@ void __cdecl diablo_init_screen()
 	ScrollInfo._sxoff = 0;
 	ScrollInfo._syoff = 0;
 	ScrollInfo._sdir = 0;
-	v1 = screen_y_times_768;
+	v1 = screen_y_times_width;
 	do
 	{
 		*v1 = v0;
 		++v1;
-		v0 += 768;
+		v0 += WorkingWidth;
 	}
-	while ( (signed int)v1 < (signed int)&screen_y_times_768[1024] );
+	while ( (signed int)v1 < (signed int)&screen_y_times_width[4096] );
 	ClrDiabloMsg();
 }
 // 69CEFC: using guessed type int scrollrt_cpp_init_value;

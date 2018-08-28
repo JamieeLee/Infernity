@@ -233,7 +233,7 @@ void __fastcall PrintSString(int x, int y, unsigned char cjustflag, char *str, i
 	v6 = SStringY[y] + stext[y]._syoff;
 	v7 = -(stextsize != 0);
 	v8 = x;
-	v9 = screen_y_times_768[v6 + 204];
+	v9 = screen_y_times_width[v6 + 204];
 	_LOWORD(v7) = v7 & 0xFEC0;
 	v24 = y;
 	v26 = x;
@@ -288,7 +288,7 @@ void __fastcall PrintSString(int x, int y, unsigned char cjustflag, char *str, i
 	if ( !cjustflag && val >= 0 )
 	{
 		sprintf(valstr, "%i", val);
-		v19 = screen_y_times_768[v6 + 204] - v8 + 656;
+		v19 = screen_y_times_width[v6 + 204] - v8 + WorkingHeight;
 		v20 = strlen(valstr);
 		while ( (--v20 & 0x80000000) == 0 )
 		{
@@ -325,7 +325,7 @@ void __fastcall DrawSLine(int y)
 	signed int v9; // [esp+8h] [ebp-8h]
 	signed int v10; // [esp+Ch] [ebp-4h]
 
-	v1 = screen_y_times_768[SStringY[y] + 198];
+	v1 = screen_y_times_width[SStringY[y] + 198];
 	if ( stextsize == 1 )
 	{
 		v8 = 142170;

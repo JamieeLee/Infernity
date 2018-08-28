@@ -207,7 +207,7 @@ void __fastcall DrawSpellCel(int xp, int yp, char *Trans, int nCel, int w)
 
 	v5 = &Trans[4 * nCel];
 	v6 = &Trans[*(_DWORD *)v5];
-	v7 = (char *)gpBuffer + screen_y_times_768[yp] + xp;
+	v7 = (char *)gpBuffer + screen_y_times_width[yp] + xp;
 	v18 = (int)&v6[*((_DWORD *)v5 + 1) - *(_DWORD *)v5];
 	_EBX = byte_4B8B88;
 	do
@@ -270,7 +270,7 @@ LABEL_15:
 		}
 		while ( v9 );
 LABEL_12:
-		v7 = &v7[-w - 768];
+		v7 = &v7[-w - WorkingWidth];
 	}
 	while ( v6 != (char *)v18 );
 }
@@ -815,7 +815,7 @@ void __fastcall CPrintString(int No, unsigned char pszStr, int Just)
 				}
 				while ( v12 );
 LABEL_28:
-				v5 -= 781;
+				v5 -= WorkingWidth + 13;
 			}
 			while ( (char *)v6 != v4 );
 		}
@@ -851,7 +851,7 @@ LABEL_28:
 				}
 				while ( v16 );
 LABEL_39:
-				v5 -= 781;
+				v5 -= WorkingWidth + 13;
 			}
 			while ( (char *)v6 != v4 );
 		}
@@ -892,7 +892,7 @@ LABEL_39:
 				}
 				while ( v20 );
 LABEL_52:
-				v5 -= 781;
+				v5 -= WorkingWidth + 13;
 			}
 			while ( (char *)v6 != v4 );
 		}
@@ -939,7 +939,7 @@ LABEL_52:
 			}
 			while ( v7 );
 LABEL_15:
-			v5 -= 781;
+			v5 -= WorkingWidth + 13;
 		}
 		while ( (char *)v6 != v4 );
 	}
@@ -988,7 +988,7 @@ void __fastcall DrawPanelBox(int x, int y, int w, int h, int sx, int sy)
 			}
 		}
 		v6 = &v6[-w + 640];
-		v7 = &v7[-w + 768];
+		v7 = &v7[-w + WorkingWidth];
 		--v8;
 	}
 	while ( v8 );
@@ -1007,7 +1007,7 @@ void __fastcall SetFlaskHeight(char *buf, int min, int max, int c, int r)
 	{
 		qmemcpy(v6, v5, 0x58u);
 		v5 += 88;
-		v6 += 768;
+		v6 += WorkingWidth;
 		--v7;
 	}
 	while ( v7 );
@@ -1039,7 +1039,7 @@ void __fastcall DrawFlask(void *a1, int a2, int a3, void *a4, int a5, int a6)
 		}
 		while ( v9 );
 		v6 = &v6[v11 - 59];
-		v7 += 709;
+		v7 += WorkingWidth-59; //709
 		--v8;
 	}
 	while ( v8 );
@@ -1059,9 +1059,9 @@ void __cdecl DrawLifeFlask()
 	if ( 80 - (signed int)v0 > 11 )
 		v1 = 11;
 	v2 = v1 + 2;
-	DrawFlask(pLifeBuff, 88, 277, gpBuffer, 383405, v2);
+	DrawFlask(pLifeBuff, 88, 277, gpBuffer, WorkingWidth * 499 + 173, v2);
 	if ( v2 != 13 )
-		DrawFlask(pBtmBuff, 640, 640 * v2 + 2029, gpBuffer, 768 * v2 + 383405, 13 - v2);
+		DrawFlask(pBtmBuff, ScreenWidth, ScreenWidth * v2 + WorkingWidth*2+493, gpBuffer, WorkingWidth * v2 + WorkingWidth * 499 + 173, 13 - v2);
 }
 
 void __cdecl UpdateLifeFlask()
@@ -1100,9 +1100,11 @@ void __cdecl DrawManaFlask()
 	if ( 80 - v0 > 11 )
 		v1 = 11;
 	v2 = v1 + 2;
-	DrawFlask(pManaBuff, 88, 277, gpBuffer, 383771, v2);
+	DrawFlask(pManaBuff, 88, 277, gpBuffer, 499 * WorkingWidth + 539, v2);
+	//DrawFlask(pManaBuff, 88, 277, gpBuffer, 383771, v2);
 	if ( v2 != 13 )
-		DrawFlask(pBtmBuff, 640, 640 * v2 + 2395, gpBuffer, 768 * v2 + 383771, 13 - v2);
+		//DrawFlask(pBtmBuff, ScreenWidth, ScreenWidth * v2 + 2395, gpBuffer, WorkingWidth * v2 + 383771, 13 - v2);
+		DrawFlask(pBtmBuff, ScreenWidth, ScreenWidth * v2 + WorkingWidth*3+91, gpBuffer, WorkingWidth * v2 + 499*WorkingWidth+539, 13 - v2);
 }
 
 void __cdecl control_update_life_mana()
@@ -1167,10 +1169,10 @@ void __cdecl InitControlPan()
 		v0 = 0x2D000;
 	pBtmBuff = DiabloAllocPtr(v0);
 	memset(pBtmBuff, 0, v0);
-	pManaBuff = DiabloAllocPtr(0x1E40);
-	memset(pManaBuff, 0, 0x1E40u);
-	pLifeBuff = DiabloAllocPtr(0x1E40);
-	memset(pLifeBuff, 0, 0x1E40u);
+	pManaBuff = DiabloAllocPtr(WorkingWidth*10+64);
+	memset(pManaBuff, 0, WorkingWidth * 10 + 64);
+	pLifeBuff = DiabloAllocPtr(WorkingWidth * 10 + 64);//1e40
+	memset(pLifeBuff, 0, WorkingWidth * 10 + 64);
 	pPanelText = LoadFileInMem("CtrlPan\\SmalText.CEL", 0);
 	pChrPanel = LoadFileInMem("Data\\Char.CEL", 0);
 	pSpellCels = LoadFileInMem("CtrlPan\\SpelIcon.CEL", 0);
@@ -1267,7 +1269,7 @@ void __cdecl InitControlPan()
 
 void __cdecl ClearCtrlPan()
 {
-	DrawPanelBox(0, sgbPlrTalkTbl + 16, 0x280u, 0x80u, 64, 512);
+	DrawPanelBox(0, sgbPlrTalkTbl + 16, ScreenWidth, 0x80u, 64, 512);
 	DrawInfoBox();
 }
 // 4B8840: using guessed type int sgbPlrTalkTbl;
@@ -2018,7 +2020,7 @@ void __fastcall PrintGameStr(int x, int y, char *str, int color)
 	unsigned char v7; // bl
 
 	v4 = str;
-	v5 = screen_y_times_768[y + 160] + x + 64;
+	v5 = screen_y_times_width[y + 160] + x + 64;
 	for ( i = *str; *v4; i = *v4 )
 	{
 		++v4;
@@ -2290,7 +2292,7 @@ char __fastcall DrawMultiColorText(int xPos, int yPos, int xPosEnd, char* text, 
 	char currentLetter; // al@8
 	int offset;         // [sp+Ch] [bp-4h]@1
 	textTmp = text;
-	offset = screen_y_times_768[yPos + 160] + xPos + 64;
+	offset = screen_y_times_width[yPos + 160] + xPos + 64;
 	maxWidth = xPosEnd - xPos + 1;
 	if (*text) //get text length
 	{
@@ -2353,7 +2355,7 @@ void __fastcall ADD_PlrStringXY(int x, int y, int width, char *pszStr, char col)
 	int widtha; // [esp+Ch] [ebp-4h]
 	int widthb; // [esp+Ch] [ebp-4h]
 
-	v5 = screen_y_times_768[y + 160];
+	v5 = screen_y_times_width[y + 160];
 	v6 = pszStr;
 	widtha = v5 + x + 64;
 	v7 = *pszStr;
@@ -2405,7 +2407,7 @@ void __fastcall MY_PlrStringXY(int x, int y, int width, char *pszStr, char col, 
 	int v16; // [esp+18h] [ebp+8h]
 
 	v6 = pszStr;
-	widtha = screen_y_times_768[y + 160] + x + 64;
+	widtha = screen_y_times_width[y + 160] + x + 64;
 	v7 = *pszStr;
 	v8 = 0;
 	v9 = width - x + 1;
@@ -2674,7 +2676,7 @@ void __cdecl DrawDurIcon()
 
 	if ( !chrflag && !questlog || !invflag && !sbookflag )
 	{
-		v0 = 656;
+		v0 = WorkingHeight;
 		if ( invflag || sbookflag )
 			v0 = 336;
 		v1 = &plr[myplr];
@@ -2776,7 +2778,7 @@ void __cdecl RedBack()
 		v9 = 352;
 		do
 		{
-			v10 = 640;
+			v10 = ScreenWidth;
 			do
 			{
 				_EAX = *v7;
@@ -2798,7 +2800,7 @@ void __cdecl RedBack()
 		v3 = 352;
 		do
 		{
-			v4 = 640;
+			v4 = ScreenWidth;
 			do
 			{
 				_EAX = *v1;
@@ -2939,7 +2941,7 @@ void __fastcall PrintSBookStr(int x, int y, bool cjustflag, char *pszStr, int br
 	int width; // [esp+Ch] [ebp-4h]
 
 	v5 = pszStr;
-	width = screen_y_times_768[y] + x + 440;
+	width = screen_y_times_width[y] + x + 440;
 	v6 = 0;
 	v7 = 0;
 	if ( cjustflag )
@@ -3302,7 +3304,7 @@ char *__fastcall control_print_talk_msg(char *msg, int x, int y, int *a4, int ju
 
 	v5 = x + 264;
 	v6 = msg;
-	*a4 = v5 + screen_y_times_768[y + 534];
+	*a4 = v5 + screen_y_times_width[y + 534];
 	v7 = *msg;
 	v8 = v5;
 	if ( !v7 )

@@ -85,7 +85,7 @@ void __fastcall CelDrawDatOnly(char *pDecodeTo, char *pRLEBytes, int dwRLESize, 
 			}
 			while ( v6 );
 LABEL_14:
-			v5 += -dwRLEWdt - 768;
+			v5 += -dwRLEWdt - WorkingWidth;
 		}
 		while ( &v11[dwRLESize] != v4 );
 	}
@@ -97,7 +97,7 @@ void __fastcall CelDecodeOnly(int screen_x, int screen_y, void *pCelBuff, int fr
 	{
 		if ( pCelBuff )
 			CelDrawDatOnly(
-				(char *)gpBuffer + screen_y_times_768[screen_y] + screen_x,
+				(char *)gpBuffer + screen_y_times_width[screen_y] + screen_x,
 				(char *)pCelBuff + *((_DWORD *)pCelBuff + frame),
 				*((_DWORD *)pCelBuff + frame + 1) - *((_DWORD *)pCelBuff + frame),
 				frame_width);
@@ -142,7 +142,7 @@ void __fastcall CelDrawHdrOnly(int screen_x, int screen_y, char *pCelBuff, int f
 				else
 					v10 = *(_DWORD *)&pCelBuff[4 * frame + 4] - v7 - v9;
 				CelDrawDatOnly(
-					(char *)gpBuffer + screen_y_times_768[v12 - 16 * always_0] + v11,
+					(char *)gpBuffer + screen_y_times_width[v12 - 16 * always_0] + v11,
 					&v8[v9],
 					v10,
 					frame_width);
@@ -217,7 +217,7 @@ void __fastcall CelDecDatLightOnly(char *pDecodeTo, char *pRLEBytes, int frame_c
 			}
 			while ( v7 );
 LABEL_9:
-			v5 += -frame_width - 768;
+			v5 += -frame_width - WorkingWidth;
 		}
 		while ( v6 != v4 );
 	}
@@ -413,7 +413,7 @@ LABEL_20:
 			}
 			while ( v7 );
 LABEL_23:
-			v5 -= frame_width + 768;
+			v5 -= frame_width + WorkingWidth;
 			v28 = ((_BYTE)v28 + 1) & 1;
 		}
 		while ( v6 != v4 );
@@ -434,7 +434,7 @@ void __fastcall CelDecodeLightOnly(int screen_x, int screen_y, char *pCelBuff, i
 	{
 		v6 = *(_DWORD *)&pCelBuff[4 * frame];
 		v7 = &pCelBuff[v6];
-		v8 = (char *)gpBuffer + screen_y_times_768[v5] + screen_x;
+		v8 = (char *)gpBuffer + screen_y_times_width[v5] + screen_x;
 		v9 = *(_DWORD *)&pCelBuff[4 * frame + 4] - v6;
 		if ( light_table_index )
 			CelDecDatLightOnly(v8, v7, v9, frame_width);
@@ -475,7 +475,7 @@ void __fastcall CelDecodeHdrLightOnly(int screen_x, int screen_y, char *pCelBuff
 				else
 					v12 = *(_DWORD *)&v8[4 * frame + 4] - v9 - (_DWORD)cel_buf;
 				v13 = &v10[(_DWORD)cel_buf];
-				v14 = (char *)gpBuffer + screen_y_times_768[v7 - 16 * always_0] + v15;
+				v14 = (char *)gpBuffer + screen_y_times_width[v7 - 16 * always_0] + v15;
 				if ( light_table_index )
 					CelDecDatLightOnly(v14, v13, v12, frame_width);
 				else
@@ -573,7 +573,7 @@ void __fastcall CelDrawHdrLightRed(int screen_x, int screen_y, char *pCelBuff, i
 				else
 					always_0a = v13 - (_DWORD)cel_buf;
 				directiona = (int)&v11[(_DWORD)cel_buf];
-				cel_bufa = (char *)gpBuffer + screen_y_times_768[screen_y - 16 * v10] + v21;
+				cel_bufa = (char *)gpBuffer + screen_y_times_width[screen_y - 16 * v10] + v21;
 				v14 = -(light4flag != 0);
 				_LOWORD(v14) = v14 & 0xF400;
 				v15 = v14 + 4096;
@@ -617,7 +617,7 @@ void __fastcall CelDrawHdrLightRed(int screen_x, int screen_y, char *pCelBuff, i
 					}
 					while ( v18 );
 LABEL_20:
-					v17 += -frame_width - 768;
+					v17 += -frame_width - WorkingWidth;
 				}
 				while ( (_BYTE *)(directiona + always_0a) != v16 );
 			}
@@ -659,7 +659,7 @@ void __fastcall Cel2DecDatOnly(char *pDecodeTo, char *pRLEBytes, int frame_conte
 						goto LABEL_17;
 				}
 				v6 -= v7;
-				if ( (unsigned int)v5 < screen_buf_end )
+				if ( (unsigned int)v5 < screen_buf_end)
 				{
 					v8 = v7 >> 1;
 					if ( !(v7 & 1) || (*v5 = *v4, ++v4, ++v5, v8) )
@@ -682,7 +682,7 @@ void __fastcall Cel2DecDatOnly(char *pDecodeTo, char *pRLEBytes, int frame_conte
 			}
 			while ( v6 );
 LABEL_17:
-			v5 += -frame_width - 768;
+			v5 += -frame_width - WorkingWidth;
 		}
 		while ( &v11[frame_content_size] != v4 );
 	}
@@ -714,7 +714,7 @@ void __fastcall Cel2DrawHdrOnly(int screen_x, int screen_y, char *pCelBuff, int 
 				else
 					v10 = *(_DWORD *)&pCelBuff[4 * frame + 4] - v7 - v9;
 				Cel2DecDatOnly(
-					(char *)gpBuffer + screen_y_times_768[v12 - 16 * a6] + v11,
+					(char *)gpBuffer + screen_y_times_width[v12 - 16 * a6] + v11,
 					&v8[v9],
 					v10,
 					frame_width);
@@ -802,7 +802,7 @@ void __fastcall Cel2DecDatLightOnly(char *pDecodeTo, char *pRLEBytes, int frame_
 			}
 			while ( v7 );
 LABEL_13:
-			v5 += -frame_width - 768;
+			v5 += -frame_width - WorkingWidth;
 		}
 		while ( v6 != v4 );
 	}
@@ -1007,7 +1007,7 @@ LABEL_23:
 			}
 			while ( v7 );
 LABEL_26:
-			v5 -= frame_width + 768;
+			v5 -= frame_width + WorkingWidth;
 			v28 = ((_BYTE)v28 + 1) & 1;
 		}
 		while ( v6 != v4 );
@@ -1051,7 +1051,7 @@ void __fastcall Cel2DecodeHdrLight(int screen_x, int screen_y, char *pCelBuff, i
 				else
 					v14 = v12 - (_DWORD)cel_buf;
 				v15 = &v10[(_DWORD)cel_buf];
-				v16 = (char *)gpBuffer + screen_y_times_768[v7 - 16 * a6] + screen_x;
+				v16 = (char *)gpBuffer + screen_y_times_width[v7 - 16 * a6] + screen_x;
 				if ( light_table_index )
 					Cel2DecDatLightOnly(v16, v15, v14, frame_width);
 				else
@@ -1149,7 +1149,7 @@ void __fastcall Cel2DrawHdrLightRed(int screen_x, int screen_y, char *pCelBuff, 
 				else
 					framea = v12 - (_DWORD)cel_buf;
 				directiona = (int)&v10[(_DWORD)cel_buf];
-				always_0a = (char *)gpBuffer + screen_y_times_768[screen_y - 16 * always_0] + v22;
+				always_0a = (char *)gpBuffer + screen_y_times_width[screen_y - 16 * always_0] + v22;
 				v13 = -(light4flag != 0);
 				_LOWORD(v13) = v13 & 0xF400;
 				v14 = v13 + 4096;
@@ -1200,7 +1200,7 @@ void __fastcall Cel2DrawHdrLightRed(int screen_x, int screen_y, char *pCelBuff, 
 					while ( v18 );
 LABEL_21:
 					v17 = (int)v21;
-					v16 += -frame_width - 768;
+					v16 += -frame_width - WorkingWidth;
 				}
 				while ( v21 != v15 );
 			}
@@ -1310,7 +1310,7 @@ void __fastcall CelDecodeClr(char colour, int screen_x, int screen_y, char *pCel
 				else
 					v18 = *((_DWORD *)v8 + 1) - *(_DWORD *)v8 - v16;
 				v10 = &v17[v16];
-				v11 = (char *)gpBuffer + screen_y_times_768[screen_y - 16 * a7] + screen_x;
+				v11 = (char *)gpBuffer + screen_y_times_width[screen_y - 16 * a7] + screen_x;
 				do
 				{
 					v12 = frame_width;
@@ -1334,10 +1334,10 @@ void __fastcall CelDecodeClr(char colour, int screen_x, int screen_y, char *pCel
 							v15 = *v10++;
 							if ( v15 )
 							{
-								*(v11 - 768) = v19;
+								*(v11 - WorkingWidth) = v19;
 								*(v11 - 1) = v19;
 								v11[1] = v19;
-								v11[768] = v19;
+								v11[WorkingWidth] = v19;
 							}
 							++v11;
 							--v14;
@@ -1346,7 +1346,7 @@ void __fastcall CelDecodeClr(char colour, int screen_x, int screen_y, char *pCel
 					}
 					while ( v12 );
 LABEL_20:
-					v11 += -frame_width - 768;
+					v11 += -frame_width - WorkingWidth;
 				}
 				while ( &v17[v16 + v18] != v10 );
 			}
@@ -1390,7 +1390,7 @@ void __fastcall CelDrawHdrClrHL(char colour, int screen_x, int screen_y, char *p
 				else
 					v20 = *((_DWORD *)v8 + 1) - *(_DWORD *)v8 - v18;
 				v10 = &v19[v18];
-				v11 = (char *)gpBuffer + screen_y_times_768[screen_y - 16 * a7] + screen_x;
+				v11 = (char *)gpBuffer + screen_y_times_width[screen_y - 16 * a7] + screen_x;
 				do
 				{
 					v12 = frame_width;
@@ -1410,7 +1410,7 @@ void __fastcall CelDrawHdrClrHL(char colour, int screen_x, int screen_y, char *p
 						v12 -= v13;
 						if ( (unsigned int)v11 < screen_buf_end )
 						{
-							if ( (unsigned int)v11 >= screen_buf_end - 768 )
+							if ( (unsigned int)v11 >= screen_buf_end - WorkingWidth)
 							{
 								v16 = v13;
 								do
@@ -1418,7 +1418,7 @@ void __fastcall CelDrawHdrClrHL(char colour, int screen_x, int screen_y, char *p
 									v17 = *v10++;
 									if ( v17 )
 									{
-										*(v11 - 768) = v21;
+										*(v11 - WorkingWidth) = v21;
 										*(v11 - 1) = v21;
 										v11[1] = v21;
 									}
@@ -1435,10 +1435,10 @@ void __fastcall CelDrawHdrClrHL(char colour, int screen_x, int screen_y, char *p
 									v15 = *v10++;
 									if ( v15 )
 									{
-										*(v11 - 768) = v21;
+										*(v11 - WorkingWidth) = v21;
 										*(v11 - 1) = v21;
 										v11[1] = v21;
-										v11[768] = v21;
+										v11[WorkingWidth] = v21;
 									}
 									++v11;
 									--v14;
@@ -1454,7 +1454,7 @@ void __fastcall CelDrawHdrClrHL(char colour, int screen_x, int screen_y, char *p
 					}
 					while ( v12 );
 LABEL_28:
-					v11 += -frame_width - 768;
+					v11 += -frame_width - WorkingWidth;
 				}
 				while ( &v19[v18 + v20] != v10 );
 			}
@@ -1467,9 +1467,9 @@ void __fastcall ENG_set_pixel(int screen_x, int screen_y, char pixel)
 {
 	char *v3; // edi
 
-	if ( screen_y >= 0 && screen_y < 640 && screen_x >= 64 && screen_x < 704 )
+	if ( screen_y >= 0 && screen_y < ScreenWidth && screen_x >= 64 && screen_x < (WorkingWidth-64) )
 	{
-		v3 = (char *)gpBuffer + screen_y_times_768[screen_y] + screen_x;
+		v3 = (char *)gpBuffer + screen_y_times_width[screen_y] + screen_x;
 		if ( (unsigned int)v3 < screen_buf_end )
 			*v3 = pixel;
 	}
@@ -1482,15 +1482,15 @@ void __fastcall engine_draw_pixel(int x, int y)
 
 	if ( dword_52B970 )
 	{
-		if ( !dword_52B99C || x >= 0 && x < 640 && y >= 64 && y < 704 )
+		if ( !dword_52B99C || x >= 0 && x < ScreenWidth && y >= 64 && y < (WorkingWidth-64) )
 		{
-			v2 = (unsigned char *)gpBuffer + screen_y_times_768[x] + y;
+			v2 = (unsigned char *)gpBuffer + screen_y_times_width[x] + y;
 			goto LABEL_14;
 		}
 	}
-	else if ( !dword_52B99C || y >= 0 && y < 640 && x >= 64 && x < 704 )
+	else if ( !dword_52B99C || y >= 0 && y < ScreenWidth && x >= 64 && x < (WorkingWidth - 64))
 	{
-		v2 = (unsigned char *)gpBuffer + screen_y_times_768[y] + x;
+		v2 = (unsigned char *)gpBuffer + screen_y_times_width[y] + x;
 LABEL_14:
 		if ( (unsigned int)v2 < screen_buf_end )
 			*v2 = gbPixelCol;
@@ -1871,7 +1871,7 @@ bool ShouldItemBeRare(int isRare) {
 void ColorPixel(int x, int y, int color) {
 
 	char* WorkingSurface = (char*)gpBuffer;
-	WorkingSurface[y*768+x] = color;
+	WorkingSurface[y*WorkingWidth +x] = color;
 }
 
 void RevealMapByOtherPlayers(int x, int y, int pnum) {
@@ -1889,7 +1889,7 @@ void RevealMapByOtherPlayers(int x, int y, int pnum) {
 void PrintDebugInfo() {
 	if (showDebugInfo) {
 		std::stringstream ss;
-		ss << "debuginfo: " << (int)quests[12]._qactive;
+		ss << "debuginfo: " << MouseX << " " << MouseY;
 		PrintGameStr(50, 200, (char*)ss.str().c_str(), COL_WHITE);
 	}
 }
@@ -1968,31 +1968,31 @@ void DrawXpBar()
 
 			for (int i = 0; i < visibleBar; ++i) {
 				for (int j = 0; j < barRows; ++j) {
-					ColorPixel((768 - barSize) / 2 + i + offset, yPos - barRows / 2 + j, barColor);
+					ColorPixel((WorkingWidth - barSize) / 2 + i + offset, yPos - barRows / 2 + j, barColor);
 				}
 			}
 
 			for (int i = visibleBar; i < barSize; ++i) {
 				for (int j = 0; j < barRows; ++j) {
-					ColorPixel((768 - barSize) / 2 + i + offset, yPos - barRows / 2 + j, emptyBarColor);
+					ColorPixel((WorkingWidth - barSize) / 2 + i + offset, yPos - barRows / 2 + j, emptyBarColor);
 				}
 			}
 			//draw frame
 			//horizontal
 			for (int i = -1; i <= barSize; ++i) {
-				ColorPixel((768 - barSize) / 2 + i + offset, yPos - barRows / 2 -1, frameColor);
-				ColorPixel((768 - barSize) / 2 + i + offset, yPos + barRows / 2 + 1, frameColor);
+				ColorPixel((WorkingWidth - barSize) / 2 + i + offset, yPos - barRows / 2 -1, frameColor);
+				ColorPixel((WorkingWidth - barSize) / 2 + i + offset, yPos + barRows / 2 + 1, frameColor);
 			}
 			//vertical
 			for (int i = -dividerHeight; i < barRows+ dividerHeight; ++i) {
 				if (i >= 0 && i < barRows) {
-					ColorPixel((768 - barSize) / 2 - 1 + offset, yPos - barRows / 2 + i, frameColor);
+					ColorPixel((WorkingWidth - barSize) / 2 - 1 + offset, yPos - barRows / 2 + i, frameColor);
 				}
 				for (int j = 1; j < 10; ++j) {
-					 ColorPixel((768 - barSize) / 2 - 1 + offset + (barSize*j/10), yPos - barRows / 2 + i, frameColor);
+					 ColorPixel((WorkingWidth - barSize) / 2 - 1 + offset + (barSize*j/10), yPos - barRows / 2 + i, frameColor);
 				}
 				if (i >= 0 && i < barRows) {
-					ColorPixel((768 - barSize) / 2 + barSize + offset, yPos - barRows / 2 + i, frameColor);
+					ColorPixel((WorkingWidth - barSize) / 2 + barSize + offset, yPos - barRows / 2 + i, frameColor);
 				}
 			}
 			//draw frame
@@ -2224,7 +2224,6 @@ bool GetConfigBoolVariable(std::string s) {
 
 void DrawTransparentBackground(int xPos, int yPos, int width, int height, int borderX, int borderY, uchar backgroundColor, uchar borderColor)
 {
-	int WorkingWidth = 768;// 640;
 	char* WorkingSurface = (char*)gpBuffer;
 
 	for (int y = 0; y < height; y++) {
@@ -2234,7 +2233,8 @@ void DrawTransparentBackground(int xPos, int yPos, int width, int height, int bo
 			}
 			else {
 				//if( y & 1 && x & 1 || !(y & 1) && !(x & 1) )
-				WorkingSurface[((yPos - height) + y) * WorkingWidth + (xPos + x)] = backgroundColor;
+				//WorkingSurface[((yPos - height) + y) * WorkingWidth + (xPos + x)] = backgroundColor;
+				ColorPixel((xPos + x), (yPos - height) + y, backgroundColor);
 			}
 		}
 	}
@@ -2436,7 +2436,7 @@ void __fastcall Cl2DecodeFrm1(int x, int y, char *pCelBuff, int nCel, int width,
 					if ( dir2 == 8 || (v11 = *(unsigned short *)(v10 + dir2), !*(_WORD *)(v10 + dir2)) )
 						v11 = *((_DWORD *)v8 + nCel + 1) - (_DWORD)pCelBuffa;
 					Cl2DecDatFrm1(
-						(char *)gpBuffer + screen_y_times_768[y - 16 * dir1] + x,
+						(char *)gpBuffer + screen_y_times_width[y - 16 * dir1] + x,
 						(char *)(*(unsigned short *)(v10 + dir1) + v10),
 						v11 - *(unsigned short *)(v10 + dir1),
 						width);
@@ -2486,7 +2486,7 @@ void __fastcall Cl2DecDatFrm1(char *buffer, char *frame_content, int a3, int wid
 				if ( !v7 )
 				{
 					v7 = width;
-					v5 = &v5[-width - 768];
+					v5 = &v5[-width - WorkingWidth];
 				}
 			}
 			while ( v6 );
@@ -2524,7 +2524,7 @@ void __fastcall Cl2DecDatFrm1(char *buffer, char *frame_content, int a3, int wid
 			if ( !v7 )
 			{
 				v7 = width;
-				v5 = &v5[-width - 768];
+				v5 = &v5[-width - WorkingWidth];
 			}
 		}
 	}
@@ -2552,7 +2552,7 @@ void __fastcall Cl2DecodeFrm2(char colour, int screen_x, int screen_y, char *pCe
 					if ( a8 == 8 || (v10 = *(unsigned short *)&v9[a8], !*(_WORD *)&v9[a8]) )
 						v10 = *(_DWORD *)&pCelBuff[4 * nCel + 4] - v8;
 					Cl2DecDatFrm2(
-						(char *)gpBuffer + screen_y_times_768[screen_y - 16 * a7] + v11,
+						(char *)gpBuffer + screen_y_times_width[screen_y - 16 * a7] + v11,
 						&v9[*(unsigned short *)&pCelBuff[v8 + a7]],
 						v10 - *(unsigned short *)&pCelBuff[v8 + a7],
 						frame_width,
@@ -2599,8 +2599,8 @@ void __fastcall Cl2DecDatFrm2(char *buffer, char *frame_content, int a3, int fra
 					{
 						*(v6 - 1) = v10;
 						v6[1] = v10;
-						*(v6 - 768) = v10;
-						v6[768] = v10;
+						*(v6 - WorkingWidth) = v10;
+						v6[WorkingWidth] = v10;
 					}
 					--v7;
 					++v6;
@@ -2618,8 +2618,8 @@ void __fastcall Cl2DecDatFrm2(char *buffer, char *frame_content, int a3, int fra
 				v6[v7] = v10;
 				do
 				{
-					*(v6 - 768) = v10;
-					v6[768] = v10;
+					*(v6 - WorkingWidth) = v10;
+					v6[WorkingWidth] = v10;
 					--v7;
 					++v6;
 				}
@@ -2628,7 +2628,7 @@ LABEL_12:
 				if ( !v8 )
 				{
 					v8 = frame_width;
-					v6 = &v6[-frame_width - 768];
+					v6 = &v6[-frame_width - WorkingWidth];
 				}
 				continue;
 			}
@@ -2651,7 +2651,7 @@ LABEL_12:
 			if ( !v8 )
 			{
 				v8 = frame_width;
-				v6 = &v6[-frame_width - 768];
+				v6 = &v6[-frame_width - WorkingWidth];
 			}
 		}
 		while ( v7 );
@@ -2698,7 +2698,7 @@ void __fastcall Cl2DecodeFrm3(int screen_x, int screen_y, char *pCelBuff, int nC
 					if ( a8 >= 4 )
 						v16 = v16 + (a8 << 8) - 256;
 					Cl2DecDatLightTbl1(
-						(char *)gpBuffer + screen_y_times_768[screen_y - 16 * a6] + screen_x,
+						(char *)gpBuffer + screen_y_times_width[screen_y - 16 * a6] + screen_x,
 						v13,
 						v14,
 						frame_width,
@@ -2751,7 +2751,7 @@ void __fastcall Cl2DecDatLightTbl1(char *a1, char *a2, int a3, int a4, char *unu
 				if ( !v7 )
 				{
 					v7 = sgnWidth;
-					v6 = &v6[-sgnWidth - 768];
+					v6 = &v6[-sgnWidth - WorkingWidth];
 				}
 			}
 			while ( v9 );
@@ -2790,7 +2790,7 @@ void __fastcall Cl2DecDatLightTbl1(char *a1, char *a2, int a3, int a4, char *unu
 			if ( !v7 )
 			{
 				v7 = sgnWidth;
-				v6 = &v6[-sgnWidth - 768];
+				v6 = &v6[-sgnWidth - WorkingWidth];
 			}
 		}
 	}
@@ -2829,7 +2829,7 @@ void __fastcall Cl2DecodeLightTbl(int screen_x, int screen_y, char *pCelBuff, in
 						v12 = *(_DWORD *)&v8[4 * nCel + 4] - v9;
 					v13 = v12 - (_DWORD)pCelBuffa;
 					v14 = &v10[(_DWORD)pCelBuffa];
-					v15 = (char *)gpBuffer + screen_y_times_768[v7 - 16 * a6] + screen_x;
+					v15 = (char *)gpBuffer + screen_y_times_width[v7 - 16 * a6] + screen_x;
 					if ( light_table_index )
 						Cl2DecDatLightTbl1(
 							v15,
@@ -2873,7 +2873,7 @@ void __fastcall Cl2DecodeFrm4(int screen_x, int screen_y, char *pCelBuff, int nC
 					if ( a7 == 8 || (v11 = *(unsigned short *)(v10 + a7), !*(_WORD *)(v10 + a7)) )
 						v11 = *(_DWORD *)&v8[4 * nCel + 4] - (_DWORD)pCelBuffa;
 					Cl2DecDatFrm4(
-						(char *)gpBuffer + screen_y_times_768[v7 - 16 * a6] + v12,
+						(char *)gpBuffer + screen_y_times_width[v7 - 16 * a6] + v12,
 						(char *)(*(unsigned short *)(v10 + a6) + v10),
 						v11 - *(unsigned short *)(v10 + a6),
 						frame_width);
@@ -2943,7 +2943,7 @@ LABEL_12:
 					if ( !v7 )
 					{
 						v7 = frame_width;
-						v5 = &v5[-frame_width - 768];
+						v5 = &v5[-frame_width - WorkingWidth];
 					}
 					continue;
 				}
@@ -2967,7 +2967,7 @@ LABEL_12:
 			if ( !v7 )
 			{
 				v7 = frame_width;
-				v5 = &v5[-frame_width - 768];
+				v5 = &v5[-frame_width - WorkingWidth];
 			}
 		}
 		while ( v6 );
@@ -3000,14 +3000,14 @@ void __fastcall Cl2DecodeClrHL(char colour, int screen_x, int screen_y, char *pC
 				{
 					if ( a8 == 8 || (v11 = *(unsigned short *)&v9[a8], !*(_WORD *)&v9[a8]) )
 						v11 = *(_DWORD *)&pCelBuff[4 * nCel + 4] - v8;
-					screen_buf_end -= 768;
+					screen_buf_end -= WorkingWidth;
 					Cl2DecDatClrHL(
-						(char *)gpBuffer + screen_y_times_768[screen_y - 16 * a7] + v12,
+						(char *)gpBuffer + screen_y_times_width[screen_y - 16 * a7] + v12,
 						&v9[v10],
 						v11 - v10,
 						frame_width,
 						a5);
-					screen_buf_end += 768;
+					screen_buf_end += WorkingWidth;
 				}
 			}
 		}
@@ -3053,8 +3053,8 @@ void __fastcall Cl2DecDatClrHL(char *dst_buf, char *frame_content, int a3, int f
 						{
 							*(v6 - 1) = v10;
 							v6[1] = v10;
-							*(v6 - 768) = v10;
-							v6[768] = v10;
+							*(v6 - WorkingWidth) = v10;
+							v6[WorkingWidth] = v10;
 						}
 						--v7;
 						++v6;
@@ -3076,8 +3076,8 @@ void __fastcall Cl2DecDatClrHL(char *dst_buf, char *frame_content, int a3, int f
 					v6[v7] = v10;
 					do
 					{
-						*(v6 - 768) = v10;
-						v6[768] = v10;
+						*(v6 - WorkingWidth) = v10;
+						v6[WorkingWidth] = v10;
 						--v7;
 						++v6;
 					}
@@ -3086,7 +3086,7 @@ LABEL_15:
 					if ( !v8 )
 					{
 						v8 = frame_width;
-						v6 = &v6[-frame_width - 768];
+						v6 = &v6[-frame_width - WorkingWidth];
 					}
 					continue;
 				}
@@ -3110,7 +3110,7 @@ LABEL_15:
 			if ( !v8 )
 			{
 				v8 = frame_width;
-				v6 = &v6[-frame_width - 768];
+				v6 = &v6[-frame_width - WorkingWidth];
 			}
 		}
 		while ( v7 );
@@ -3158,7 +3158,7 @@ void __fastcall Cl2DecodeFrm5(int screen_x, int screen_y, char *pCelBuff, int nC
 					if ( a8 >= 4 )
 						v16 = v16 + (a8 << 8) - 256;
 					Cl2DecDatLightTbl2(
-						(char *)gpBuffer + screen_y_times_768[screen_y - 16 * a6] + screen_x,
+						(char *)gpBuffer + screen_y_times_width[screen_y - 16 * a6] + screen_x,
 						v13,
 						v14,
 						frame_width,
@@ -3232,7 +3232,7 @@ LABEL_12:
 					if ( !v7 )
 					{
 						v7 = sgnWidth;
-						v6 = &v6[-sgnWidth - 768];
+						v6 = &v6[-sgnWidth - WorkingWidth];
 					}
 					continue;
 				}
@@ -3256,7 +3256,7 @@ LABEL_12:
 			if ( !v7 )
 			{
 				v7 = sgnWidth;
-				v6 = &v6[-sgnWidth - 768];
+				v6 = &v6[-sgnWidth - WorkingWidth];
 			}
 		}
 		while ( v9 );
@@ -3297,7 +3297,7 @@ void __fastcall Cl2DecodeFrm6(int screen_x, int screen_y, char *pCelBuff, int nC
 						v12 = *(_DWORD *)&v8[4 * nCel + 4] - v9;
 					v13 = v12 - (_DWORD)pCelBuffa;
 					v14 = &v10[(_DWORD)pCelBuffa];
-					v15 = (char *)gpBuffer + screen_y_times_768[v7 - 16 * a6] + screen_x;
+					v15 = (char *)gpBuffer + screen_y_times_width[v7 - 16 * a6] + screen_x;
 					if ( light_table_index )
 						Cl2DecDatLightTbl2(v15, v14, v13, frame_width, &pLightTbl[256 * light_table_index]);
 					else

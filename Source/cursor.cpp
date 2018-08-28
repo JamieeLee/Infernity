@@ -665,8 +665,8 @@ LABEL_10:
 	}
 	if ( v2 < 0 )
 		v2 = 0;
-	if ( v2 >= 640 )
-		v2 = 640;
+	if ( v2 >= ScreenWidth)
+		v2 = ScreenWidth;
 	if ( v3 < 0 )
 		v3 = 0;
 	if ( v3 >= 480 )

@@ -149,11 +149,11 @@ void __fastcall PrintQTextChr(int screen_x, int screen_y, char *cel_buf, int fra
 	char *v13; // [esp+14h] [ebp-8h]
 	char *v14; // [esp+18h] [ebp-4h]
 
-	v13 = (char *)gpBuffer + screen_y_times_768[209];
-	v14 = (char *)gpBuffer + screen_y_times_768[469];
+	v13 = (char *)gpBuffer + screen_y_times_width[209];
+	v14 = (char *)gpBuffer + screen_y_times_width[469];
 	v4 = &cel_buf[4 * frame];
 	v5 = &cel_buf[*(_DWORD *)v4];
-	v6 = (char *)gpBuffer + screen_y_times_768[screen_y] + screen_x;
+	v6 = (char *)gpBuffer + screen_y_times_width[screen_y] + screen_x;
 	v7 = (int)&v5[*((_DWORD *)v4 + 1) - *(_DWORD *)v4];
 	do
 	{

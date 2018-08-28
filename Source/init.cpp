@@ -190,14 +190,14 @@ void __fastcall init_create_window(int nCmdShow)
 	wcex.hIconSm = (HICON)LoadImageA(ghInst, (LPCSTR)0x65, IMAGE_ICON, 16, 16, LR_DEFAULTCOLOR);
 	if ( !RegisterClassExA(&wcex) )
 		TermMsg("Unable to register window class");
-	if ( GetSystemMetrics(SM_CXSCREEN) >= 640 )
+	if ( GetSystemMetrics(SM_CXSCREEN) >= ScreenWidth)
 		nWidth = GetSystemMetrics(SM_CXSCREEN);
 	else
-		nWidth = 640;
-	if ( GetSystemMetrics(SM_CYSCREEN) >= 480 )
+		nWidth = ScreenWidth;
+	if ( GetSystemMetrics(SM_CYSCREEN) >= ScreenHeight)
 		nHeight = GetSystemMetrics(SM_CYSCREEN);
 	else
-		nHeight = 480;
+		nHeight = ScreenHeight;
 	hWnd = CreateWindowExA(0, "INFERNITY", "INFERNITY", WS_POPUP, 0, 0, nWidth, nHeight, NULL, NULL, ghInst, NULL);
 	if ( !hWnd )
 		TermMsg("Unable to create main window");

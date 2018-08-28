@@ -133,6 +133,7 @@ void __fastcall snd_play_snd(TSnd *pSnd, int lVolume, int lPan)
 						}
 						v5->SetVolume(v7);
 						v5->SetPan(lPan);
+
 						v8 = v5->Play(0, 0, 0);
 						if ( v8 == DSERR_BUFFERLOST )
 						{

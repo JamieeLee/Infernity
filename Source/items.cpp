@@ -4383,7 +4383,7 @@ void __fastcall PrintUString(int x, int y, int cjustflag, char *str, int col)
 	int a3; // [esp+18h] [ebp+8h]
 
 	v5 = str;
-	v6 = screen_y_times_768[SStringY[y] + 204] + x + 96;
+	v6 = screen_y_times_width[SStringY[y] + 204] + x + 96;
 	v7 = strlen(str);
 	v8 = 0;
 	v9 = 0;
@@ -4434,7 +4434,7 @@ void __fastcall DrawULine(int y)
 	signed int v3; // edx
 
 	v1 = &gpBuffer->row[25].pixels[26];
-	v2 = &gpBuffer->row_unused_1[0].pixels[screen_y_times_768[SStringY[y] + 198] + 26];
+	v2 = &gpBuffer->row_unused_1[0].pixels[screen_y_times_width[SStringY[y] + 198] + 26];
 	v3 = 3;
 	do
 	{

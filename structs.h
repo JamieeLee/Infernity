@@ -424,14 +424,14 @@ struct DeadStruct
 struct ScreenRow
 {
 	char col_unused_1[64];
-	char pixels[640];
+	char pixels[1280];
 	char col_unused_2[64];
 };
 
 struct Screen
 {
 	ScreenRow row_unused_1[160];
-	ScreenRow row[480];
+	ScreenRow row[2500];
 	ScreenRow row_unused_2[16];
 };
 

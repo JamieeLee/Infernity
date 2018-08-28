@@ -120,7 +120,7 @@ void __fastcall town_draw_clipped_e_flag(void *buffer, int x, int y, int sx, int
 		level_cel_block = *(unsigned short *)&v6[2 * v7 + 2];
 		if ( v9 )
 			drawLowerScreen(a1 + 32);
-		a1 -= 24576;
+		a1 -= WorkingWidth * 32;
 		v7 += 2;
 	}
 	while ( v7 < 12 );
@@ -157,7 +157,7 @@ void __fastcall town_draw_clipped_town(void *unused, int x, int y, int sx, int s
 
 	xa = x;
 	v6 = 112 * x;
-	v27 = (char *)gpBuffer + screen_y_times_768[sy] + sx;
+	v27 = (char *)gpBuffer + screen_y_times_width[sy] + sx;
 	v7 = v6 + y;
 	v29 = v6 + y;
 	v8 = dItem[v6 / 0x70][y];
@@ -275,7 +275,7 @@ void __fastcall town_draw_lower(int x, int y, int sx, int sy, int a5, int some_f
 		if ( y >= 0 && y < 112 && x >= 0 && x < 112 && (level_cel_block = dPiece[0][y + 112 * x]) != 0 )
 		{
 			v6 = sy;
-			v7 = &screen_y_times_768[sy];
+			v7 = &screen_y_times_width[sy];
 			a1 = (unsigned char *)&gpBuffer->row_unused_1[0].col_unused_1[*v7 + 32 + sx];
 			v25 = 1;
 			v8 = (char *)dpiece_defs_map_1 + 32 * gendung_get_dpiece_num_from_coord(x, y);
@@ -286,14 +286,14 @@ void __fastcall town_draw_lower(int x, int y, int sx, int sy, int a5, int some_f
 				if ( v9 )
 					drawLowerScreen(a1);
 				v25 += 2;
-				a1 -= 24576;
+				a1 -= WorkingWidth * 32;
 			}
 			while ( v25 < 17 );
 			town_draw_clipped_town((char *)gpBuffer + *v7 + sx, xa, ya, sx, sy, 0);
 		}
 		else
 		{
-			town_clear_low_buf((int)gpBuffer + screen_y_times_768[sy] + sx);
+			town_clear_low_buf((int)gpBuffer + screen_y_times_width[sy] + sx);
 			v6 = sy;
 		}
 		++xa;
@@ -308,13 +308,13 @@ void __fastcall town_draw_lower(int x, int y, int sx, int sy, int a5, int some_f
 	v10 = a5 - some_flag;
 	if ( a5 - some_flag > 0 )
 	{
-		v11 = &screen_y_times_768[v6];
+		v11 = &screen_y_times_width[v6];
 		v12 = 112 * xa;
 		a5a = 112 * xa;
 		a1a = v10;
 		do
 		{
-			if ( y >= 0 && y < 112 && v12 >= 0 && v12 < 12544 && (level_cel_block = dPiece[0][v12 + y]) != 0 )
+			if ( y >= 0 && y < 112 && v12 >= 0 && v12 < 112*112 && (level_cel_block = dPiece[0][v12 + y]) != 0 )
 			{
 				v13 = (unsigned char *)gpBuffer + *v11 + sx;
 				v14 = (char *)dpiece_defs_map_1 + 32 * gendung_get_dpiece_num_from_coord(xa, ya);
@@ -330,7 +330,7 @@ void __fastcall town_draw_lower(int x, int y, int sx, int sy, int a5, int some_f
 					if ( v16 )
 						drawLowerScreen(v13 + 32);
 					v26 += 2;
-					v13 -= 24576;
+					v13 -= WorkingWidth * 32;
 				}
 				while ( v26 < 16 );
 				town_draw_clipped_town((char *)gpBuffer + *v11 + sx, xa, ya, sx, sy, 1);
@@ -355,7 +355,7 @@ void __fastcall town_draw_lower(int x, int y, int sx, int sy, int a5, int some_f
 	{
 		if ( y >= 0 && y < 112 && xa >= 0 && xa < 112 && (level_cel_block = dPiece[0][y + 112 * xa]) != 0 )
 		{
-			v18 = &screen_y_times_768[v6];
+			v18 = &screen_y_times_width[v6];
 			v19 = (unsigned char *)gpBuffer + *v18 + sx;
 			v20 = (char *)dpiece_defs_map_1 + 32 * gendung_get_dpiece_num_from_coord(xa, ya);
 			v27 = 0;
@@ -366,14 +366,14 @@ void __fastcall town_draw_lower(int x, int y, int sx, int sy, int a5, int some_f
 				if ( v21 )
 					drawLowerScreen(v19);
 				v27 += 2;
-				v19 -= 24576;
+				v19 -= WorkingWidth * 32;
 			}
 			while ( v27 < 16 );
 			town_draw_clipped_town((char *)gpBuffer + *v18 + sx, xa, ya, sx, sy, 0);
 		}
 		else
 		{
-			town_clear_low_buf((int)gpBuffer + screen_y_times_768[v6] + sx);
+			town_clear_low_buf((int)gpBuffer + screen_y_times_width[v6] + sx);
 		}
 	}
 }
@@ -394,7 +394,7 @@ void __fastcall town_draw_clipped_e_flag_2(void *buffer, int x, int y, int a4, i
 	xa = x;
 	v12 = buffer;
 	if ( a4 )
-		v8 = (unsigned char *)buffer + 24576 * a4;
+		v8 = (unsigned char *)buffer + WorkingWidth * 32 * a4;
 	else
 		v8 = (unsigned char *)buffer;
 	a4a = 0;
@@ -412,7 +412,7 @@ void __fastcall town_draw_clipped_e_flag_2(void *buffer, int x, int y, int a4, i
 			if ( v11 )
 				drawLowerScreen(v8 + 32);
 		}
-		v8 -= 24576;
+		v8 -= WorkingWidth * 32;
 		++a4a;
 		v9 += 2;
 	}
@@ -564,7 +564,6 @@ void __fastcall town_draw_lower_2(int x, int y, int sx, int sy, int a5, int a6, 
 	signed int sxb; // [esp+24h] [ebp+8h]
 	signed int sxc; // [esp+24h] [ebp+8h]
 	int a5a; // [esp+2Ch] [ebp+10h]
-
 	ya = y;
 	xa = x;
 	if ( some_flag )
@@ -580,8 +579,8 @@ void __fastcall town_draw_lower_2(int x, int y, int sx, int sy, int a5, int a6, 
 			if ( level_cel_block )
 			{
 				v8 = sy;
-				v9 = &screen_y_times_768[sy];
-				a1 = (unsigned char *)gpBuffer + *v9 + sx - 24544;
+				v9 = &screen_y_times_width[sy];
+				a1 = (unsigned char *)gpBuffer + *v9 + sx - WorkingWidth * 31 + 736; //24544
 				sxa = 0;
 				v10 = &dpiece_defs_map_1[0][0][16 * gendung_get_dpiece_num_from_coord(x, y) + 3];
 				v23 = v10;
@@ -593,7 +592,7 @@ void __fastcall town_draw_lower_2(int x, int y, int sx, int sy, int a5, int a6, 
 						if ( level_cel_block )
 							drawLowerScreen(a1);
 					}
-					a1 -= 24576;
+					a1 -= WorkingWidth * 32;
 					++sxa;
 					v10 = v23 + 2;
 					v23 += 2;
@@ -604,7 +603,7 @@ void __fastcall town_draw_lower_2(int x, int y, int sx, int sy, int a5, int a6, 
 				goto LABEL_16;
 			}
 		}
-		town_clear_low_buf((int)gpBuffer + screen_y_times_768[sy] + v7);
+		town_clear_low_buf((int)gpBuffer + screen_y_times_width[sy] + v7);
 		v8 = sy;
 LABEL_16:
 		++xa;
@@ -618,7 +617,7 @@ LABEL_18:
 	v12 = a5 - some_flag;
 	if ( a5 - some_flag > 0 )
 	{
-		v13 = &screen_y_times_768[v8];
+		v13 = &screen_y_times_width[v8];
 		v14 = 112 * xa;
 		a5a = 112 * xa;
 		v24 = v12;
@@ -626,7 +625,7 @@ LABEL_18:
 		{
 			if ( ya >= 0 && ya < 112 && v14 >= 0 && v14 < 12544 && (level_cel_block = dPiece[0][v14 + ya]) != 0 )
 			{
-				a1a = (unsigned char *)gpBuffer + *v13 + v11 - 24576;
+				a1a = (unsigned char *)gpBuffer + *v13 + v11 - WorkingWidth * 32;
 				sxb = 0;
 				v15 = &dpiece_defs_map_1[0][0][16 * gendung_get_dpiece_num_from_coord(xa, ya) + 3];
 				do
@@ -642,14 +641,14 @@ LABEL_18:
 						if ( v17 )
 							drawLowerScreen(a1a + 32);
 					}
-					a1a -= 24576;
+					a1a -= WorkingWidth * 32;
 					++sxb;
 					v15 += 2;
 				}
 				while ( sxb < 7 );
 				v18 = 2 * a6 + 2;
 				if ( v18 < 8 )
-					town_draw_clipped_town_2((int)gpBuffer + *v13 - 12288 * v18 + v11, xa, ya, a6, 2 * a6 + 2, v11, sy, 1);
+					town_draw_clipped_town_2((int)gpBuffer + *v13 - WorkingWidth*16 * v18 + v11, xa, ya, a6, 2 * a6 + 2, v11, sy, 1);
 				v14 = a5a;
 			}
 			else
@@ -670,8 +669,8 @@ LABEL_18:
 	{
 		if ( ya >= 0 && ya < 112 && xa >= 0 && xa < 112 && (level_cel_block = dPiece[0][ya + 112 * xa]) != 0 )
 		{
-			v20 = &screen_y_times_768[v8];
-			a1b = (unsigned char *)gpBuffer + *v20 + v11 - 24576;
+			v20 = &screen_y_times_width[v8];
+			a1b = (unsigned char *)gpBuffer + *v20 + v11 - WorkingWidth * 32;
 			sxc = 0;
 			v21 = &dpiece_defs_map_1[0][0][16 * gendung_get_dpiece_num_from_coord(xa, ya) + 2];
 			do
@@ -683,7 +682,7 @@ LABEL_18:
 					if ( v22 )
 						drawLowerScreen(a1b);
 				}
-				a1b -= 24576;
+				a1b -= WorkingWidth * 32;
 				++sxc;
 				v21 += 2;
 			}
@@ -693,7 +692,7 @@ LABEL_18:
 		}
 		else
 		{
-			town_clear_low_buf((int)gpBuffer + screen_y_times_768[v8] + v11);
+			town_clear_low_buf((int)gpBuffer + screen_y_times_width[v8] + v11);
 		}
 	}
 }
@@ -727,7 +726,7 @@ void __fastcall town_draw_e_flag(void *buffer, int x, int y, int a4, int dir, in
 			if ( v11 )
 				drawUpperScreen(a1 + 32);
 		}
-		a1 -= 24576;
+		a1 -= WorkingWidth * 32;
 		++v9;
 	}
 	while ( v9 < 7 );
@@ -853,7 +852,7 @@ void __fastcall town_draw_upper(int x, int y, int sx, int sy, int a5, int a6, in
 			v11 = sy;
 			if ( !v10 )
 			{
-				a1 = (int *)&gpBuffer->row_unused_1[0].col_unused_1[sx + 32 + screen_y_times_768[sy]];
+				a1 = (int *)&gpBuffer->row_unused_1[0].col_unused_1[sx + 32 + screen_y_times_width[sy]];
 				sxa = 0;
 				v12 = &dpiece_defs_map_1[0][0][16 * gendung_get_dpiece_num_from_coord(x, y) + 1];
 				do
@@ -865,17 +864,17 @@ void __fastcall town_draw_upper(int x, int y, int sx, int sy, int a5, int a6, in
 						if ( v13 )
 							drawUpperScreen((unsigned char *)a1);
 					}
-					a1 -= 6144;
+					a1 -= WorkingWidth*8;
 					++sxa;
 					v12 += 2;
 				}
 				while ( sxa < 7 );
-				town_draw_town_all((char *)gpBuffer + v8 + screen_y_times_768[sy], xa, ya, a6, dir, v8, sy, 0);
+				town_draw_town_all((char *)gpBuffer + v8 + screen_y_times_width[sy], xa, ya, a6, dir, v8, sy, 0);
 				v7 = ya;
 				goto LABEL_17;
 			}
 		}
-		town_clear_upper_buf((int)gpBuffer + screen_y_times_768[v11] + v8);
+		town_clear_upper_buf((int)gpBuffer + screen_y_times_width[v11] + v8);
 LABEL_17:
 		++xa;
 		ya = --v7;
@@ -903,7 +902,7 @@ LABEL_19:
 				v17 = gpBuffer;
 				if ( !v10 )
 				{
-					v18 = (unsigned char *)gpBuffer + v14 + screen_y_times_768[sy];
+					v18 = (unsigned char *)gpBuffer + v14 + screen_y_times_width[sy];
 					v19 = (char *)dpiece_defs_map_1 + 32 * gendung_get_dpiece_num_from_coord(xa, ya);
 					sxb = 0;
 					do
@@ -919,17 +918,17 @@ LABEL_19:
 							if ( v21 )
 								drawUpperScreen(v18 + 32);
 						}
-						v18 -= 24576;
+						v18 -= WorkingWidth * 32;
 						++sxb;
 					}
 					while ( sxb < 7 );
-					town_draw_town_all((char *)gpBuffer + v14 + screen_y_times_768[sy], xa, ya, a6, dir, v14, sy, 1);
+					town_draw_town_all((char *)gpBuffer + v14 + screen_y_times_width[sy], xa, ya, a6, dir, v14, sy, 1);
 					v15 = a5a;
 					v7 = ya;
 					goto LABEL_36;
 				}
 			}
-			town_clear_upper_buf((int)v17 + v14 + screen_y_times_768[sy]);
+			town_clear_upper_buf((int)v17 + v14 + screen_y_times_width[sy]);
 LABEL_36:
 			++xa;
 			v15 += 112;
@@ -956,7 +955,7 @@ LABEL_36:
 			v23 = sy;
 			if ( !v10 )
 			{
-				v24 = (unsigned char *)gpBuffer + v14 + screen_y_times_768[sy];
+				v24 = (unsigned char *)gpBuffer + v14 + screen_y_times_width[sy];
 				v25 = (char *)dpiece_defs_map_1 + 32 * gendung_get_dpiece_num_from_coord(xa, v7);
 				sxc = 0;
 				do
@@ -968,15 +967,15 @@ LABEL_36:
 						if ( v26 )
 							drawUpperScreen(v24);
 					}
-					v24 -= 24576;
+					v24 -= WorkingWidth*32;
 					++sxc;
 				}
 				while ( sxc < 7 );
-				town_draw_town_all((char *)gpBuffer + v14 + screen_y_times_768[sy], xa, ya, a6, dir, v14, sy, 0);
+				town_draw_town_all((char *)gpBuffer + v14 + screen_y_times_width[sy], xa, ya, a6, dir, v14, sy, 0);
 				return;
 			}
 		}
-		town_clear_upper_buf((int)gpBuffer + screen_y_times_768[v23] + v14);
+		town_clear_upper_buf((int)gpBuffer + screen_y_times_width[v23] + v14);
 	}
 }
 // 69CF14: using guessed type int level_cel_block;
@@ -1004,7 +1003,7 @@ void __fastcall T_DrawGame(int x, int y)
 	v4 = ScrollInfo._syoff + 175;
 	dword_5C2FF8 = 10;
 	a5 = 10;
-	scr_pix_width = 640;
+	scr_pix_width = ScreenWidth;
 	scr_pix_height = 352;
 	dword_5C2FFC = 11;
 	v11 = 5;
@@ -1065,7 +1064,7 @@ LABEL_15:
 			break;
 	}
 	a6 = 0;
-	screen_buf_end = (int)gpBuffer + screen_y_times_768[160];
+	screen_buf_end = (int)gpBuffer + screen_y_times_width[160];
 	do
 	{
 		town_draw_upper(v3, ya++, v2, v4, a5, a6, 0);
@@ -1077,7 +1076,7 @@ LABEL_15:
 		++a6;
 	}
 	while ( a6 < 7 );
-	screen_buf_end = (int)gpBuffer + screen_y_times_768[512];
+	screen_buf_end = (int)gpBuffer + screen_y_times_width[512];
 	if ( v11 > 0 )
 	{
 		do
@@ -1193,7 +1192,7 @@ LABEL_9:
 			break;
 	}
 	a6 = 0;
-	screen_buf_end = (int)gpBuffer + screen_y_times_768[143];
+	screen_buf_end = (int)gpBuffer + screen_y_times_width[143];
 	do
 	{
 		town_draw_upper(v3, ya++, v2, v4, a5, a6, 0);
@@ -1205,7 +1204,7 @@ LABEL_9:
 		++a6;
 	}
 	while ( a6 < 7 );
-	screen_buf_end = (int)gpBuffer + screen_y_times_768[320];
+	screen_buf_end = (int)gpBuffer + screen_y_times_width[320];
 	if ( v18 > 0 )
 	{
 		do
@@ -1267,13 +1266,183 @@ LABEL_24:
 			--v15;
 		}
 		while ( v15 );
-		v12 += -v19 - 768;
-		v17 = 2 * (v19 + 768);
+		v12 += -v19 - WorkingWidth;
+		v17 = 2 * (v19 + WorkingWidth);
 		v13 -= v17;
 		v11 = (_WORD *)((char *)v11 - v17);
 		--v14;
 	}
 	while ( v14 );
+}
+
+
+void __fastcall T_DrawZoom2(int x, int y)
+{
+	int v2; // edi
+	int v3; // ebx
+	int v4; // esi
+	int v5; // esi
+	int v6; // edi
+	int v7; // esi
+	int v8; // edi
+	int v9; // esi
+	int v10; // edi
+	_WORD *v11; // edi
+	char *v12; // esi
+	char *v13; // ebx
+	signed int v14; // edx
+	signed int v15; // ecx
+	short v16; // ax
+	int v17; // eax
+	signed int v18; // [esp+Ch] [ebp-10h]
+	signed int v19; // [esp+Ch] [ebp-10h]
+	signed int a6; // [esp+10h] [ebp-Ch]
+	signed int a6a; // [esp+10h] [ebp-Ch]
+	int a6b; // [esp+10h] [ebp-Ch]
+	signed int a5; // [esp+14h] [ebp-8h]
+	int a5a; // [esp+14h] [ebp-8h]
+	int ya; // [esp+18h] [ebp-4h]
+	v18 = 0;
+	v2 = ScrollInfo._sxoff + 64;
+	v3 = x - 6;
+	a5 = 6;
+	v4 = ScrollInfo._syoff + 143;
+	ya = y - 1;
+
+	/*
+	switch (ScrollInfo._sdir)
+	{
+	case DIR_SW:
+		v4 = ScrollInfo._syoff + 111;
+		v3 = x - 7;
+		ya = y - 2;
+		goto LABEL_9;
+	case DIR_W:
+		v4 = ScrollInfo._syoff + 111;
+		v3 = x - 7;
+		ya = y - 2;
+		goto LABEL_8;
+	case DIR_NW:
+		goto LABEL_6;
+	case DIR_N:
+		goto LABEL_8;
+	case DIR_NE:
+		goto LABEL_9;
+	case DIR_E:
+		v2 = ScrollInfo._sxoff;
+		v3 = x - 7;
+		ya = y;
+		goto LABEL_8;
+	case DIR_SE:
+		v2 = ScrollInfo._sxoff;
+		v3 = x - 7;
+		ya = y;
+	LABEL_6:
+		a5 = 7;
+		break;
+	case DIR_OMNI:
+		v2 = ScrollInfo._sxoff;
+		v4 = ScrollInfo._syoff + 111;
+		v3 = x - 8;
+	LABEL_8:
+		a5 = 7;
+	LABEL_9:
+		v18 = 1;
+		break;
+	default:
+		break;
+	}
+	*/
+	a6 = 0;
+	screen_buf_end = (int)gpBuffer + screen_y_times_width[143];
+	do
+	{
+		town_draw_upper(v3, ya++, v2, v4, a5, a6, 0);
+		v5 = v4 + 16;
+		v6 = v2 - 32;
+    	town_draw_upper(v3++, ya, v6, v5, a5, a6, 1);
+		v2 = v6 + 32;
+		v4 = v5 + 16;
+		++a6;
+	} while (a6 < 7);
+	screen_buf_end = (int)gpBuffer + screen_y_times_width[320];
+	
+	if (v18 > 0)
+	{
+		do
+		{
+			town_draw_lower(v3, ya++, v2, v4, a5, 0);
+			v7 = v4 + 16;
+			v8 = v2 - 32;
+			town_draw_lower(v3++, ya, v8, v7, a5, 1);
+			v2 = v8 + 32;
+			v4 = v7 + 16;
+			--v18;
+		} while (v18);
+	}
+	
+	a6a = 0;
+	do
+	{
+		town_draw_lower_2(v3, ya++, v2, v4, a5, a6a, 0);
+		v9 = v4 + 16;
+		v10 = v2 - 32;
+		town_draw_lower_2(v3++, ya, v10, v9, a5, a6a, 1);
+		v2 = v10 + 32;
+		v4 = v9 + 16;
+		++a6a;
+	} while (a6a < 7);
+
+	if (chrflag || questlog)
+	{
+		a5a = 510*WorkingWidth+384; 
+		goto LABEL_23;
+	}
+	if (invflag || sbookflag)
+	{
+		a5a = 510*WorkingWidth+64;
+	LABEL_23:
+		a6b = WorkingWidth*319+176;
+		v19 = 160;
+		goto LABEL_24;
+	}
+	
+	//a6b = WorkingWidth*319+96;
+	//a5a = WorkingWidth*510+64;
+
+	a6b = WorkingWidth * 319 + 96;
+	a5a = WorkingWidth * 510 + 64;
+
+	v19 = 320;
+LABEL_24:
+	v11 = (_WORD *)((char *)gpBuffer + a5a);
+	//v11 = (uint16*)gpBuffer->row[350].pixels;
+	v12 = (char *)gpBuffer + a6b;
+	v13 = &gpBuffer->row_unused_1[1].col_unused_1[a5a];
+	char* test = &gpBuffer->row_unused_1[1].col_unused_1[a5a];
+	//v13 = gpBuffer->row[351].pixels;
+	v14 = 176;
+	
+	do
+	{
+		v15 = v19;
+		do
+		{
+			_LOBYTE(v16) = *v12++;
+			_HIBYTE(v16) = v16;
+			*v11 = v16;
+			*(_WORD *)v13 = v16;
+			++v11;
+			v13 += 2;
+			--v15;
+		} while (v15);
+		v12 += -v19 - WorkingWidth;
+		v17 = 2 * (v19 + WorkingWidth);
+		v13 -= v17;
+		v11 = (_WORD *)((char *)v11 - v17);
+		--v14;
+	} while (v14);
+	
 }
 // 4B8968: using guessed type int sbookflag;
 // 5C2FF8: using guessed type int dword_5C2FF8;
@@ -1290,7 +1459,7 @@ void __fastcall T_DrawView(int StartX, int StartY)
 	if ( zoomflag )
 		T_DrawGame(StartX, StartY);
 	else
-		T_DrawZoom(StartX, StartY);
+		T_DrawZoom2(StartX, StartY);
 	if ( automapflag )
 		DrawAutomap();
 	ShouldHighlightItems = ((GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && !(GetAsyncKeyState(VK_MENU) < 0)) || (!GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && (GetAsyncKeyState(VK_MENU) < 0)));
@@ -1401,7 +1570,7 @@ void __cdecl town_init_dpiece_defs_map()
 	while ( (signed int)v6 < (signed int)dPiece[1] );
 	if ( zoomflag )
 	{
-		scr_pix_width = 640;
+		scr_pix_width = ScreenWidth;
 		scr_pix_height = 352;
 		dword_5C2FF8 = 10;
 		dword_5C2FFC = 11;

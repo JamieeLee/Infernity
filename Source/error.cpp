@@ -168,7 +168,7 @@ void __cdecl DrawDiabloMsg()
 	}
 	while ( v3 );
 	strcpy(tempstr, MsgStrings[msgflag]);
-	v8 = screen_y_times_768[342] + 165;
+	v8 = screen_y_times_width[342] + 165;
 	v9 = strlen(tempstr);
 	v10 = 0;
 	v11 = 0;

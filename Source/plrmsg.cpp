@@ -172,7 +172,7 @@ void __fastcall PrintPlrMsg(int no, int x, int y, char *str, int just)
 	v15 = no;
 	if ( *str )
 	{
-		v6 = &screen_y_times_768[x];
+		v6 = &screen_y_times_width[x];
 		v16 = v6;
 		do
 		{

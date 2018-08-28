@@ -129,7 +129,7 @@ void __fastcall InvDrawSlotBack(int X, int Y, int W, int H)
 	unsigned char v7; // al
 	unsigned char v8; // al
 
-	v4 = (unsigned char *)gpBuffer + screen_y_times_768[Y] + X;
+	v4 = (unsigned char *)gpBuffer + screen_y_times_width[Y] + X;
 	v5 = (unsigned short)H;
 	do
 	{
@@ -155,7 +155,7 @@ LABEL_9:
 			--v6;
 		}
 		while ( v6 );
-		v4 = &v4[-(unsigned short)W - 768];
+		v4 = &v4[-(unsigned short)W - WorkingWidth];
 		--v5;
 	}
 	while ( v5 );
@@ -544,7 +544,7 @@ void __cdecl DrawInvBelt()
 				{
 					v10 = fontframe[fontidx[(unsigned char)(v11 + 49)]];
 					CPrintString(
-						screen_y_times_768[InvRect[v1 + 65].Y + 159]
+						screen_y_times_width[InvRect[v1 + 65].Y + 159]
 					  - fontkern[v10]
 					  + InvRect[v1 + 65].X
 					  + 92,

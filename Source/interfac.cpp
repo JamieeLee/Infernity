@@ -72,12 +72,12 @@ void __fastcall DrawProgress(int screen_x, int screen_y, int progress_id)
 	_BYTE *v3; // eax
 	signed int v4; // ecx
 
-	v3 = (unsigned char *)gpBuffer + screen_y_times_768[screen_y] + screen_x;
+	v3 = (unsigned char *)gpBuffer + screen_y_times_width[screen_y] + screen_x;
 	v4 = 22;
 	do
 	{
 		*v3 = progress_bar_colours[progress_id];
-		v3 += 768;
+		v3 += WorkingWidth;
 		--v4;
 	}
 	while ( v4 );

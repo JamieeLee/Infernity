@@ -15,10 +15,10 @@ void __cdecl CaptureScreen()
 		RedPalette(palette);
 
 		lock_buf_priv();
-		bool success = CaptureHdr(hObject, 640, 480);
+		bool success = CaptureHdr(hObject, ScreenWidth, ScreenHeight);
 		if (success)
 		{
-			success = CapturePix(hObject, 640, 480, 768, (BYTE*)gpBuffer->row[0].pixels);
+			success = CapturePix(hObject, ScreenWidth, ScreenHeight, WorkingWidth, (BYTE*)gpBuffer->row[0].pixels);
 			if (success)
 			{
 				success = CapturePal(hObject, palette);

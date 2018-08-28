@@ -151,7 +151,7 @@ void __fastcall drawTopArchesUpperScreen(unsigned char *pbDst)
 							*(tmp_pbDst - 1) = l_tbl[l_index];
 						}
 						while ( j );
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						if ( (unsigned int)tmp_pbDst < screen_buf_end )
 							break;
 						j = 8;
@@ -167,7 +167,7 @@ void __fastcall drawTopArchesUpperScreen(unsigned char *pbDst)
 							*(tmp_pbDst - 2) = l_tbl[l_index];
 						}
 						while ( j );
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--i;
 					}
 					while ( i );
@@ -324,7 +324,7 @@ void __fastcall drawTopArchesUpperScreen(unsigned char *pbDst)
 						while ( yy_32 );
 LABEL_67:
 						WorldBoolFlag = ((_BYTE)WorldBoolFlag + 1) & 1;
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--xx_32;
 					}
 					while ( xx_32 );
@@ -465,7 +465,7 @@ LABEL_67:
 								}
 							}
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						xx_32 -= 2;
 						if ( xx_32 < 0 )
 						{
@@ -605,7 +605,7 @@ LABEL_67:
 										}
 									}
 								}
-								tmp_pbDst -= 800;
+								tmp_pbDst-= WorkingWidth + 32;
 								yy_32 += 2;
 							}
 							while ( yy_32 != 32 );
@@ -748,7 +748,7 @@ LABEL_67:
 							l_index = (unsigned char)pdung_cels & 2;
 							pdung_cels += l_index;
 						}
-						tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+						tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 						xx_32 -= 2;
 						if ( xx_32 < 0 )
 						{
@@ -887,7 +887,7 @@ LABEL_67:
 									l_index = (unsigned char)pdung_cels & 2;
 									pdung_cels += l_index;
 								}
-								tmp_pbDst = &tmp_pbDst[yy_32 - 800];
+								tmp_pbDst = &tmp_pbDst[yy_32 - WorkingWidth - 32];
 								yy_32 += 2;
 							}
 							while ( yy_32 != 32 );
@@ -1031,7 +1031,7 @@ LABEL_67:
 								}
 							}
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						xx_32 -= 2;
 						if ( xx_32 < 0 )
 						{
@@ -1054,7 +1054,7 @@ LABEL_67:
 									*(tmp_pbDst - 1) = l_tbl[l_index];
 								}
 								while ( j );
-								tmp_pbDst -= 800;
+								tmp_pbDst-= WorkingWidth + 32;
 								if ( (unsigned int)tmp_pbDst < screen_buf_end )
 									break;
 								j = 8;
@@ -1070,7 +1070,7 @@ LABEL_67:
 									*(tmp_pbDst - 2) = l_tbl[l_index];
 								}
 								while ( j );
-								tmp_pbDst -= 800;
+								tmp_pbDst-= WorkingWidth + 32;
 								--i;
 							}
 							while ( i );
@@ -1213,7 +1213,7 @@ LABEL_67:
 							l_index = (unsigned char)pdung_cels & 2;
 							pdung_cels += l_index;
 						}
-						tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+						tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 						xx_32 -= 2;
 						if ( xx_32 < 0 )
 						{
@@ -1236,7 +1236,7 @@ LABEL_67:
 									*(tmp_pbDst - 1) = l_tbl[l_index];
 								}
 								while ( j );
-								tmp_pbDst -= 800;
+								tmp_pbDst-= WorkingWidth + 32;
 								if ( (unsigned int)tmp_pbDst < screen_buf_end )
 									break;
 								j = 8;
@@ -1252,7 +1252,7 @@ LABEL_67:
 									*(tmp_pbDst - 2) = l_tbl[l_index];
 								}
 								while ( j );
-								tmp_pbDst -= 800;
+								tmp_pbDst-= WorkingWidth + 32;
 								--i;
 							}
 							while ( i );
@@ -1290,7 +1290,7 @@ LABEL_11:
 						--j;
 					}
 					while ( j );
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					if ( (unsigned int)tmp_pbDst < screen_buf_end )
 						break;
 					j = 8;
@@ -1305,7 +1305,7 @@ LABEL_11:
 						--j;
 					}
 					while ( j );
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					--i;
 				}
 				while ( i );
@@ -1329,7 +1329,7 @@ LABEL_251:
 						{
 LABEL_271:
 							WorldBoolFlag = ((_BYTE)WorldBoolFlag + 1) & 1;
-							tmp_pbDst -= 800;
+							tmp_pbDst-= WorkingWidth + 32;
 							if ( !--junk_v134 )
 								return;
 							goto LABEL_251;
@@ -1478,7 +1478,7 @@ LABEL_268:
 							while ( n_draw_shift );
 						}
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					xx_32 -= 2;
 					if ( xx_32 < 0 )
 					{
@@ -1543,7 +1543,7 @@ LABEL_268:
 									while ( n_draw_shift );
 								}
 							}
-							tmp_pbDst -= 800;
+							tmp_pbDst-= WorkingWidth + 32;
 							yy_32 += 2;
 						}
 						while ( yy_32 != 32 );
@@ -1602,7 +1602,7 @@ LABEL_268:
 							tmp_pbDst += 2;
 						}
 					}
-					tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+					tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 					xx_32 -= 2;
 					if ( xx_32 < 0 )
 					{
@@ -1656,7 +1656,7 @@ LABEL_268:
 									tmp_pbDst += 2;
 								}
 							}
-							tmp_pbDst = &tmp_pbDst[yy_32 - 800];
+							tmp_pbDst = &tmp_pbDst[yy_32 - WorkingWidth - 32];
 							yy_32 += 2;
 						}
 						while ( yy_32 != 32 );
@@ -1725,7 +1725,7 @@ LABEL_268:
 							while ( n_draw_shift );
 						}
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					xx_32 -= 2;
 					if ( xx_32 < 0 )
 					{
@@ -1748,7 +1748,7 @@ LABEL_268:
 								--j;
 							}
 							while ( j );
-							tmp_pbDst -= 800;
+							tmp_pbDst-= WorkingWidth + 32;
 							if ( (unsigned int)tmp_pbDst < screen_buf_end )
 								break;
 							j = 8;
@@ -1763,7 +1763,7 @@ LABEL_268:
 								--j;
 							}
 							while ( j );
-							tmp_pbDst -= 800;
+							tmp_pbDst-= WorkingWidth + 32;
 							--i;
 						}
 						while ( i );
@@ -1819,7 +1819,7 @@ LABEL_268:
 							tmp_pbDst += 2;
 						}
 					}
-					tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+					tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 					xx_32 -= 2;
 					if ( xx_32 < 0 )
 					{
@@ -1842,7 +1842,7 @@ LABEL_268:
 								--j;
 							}
 							while ( j );
-							tmp_pbDst -= 800;
+							tmp_pbDst-= WorkingWidth + 32;
 							if ( (unsigned int)tmp_pbDst < screen_buf_end )
 								break;
 							j = 8;
@@ -1857,7 +1857,7 @@ LABEL_268:
 								--j;
 							}
 							while ( j );
-							tmp_pbDst -= 800;
+							tmp_pbDst-= WorkingWidth + 32;
 							--i;
 						}
 						while ( i );
@@ -1892,7 +1892,7 @@ LABEL_268:
 					--j;
 				}
 				while ( j );
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				if ( (unsigned int)tmp_pbDst < screen_buf_end )
 					break;
 				j = 8;
@@ -1904,7 +1904,7 @@ LABEL_268:
 					--j;
 				}
 				while ( j );
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				--i;
 			}
 			while ( i );
@@ -1996,7 +1996,7 @@ LABEL_388:
 				while ( yy_32 );
 LABEL_391:
 				WorldBoolFlag = ((_BYTE)WorldBoolFlag + 1) & 1;
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				if ( !--xx_32 )
 					return;
 			}
@@ -2050,7 +2050,7 @@ LABEL_391:
 						while ( n_draw_shift );
 					}
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				if ( !xx_32 )
 					break;
 			}
@@ -2103,7 +2103,7 @@ LABEL_391:
 						while ( n_draw_shift );
 					}
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				yy_32 += 2;
 			}
 			while ( yy_32 != 32 );
@@ -2157,7 +2157,7 @@ LABEL_391:
 						while ( n_draw_shift );
 					}
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				if ( !xx_32 )
 					break;
 				tmp_pbDst += xx_32;
@@ -2210,7 +2210,7 @@ LABEL_391:
 						while ( n_draw_shift );
 					}
 				}
-				tmp_pbDst = &tmp_pbDst[yy_32 - 800];
+				tmp_pbDst = &tmp_pbDst[yy_32 - WorkingWidth - 32];
 				yy_32 += 2;
 			}
 			while ( yy_32 != 32 );
@@ -2265,7 +2265,7 @@ LABEL_391:
 						while ( n_draw_shift );
 					}
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				if ( !xx_32 )
 					break;
 			}
@@ -2283,7 +2283,7 @@ LABEL_391:
 					--j;
 				}
 				while ( j );
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				if ( (unsigned int)tmp_pbDst < screen_buf_end )
 					break;
 				j = 8;
@@ -2295,7 +2295,7 @@ LABEL_391:
 					--j;
 				}
 				while ( j );
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				--i;
 			}
 			while ( i );
@@ -2349,7 +2349,7 @@ LABEL_391:
 						while ( n_draw_shift );
 					}
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				if ( !xx_32 )
 					break;
 				tmp_pbDst += xx_32;
@@ -2368,7 +2368,7 @@ LABEL_391:
 					--j;
 				}
 				while ( j );
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				if ( (unsigned int)tmp_pbDst < screen_buf_end )
 					break;
 				j = 8;
@@ -2380,7 +2380,7 @@ LABEL_391:
 					--j;
 				}
 				while ( j );
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				--i;
 			}
 			while ( i );
@@ -2445,7 +2445,7 @@ LABEL_12:
 						--i;
 					}
 					while ( i );
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					--gpDrawMask;
 					xx_32 = x32_temp - 1;
 				}
@@ -2494,7 +2494,7 @@ LABEL_12:
 					}
 					while ( y32_temp );
 LABEL_129:
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					--gpDrawMask;
 					xx_32 = x32_temp - 1;
 				}
@@ -2525,7 +2525,7 @@ LABEL_129:
 						}
 						while ( n_draw_shift );
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					xx_32 -= 2;
 					if ( xx_32 < 0 )
 					{
@@ -2555,7 +2555,7 @@ LABEL_129:
 								}
 								while ( n_draw_shift );
 							}
-							tmp_pbDst -= 800;
+							tmp_pbDst-= WorkingWidth + 32;
 							yy_32 += 2;
 						}
 						while ( yy_32 != 32 );
@@ -2581,7 +2581,7 @@ LABEL_129:
 						*(_WORD *)tmp_pbDst = temp16;
 						tmp_pbDst += 2;
 					}
-					tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+					tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 					xx_32 -= 2;
 					if ( xx_32 < 0 )
 					{
@@ -2604,7 +2604,7 @@ LABEL_129:
 								*(_WORD *)tmp_pbDst = temp16;
 								tmp_pbDst += 2;
 							}
-							tmp_pbDst = &tmp_pbDst[yy_32 - 800];
+							tmp_pbDst = &tmp_pbDst[yy_32 - WorkingWidth - 32];
 							yy_32 += 2;
 						}
 						while ( yy_32 != 32 );
@@ -2637,7 +2637,7 @@ LABEL_129:
 						}
 						while ( n_draw_shift );
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					xx_32 -= 2;
 					if ( xx_32 < 0 )
 					{
@@ -2660,7 +2660,7 @@ LABEL_129:
 								--i;
 							}
 							while ( i );
-							tmp_pbDst -= 800;
+							tmp_pbDst-= WorkingWidth + 32;
 							--gpDrawMask;
 							yy_32 = y32_temp - 1;
 						}
@@ -2687,7 +2687,7 @@ LABEL_129:
 						*(_WORD *)tmp_pbDst = temp16;
 						tmp_pbDst += 2;
 					}
-					tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+					tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 					xx_32 -= 2;
 					if ( xx_32 < 0 )
 					{
@@ -2711,7 +2711,7 @@ LABEL_129:
 							}
 							while ( i );
 							pdung_cels += (unsigned char)pdung_cels & 2;
-							tmp_pbDst -= 800;
+							tmp_pbDst-= WorkingWidth + 32;
 							--gpDrawMask;
 							yy_32 = y32_temp - 1;
 						}
@@ -2754,7 +2754,7 @@ LABEL_129:
 							--i;
 						}
 						while ( i );
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--gpDrawMask;
 						xx_32 = x32_temp - 1;
 					}
@@ -2806,7 +2806,7 @@ LABEL_129:
 						}
 						while ( y32_temp );
 LABEL_50:
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--gpDrawMask;
 						xx_32 = x32_temp - 1;
 					}
@@ -2847,7 +2847,7 @@ LABEL_50:
 							}
 							while ( n_draw_shift );
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						xx_32 -= 2;
 						if ( xx_32 < 0 )
 						{
@@ -2887,7 +2887,7 @@ LABEL_50:
 									}
 									while ( n_draw_shift );
 								}
-								tmp_pbDst -= 800;
+								tmp_pbDst-= WorkingWidth + 32;
 								yy_32 += 2;
 							}
 							while ( yy_32 != 32 );
@@ -2923,7 +2923,7 @@ LABEL_50:
 							*(_WORD *)tmp_pbDst = __ROR2__(_EAX, 8);
 							tmp_pbDst += 2;
 						}
-						tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+						tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 						xx_32 -= 2;
 						if ( xx_32 < 0 )
 						{
@@ -2956,7 +2956,7 @@ LABEL_50:
 									*(_WORD *)tmp_pbDst = __ROR2__(_EAX, 8);
 									tmp_pbDst += 2;
 								}
-								tmp_pbDst = &tmp_pbDst[yy_32 - 800];
+								tmp_pbDst = &tmp_pbDst[yy_32 - WorkingWidth - 32];
 								yy_32 += 2;
 							}
 							while ( yy_32 != 32 );
@@ -2999,7 +2999,7 @@ LABEL_50:
 							}
 							while ( n_draw_shift );
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						xx_32 -= 2;
 						if ( xx_32 < 0 )
 						{
@@ -3026,7 +3026,7 @@ LABEL_50:
 									--i;
 								}
 								while ( i );
-								tmp_pbDst -= 800;
+								tmp_pbDst-= WorkingWidth + 32;
 								--gpDrawMask;
 								yy_32 = y32_temp - 1;
 							}
@@ -3063,7 +3063,7 @@ LABEL_50:
 							*(_WORD *)tmp_pbDst = __ROR2__(_EAX, 8);
 							tmp_pbDst += 2;
 						}
-						tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+						tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 						xx_32 -= 2;
 						if ( xx_32 < 0 )
 						{
@@ -3090,7 +3090,7 @@ LABEL_50:
 								}
 								while ( i );
 								pdung_cels += (unsigned char)pdung_cels & 2;
-								tmp_pbDst -= 800;
+								tmp_pbDst-= WorkingWidth + 32;
 								--gpDrawMask;
 								yy_32 = y32_temp - 1;
 							}
@@ -3134,7 +3134,7 @@ LABEL_50:
 					--i;
 				}
 				while ( i );
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				--gpDrawMask;
 				xx_32 = x32_temp - 1;
 			}
@@ -3183,7 +3183,7 @@ LABEL_50:
 				}
 				while ( y32_temp );
 LABEL_208:
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				--gpDrawMask;
 				xx_32 = x32_temp - 1;
 			}
@@ -3210,7 +3210,7 @@ LABEL_208:
 					}
 					while ( n_draw_shift );
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				if ( !xx_32 )
 				{
 					yy_32 = 2;
@@ -3235,7 +3235,7 @@ LABEL_208:
 							}
 							while ( n_draw_shift );
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						yy_32 += 2;
 					}
 					while ( yy_32 != 32 );
@@ -3264,7 +3264,7 @@ LABEL_208:
 					}
 					while ( n_draw_shift );
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				if ( !xx_32 )
 				{
 					yy_32 = 2;
@@ -3288,7 +3288,7 @@ LABEL_208:
 							}
 							while ( n_draw_shift );
 						}
-						tmp_pbDst = &tmp_pbDst[yy_32 - 800];
+						tmp_pbDst = &tmp_pbDst[yy_32 - WorkingWidth - 32];
 						yy_32 += 2;
 					}
 					while ( yy_32 != 32 );
@@ -3319,7 +3319,7 @@ LABEL_208:
 					}
 					while ( n_draw_shift );
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				if ( !xx_32 )
 				{
 					gpDrawMask -= 16;
@@ -3340,7 +3340,7 @@ LABEL_208:
 							--i;
 						}
 						while ( i );
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--gpDrawMask;
 						yy_32 = y32_temp - 1;
 					}
@@ -3370,7 +3370,7 @@ LABEL_208:
 					}
 					while ( n_draw_shift );
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				if ( !xx_32 )
 				{
 					gpDrawMask -= 16;
@@ -3391,7 +3391,7 @@ LABEL_208:
 							--i;
 						}
 						while ( i );
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--gpDrawMask;
 						yy_32 = y32_temp - 1;
 					}
@@ -3488,7 +3488,7 @@ LABEL_22:
 						--j;
 					}
 					while ( j );
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					--i;
 				}
 				while ( i );
@@ -3545,7 +3545,7 @@ LABEL_22:
 					}
 					while ( yy_32 );
 LABEL_133:
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					--xx_32;
 				}
 				while ( xx_32 );
@@ -3575,7 +3575,7 @@ LABEL_133:
 						}
 						while ( n_draw_shift );
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					xx_32 -= 2;
 					if ( xx_32 < 0 )
 					{
@@ -3605,7 +3605,7 @@ LABEL_133:
 								}
 								while ( n_draw_shift );
 							}
-							tmp_pbDst -= 800;
+							tmp_pbDst-= WorkingWidth + 32;
 							yy_32 += 2;
 						}
 						while ( yy_32 != 32 );
@@ -3631,7 +3631,7 @@ LABEL_133:
 						*(_WORD *)tmp_pbDst = temp16;
 						tmp_pbDst += 2;
 					}
-					tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+					tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 					xx_32 -= 2;
 					if ( xx_32 < 0 )
 					{
@@ -3654,7 +3654,7 @@ LABEL_133:
 								*(_WORD *)tmp_pbDst = temp16;
 								tmp_pbDst += 2;
 							}
-							tmp_pbDst = &tmp_pbDst[yy_32 - 800];
+							tmp_pbDst = &tmp_pbDst[yy_32 - WorkingWidth - 32];
 							yy_32 += 2;
 						}
 						while ( yy_32 != 32 );
@@ -3687,7 +3687,7 @@ LABEL_133:
 						}
 						while ( n_draw_shift );
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					xx_32 -= 2;
 					if ( xx_32 < 0 )
 					{
@@ -3706,7 +3706,7 @@ LABEL_133:
 								--j;
 							}
 							while ( j );
-							tmp_pbDst -= 800;
+							tmp_pbDst-= WorkingWidth + 32;
 							--i;
 						}
 						while ( i );
@@ -3732,7 +3732,7 @@ LABEL_133:
 						*(_WORD *)tmp_pbDst = temp16;
 						tmp_pbDst += 2;
 					}
-					tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+					tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 					xx_32 -= 2;
 					if ( xx_32 < 0 )
 					{
@@ -3751,7 +3751,7 @@ LABEL_133:
 								--j;
 							}
 							while ( j );
-							tmp_pbDst -= 800;
+							tmp_pbDst-= WorkingWidth + 32;
 							--i;
 						}
 						while ( i );
@@ -3799,7 +3799,7 @@ LABEL_133:
 							base_4 -= 4;
 						}
 						while ( base_4 >= 4 );
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						l_index = y32_temp - 1;
 					}
 					while ( y32_temp != 1 );
@@ -3862,7 +3862,7 @@ LABEL_133:
 						}
 						while ( y32_temp );
 LABEL_58:
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--xx_32;
 					}
 					while ( xx_32 );
@@ -3907,7 +3907,7 @@ LABEL_58:
 							pdung_cels += 2;
 							tmp_pbDst += 2;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						xx_32 -= 2;
 						if ( xx_32 < 0 )
 						{
@@ -3952,7 +3952,7 @@ LABEL_58:
 									pdung_cels += 2;
 									tmp_pbDst += 2;
 								}
-								tmp_pbDst -= 800;
+								tmp_pbDst-= WorkingWidth + 32;
 								yy_32 += 2;
 							}
 							while ( yy_32 != 32 );
@@ -3993,7 +3993,7 @@ LABEL_58:
 						}
 						l_index = (unsigned char)pdung_cels & 2;
 						pdung_cels += l_index;
-						tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+						tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 						xx_32 -= 2;
 						if ( xx_32 < 0 )
 						{
@@ -4031,7 +4031,7 @@ LABEL_58:
 								}
 								l_index = (unsigned char)pdung_cels & 2;
 								pdung_cels += l_index;
-								tmp_pbDst = &tmp_pbDst[yy_32 - 800];
+								tmp_pbDst = &tmp_pbDst[yy_32 - WorkingWidth - 32];
 								yy_32 += 2;
 							}
 							while ( yy_32 != 32 );
@@ -4079,7 +4079,7 @@ LABEL_58:
 							pdung_cels += 2;
 							tmp_pbDst += 2;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						xx_32 -= 2;
 						if ( xx_32 < 0 )
 						{
@@ -4109,7 +4109,7 @@ LABEL_58:
 									base_4 -= 4;
 								}
 								while ( base_4 >= 4 );
-								tmp_pbDst -= 800;
+								tmp_pbDst-= WorkingWidth + 32;
 								--yy_32;
 							}
 							while ( yy_32 );
@@ -4150,7 +4150,7 @@ LABEL_58:
 						}
 						l_index = (unsigned char)pdung_cels & 2;
 						pdung_cels += l_index;
-						tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+						tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 						xx_32 -= 2;
 						if ( xx_32 < 0 )
 						{
@@ -4180,7 +4180,7 @@ LABEL_58:
 									base_4 -= 4;
 								}
 								while ( base_4 >= 4 );
-								tmp_pbDst -= 800;
+								tmp_pbDst-= WorkingWidth + 32;
 								--yy_32;
 							}
 							while ( yy_32 );
@@ -4217,7 +4217,7 @@ LABEL_58:
 					--j;
 				}
 				while ( j );
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				--i;
 			}
 			while ( i );
@@ -4270,7 +4270,7 @@ LABEL_58:
 				}
 				while ( yy_32 );
 LABEL_205:
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				--xx_32;
 			}
 			while ( xx_32 );
@@ -4296,7 +4296,7 @@ LABEL_205:
 					}
 					while ( n_draw_shift );
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				if ( !xx_32 )
 				{
 					yy_32 = 2;
@@ -4321,7 +4321,7 @@ LABEL_205:
 							}
 							while ( n_draw_shift );
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						yy_32 += 2;
 					}
 					while ( yy_32 != 32 );
@@ -4350,7 +4350,7 @@ LABEL_205:
 					}
 					while ( n_draw_shift );
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				if ( !xx_32 )
 				{
 					yy_32 = 2;
@@ -4374,7 +4374,7 @@ LABEL_205:
 							}
 							while ( n_draw_shift );
 						}
-						tmp_pbDst = &tmp_pbDst[yy_32 - 800];
+						tmp_pbDst = &tmp_pbDst[yy_32 - WorkingWidth - 32];
 						yy_32 += 2;
 					}
 					while ( yy_32 != 32 );
@@ -4405,7 +4405,7 @@ LABEL_205:
 					}
 					while ( n_draw_shift );
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				if ( !xx_32 )
 				{
 					i = 16;
@@ -4421,7 +4421,7 @@ LABEL_205:
 							--j;
 						}
 						while ( j );
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--i;
 					}
 					while ( i );
@@ -4450,7 +4450,7 @@ LABEL_205:
 					}
 					while ( n_draw_shift );
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				if ( !xx_32 )
 				{
 					i = 16;
@@ -4466,7 +4466,7 @@ LABEL_205:
 							--j;
 						}
 						while ( j );
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--i;
 					}
 					while ( i );
@@ -4553,7 +4553,7 @@ void __fastcall drawTopArchesLowerScreen(unsigned char *pbDst)
 						pdung_cels += 32;
 						tmp_pbDst += 32;
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					if ( (unsigned int)tmp_pbDst < screen_buf_end )
 					{
 						j = 8;
@@ -4571,7 +4571,7 @@ void __fastcall drawTopArchesLowerScreen(unsigned char *pbDst)
 						pdung_cels += 32;
 						tmp_pbDst += 32;
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					--i;
 				}
 				while ( i );
@@ -4596,7 +4596,7 @@ LABEL_412:
 						{
 LABEL_433:
 							WorldBoolFlag = ((_BYTE)WorldBoolFlag + 1) & 1;
-							tmp_pbDst -= 800;
+							tmp_pbDst-= WorkingWidth + 32;
 							xx_32 = x32_temp - 1;
 							if ( x32_temp == 1 )
 								return;
@@ -4733,7 +4733,7 @@ LABEL_430:
 						pdung_cels = pdung_cels + 32 - xx_32;
 						tmp_pbDst += 32;
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					if ( !xx_32 )
 						break;
 				}
@@ -4792,7 +4792,7 @@ LABEL_430:
 						pdung_cels = pdung_cels + 32 - yy_32;
 						tmp_pbDst += 32;
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					yy_32 += 2;
 				}
 				while ( yy_32 != 32 );
@@ -4852,7 +4852,7 @@ LABEL_430:
 						pdung_cels = pdung_cels + 32 - xx_32;
 						tmp_pbDst = &tmp_pbDst[-xx_32 + 32];
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					if ( !xx_32 )
 						break;
 					tmp_pbDst += xx_32;
@@ -4911,7 +4911,7 @@ LABEL_430:
 						pdung_cels = pdung_cels + 32 - yy_32;
 						tmp_pbDst = &tmp_pbDst[-yy_32 + 32];
 					}
-					tmp_pbDst = &tmp_pbDst[yy_32 - 800];
+					tmp_pbDst = &tmp_pbDst[yy_32 - WorkingWidth - 32];
 					yy_32 += 2;
 				}
 				while ( yy_32 != 32 );
@@ -4972,7 +4972,7 @@ LABEL_430:
 						pdung_cels = pdung_cels + 32 - xx_32;
 						tmp_pbDst += 32;
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					if ( !xx_32 )
 						break;
 				}
@@ -4996,7 +4996,7 @@ LABEL_430:
 						pdung_cels += 32;
 						tmp_pbDst += 32;
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					if ( (unsigned int)tmp_pbDst < screen_buf_end )
 					{
 						j = 8;
@@ -5014,7 +5014,7 @@ LABEL_430:
 						pdung_cels += 32;
 						tmp_pbDst += 32;
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					--i;
 				}
 				while ( i );
@@ -5074,7 +5074,7 @@ LABEL_430:
 						pdung_cels = pdung_cels + 32 - xx_32;
 						tmp_pbDst = &tmp_pbDst[-xx_32 + 32];
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					if ( !xx_32 )
 						break;
 					tmp_pbDst += xx_32;
@@ -5099,7 +5099,7 @@ LABEL_430:
 						pdung_cels += 32;
 						tmp_pbDst += 32;
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					if ( (unsigned int)tmp_pbDst < screen_buf_end )
 					{
 						j = 8;
@@ -5117,7 +5117,7 @@ LABEL_430:
 						pdung_cels += 32;
 						tmp_pbDst += 32;
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					--i;
 				}
 				while ( i );
@@ -5158,7 +5158,7 @@ LABEL_430:
 						pdung_cels += 32;
 						tmp_pbDst += 32;
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					if ( (unsigned int)tmp_pbDst < screen_buf_end )
 					{
 						j = 8;
@@ -5180,7 +5180,7 @@ LABEL_430:
 						pdung_cels += 32;
 						tmp_pbDst += 32;
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					--i;
 				}
 				while ( i );
@@ -5340,7 +5340,7 @@ LABEL_430:
 					while ( yy_32 );
 LABEL_69:
 					WorldBoolFlag = ((_BYTE)WorldBoolFlag + 1) & 1;
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					xx_32 = x32_temp - 1;
 				}
 				while ( x32_temp != 1 );
@@ -5353,7 +5353,7 @@ LABEL_69:
 					tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 					if ( tile_42_45 > 45 )
 					{
-						tmp_pbDst = (char *)(pbDst - 12288);
+						tmp_pbDst = (char *)(pbDst - WorkingWidth*16);
 						pdung_cels += 288;
 LABEL_98:
 						yy_32 = 2;
@@ -5503,7 +5503,7 @@ LABEL_98:
 									}
 								}
 							}
-							tmp_pbDst -= 800;
+							tmp_pbDst-= WorkingWidth + 32;
 							yy_32 += 2;
 						}
 						while ( yy_32 != 32 );
@@ -5650,7 +5650,7 @@ LABEL_98:
 							}
 						}
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					xx_32 -= 2;
 				}
 				while ( xx_32 >= 0 );
@@ -5663,7 +5663,7 @@ LABEL_98:
 					tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 					if ( tile_42_45 > 45 )
 					{
-						tmp_pbDst = (char *)(pbDst - 12288);
+						tmp_pbDst = (char *)(pbDst - WorkingWidth*16);
 						pdung_cels += 288;
 LABEL_154:
 						yy_32 = 2;
@@ -5812,7 +5812,7 @@ LABEL_154:
 								l_index = pdung_cels & 2;
 								pdung_cels += l_index;
 							}
-							tmp_pbDst = &tmp_pbDst[yy_32 - 800];
+							tmp_pbDst = &tmp_pbDst[yy_32 - WorkingWidth - 32];
 							yy_32 += 2;
 						}
 						while ( yy_32 != 32 );
@@ -5958,7 +5958,7 @@ LABEL_154:
 						l_index = pdung_cels & 2;
 						pdung_cels += l_index;
 					}
-					tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+					tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 					xx_32 -= 2;
 				}
 				while ( xx_32 >= 0 );
@@ -5971,7 +5971,7 @@ LABEL_154:
 					tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 					if ( tile_42_45 > 45 )
 					{
-						tmp_pbDst = (char *)(pbDst - 12288);
+						tmp_pbDst = (char *)(pbDst - WorkingWidth*16);
 						pdung_cels += 288;
 LABEL_210:
 						i = 8;
@@ -5999,7 +5999,7 @@ LABEL_210:
 								pdung_cels += 32;
 								tmp_pbDst += 32;
 							}
-							tmp_pbDst -= 800;
+							tmp_pbDst-= WorkingWidth + 32;
 							if ( (unsigned int)tmp_pbDst < screen_buf_end )
 							{
 								j = 8;
@@ -6021,7 +6021,7 @@ LABEL_210:
 								pdung_cels += 32;
 								tmp_pbDst += 32;
 							}
-							tmp_pbDst -= 800;
+							tmp_pbDst-= WorkingWidth + 32;
 							--i;
 						}
 						while ( i );
@@ -6168,7 +6168,7 @@ LABEL_210:
 							}
 						}
 					}
-					tmp_pbDst -= 800;
+					tmp_pbDst-= WorkingWidth + 32;
 					xx_32 -= 2;
 				}
 				while ( xx_32 >= 0 );
@@ -6181,7 +6181,7 @@ LABEL_210:
 					tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 					if ( tile_42_45 > 45 )
 					{
-						tmp_pbDst = (char *)(pbDst - 12288);
+						tmp_pbDst = (char *)(pbDst - WorkingWidth*16);
 						pdung_cels += 288;
 LABEL_249:
 						i = 8;
@@ -6209,7 +6209,7 @@ LABEL_249:
 								pdung_cels += 32;
 								tmp_pbDst += 32;
 							}
-							tmp_pbDst -= 800;
+							tmp_pbDst-= WorkingWidth + 32;
 							if ( (unsigned int)tmp_pbDst < screen_buf_end )
 							{
 								j = 8;
@@ -6231,7 +6231,7 @@ LABEL_249:
 								pdung_cels += 32;
 								tmp_pbDst += 32;
 							}
-							tmp_pbDst -= 800;
+							tmp_pbDst-= WorkingWidth + 32;
 							--i;
 						}
 						while ( i );
@@ -6377,7 +6377,7 @@ LABEL_249:
 						l_index = pdung_cels & 2;
 						pdung_cels += l_index;
 					}
-					tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+					tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 					xx_32 -= 2;
 				}
 				while ( xx_32 >= 0 );
@@ -6416,7 +6416,7 @@ LABEL_11:
 					pdung_cels += 32;
 					tmp_pbDst += 32;
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				if ( (unsigned int)tmp_pbDst < screen_buf_end )
 				{
 					j = 8;
@@ -6437,7 +6437,7 @@ LABEL_11:
 					pdung_cels += 32;
 					tmp_pbDst += 32;
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				--i;
 			}
 			while ( i );
@@ -6550,7 +6550,7 @@ LABEL_290:
 				while ( yy_32 );
 LABEL_293:
 				WorldBoolFlag = ((_BYTE)WorldBoolFlag + 1) & 1;
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				xx_32 = x32_temp - 1;
 				if ( x32_temp == 1 )
 					return;
@@ -6563,7 +6563,7 @@ LABEL_293:
 				tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 				if ( tile_42_45 > 45 )
 				{
-					tmp_pbDst = (char *)(pbDst - 12288);
+					tmp_pbDst = (char *)(pbDst - WorkingWidth*16);
 					pdung_cels += 288;
 LABEL_308:
 					yy_32 = 2;
@@ -6639,7 +6639,7 @@ LABEL_308:
 								while ( n_draw_shift );
 							}
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						yy_32 += 2;
 					}
 					while ( yy_32 != 32 );
@@ -6711,7 +6711,7 @@ LABEL_308:
 						while ( n_draw_shift );
 					}
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				xx_32 -= 2;
 			}
 			while ( xx_32 >= 0 );
@@ -6777,13 +6777,13 @@ LABEL_326:
 							tmp_pbDst += 2;
 						}
 					}
-					tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+					tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 					xx_32 -= 2;
 				}
 				while ( xx_32 >= 0 );
 				goto LABEL_336;
 			}
-			tmp_pbDst = (char *)(pbDst - 12288);
+			tmp_pbDst = (char *)(pbDst - WorkingWidth*16);
 			pdung_cels += 288;
 LABEL_336:
 			yy_32 = 2;
@@ -6845,7 +6845,7 @@ LABEL_336:
 						tmp_pbDst += 2;
 					}
 				}
-				tmp_pbDst = &tmp_pbDst[yy_32 - 800];
+				tmp_pbDst = &tmp_pbDst[yy_32 - WorkingWidth - 32];
 				yy_32 += 2;
 			}
 			while ( yy_32 != 32 );
@@ -6858,7 +6858,7 @@ LABEL_336:
 				tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 				if ( tile_42_45 > 45 )
 				{
-					tmp_pbDst = (char *)(pbDst - 12288);
+					tmp_pbDst = (char *)(pbDst - WorkingWidth*16);
 					pdung_cels += 288;
 LABEL_364:
 					i = 8;
@@ -6886,7 +6886,7 @@ LABEL_364:
 							pdung_cels += 32;
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						if ( (unsigned int)tmp_pbDst < screen_buf_end )
 						{
 							j = 8;
@@ -6907,7 +6907,7 @@ LABEL_364:
 							pdung_cels += 32;
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--i;
 					}
 					while ( i );
@@ -6979,7 +6979,7 @@ LABEL_364:
 						while ( n_draw_shift );
 					}
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				xx_32 -= 2;
 			}
 			while ( xx_32 >= 0 );
@@ -6992,7 +6992,7 @@ LABEL_364:
 				tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 				if ( tile_42_45 > 45 )
 				{
-					tmp_pbDst = (char *)(pbDst - 12288);
+					tmp_pbDst = (char *)(pbDst - WorkingWidth*16);
 					pdung_cels += 288;
 LABEL_389:
 					i = 8;
@@ -7020,7 +7020,7 @@ LABEL_389:
 							pdung_cels += 32;
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						if ( (unsigned int)tmp_pbDst < screen_buf_end )
 						{
 							j = 8;
@@ -7041,7 +7041,7 @@ LABEL_389:
 							pdung_cels += 32;
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--i;
 					}
 					while ( i );
@@ -7100,7 +7100,7 @@ LABEL_389:
 						tmp_pbDst += 2;
 					}
 				}
-				tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+				tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 				xx_32 -= 2;
 			}
 			while ( xx_32 >= 0 );
@@ -7173,7 +7173,7 @@ void __fastcall drawBottomArchesLowerScreen(unsigned char *pbDst, unsigned int *
 							pdung_cels += 32;
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--gpDrawMask;
 						--yy_32;
 					}
@@ -7228,7 +7228,7 @@ void __fastcall drawBottomArchesLowerScreen(unsigned char *pbDst, unsigned int *
 						}
 						while ( yy_32 );
 LABEL_252:
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--gpDrawMask;
 						xx_32 = x32_temp - 1;
 					}
@@ -7262,7 +7262,7 @@ LABEL_252:
 							pdung_cels = &pdung_cels[-i + 32];
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						if ( !i )
 							break;
 					}
@@ -7294,7 +7294,7 @@ LABEL_252:
 							pdung_cels = &pdung_cels[-i + 32];
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						i += 2;
 					}
 					while ( i != 32 );
@@ -7326,7 +7326,7 @@ LABEL_252:
 							pdung_cels = &pdung_cels[-i + 32];
 							tmp_pbDst = &tmp_pbDst[-i + 32];
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						if ( !i )
 							break;
 						tmp_pbDst += i;
@@ -7358,7 +7358,7 @@ LABEL_252:
 							pdung_cels = &pdung_cels[-i + 32];
 							tmp_pbDst = &tmp_pbDst[-i + 32];
 						}
-						tmp_pbDst = &tmp_pbDst[i - 800];
+						tmp_pbDst = &tmp_pbDst[i - WorkingWidth - 32];
 						i += 2;
 					}
 					while ( i != 32 );
@@ -7391,7 +7391,7 @@ LABEL_252:
 							pdung_cels = &pdung_cels[-i + 32];
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						if ( !i )
 							break;
 					}
@@ -7420,7 +7420,7 @@ LABEL_252:
 							pdung_cels += 32;
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--gpDrawMask;
 						--yy_32;
 					}
@@ -7453,7 +7453,7 @@ LABEL_252:
 							pdung_cels = &pdung_cels[-i + 32];
 							tmp_pbDst = &tmp_pbDst[-i + 32];
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						if ( !i )
 							break;
 						tmp_pbDst += i;
@@ -7483,7 +7483,7 @@ LABEL_252:
 							pdung_cels += 32;
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--gpDrawMask;
 						--yy_32;
 					}
@@ -7526,7 +7526,7 @@ LABEL_252:
 							pdung_cels += 32;
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--gpDrawMask;
 						--yy_32;
 					}
@@ -7584,7 +7584,7 @@ LABEL_252:
 						}
 						while ( yy_32 );
 LABEL_52:
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--gpDrawMask;
 						xx_32 = x32_temp - 1;
 					}
@@ -7597,7 +7597,7 @@ LABEL_52:
 						tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 						if ( tile_42_45 > 45 )
 						{
-							tmp_pbDst = (char *)(pbDst - 12288);
+							tmp_pbDst = (char *)(pbDst - WorkingWidth*16);
 							pdung_cels += 288;
 LABEL_62:
 							yy_32 = 2;
@@ -7644,7 +7644,7 @@ LABEL_62:
 									}
 									while ( n_draw_shift );
 								}
-								tmp_pbDst -= 800;
+								tmp_pbDst-= WorkingWidth + 32;
 								yy_32 += 2;
 							}
 							while ( yy_32 != 32 );
@@ -7688,7 +7688,7 @@ LABEL_62:
 							}
 							while ( n_draw_shift );
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						xx_32 -= 2;
 					}
 					while ( xx_32 >= 0 );
@@ -7700,7 +7700,7 @@ LABEL_62:
 						tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 						if ( tile_42_45 > 45 )
 						{
-							tmp_pbDst = (char *)(pbDst - 12288);
+							tmp_pbDst = (char *)(pbDst - WorkingWidth*16);
 							pdung_cels += 288;
 LABEL_80:
 							yy_32 = 2;
@@ -7740,7 +7740,7 @@ LABEL_80:
 									*(_WORD *)tmp_pbDst = __ROR2__(_EAX, 8);
 									tmp_pbDst += 2;
 								}
-								tmp_pbDst = &tmp_pbDst[yy_32 - 800];
+								tmp_pbDst = &tmp_pbDst[yy_32 - WorkingWidth - 32];
 								yy_32 += 2;
 							}
 							while ( yy_32 != 32 );
@@ -7777,7 +7777,7 @@ LABEL_80:
 							*(_WORD *)tmp_pbDst = __ROR2__(_EAX, 8);
 							tmp_pbDst += 2;
 						}
-						tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+						tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 						xx_32 -= 2;
 					}
 					while ( xx_32 >= 0 );
@@ -7789,7 +7789,7 @@ LABEL_80:
 						tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 						if ( tile_42_45 > 45 )
 						{
-							tmp_pbDst = (char *)(pbDst - 12288);
+							tmp_pbDst = (char *)(pbDst - WorkingWidth*16);
 							pdung_cels += 288;
 LABEL_98:
 							gpDrawMask -= 16;
@@ -7821,7 +7821,7 @@ LABEL_98:
 									pdung_cels += 32;
 									tmp_pbDst += 32;
 								}
-								tmp_pbDst -= 800;
+								tmp_pbDst-= WorkingWidth + 32;
 								--gpDrawMask;
 								--yy_32;
 							}
@@ -7866,7 +7866,7 @@ LABEL_98:
 							}
 							while ( n_draw_shift );
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						xx_32 -= 2;
 					}
 					while ( xx_32 >= 0 );
@@ -7878,7 +7878,7 @@ LABEL_98:
 						tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 						if ( tile_42_45 > 45 )
 						{
-							tmp_pbDst = (char *)(pbDst - 12288);
+							tmp_pbDst = (char *)(pbDst - WorkingWidth*16);
 							pdung_cels += 288;
 LABEL_117:
 							gpDrawMask -= 16;
@@ -7911,7 +7911,7 @@ LABEL_117:
 									pdung_cels += 32;
 									tmp_pbDst += 32;
 								}
-								tmp_pbDst -= 800;
+								tmp_pbDst-= WorkingWidth + 32;
 								--gpDrawMask;
 								--yy_32;
 							}
@@ -7949,7 +7949,7 @@ LABEL_117:
 							*(_WORD *)tmp_pbDst = __ROR2__(_EAX, 8);
 							tmp_pbDst += 2;
 						}
-						tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+						tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 						xx_32 -= 2;
 					}
 					while ( xx_32 >= 0 );
@@ -7999,7 +7999,7 @@ LABEL_117:
 					pdung_cels += 32;
 					tmp_pbDst += 32;
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				--gpDrawMask;
 				--yy_32;
 			}
@@ -8054,7 +8054,7 @@ LABEL_117:
 				}
 				while ( yy_32 );
 LABEL_152:
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				--gpDrawMask;
 				xx_32 = x32_temp - 1;
 			}
@@ -8067,7 +8067,7 @@ LABEL_152:
 				tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 				if ( tile_42_45 > 45 )
 				{
-					tmp_pbDst = (char *)(pbDst - 12288);
+					tmp_pbDst = (char *)(pbDst - WorkingWidth*16);
 					pdung_cels += 288;
 LABEL_162:
 					yy_32 = 2;
@@ -8104,7 +8104,7 @@ LABEL_162:
 							}
 							while ( n_draw_shift );
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						yy_32 += 2;
 					}
 					while ( yy_32 != 32 );
@@ -8138,7 +8138,7 @@ LABEL_162:
 					}
 					while ( n_draw_shift );
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				xx_32 -= 2;
 			}
 			while ( xx_32 >= 0 );
@@ -8171,13 +8171,13 @@ LABEL_175:
 						*(_WORD *)tmp_pbDst = temp16;
 						tmp_pbDst += 2;
 					}
-					tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+					tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 					xx_32 -= 2;
 				}
 				while ( xx_32 >= 0 );
 				goto LABEL_180;
 			}
-			tmp_pbDst = (char *)(pbDst - 12288);
+			tmp_pbDst = (char *)(pbDst - WorkingWidth*16);
 			pdung_cels += 288;
 LABEL_180:
 			yy_32 = 2;
@@ -8207,7 +8207,7 @@ LABEL_180:
 					*(_WORD *)tmp_pbDst = temp16;
 					tmp_pbDst += 2;
 				}
-				tmp_pbDst = &tmp_pbDst[yy_32 - 800];
+				tmp_pbDst = &tmp_pbDst[yy_32 - WorkingWidth - 32];
 				yy_32 += 2;
 			}
 			while ( yy_32 != 32 );
@@ -8219,7 +8219,7 @@ LABEL_180:
 				tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 				if ( tile_42_45 > 45 )
 				{
-					tmp_pbDst = (char *)(pbDst - 12288);
+					tmp_pbDst = (char *)(pbDst - WorkingWidth*16);
 					pdung_cels += 288;
 LABEL_198:
 					gpDrawMask -= 16;
@@ -8248,7 +8248,7 @@ LABEL_198:
 							pdung_cels += 32;
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--gpDrawMask;
 						--yy_32;
 					}
@@ -8283,7 +8283,7 @@ LABEL_198:
 					}
 					while ( n_draw_shift );
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				xx_32 -= 2;
 			}
 			while ( xx_32 >= 0 );
@@ -8295,7 +8295,7 @@ LABEL_198:
 				tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 				if ( tile_42_45 > 45 )
 				{
-					tmp_pbDst = (char *)(pbDst - 12288);
+					tmp_pbDst = (char *)(pbDst - WorkingWidth*16);
 					pdung_cels += 288;
 LABEL_217:
 					gpDrawMask -= 16;
@@ -8325,7 +8325,7 @@ LABEL_217:
 							pdung_cels += 32;
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--gpDrawMask;
 						--yy_32;
 					}
@@ -8353,7 +8353,7 @@ LABEL_217:
 					*(_WORD *)tmp_pbDst = temp16;
 					tmp_pbDst += 2;
 				}
-				tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+				tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 				xx_32 -= 2;
 			}
 			while ( xx_32 >= 0 );
@@ -8451,7 +8451,7 @@ void __fastcall drawLowerScreen(unsigned char *pbDst)
 							pdung_cels += 32;
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--i;
 					}
 					while ( i );
@@ -8513,7 +8513,7 @@ void __fastcall drawLowerScreen(unsigned char *pbDst)
 						}
 						while ( yy_32 );
 LABEL_232:
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						xx_32 = x32_temp - 1;
 					}
 					while ( x32_temp != 1 );
@@ -8546,7 +8546,7 @@ LABEL_232:
 							pdung_cels = &pdung_cels[-i + 32];
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						if ( !i )
 							break;
 					}
@@ -8578,7 +8578,7 @@ LABEL_232:
 							pdung_cels = &pdung_cels[-i + 32];
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						i += 2;
 					}
 					while ( i != 32 );
@@ -8610,7 +8610,7 @@ LABEL_232:
 							pdung_cels = &pdung_cels[-i + 32];
 							tmp_pbDst = &tmp_pbDst[-i + 32];
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						if ( !i )
 							break;
 						tmp_pbDst += i;
@@ -8642,7 +8642,7 @@ LABEL_232:
 							pdung_cels = &pdung_cels[-i + 32];
 							tmp_pbDst = &tmp_pbDst[-i + 32];
 						}
-						tmp_pbDst = &tmp_pbDst[i - 800];
+						tmp_pbDst = &tmp_pbDst[i - WorkingWidth - 32];
 						i += 2;
 					}
 					while ( i != 32 );
@@ -8675,7 +8675,7 @@ LABEL_232:
 							pdung_cels = &pdung_cels[-i + 32];
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						if ( !i )
 							break;
 					}
@@ -8698,7 +8698,7 @@ LABEL_232:
 							pdung_cels += 32;
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--i;
 					}
 					while ( i );
@@ -8730,7 +8730,7 @@ LABEL_232:
 							pdung_cels = &pdung_cels[-i + 32];
 							tmp_pbDst = &tmp_pbDst[-i + 32];
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						if ( !i )
 							break;
 						tmp_pbDst += i;
@@ -8754,7 +8754,7 @@ LABEL_232:
 							pdung_cels += 32;
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--i;
 					}
 					while ( i );
@@ -8804,7 +8804,7 @@ LABEL_232:
 							pdung_cels += 32;
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						xx_32 = x32_temp - 1;
 					}
 					while ( x32_temp != 1 );
@@ -8870,7 +8870,7 @@ LABEL_232:
 							}
 						}
 						while ( yy_32 );
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						xx_32 = x32_temp - 1;
 					}
 					while ( x32_temp != 1 );
@@ -8882,7 +8882,7 @@ LABEL_232:
 						tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 						if ( tile_42_45 > 45 )
 						{
-							tmp_pbDst = pbDst - 12288;
+							tmp_pbDst = pbDst - WorkingWidth*16;
 							pdung_cels += 288;
 LABEL_68:
 							yy_32 = 2;
@@ -8910,7 +8910,7 @@ LABEL_68:
 								}
 								while ( y_minus );
 								yy_32 += 2;
-								tmp_pbDst -= 800;
+								tmp_pbDst-= WorkingWidth + 32;
 							}
 							while ( yy_32 != 32 );
 							return;
@@ -8933,7 +8933,7 @@ LABEL_68:
 							--x_minus;
 						}
 						while ( x_minus );
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						xx_32 -= 2;
 					}
 					while ( xx_32 >= 0 );
@@ -8945,7 +8945,7 @@ LABEL_68:
 						tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 						if ( tile_42_45 > 45 )
 						{
-							tmp_pbDst = pbDst - 12288;
+							tmp_pbDst = pbDst - WorkingWidth*16;
 							pdung_cels += 288;
 LABEL_83:
 							yy_32 = 2;
@@ -8971,7 +8971,7 @@ LABEL_83:
 								while ( y_minus );
 								l_index = (unsigned char)pdung_cels & 2;
 								pdung_cels += l_index;
-								tmp_pbDst = &tmp_pbDst[yy_32 - 800];
+								tmp_pbDst = &tmp_pbDst[yy_32 - WorkingWidth - 32];
 								yy_32 += 2;
 							}
 							while ( yy_32 != 32 );
@@ -8994,7 +8994,7 @@ LABEL_83:
 						while ( x_minus );
 						l_index = (unsigned char)pdung_cels & 2;
 						pdung_cels += l_index;
-						tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+						tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 						xx_32 -= 2;
 					}
 					while ( xx_32 >= 0 );
@@ -9006,7 +9006,7 @@ LABEL_83:
 						tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 						if ( tile_42_45 > 45 )
 						{
-							tmp_pbDst = pbDst - 12288;
+							tmp_pbDst = pbDst - WorkingWidth*16;
 							pdung_cels += 288;
 LABEL_100:
 							i = 16;
@@ -9041,7 +9041,7 @@ LABEL_100:
 									pdung_cels += 32;
 									tmp_pbDst += 32;
 								}
-								tmp_pbDst -= 800;
+								tmp_pbDst-= WorkingWidth + 32;
 								--i;
 							}
 							while ( i );
@@ -9090,7 +9090,7 @@ LABEL_100:
 							pdung_cels += 2;
 							tmp_pbDst += 2;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						xx_32 -= 2;
 					}
 					while ( xx_32 >= 0 );
@@ -9102,7 +9102,7 @@ LABEL_100:
 						tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 						if ( tile_42_45 > 45 )
 						{
-							tmp_pbDst = pbDst - 12288;
+							tmp_pbDst = pbDst - WorkingWidth*16;
 							pdung_cels += 288;
 LABEL_116:
 							j = 16;
@@ -9137,7 +9137,7 @@ LABEL_116:
 									pdung_cels += 32;
 									tmp_pbDst += 32;
 								}
-								tmp_pbDst -= 800;
+								tmp_pbDst-= WorkingWidth + 32;
 								--j;
 							}
 							while ( j );
@@ -9179,7 +9179,7 @@ LABEL_116:
 						}
 						l_index = (unsigned char)pdung_cels & 2;
 						pdung_cels += l_index;
-						tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+						tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 						xx_32 -= 2;
 					}
 					while ( xx_32 >= 0 );
@@ -9223,7 +9223,7 @@ LABEL_116:
 					pdung_cels += 32;
 					tmp_pbDst += 32;
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				--i;
 			}
 			while ( i );
@@ -9290,7 +9290,7 @@ LABEL_116:
 				}
 				while ( yy_32 );
 LABEL_143:
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				xx_32 = x32_temp - 1;
 			}
 			while ( x32_temp != 1 );
@@ -9302,7 +9302,7 @@ LABEL_143:
 				tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 				if ( tile_42_45 > 45 )
 				{
-					tmp_pbDst = pbDst - 12288;
+					tmp_pbDst = pbDst - WorkingWidth*16;
 					pdung_cels += 288;
 LABEL_153:
 					yy_32 = 2;
@@ -9340,7 +9340,7 @@ LABEL_153:
 							while ( n_draw_shift );
 						}
 						yy_32 += 2;
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 					}
 					while ( yy_32 < 32 );
 					return;
@@ -9373,7 +9373,7 @@ LABEL_153:
 					}
 					while ( n_draw_shift );
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				xx_32 -= 2;
 			}
 			while ( xx_32 >= 0 );
@@ -9406,13 +9406,13 @@ LABEL_166:
 						*(_WORD *)tmp_pbDst = temp16;
 						tmp_pbDst += 2;
 					}
-					tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+					tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 					xx_32 -= 2;
 				}
 				while ( xx_32 >= 0 );
 				goto LABEL_171;
 			}
-			tmp_pbDst = pbDst - 12288;
+			tmp_pbDst = pbDst - WorkingWidth*16;
 			pdung_cels += 288;
 LABEL_171:
 			yy_32 = 2;
@@ -9444,7 +9444,7 @@ LABEL_171:
 				}
 				tmp_pbDst += yy_32;
 				yy_32 += 2;
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 			}
 			while ( yy_32 < 32 );
 			break;
@@ -9455,7 +9455,7 @@ LABEL_171:
 				tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 				if ( tile_42_45 > 45 )
 				{
-					tmp_pbDst = pbDst - 12288;
+					tmp_pbDst = pbDst - WorkingWidth*16;
 					pdung_cels += 288;
 LABEL_189:
 					i = 16;
@@ -9479,7 +9479,7 @@ LABEL_189:
 							pdung_cels += 32;
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--i;
 					}
 					while ( i );
@@ -9513,7 +9513,7 @@ LABEL_189:
 					}
 					while ( n_draw_shift );
 				}
-				tmp_pbDst -= 800;
+				tmp_pbDst-= WorkingWidth + 32;
 				xx_32 -= 2;
 			}
 			while ( xx_32 >= 0 );
@@ -9525,7 +9525,7 @@ LABEL_189:
 				tile_42_45 = (unsigned int)&pbDst[-screen_buf_end + 1023] >> 8;
 				if ( tile_42_45 > 45 )
 				{
-					tmp_pbDst = pbDst - 12288;
+					tmp_pbDst = pbDst - WorkingWidth*16;
 					pdung_cels += 288;
 LABEL_205:
 					i = 16;
@@ -9549,7 +9549,7 @@ LABEL_205:
 							pdung_cels += 32;
 							tmp_pbDst += 32;
 						}
-						tmp_pbDst -= 800;
+						tmp_pbDst-= WorkingWidth + 32;
 						--i;
 					}
 					while ( i );
@@ -9576,7 +9576,7 @@ LABEL_205:
 					*(_WORD *)tmp_pbDst = temp16;
 					tmp_pbDst += 2;
 				}
-				tmp_pbDst = &tmp_pbDst[xx_32 - 800];
+				tmp_pbDst = &tmp_pbDst[xx_32 - WorkingWidth - 32];
 				xx_32 -= 2;
 			}
 			while ( xx_32 >= 0 );
