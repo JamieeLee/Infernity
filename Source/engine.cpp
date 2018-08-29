@@ -1555,13 +1555,13 @@ void __fastcall DrawLine(int x0, int y0, int x1, int y1, char col)
 	v9 = x0;
 	gbPixelCol = col;
 	dword_52B99C = 0;
-	if ( x0 < 64 || x0 >= 704 )
+	if ( x0 < 64 || x0 >= (WorkingWidth - 64) )
 		dword_52B99C = 1;
-	if ( x1 < 64 || x1 >= 704 )
+	if ( x1 < 64 || x1 >= (WorkingWidth - 64))
 		dword_52B99C = 1;
-	if ( y0 < 160 || y0 >= 512 )
+	if ( y0 < 160 || y0 >= (ScreenHeight + 32) )
 		dword_52B99C = 1;
-	if ( y1 < 160 || y1 >= 512 )
+	if ( y1 < 160 || y1 >= (ScreenHeight + 32))
 		dword_52B99C = 1;
 	if ( x1 - x0 < 0 )
 		v36 = -1;

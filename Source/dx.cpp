@@ -124,7 +124,7 @@ void __cdecl dx_create_back_buffer()
 		if ( !v1 )
 		{
 			lpDDSPrimary->Unlock(NULL);
-			sgpBackBuf = DiabloAllocPtr(WorkingWidth*WorkingHeight);
+			sgpBackBuf = DiabloAllocPtr(WorkingWidth*(WorkingHeight+256));
 			return;
 		}
 		if ( v1 != DDERR_CANTLOCKSURFACE )
@@ -136,7 +136,7 @@ void __cdecl dx_create_back_buffer()
 	v4.dwSize = 108;
 	v4.dwFlags = DDSD_PIXELFORMAT|DDSD_PITCH|DDSD_WIDTH|DDSD_HEIGHT|DDSD_CAPS;
 	v4.ddsCaps.dwCaps = DDSCAPS_SYSTEMMEMORY|DDSCAPS_OFFSCREENPLAIN;
-	v4.dwHeight = WorkingHeight;
+	v4.dwHeight = WorkingHeight + 128 + 2;
 	v4.ddpfPixelFormat.dwSize = 32;
 	v2 = lpDDSPrimary->GetPixelFormat(&v4.ddpfPixelFormat);
 	if ( v2 )
