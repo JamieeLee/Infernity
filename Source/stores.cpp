@@ -162,7 +162,7 @@ void __cdecl DrawSTextBack()
 	signed int v4; // ecx
 	_BYTE *v5; // edi
 	signed int v6; // ecx
-
+	int someMagicNumber = 1032 + GetWidthDiff();
 	CelDecodeOnly(408, 487, pSTextBoxCels, 1, 271);
 	v0 = &gpBuffer->row[324].pixels[347];
 	v1 = 148;
@@ -177,7 +177,7 @@ void __cdecl DrawSTextBack()
 		}
 		while ( v2 );
 		*v0 = 0;
-		v3 = (int)(v0 - 1032);
+		v3 = (int)(v0 - someMagicNumber);
 		v4 = 132;
 		do
 		{
@@ -187,7 +187,7 @@ void __cdecl DrawSTextBack()
 			--v4;
 		}
 		while ( v4 );
-		v0 = (char *)(v3 - 1032);
+		v0 = (char *)(v3 - someMagicNumber);
 		--v1;
 	}
 	while ( v1 );
@@ -285,10 +285,10 @@ void __fastcall PrintSString(int x, int y, unsigned char cjustflag, char *str, i
 		while ( v29 < v28 );
 		v8 = v26;
 	}
-	if ( !cjustflag && val >= 0 )
+	if ( !cjustflag && val >= 0)
 	{
 		sprintf(valstr, "%i", val);
-		v19 = screen_y_times_width[v6 + 204] - v8 + WorkingHeight;
+		v19 = screen_y_times_width[v6 + 204] - v8 + 656;
 		v20 = strlen(valstr);
 		while ( (--v20 & 0x80000000) == 0 )
 		{

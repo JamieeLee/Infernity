@@ -85,31 +85,31 @@ unsigned char fontkern[68] =
 };
 int lineoffset[25] =
 {
-  456433,
-  24576,
-  24576,
-  24576,
-  24756,
-  447217,
-  465649,
-  24576,
-  24576,
-  24576,
-  442609,
-  456433,
-  470257,
-  24576,
-  24576,
-  439537,
-  451057,
-  461809,
-  473329,
-  24576,
-  438001,
-  447217,
-  456433,
-  465649,
-  474097
+	WorkingWidth * 594 + 241,//456433,
+	WorkingWidth * 32 + 0,//24576,
+	WorkingWidth * 32 + 0,//24576,
+	WorkingWidth * 32 + 0,//24576,
+	WorkingWidth * 32 + 0,//24756,
+	WorkingWidth * 582 + 241,//447217,
+	WorkingWidth * 606 + 241,//465649,
+	WorkingWidth * 32 + 0,//24576,
+	WorkingWidth * 32 + 0,//24576,
+	WorkingWidth * 32 + 0 ,//24576,
+	WorkingWidth * 576 + 241,//442609,
+	WorkingWidth * 594 + 241,//456433,
+	WorkingWidth * 612 + 241 ,//470257,
+	WorkingWidth * 32 + 0,//24576,
+	WorkingWidth * 32 + 0,//24576,
+  WorkingWidth * 572 + 241,//439537,
+  WorkingWidth * 587 + 241,//451057,
+  WorkingWidth * 601 + 241,//461809,
+  WorkingWidth * 616 + 241 ,//473329,
+  WorkingWidth * 32 + 0,//24576,
+  WorkingWidth * 570 + 241,//438001,
+  WorkingWidth * 582 + 241,//447217,
+  WorkingWidth * 594 + 241,//456433,
+  WorkingWidth * 606 + 241 ,//465649,
+  WorkingWidth * 617 + 241//474097
 };
 unsigned char fontidx[256] =
 {
@@ -1219,7 +1219,7 @@ void __cdecl InitControlPan()
 	if ( gbMaxPlayers != 1 )
 	{
 		pTalkPanel = LoadFileInMem("CtrlPan\\TalkPanl.CEL", 0);
-		CelDecodeRect((char *)pBtmBuff, 0, 287, 640, (char *)pTalkPanel, 1, 640);
+		CelDecodeRect((char *)pBtmBuff, 0, 287, ScreenWidth, (char *)pTalkPanel, 1, 640);
 		v3 = pTalkPanel;
 		pTalkPanel = 0;
 		mem_free_dbg(v3);
@@ -1314,7 +1314,7 @@ void __cdecl DrawCtrlPan()
 	{
 		v2 = *v1;
 		if ( panbtn[v0] )
-			CelDecodeOnly(v2 + 64, v1[1] + 178, pPanelButtons, v0 + 1, 71);
+			CelDecodeOnly(v2 + 64 + GetWidthDiff()/2, v1[1] + 178+GetHeightDiff(), pPanelButtons, v0 + 1, 71);
 		else
 			DrawPanelBox(v2, v1[1] - 336, 0x47u, 0x14u, v2 + 64, v1[1] + 160);
 		++v0;
@@ -1446,10 +1446,10 @@ void __cdecl DoPanBtn()
 		v4 = PanBtnPos;
 		do
 		{
-			if ( v0 >= (*v4)[0] && v0 <= (*v4)[0] + (*v4)[2] )
+			if ( v0 >= (*v4)[0] + GetWidthDiff() / 2 && v0 <= (*v4)[0] + (*v4)[2] +GetWidthDiff()/2)
 			{
 				v5 = (*v4)[1];
-				if ( v1 >= v5 && v1 <= v5 + (*v4)[3] )
+				if ( v1 >= v5 + GetHeightDiff() && v1 <= v5 + (*v4)[3] + GetHeightDiff())
 				{
 					panbtn[v3] = 1;
 					drawbtnflag = 1;
@@ -1486,17 +1486,17 @@ void __cdecl control_check_btn_press()
 
 	v0 = MouseX;
 	v1 = MouseY;
-	if ( MouseX >= PanBtnPos[3][0]
-	  && MouseX <= PanBtnPos[3][0] + PanBtnPos[3][2]
-	  && MouseY >= PanBtnPos[3][1]
-	  && MouseY <= PanBtnPos[3][1] + PanBtnPos[3][3] )
+	if ( MouseX >= PanBtnPos[3][0] + GetWidthDiff()/2
+	  && MouseX <= PanBtnPos[3][0] + PanBtnPos[3][2] + GetWidthDiff() / 2
+	  && MouseY >= PanBtnPos[3][1] + GetHeightDiff()
+	  && MouseY <= PanBtnPos[3][1] + PanBtnPos[3][3] + GetHeightDiff())
 	{
 		control_set_button_down(3);
 	}
-	if ( v0 >= PanBtnPos[6][0]
-	  && v0 <= PanBtnPos[6][0] + PanBtnPos[6][2]
-	  && v1 >= PanBtnPos[6][1]
-	  && v1 <= PanBtnPos[6][1] + PanBtnPos[6][3] )
+	if ( v0 >= PanBtnPos[6][0] + GetWidthDiff() / 2
+	  && v0 <= PanBtnPos[6][0] + PanBtnPos[6][2] + GetWidthDiff() / 2
+	  && v1 >= PanBtnPos[6][1] + GetHeightDiff()
+	  && v1 <= PanBtnPos[6][1] + PanBtnPos[6][3] + GetHeightDiff())
 	{
 		control_set_button_down(6);
 	}
@@ -1543,10 +1543,10 @@ void __cdecl CheckPanelInfo()
 		{
 			v1 = v0;
 			v2 = PanBtnPos[v0][0];
-			if ( MouseX >= v2 && MouseX <= v2 + PanBtnPos[v1][2] )
+			if ( MouseX >= v2 + GetWidthDiff() / 2 && MouseX <= v2 + PanBtnPos[v1][2] + GetWidthDiff() / 2)
 			{
 				v3 = PanBtnPos[v1][1];
-				if ( MouseY >= v3 && MouseY <= v3 + PanBtnPos[v1][3] )
+				if ( MouseY >= v3 + GetHeightDiff() && MouseY <= v3 + PanBtnPos[v1][3] +GetHeightDiff() )
 				{
 					if ( v0 == 7 )
 					{
@@ -1681,10 +1681,10 @@ void __cdecl CheckBtnUp()
 			*v1 = 0;
 			v3 = v0;
 			v4 = PanBtnPos[v0][0];
-			if ( v2 >= v4 && v2 <= v4 + PanBtnPos[v3][2] )
+			if ( v2 >= v4 + GetWidthDiff()/2 && v2 <= v4 + PanBtnPos[v3][2] +GetWidthDiff()/2 )
 			{
 				v5 = PanBtnPos[v3][1];
-				if ( MouseY >= v5 && MouseY <= v5 + PanBtnPos[v3][3] )
+				if ( MouseY >= v5 + GetHeightDiff() && MouseY <= v5 + PanBtnPos[v3][3] + GetHeightDiff())
 				{
 					switch ( v0 )
 					{
@@ -1980,6 +1980,7 @@ LABEL_33:
 
 void __fastcall control_print_info_str(int y, char *str, bool center, int lines)
 {
+	return;
 	int v4; // edi
 	char *v5; // ebx
 	unsigned char v6; // cl

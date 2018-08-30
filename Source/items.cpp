@@ -4331,6 +4331,7 @@ void __cdecl DrawUBack()
 	CelDecodeOnly(88, 487, pSTextBoxCels, 1, 271);
 	v0 = &gpBuffer->row[324].pixels[27];
 	v1 = 148;
+	int someMagicNumber = 1032+GetWidthDiff();
 	do
 	{
 		v2 = 132;
@@ -4342,7 +4343,7 @@ void __cdecl DrawUBack()
 		}
 		while ( v2 );
 		*v0 = 0;
-		v3 = (int)(v0 - 1032);
+		v3 = (int)(v0 - someMagicNumber);
 		v4 = 132;
 		do
 		{
@@ -4352,7 +4353,7 @@ void __cdecl DrawUBack()
 			--v4;
 		}
 		while ( v4 );
-		v0 = (char *)(v3 - 1032);
+		v0 = (char *)(v3 - someMagicNumber);
 		--v1;
 	}
 	while ( v1 );

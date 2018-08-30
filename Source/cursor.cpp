@@ -665,12 +665,12 @@ LABEL_10:
 	}
 	if ( v2 < 0 )
 		v2 = 0;
-	//if ( v2 >= ScreenWidth)
-	//	v2 = ScreenWidth;
+	if ( v2 >= ScreenWidth)
+		v2 = ScreenWidth;
 	if ( v3 < 0 )
 		v3 = 0;
-	//if ( v3 >= ScreenHeight )
-	//	v3 = ScreenHeight;
+	if ( v3 >= ScreenHeight )
+		v3 = ScreenHeight;
 	v4 = v3 >> 5;
 	v5 = v3 & 0x1F;
 	v76 = v2 & 0x3F;

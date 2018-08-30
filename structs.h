@@ -1,6 +1,6 @@
 #include <string>
-#define GLOBAL_WIDTH 1920
-#define GLOBAL_HEIGHT 1080
+#define GLOBAL_WIDTH 1600
+#define GLOBAL_HEIGHT 1200
 class FloatingText {
 public:
 	std::string text;

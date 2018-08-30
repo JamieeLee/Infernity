@@ -1877,7 +1877,6 @@ bool ShouldItemBeRare(int isRare) {
 }
 
 void ColorPixel(int x, int y, int color) {
-
 	char* WorkingSurface = (char*)gpBuffer;
 	WorkingSurface[y*WorkingWidth +x] = color;
 }

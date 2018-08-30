@@ -227,11 +227,12 @@ void HighlightItemsNameOnMap()
 	};
 	char textOnGround[256];
 
-	int ScreenHeight = 480;
+	//int ScreenHeight = 480;
 	int Screen_TopEnd = 160;
 	int Screen_LeftBorder = 64;
-	int ScreenWidth = 640;
-	int XOffset = 330;
+	//int ScreenWidth = 640;
+	int XOffset = 0;// 330 + GetWidthDiff() / 2;
+	int YOffset = 0;// GetHeightDiff();
 
 
 	std::vector<drawingQueue> q;
@@ -367,6 +368,7 @@ void HighlightItemsNameOnMap()
 		if (t.new_x == -1 && t.new_y == -1) {
 			t.new_x = t.x; t.new_y = t.y;
 		}
+		/*
 		int x3 = t.new_x + 95;
 		int y3 = t.new_y - 1;
 		int bgcolor = 0;
@@ -382,9 +384,23 @@ void HighlightItemsNameOnMap()
 
 			int bgcolor = 0;
 			int highlightY = t.new_y + 168;// -175;
-			int highlightX = t.new_x + XOffset-1+ drawXOffset ;
+			int highlightX = t.new_x + XOffset-1+ drawXOffset + YOffset;
 			if (MouseX >= highlightX && MouseX <= highlightX + t.width + 1 && MouseY >= highlightY && MouseY <= highlightY + t.height) {
 				bgcolor = 134;
+				*/
+
+
+		int x3 = t.new_x + 95;
+		int y3 = t.new_y - 1;
+		int bgcolor = 0;
+		if (t.new_x > -Screen_LeftBorder * 2 && x3 + t.width / 2 < ScreenWidth + Screen_LeftBorder && y3 > 13 && y3 + 13 < ScreenHeight + Screen_TopEnd) {
+
+			int bgcolor = 0;
+			int highlightY = t.new_y - 175;
+			int highlightX = t.new_x + 30;
+			int CursorX = MouseX;
+			int CursorY = MouseY;
+			if (CursorX >= highlightX && CursorX <= highlightX + t.width + 1 && CursorY >= highlightY && CursorY <= highlightY + t.height) {
 				HighlightedItemID = t.ItemID;
 				HighlightedItemRow = t.Row;
 				HighlightedItemCol = t.Col;
@@ -394,24 +410,25 @@ void HighlightItemsNameOnMap()
 
 
 			char color = By(t.magicLevel, COL_WHITE, COL_BLUE, COL_GOLD, COL_RED);
-			int sx = t.new_x + XOffset + drawXOffset;// -GetTextWidth(&t.text[0u]) / 2;
-				int sy = t.new_y + 180;
+			int sx = t.new_x;// +XOffset + drawXOffset;// -GetTextWidth(&t.text[0u]) / 2;
+			int sy = t.new_y;// +180 + YOffset;
 
-			int sx2 = t.new_x + XOffset +63 + drawXOffset;
-			int sy2 = t.new_y + 342;
+			int sx2 = t.new_x;// +XOffset + 63 + drawXOffset;
+			int sy2 = t.new_y;// +342;
 
 
-			if (sx < 0 || sx > 640 || sy < 0 || sy > 480) {
+			if (sx < 0 || sx >= ScreenWidth || sy < 0 || sy >= ScreenHeight) {
 				continue;
 			}
 
-			if (sx2 < 0 || sx2 > 640 || sy2 < 0 || sy2 > 480) {
+			if (sx2 < 0 || sx2 >= ScreenWidth || sy2 < 0 || sy2 >= ScreenHeight) {
 				continue;
 			}
-			DrawTransparentBackground(sx2,sy2, t.width + 1, t.height, 0, 0, bgcolor, bgcolor);
+			//DrawTransparentBackground(sx2,sy2, t.width + 1, t.height, 0, 0, bgcolor, bgcolor);
+			DrawTransparentBackground(x3+GetWidthDiff(), y3 + GetHeightDiff(), t.width + 1, t.height, 0, 0, bgcolor, bgcolor);
 			//"\204X\204 values are \204next level\204 stats."
 			//DrawMultiColorText(sx, sy, t.width, "\204this\204 shit is \201on fire\201", COL_WHITE);
-			PrintGameStr(sx,sy, &t.text[0u], color);
+			PrintGameStr(sx+GetWidthDiff(),sy+GetHeightDiff(), &t.text[0u], color);
 			//ADD_PlrStringXY(168,32, 299, "wtf", COL_GOLD);
 		}
 	}

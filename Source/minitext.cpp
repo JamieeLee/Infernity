@@ -99,6 +99,7 @@ void __cdecl DrawQTextBack()
 	CelDecodeOnly(88, 487, pTextBoxCels, 1, 591);
 	v0 = &gpBuffer->row[324].pixels[27];
 	v1 = 148;
+	int someMagicNumber = 1352 + GetWidthDiff();
 	do
 	{
 		v2 = 292;
@@ -110,7 +111,7 @@ void __cdecl DrawQTextBack()
 		}
 		while ( v2 );
 		*v0 = 0;
-		v3 = (int)(v0 - 1352);
+		v3 = (int)(v0 - someMagicNumber);
 		v4 = 292;
 		do
 		{
@@ -120,7 +121,7 @@ void __cdecl DrawQTextBack()
 			--v4;
 		}
 		while ( v4 );
-		v0 = (char *)(v3 - 1352);
+		v0 = (char *)(v3 - someMagicNumber);
 		--v1;
 	}
 	while ( v1 );
