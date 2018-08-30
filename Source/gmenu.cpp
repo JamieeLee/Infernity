@@ -48,7 +48,7 @@ void __cdecl gmenu_draw_pause()
 	if ( !dword_634480 )
 	{
 		light_table_index = 0;
-		gmenu_print_text(316, 336, "Pause");
+		gmenu_print_text(316+GetWidthDiff()/2, 336+GetHeightDiff()/2, "Pause");
 	}
 }
 // 69BEF8: using guessed type int light_table_index;
@@ -208,8 +208,8 @@ void __cdecl gmenu_draw()
 	{
 		if ( dword_63447C )
 			dword_63447C();
-		CelDecodeOnly(236, 262, sgpLogo, 1, 296);
-		v0 = 320;
+		CelDecodeOnly(236+GetWidthDiff()/2, 262+GetHeightDiff()/2, sgpLogo, 1, 296);
+		v0 = 320+GetHeightDiff()/2;
 		for ( i = dword_634480; i->fnMenu; v0 += 45 )
 		{
 			gmenu_draw_menu_item(i, v0);
@@ -251,27 +251,27 @@ void __fastcall gmenu_draw_menu_item(TMenuItem *pItem, int a2)
 	if ( v3->dwFlags & 0x40000000 )
 	{
 		v6 = (v4 >> 1) + 80;
-		CelDecodeOnly(v6, v2 - 10, optbar_cel, 1, 287);
+		CelDecodeOnly(v6+GetWidthDiff()/2, v2 - 10, optbar_cel, 1, 287);
 		v7 = (v3->dwFlags >> 12) & 0xFFF;
 		if ( v7 < 2 )
 			v7 = 2;
 		v8 = ((v3->dwFlags & 0xFFF) << 8) / v7;
 		v9 = (v5 >> 1) + 82;
 		v10 = v8;
-		gmenu_clear_buffer(v9, v2 - 12, v8 + 13, 28);
-		CelDecodeOnly(v6 + v10 + 2, v2 - 12, option_cel, 1, 27);
+		gmenu_clear_buffer(v9 + GetWidthDiff() / 2, v2 - 12, v8 + 13, 28);
+		CelDecodeOnly(v6 + v10 + 2 + GetWidthDiff() / 2, v2 - 12, option_cel, 1, 27);
 		v5 = v14;
 	}
 	v11 = 384 - (v5 >> 1);
 	v12 = -((v3->dwFlags & 0x80000000) != 0);
 	_LOBYTE(v12) = v12 & 0xF1;
 	light_table_index = v12 + 15;
-	gmenu_print_text(384 - (v5 >> 1), v2, v3->pszStr);
+	gmenu_print_text(384 - (v5 >> 1) + GetWidthDiff() / 2, v2, v3->pszStr);
 	if ( v3 == sgpCurrItem )
 	{
 		v13 = v2 + 1;
-		CelDecodeOnly(v11 - 54, v13, PentSpin_cel, (unsigned char)byte_634478, 48);
-		CelDecodeOnly(v11 + v5 + 4, v13, PentSpin_cel, (unsigned char)byte_634478, 48);
+		CelDecodeOnly(v11 - 54 + GetWidthDiff() / 2, v13, PentSpin_cel, (unsigned char)byte_634478, 48);
+		CelDecodeOnly(v11 + v5 + 4 + GetWidthDiff() / 2, v13, PentSpin_cel, (unsigned char)byte_634478, 48);
 	}
 }
 // 634478: using guessed type char byte_634478;
@@ -402,17 +402,17 @@ int __fastcall gmenu_on_mouse_move(LPARAM lParam)
 bool __fastcall gmenu_valid_mouse_pos(int *plOffset)
 {
 	*plOffset = 282;
-	if ( MouseX < 282 )
+	if ( MouseX < 282 + GetWidthDiff() / 2)
 	{
 		*plOffset = 0;
 		return 0;
 	}
-	if ( MouseX > 538 )
+	if ( MouseX > 538 + GetWidthDiff() / 2)
 	{
 		*plOffset = 256;
 		return 0;
 	}
-	*plOffset = MouseX - 282;
+	*plOffset = MouseX - 282 - GetWidthDiff() / 2;
 	return 1;
 }
 
@@ -428,11 +428,11 @@ int __fastcall gmenu_left_mouse(int a1)
 
 	if ( a1 )
 	{
-		if ( !dword_634480 || MouseY >= 352 )
+		if ( !dword_634480 || MouseY >= 352+GetHeightDiff() )
 			return 0;
-		if ( MouseY - 117 >= 0 )
+		if ( MouseY - 117 + GetHeightDiff()/2 >= 0 )
 		{
-			v2 = (MouseY - 117) / 45;
+			v2 = (MouseY - 117 - GetHeightDiff() / 2) / 45;
 			if ( v2 < dword_63448C )
 			{
 				v3 = v2;
@@ -440,7 +440,7 @@ int __fastcall gmenu_left_mouse(int a1)
 				if ( (v4->dwFlags & 0x80000000) != 0 )
 				{
 					v5 = (unsigned int)gmenu_get_lfont(&dword_634480[v3]) >> 1;
-					if ( MouseX >= 320 - v5 && MouseX <= v5 + 320 )
+					if ( MouseX >= 320 - v5+ GetWidthDiff()/2 && MouseX <= v5 + 320 + GetWidthDiff() / 2)
 					{
 						sgpCurrItem = v4;
 						PlaySFX(IS_TITLEMOV);

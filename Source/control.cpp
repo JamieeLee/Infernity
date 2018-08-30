@@ -2837,7 +2837,7 @@ void __cdecl RedBack()
 	{
 		v7 = gpBuffer->row[0].pixels;
 		_EBX = &pLightTbl[v12];
-		v9 = 352+GetHeightDiff();
+		v9 = ScreenHeight;
 		do
 		{
 			v10 = ScreenWidth;
@@ -2859,7 +2859,7 @@ void __cdecl RedBack()
 	{
 		v1 = gpBuffer->row[0].pixels;
 		_EBX = &pLightTbl[v12];
-		v3 = +GetHeightDiff();
+		v3 = ScreenHeight;
 		do
 		{
 			v4 = ScreenWidth;

@@ -1895,7 +1895,7 @@ void RevealMapByOtherPlayers(int x, int y, int pnum) {
 void PrintDebugInfo() {
 	if (showDebugInfo) {
 		std::stringstream ss;
-		ss << "debuginfo: " << MouseX << " " << sizeof(PlayerStruct);
+		ss << "debuginfo: " << MouseX << " " << MouseY;
 		PrintGameStr(50, 200, (char*)ss.str().c_str(), COL_WHITE);
 	}
 }
@@ -2240,7 +2240,8 @@ void DrawTransparentBackground(int xPos, int yPos, int width, int height, int bo
 			else {
 				//if( y & 1 && x & 1 || !(y & 1) && !(x & 1) )
 				//WorkingSurface[((yPos - height) + y) * WorkingWidth + (xPos + x)] = backgroundColor;
-				ColorPixel((xPos + x), (yPos - height) + y, backgroundColor);
+				//ColorPixel((xPos + x), (yPos - height) + y, backgroundColor);
+				gpBuffer->row[(yPos - height) + y].pixels[(xPos + x)] = backgroundColor;
 			}
 		}
 	}

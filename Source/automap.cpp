@@ -198,18 +198,13 @@ void __cdecl AutomapZoomOut()
 	}
 }
 
-
-
-
-
-
-int HighlightedItemID=-1;
+int HighlightedItemID = -1;
 int HighlightedItemRow = -1;
 int HighlightedItemCol = -1;
 bool ShouldHighlightItems = false;
+
 void HighlightItemsNameOnMap()
 {
-	return;
 	class drawingQueue
 	{
 	public:
@@ -232,8 +227,8 @@ void HighlightItemsNameOnMap()
 	int Screen_TopEnd = 160;
 	int Screen_LeftBorder = 64;
 	//int ScreenWidth = 640;
-	int XOffset = 0;// 330 + GetWidthDiff() / 2;
-	int YOffset = 0;// GetHeightDiff();
+	int XOffset = 330 + GetWidthDiff() / 2;
+	int YOffset = GetHeightDiff()/2;
 
 
 	std::vector<drawingQueue> q;
@@ -260,6 +255,25 @@ void HighlightItemsNameOnMap()
 		}
 
 
+
+		/*
+			if ( v51 )
+	{
+		v18 = &item[v51-1];
+		if ( !v18->_iPostDraw && (unsigned char)v51 <= MAXITEMS )
+		{
+			v19 = (char *)v18->_iAnimData;
+			if ( v19 )
+			{
+				v20 = v18->_iAnimFrame;
+				if ( v20 >= 1 && *(_DWORD *)v19 <= 0x32u && v20 <= *(_DWORD *)v19 )
+				{
+					v21 = sx - v18->_iAnimWidth2;
+					if (v51 - 1 == pcursitem || ShouldHighlightItems) {
+						int color = GetItemHighlightColor(v51 - 1);
+						CelDecodeClr(color, v21, sy, v19, v18->_iAnimFrame, v18->_iAnimWidth, 0, a5);
+						
+						*/
 	/*
 		if (sdir) {
 		switch (sdir) {
@@ -394,28 +408,14 @@ void HighlightItemsNameOnMap()
 		int x3 = t.new_x + 95;
 		int y3 = t.new_y - 1;
 		int bgcolor = 0;
-		if (t.new_x > -Screen_LeftBorder * 2 && x3 + t.width / 2 < ScreenWidth + Screen_LeftBorder && y3 > 13 && y3 + 13 < ScreenHeight + Screen_TopEnd) {
-
-			int bgcolor = 0;
-			int highlightY = t.new_y - 175;
-			int highlightX = t.new_x + 30;
-			int CursorX = MouseX;
-			int CursorY = MouseY;
-			if (CursorX >= highlightX && CursorX <= highlightX + t.width + 1 && CursorY >= highlightY && CursorY <= highlightY + t.height) {
-				HighlightedItemID = t.ItemID;
-				HighlightedItemRow = t.Row;
-				HighlightedItemCol = t.Col;
-				highlightItem = true;
-			}
-			
-
-
+		if(true){//if (t.new_x > -Screen_LeftBorder * 2 && x3 + t.width / 2 < ScreenWidth + Screen_LeftBorder && y3 > 13 && y3 + 13 < ScreenHeight + Screen_TopEnd) {
+		
 			char color = By(t.magicLevel, COL_WHITE, COL_BLUE, COL_GOLD, COL_RED);
-			int sx = t.new_x;// +XOffset + drawXOffset;// -GetTextWidth(&t.text[0u]) / 2;
-			int sy = t.new_y;// +180 + YOffset;
+			int sx = t.new_x + XOffset;// +drawXOffset;// -GetTextWidth(&t.text[0u]) / 2;
+			int sy = t.new_y + YOffset;
 
-			int sx2 = t.new_x;// +XOffset + 63 + drawXOffset;
-			int sy2 = t.new_y;// +342;
+			int sx2 = sx;// t.new_x + XOffset + 63;// +drawXOffset;
+			int sy2 = sy+1;// t.new_y + 342;
 
 
 			if (sx < 0 || sx >= ScreenWidth || sy < 0 || sy >= ScreenHeight) {
@@ -425,11 +425,27 @@ void HighlightItemsNameOnMap()
 			if (sx2 < 0 || sx2 >= ScreenWidth || sy2 < 0 || sy2 >= ScreenHeight) {
 				continue;
 			}
+
+			int bgcolor = 0;
+			int highlightY = sx;// t.new_y + 168;// -175;
+			int highlightX = t.new_x + XOffset - 1 + YOffset;
+			int CursorX = MouseX;
+			int CursorY = MouseY;
+			if (CursorX >= highlightX && CursorX <= highlightX + t.width + 1) {
+				;// && CursorY >= highlightY && CursorY <= highlightY + t.height) {
+				bgcolor = 134;
+				HighlightedItemID = t.ItemID;
+				HighlightedItemRow = t.Row;
+				HighlightedItemCol = t.Col;
+				highlightItem = true;
+			}
+
+
 			//DrawTransparentBackground(sx2,sy2, t.width + 1, t.height, 0, 0, bgcolor, bgcolor);
-			DrawTransparentBackground(x3+GetWidthDiff(), y3 + GetHeightDiff(), t.width + 1, t.height, 0, 0, bgcolor, bgcolor);
+			DrawTransparentBackground(sx2, sy2, t.width + 1, t.height, 0, 0, bgcolor, bgcolor);
 			//"\204X\204 values are \204next level\204 stats."
 			//DrawMultiColorText(sx, sy, t.width, "\204this\204 shit is \201on fire\201", COL_WHITE);
-			PrintGameStr(sx+GetWidthDiff(),sy+GetHeightDiff(), &t.text[0u], color);
+			PrintGameStr(sx,sy, &t.text[0u], color);
 			//ADD_PlrStringXY(168,32, 299, "wtf", COL_GOLD);
 		}
 	}
