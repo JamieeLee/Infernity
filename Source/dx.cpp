@@ -1,5 +1,4 @@
 //HEADER_GOES_HERE
-
 #include "../types.h"
 
 void *sgpBackBuf;
@@ -17,8 +16,8 @@ HMODULE ghDiabMod; // idb
 
 int dx_inf = 0x7F800000; // weak
 
-int ScreenWidth = 1280;
-int ScreenHeight = 960;
+int ScreenWidth = GLOBAL_WIDTH;
+int ScreenHeight = GLOBAL_HEIGHT;
 int WorkingWidth  = ScreenWidth+128;
 int WorkingHeight = ScreenHeight+176;
 
@@ -124,7 +123,7 @@ void __cdecl dx_create_back_buffer()
 		if ( !v1 )
 		{
 			lpDDSPrimary->Unlock(NULL);
-			sgpBackBuf = DiabloAllocPtr(WorkingWidth*(WorkingHeight+256));
+			sgpBackBuf = DiabloAllocPtr(WorkingWidth*WorkingHeight*2);
 			return;
 		}
 		if ( v1 != DDERR_CANTLOCKSURFACE )

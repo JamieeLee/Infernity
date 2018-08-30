@@ -665,16 +665,16 @@ LABEL_10:
 	}
 	if ( v2 < 0 )
 		v2 = 0;
-	if ( v2 >= ScreenWidth)
-		v2 = ScreenWidth;
+	//if ( v2 >= ScreenWidth)
+	//	v2 = ScreenWidth;
 	if ( v3 < 0 )
 		v3 = 0;
-	if ( v3 >= ScreenHeight )
-		v3 = ScreenHeight;
+	//if ( v3 >= ScreenHeight )
+	//	v3 = ScreenHeight;
 	v4 = v3 >> 5;
 	v5 = v3 & 0x1F;
 	v76 = v2 & 0x3F;
-	v6 = (v2 >> 6) + (v3 >> 5) + ViewX - (zoomflag != 0 ? 10 : 5);
+	v6 = (v2 >> 6) + (v3 >> 5) + ViewX - (zoomflag != 0 ? ScreenWidth/64 : ScreenWidth/128);
 	v7 = v76 >> 1;
 	v8 = v4 + ViewY - (v2 >> 6);
 	if ( v5 < v76 >> 1 )
@@ -737,12 +737,12 @@ LABEL_40:
 	}
 	if ( doomflag )
 		return;
-	if ( invflag && MouseX > 320 )
+	if ( invflag && MouseX > 320+GetWidthDiff() )
 	{
 		pcursinvitem = CheckInvHLight();
 		return;
 	}
-	if ( sbookflag && MouseX > 320 || (chrflag || questlog) && MouseX < 320 )
+	if ( sbookflag && MouseX > 320 + GetWidthDiff() || (chrflag || questlog) && MouseX < 320 + GetWidthDiff())
 		return;
 	if ( leveltype == DTYPE_TOWN )
 	{

@@ -1089,7 +1089,8 @@ void __cdecl DrawLifeFlask()
 	v2 = v1 + 2;
 	DrawFlask(pLifeBuff, 88, 277, gpBuffer, WorkingWidth * 499 + 173, v2);
 	if ( v2 != 13 )
-		DrawFlask(pBtmBuff, ScreenWidth, ScreenWidth * v2 + WorkingWidth*2+493, gpBuffer, WorkingWidth * v2 + WorkingWidth * 499 + 173, 13 - v2);
+		DrawFlask(pBtmBuff, ScreenWidth, ScreenWidth * (v2+3) + 109, gpBuffer, WorkingWidth * v2 + WorkingWidth * 499 + 173, 13 - v2);
+	//640 * (v2+3) + WorkingWidth*2+493
 }
 
 void __cdecl UpdateLifeFlask()
@@ -1295,7 +1296,7 @@ void __cdecl InitControlPan()
 
 void __cdecl ClearCtrlPan()
 {
-	DrawPanelBox(0, sgbPlrTalkTbl + 16, ScreenWidth, 0x80u, 64, 512);
+	DrawPanelBox(0, sgbPlrTalkTbl + 16, 640, 0x80u, 64, 512);
 	DrawInfoBox();
 }
 // 4B8840: using guessed type int sgbPlrTalkTbl;
@@ -1646,7 +1647,7 @@ LABEL_54:
 			}
 		}
 	}
-	if ( MouseX > 190 && MouseX < 437 && MouseY > 356 && MouseY < 385 )
+	if ( MouseX > 190 + GetWidthDiff() && MouseX < 437 + GetWidthDiff() && MouseY > 356 && MouseY < 385 )
 		pcursinvitem = CheckInvHLight();
 }
 // 484368: using guessed type int FriendlyMode;
@@ -2513,6 +2514,7 @@ bool SwitchInvTab(int newTab) {
 
 	//if (pcurs < CURSOR_FIRSTITEM) {
 		if (newTab != plr[myplr].currentInventoryIndex) {
+			PlaySFX(IS_TITLEMOV);
 			CalcPlrInv(myplr, 0);
 			//clearShit(myplr);
 			qmemcpy(&plr[myplr].InvListExpanded[plr[myplr].currentInventoryIndex], &plr[myplr].InvList, sizeof(ItemStruct) * 40);
@@ -2544,7 +2546,7 @@ bool SwitchInvTab(int newTab) {
 }
 
 void CheckInvSwitchButtons() {
-	if (MouseX >= 320 && MouseX <= 335) {
+	if (MouseX >= 320 + GetWidthDiff() && MouseX <= 335 + GetWidthDiff()) {
 		if (MouseY >= 225 && MouseY <= 245) {
 			SwitchInvTab(0);
 		}

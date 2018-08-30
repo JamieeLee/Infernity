@@ -656,7 +656,7 @@ void DrawMonsterHealthBar(int monsterID)
 void __fastcall DrawView(int StartX, int StartY)
 {
 	if ( zoomflag )
-		DrawGame(StartX, StartY);
+		DrawGame2(StartX, StartY);
 	else
 		DrawGame2(StartX, StartY);
 		//DrawZoom(StartX, StartY);
@@ -844,6 +844,8 @@ void __fastcall DrawGame(int x, int y)
 		++a6a;
 	} while (a6a < 4);
 }
+
+
 void __fastcall DrawGame2(int x, int y)
 {
 	int v2; // esi
@@ -861,92 +863,68 @@ void __fastcall DrawGame2(int x, int y)
 	signed int a5; // [esp+14h] [ebp-8h]
 	int ya; // [esp+18h] [ebp-4h]
 
-	dword_5C2FF8 = 10;
-	v2 = ScrollInfo._sxoff + 64;//+ ScreenWidth/4;//64
-	v3 = x - 10;
+	v2 = ScrollInfo._sxoff + 64;
+	v3 = x - ScreenWidth/64;
 	ya = y - 1;
-	a5 = 20;
-	v4 = ScrollInfo._syoff + 175 + 400;//175
-	scr_pix_width = ScreenWidth;
-	scr_pix_height = 552;//332
-	dword_5C2FFC = 11;
-	v11 = 16;//8
-
-	ya = y - 12;
-	v3 -= 19;
-
-
-	if ( chrflag || questlog )
+	a5 = ScreenWidth / 64 + 1;
+	v4 = ScrollInfo._syoff + 175;
+	int magicThing = ScreenHeight / 32 - 4;
+	v11 = magicThing;
+	switch (ScrollInfo._sdir)
 	{
-		ya = y - 3;
-		v3 += 2;
-		v2 = ScrollInfo._sxoff + 352;
-		a5 = 6;
-	}
-	if ( invflag || sbookflag )
-	{
-		ya -= 2;
-		v3 += 2;
-		v2 -= 32;
-		a5 = 6;
-	}
-	switch ( ScrollInfo._sdir )
-	{
-		case DIR_SW:
-			goto LABEL_9;
-		case DIR_W:
-			++a5;
-LABEL_9:
-			v4 = ScrollInfo._syoff + 143;
-			--v3;
-			--ya;
-			goto LABEL_15;
-		case DIR_NW:
-			goto LABEL_13;
-		case DIR_N:
-			v11 = 17;
-			goto LABEL_13;
-		case DIR_NE:
-			goto LABEL_15;
-		case DIR_E:
-			v11 = 17;//9
-			goto LABEL_12;
-		case DIR_SE:
-LABEL_12:
-			v2 -= 64;
-			--v3;
-			++ya;
-LABEL_13:
-			++a5;
-			break;
-		case DIR_OMNI:
-			v2 -= 64;
-			v4 = ScrollInfo._syoff + 143;
-			v3 -= 2;
-			++a5;
-LABEL_15:
-			v11 = 17;
-			break;
-		default:
-			break;
+	case DIR_SW:
+		goto LABEL_9;
+	case DIR_W:
+		++a5;
+	LABEL_9:
+		v4 = ScrollInfo._syoff + 143;
+		--v3;
+		--ya;
+		goto LABEL_15;
+	case DIR_NW:
+		goto LABEL_13;
+	case DIR_N:
+		v11 = 9;
+		goto LABEL_13;
+	case DIR_NE:
+		goto LABEL_15;
+	case DIR_E:
+		v11 = 9;
+		goto LABEL_12;
+	case DIR_SE:
+	LABEL_12:
+		v2 -= 64;
+		--v3;
+		++ya;
+	LABEL_13:
+		++a5;
+		break;
+	case DIR_OMNI:
+		v2 -= 64;
+		v4 = ScrollInfo._syoff + 143;
+		v3 -= 2;
+		++a5;
+	LABEL_15:
+		v11 = v11+1;
+		break;
+	default:
+		break;
 	}
 
 	a6 = 0;
-	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[160];
+	gpBufEnd = (unsigned char*)gpBuffer + screen_y_times_width[160];
 	do
 	{
 		scrollrt_draw_upper(v3, ya++, v2, v4, a5, a6, 0);
 		v5 = v4 + 16;
 		v6 = v2 - 32;
 		scrollrt_draw_upper(v3++, ya, v6, v5, a5, a6, 1);
-		v2 = v6 + 32;//32
-		v4 = v5 + 16;//16
+		v2 = v6 + 32;
+		v4 = v5 + 16;
 		++a6;
-	}
-	while ( a6 < 20 );
-	
-	gpBufEnd = (unsigned char*)gpBuffer + screen_y_times_width[WorkingHeight];//512
-	if ( v11 > 0 )
+	} while (a6 < magicThing);
+	gpBufEnd = (unsigned char*)gpBuffer + screen_y_times_width[WorkingWidth+64];
+	if (v11 > 0)
 	{
 		do
 		{
@@ -957,8 +935,7 @@ LABEL_15:
 			v2 = v8 + 32;
 			v4 = v7 + 16;
 			--v11;
-		}
-		while ( v11 );
+		} while (v11);
 	}
 	arch_draw_type = 0;
 	a6a = 0;
@@ -971,10 +948,9 @@ LABEL_15:
 		v2 = v10 + 32;
 		v4 = v9 + 16;
 		++a6a;
-	}
-	while ( a6a < 20 );
-	
+	} while (a6a < magicThing);
 }
+
 // 4B8968: using guessed type int sbookflag;
 // 5C2FF8: using guessed type int dword_5C2FF8;
 // 5C2FFC: using guessed type int dword_5C2FFC;
@@ -3256,7 +3232,7 @@ void __cdecl ScrollView()
 				v0 = 1;
 			}
 		}
-		if ( MouseX > 620 )
+		if ( MouseX > 620 + GetWidthDiff())
 		{
 			if ( dmaxx - 1 > v2 )
 			{
@@ -3718,11 +3694,11 @@ void DrawWeaponSwitchIcons() {
 		weaponSwitchIconsLoaded = true;
 		weaponSwitchIcons = LoadFileInMem("CtrlPan\\P8But2.CEL", 0);
 	}
-	CelDecodeOnly(431, 233, weaponSwitchIcons, panbtn[7] + 3+(plr[myplr].currentWeaponSet!=0), 33);
-	CelDecodeOnly(397, 233, weaponSwitchIcons, panbtn[7] + 5+(plr[myplr].currentWeaponSet == 0), 33);
+	CelDecodeOnly(431 + GetWidthDiff(), 233, weaponSwitchIcons, panbtn[7] + 3+(plr[myplr].currentWeaponSet!=0), 33);
+	CelDecodeOnly(397 + GetWidthDiff(), 233, weaponSwitchIcons, panbtn[7] + 5+(plr[myplr].currentWeaponSet == 0), 33);
 	int offset = 231;
-	CelDecodeOnly(431+offset, 233, weaponSwitchIcons, panbtn[7] + 3+(plr[myplr].currentWeaponSet != 0), 33);
-	CelDecodeOnly(397+offset, 233, weaponSwitchIcons, panbtn[7] + 5+(plr[myplr].currentWeaponSet == 0), 33);
+	CelDecodeOnly(431+offset + GetWidthDiff(), 233, weaponSwitchIcons, panbtn[7] + 3+(plr[myplr].currentWeaponSet != 0), 33);
+	CelDecodeOnly(397+offset + GetWidthDiff(), 233, weaponSwitchIcons, panbtn[7] + 5+(plr[myplr].currentWeaponSet == 0), 33);
 	
 }
 
@@ -3758,15 +3734,15 @@ void __cdecl DrawAndBlit()
 			DrawView(ViewX, ViewY);
 		else
 			T_DrawView(ViewX, ViewY);
-		if ( ctrlPan )
+		//if ( ctrlPan )
 			ClearCtrlPan();
-		if ( drawhpflag )
+		//if ( drawhpflag )
 			UpdateLifeFlask();
-		if ( drawmanaflag )
+		//if ( drawmanaflag )
 			UpdateManaFlask();
-		if ( drawbtnflag )
+		//if ( drawbtnflag )
 			DrawCtrlPan();
-		if ( drawsbarflag )
+	    if ( drawsbarflag )
 			DrawInvBelt();
 		if (invflag) {
 			DrawWeaponSwitchIcons();

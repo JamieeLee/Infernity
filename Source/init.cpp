@@ -198,7 +198,8 @@ void __fastcall init_create_window(int nCmdShow)
 		nHeight = GetSystemMetrics(SM_CYSCREEN);
 	else
 		nHeight = ScreenHeight;
-	hWnd = CreateWindowExA(0, "INFERNITY", "INFERNITY", WS_POPUP, 0, 0, nWidth, nHeight, NULL, NULL, ghInst, NULL);
+	//WS_POPUP
+	hWnd = CreateWindowExA(WS_THICKFRAME, "INFERNITY", "INFERNITY", WS_OVERLAPPEDWINDOW, 0, 0, nWidth, nHeight, NULL, NULL, ghInst, NULL);
 	if ( !hWnd )
 		TermMsg("Unable to create main window");
 	ShowWindow(hWnd, SW_SHOWNORMAL); // nCmdShow used only in beta: ShowWindow(hWnd, nCmdShow)

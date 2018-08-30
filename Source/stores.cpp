@@ -4181,10 +4181,10 @@ void __cdecl CheckStoreBtn()
 			v1 = __OFSUB__(MouseX, 344);
 			v0 = MouseX - 344 < 0;
 		}
-		if ( !(v0 ^ v1) && MouseX <= 616 )
+		if ( !(v0 ^ v1) && MouseX <= 616 + GetWidthDiff())
 		{
 			v2 = (MouseY - 32) / 12;
-			if ( stextscrl && MouseX > 600 )
+			if ( stextscrl && MouseX > 600 + GetWidthDiff())
 			{
 				if ( v2 == 4 )
 				{

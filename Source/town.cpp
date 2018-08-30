@@ -1173,9 +1173,10 @@ void __fastcall T_DrawGame2(int x, int y)
 	int offsetY = ScrollInfo._syoff + 160 + 15;
 	int HorCellDrawCount = ScreenWidth / 64 +1;
 	int BottomHeight = 5;	
-	int v11 = ScreenHeight / 32;
+	int magicThing = ScreenHeight / 32 - 4;
+	int v11 = magicThing;
 	//if (ScreenHeight == GUI_Height && ScreenWidth == GUI_Width) {
-	
+	/*
 		if (chrflag || questlog) {
 			posy -= 2;
 			posx += 2;
@@ -1188,7 +1189,7 @@ void __fastcall T_DrawGame2(int x, int y)
 			offsetX -= 32;
 			HorCellDrawCount = (ScreenWidth / 64) / 2 + 1;
 		}
-		
+	*/	
 
 	switch (ScrollInfo._sdir)
 	{
@@ -1243,7 +1244,7 @@ void __fastcall T_DrawGame2(int x, int y)
 		offsetX = v6 + 32;
 		offsetY = v5 + 16;
 		++screenCellRow;
-	} while (screenCellRow < ScreenHeight / 32);//7
+	} while (screenCellRow < magicThing);//7
 	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[WorkingWidth+32];
 	if (v11 > 0)
 	{
@@ -1269,7 +1270,7 @@ void __fastcall T_DrawGame2(int x, int y)
 		offsetX = v10 + 32;
 		offsetY = v9 + 16;
 		++screenCellRow;
-	} while (screenCellRow <  ScreenHeight / 32);//7
+	} while (screenCellRow <  magicThing);//7
 	
 }
 // 4B8968: using guessed type int sbookflag;
@@ -1627,7 +1628,7 @@ void __fastcall T_DrawView(int StartX, int StartY)
 	if ( zoomflag )
 		T_DrawGame2(StartX, StartY);
 	else
-		T_DrawZoom(StartX, StartY); //T_DrawZoom
+		T_DrawGame2(StartX, StartY); //T_DrawZoom
 	if ( automapflag )
 		DrawAutomap();
 	ShouldHighlightItems = ((GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && !(GetAsyncKeyState(VK_MENU) < 0)) || (!GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && (GetAsyncKeyState(VK_MENU) < 0)));

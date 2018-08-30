@@ -5149,8 +5149,8 @@ void __fastcall CheckPlrSpell()
 			return;
 		}
 		if ( pcurs != CURSOR_HAND
-		  || MouseY >= 352
-		  || (chrflag && MouseX < 320 || invflag && MouseX > 320)
+		  || MouseY >= 352+GetHeightDiff()
+		  || (chrflag && MouseX < 320 + GetWidthDiff() || invflag && MouseX > 320 + GetWidthDiff())
 		  && v2 != 2
 		  && v2 != 5
 		  && v2 != 26

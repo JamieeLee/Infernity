@@ -1,4 +1,6 @@
 #include <string>
+#define GLOBAL_WIDTH 1920
+#define GLOBAL_HEIGHT 1080
 class FloatingText {
 public:
 	std::string text;
@@ -424,7 +426,7 @@ struct DeadStruct
 struct ScreenRow
 {
 	char col_unused_1[64];
-	char pixels[1280];
+	char pixels[GLOBAL_WIDTH];
 	char col_unused_2[64];
 };
 

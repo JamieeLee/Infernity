@@ -9,79 +9,79 @@ int sgdwLastTime; // check name
 
 InvXY InvRect[73] =
 {
-  { 452, 31 },  // helmet
-  { 480, 31 },  // helmet
-  { 452, 59 },  // helmet
-  { 480, 59 },  // helmet
-  { 365, 205 }, // left ring
-  { 567, 205 }, // right ring
-  { 524, 59 },  // amulet
-  { 337, 104 }, // left hand
-  { 366, 104 }, // left hand
-  { 337, 132 }, // left hand
-  { 366, 132 }, // left hand
-  { 337, 160 }, // left hand
-  { 366, 160 }, // left hand
-  { 567, 104 }, // right hand
-  { 596, 104 }, // right hand
-  { 567, 132 }, // right hand
-  { 596, 132 }, // right hand
-  { 567, 160 }, // right hand
-  { 596, 160 }, // right hand
-  { 452, 104 }, // chest
-  { 480, 104 }, // chest
-  { 452, 132 }, // chest
-  { 480, 132 }, // chest
-  { 452, 160 }, // chest
-  { 480, 160 }, // chest
-  { 337, 250 }, // inv row 1
-  { 366, 250 }, // inv row 1
-  { 394, 250 }, // inv row 1
-  { 423, 250 }, // inv row 1
-  { 451, 250 }, // inv row 1
-  { 480, 250 }, // inv row 1
-  { 509, 250 }, // inv row 1
-  { 538, 250 }, // inv row 1
-  { 567, 250 }, // inv row 1
-  { 596, 250 }, // inv row 1
-  { 337, 279 }, // inv row 2
-  { 366, 279 }, // inv row 2
-  { 394, 279 }, // inv row 2
-  { 423, 279 }, // inv row 2
-  { 451, 279 }, // inv row 2
-  { 480, 279 }, // inv row 2
-  { 509, 279 }, // inv row 2
-  { 538, 279 }, // inv row 2
-  { 567, 279 }, // inv row 2
-  { 596, 279 }, // inv row 2
-  { 337, 308 }, // inv row 3
-  { 366, 308 }, // inv row 3
-  { 394, 308 }, // inv row 3
-  { 423, 308 }, // inv row 3
-  { 451, 308 }, // inv row 3
-  { 480, 308 }, // inv row 3
-  { 509, 308 }, // inv row 3
-  { 538, 308 }, // inv row 3
-  { 567, 308 }, // inv row 3
-  { 596, 308 }, // inv row 3
-  { 337, 336 }, // inv row 4
-  { 366, 336 }, // inv row 4
-  { 394, 336 }, // inv row 4
-  { 423, 336 }, // inv row 4
-  { 451, 336 }, // inv row 4
-  { 480, 336 }, // inv row 4
-  { 509, 336 }, // inv row 4
-  { 538, 336 }, // inv row 4
-  { 567, 336 }, // inv row 4
-  { 596, 336 }, // inv row 4
-  { 205, 385 }, // belt
-  { 234, 385 }, // belt
-  { 263, 385 }, // belt
-  { 292, 385 }, // belt
-  { 321, 385 }, // belt
-  { 350, 385 }, // belt
-  { 379, 385 }, // belt
-  { 408, 385 }  // belt
+  { 452+GetWidthDiff(), 31 },  // helmet
+  { 480 + GetWidthDiff(), 31 },  // helmet
+  { 452 + GetWidthDiff(), 59 },  // helmet
+  { 480 + GetWidthDiff(), 59 },  // helmet
+  { 365 + GetWidthDiff(), 205 }, // left ring
+  { 567 + GetWidthDiff(), 205 }, // right ring
+  { 524 + GetWidthDiff(), 59 },  // amulet
+  { 337 + GetWidthDiff(), 104 }, // left hand
+  { 366 + GetWidthDiff(), 104 }, // left hand
+  { 337 + GetWidthDiff(), 132 }, // left hand
+  { 366 + GetWidthDiff(), 132 }, // left hand
+  { 337 + GetWidthDiff(), 160 }, // left hand
+  { 366 + GetWidthDiff(), 160 }, // left hand
+  { 567 + GetWidthDiff(), 104 }, // right hand
+  { 596 + GetWidthDiff(), 104 }, // right hand
+  { 567 + GetWidthDiff(), 132 }, // right hand
+  { 596 + GetWidthDiff(), 132 }, // right hand
+  { 567 + GetWidthDiff(), 160 }, // right hand
+  { 596 + GetWidthDiff(), 160 }, // right hand
+  { 452 + GetWidthDiff(), 104 }, // chest
+  { 480 + GetWidthDiff(), 104 }, // chest
+  { 452 + GetWidthDiff(), 132 }, // chest
+  { 480 + GetWidthDiff(), 132 }, // chest
+  { 452 + GetWidthDiff(), 160 }, // chest
+  { 480 + GetWidthDiff(), 160 }, // chest
+  { 337 + GetWidthDiff(), 250 }, // inv row 1
+  { 366 + GetWidthDiff(), 250 }, // inv row 1
+  { 394 + GetWidthDiff(), 250 }, // inv row 1
+  { 423 + GetWidthDiff(), 250 }, // inv row 1
+  { 451 + GetWidthDiff(), 250 }, // inv row 1
+  { 480 + GetWidthDiff(), 250 }, // inv row 1
+  { 509 + GetWidthDiff(), 250 }, // inv row 1
+  { 538 + GetWidthDiff(), 250 }, // inv row 1
+  { 567 + GetWidthDiff(), 250 }, // inv row 1
+  { 596 + GetWidthDiff(), 250 }, // inv row 1
+  { 337 + GetWidthDiff(), 279 }, // inv row 2
+  { 366 + GetWidthDiff(), 279 }, // inv row 2
+  { 394 + GetWidthDiff(), 279 }, // inv row 2
+  { 423 + GetWidthDiff(), 279 }, // inv row 2
+  { 451 + GetWidthDiff(), 279 }, // inv row 2
+  { 480 + GetWidthDiff(), 279 }, // inv row 2
+  { 509 + GetWidthDiff(), 279 }, // inv row 2
+  { 538 + GetWidthDiff(), 279 }, // inv row 2
+  { 567 + GetWidthDiff(), 279 }, // inv row 2
+  { 596 + GetWidthDiff(), 279 }, // inv row 2
+  { 337 + GetWidthDiff(), 308 }, // inv row 3
+  { 366 + GetWidthDiff(), 308 }, // inv row 3
+  { 394 + GetWidthDiff(), 308 }, // inv row 3
+  { 423 + GetWidthDiff(), 308 }, // inv row 3
+  { 451 + GetWidthDiff(), 308 }, // inv row 3
+  { 480 + GetWidthDiff(), 308 }, // inv row 3
+  { 509 + GetWidthDiff(), 308 }, // inv row 3
+  { 538 + GetWidthDiff(), 308 }, // inv row 3
+  { 567 + GetWidthDiff(), 308 }, // inv row 3
+  { 596 + GetWidthDiff(), 308 }, // inv row 3
+  { 337 + GetWidthDiff(), 336 }, // inv row 4
+  { 366 + GetWidthDiff(), 336 }, // inv row 4
+  { 394 + GetWidthDiff(), 336 }, // inv row 4
+  { 423 + GetWidthDiff(), 336 }, // inv row 4
+  { 451 + GetWidthDiff(), 336 }, // inv row 4
+  { 480 + GetWidthDiff(), 336 }, // inv row 4
+  { 509 + GetWidthDiff(), 336 }, // inv row 4
+  { 538 + GetWidthDiff(), 336 }, // inv row 4
+  { 567 + GetWidthDiff(), 336 }, // inv row 4
+  { 596 + GetWidthDiff(), 336 }, // inv row 4
+  { 205 + GetWidthDiff(), 385 }, // belt
+  { 234 + GetWidthDiff(), 385 }, // belt
+  { 263 + GetWidthDiff(), 385 }, // belt
+  { 292 + GetWidthDiff(), 385 }, // belt
+  { 321 + GetWidthDiff(), 385 }, // belt
+  { 350 + GetWidthDiff(), 385 }, // belt
+  { 379 + GetWidthDiff(), 385 }, // belt
+  { 408 + GetWidthDiff(), 385 }  // belt
 };
 
 /* rdata */
@@ -163,7 +163,7 @@ LABEL_9:
 
 
 void DrawExpandedInventoryButtons() {
-	int x = 386;
+	int x = 386 + GetWidthDiff();
 	int y = 386;
 
 
@@ -245,10 +245,10 @@ void __cdecl DrawInv()
 	signed int screen_x; // [esp+14h] [ebp-A4h]
 	int invtest[40]; // [esp+18h] [ebp-A0h]
 
-	CelDecodeOnly(384, 511, pInvCels, 1, 320);
+	CelDecodeOnly(384+GetWidthDiff(), 511, pInvCels, 1, 320);
 	if ( plr[myplr].InvBody[0]._itype != -1 )
 	{
-		InvDrawSlotBack(517, 219, 56, 56);
+		InvDrawSlotBack(517 + GetWidthDiff(), 219, 56, 56);
 		v0 = myplr;
 		v1 = myplr;
 		v2 = plr[myplr].InvBody[0]._iCurs + 12;
@@ -260,17 +260,17 @@ void __cdecl DrawInv()
 				v4 = -75;
 			if ( !plr[v1].InvBody[0]._iStatFlag )
 				v4 = -27;
-			CelDecodeClr(v4, 517, 219, (char *)pCursCels, v2, v3, 0, 8);
+			CelDecodeClr(v4 + GetWidthDiff(), 517, 219, (char *)pCursCels, v2, v3, 0, 8);
 			v0 = myplr;
 		}
 		if ( plr[v0].InvBody[0]._iStatFlag )
-			CelDrawHdrOnly(517, 219, (char *)pCursCels, v2, v3, 0, 8);
+			CelDrawHdrOnly(517 + GetWidthDiff(), 219, (char *)pCursCels, v2, v3, 0, 8);
 		else
-			CelDrawHdrLightRed(517, 219, (char *)pCursCels, v2, v3, 0, 8, 1);
+			CelDrawHdrLightRed(517 + GetWidthDiff(), 219, (char *)pCursCels, v2, v3, 0, 8, 1);
 	}
 	if ( plr[myplr].InvBody[1]._itype != -1 )
 	{
-		InvDrawSlotBack(432, 365, 28, 28);
+		InvDrawSlotBack(432 + GetWidthDiff(), 365, 28, 28);
 		v5 = myplr;
 		v6 = myplr;
 		v7 = plr[myplr].InvBody[1]._iCurs + 12;
@@ -283,18 +283,18 @@ void __cdecl DrawInv()
 				v9 = -75;
 			if ( !plr[v6].InvBody[1]._iStatFlag )
 				v9 = -27;
-			CelDecodeClr(v9, 432, 365, (char *)pCursCels, v7, v8, 0, 8);
+			CelDecodeClr(v9, 432 + GetWidthDiff(), 365, (char *)pCursCels, v7, v8, 0, 8);
 			v5 = myplr;
 			v8 = screen_y;
 		}
 		if ( plr[v5].InvBody[1]._iStatFlag )
-			CelDrawHdrOnly(432, 365, (char *)pCursCels, v7, v8, 0, 8);
+			CelDrawHdrOnly(432 + GetWidthDiff(), 365, (char *)pCursCels, v7, v8, 0, 8);
 		else
-			CelDrawHdrLightRed(432, 365, (char *)pCursCels, v7, v8, 0, 8, 1);
+			CelDrawHdrLightRed(432 + GetWidthDiff(), 365, (char *)pCursCels, v7, v8, 0, 8, 1);
 	}
 	if ( plr[myplr].InvBody[2]._itype != -1 )
 	{
-		InvDrawSlotBack(633, 365, 28, 28);
+		InvDrawSlotBack(633 + GetWidthDiff(), 365, 28, 28);
 		v10 = myplr;
 		v11 = myplr;
 		v12 = plr[myplr].InvBody[2]._iCurs + 12;
@@ -307,18 +307,18 @@ void __cdecl DrawInv()
 				v14 = -75;
 			if ( !plr[v11].InvBody[2]._iStatFlag )
 				v14 = -27;
-			CelDecodeClr(v14, 633, 365, (char *)pCursCels, v12, v13, 0, 8);
+			CelDecodeClr(v14, 633 + GetWidthDiff(), 365, (char *)pCursCels, v12, v13, 0, 8);
 			v10 = myplr;
 			v13 = screen_ya;
 		}
 		if ( plr[v10].InvBody[2]._iStatFlag )
-			CelDrawHdrOnly(633, 365, (char *)pCursCels, v12, v13, 0, 8);
+			CelDrawHdrOnly(633 + GetWidthDiff(), 365, (char *)pCursCels, v12, v13, 0, 8);
 		else
-			CelDrawHdrLightRed(633, 365, (char *)pCursCels, v12, v13, 0, 8, 1);
+			CelDrawHdrLightRed(633 + GetWidthDiff(), 365, (char *)pCursCels, v12, v13, 0, 8, 1);
 	}
 	if ( plr[myplr].InvBody[3]._itype != -1 )
 	{
-		InvDrawSlotBack(589, 220, 28, 28);
+		InvDrawSlotBack(589 + GetWidthDiff(), 220, 28, 28);
 		v15 = myplr;
 		v16 = myplr;
 		v17 = plr[myplr].InvBody[3]._iCurs + 12;
@@ -331,18 +331,18 @@ void __cdecl DrawInv()
 				v19 = -75;
 			if ( !plr[v16].InvBody[3]._iStatFlag )
 				v19 = -27;
-			CelDecodeClr(v19, 589, 220, (char *)pCursCels, v17, v18, 0, 8);
+			CelDecodeClr(v19, 589 + GetWidthDiff(), 220, (char *)pCursCels, v17, v18, 0, 8);
 			v15 = myplr;
 			v18 = screen_yb;
 		}
 		if ( plr[v15].InvBody[3]._iStatFlag )
-			CelDrawHdrOnly(589, 220, (char *)pCursCels, v17, v18, 0, 8);
+			CelDrawHdrOnly(589 + GetWidthDiff(), 220, (char *)pCursCels, v17, v18, 0, 8);
 		else
-			CelDrawHdrLightRed(589, 220, (char *)pCursCels, v17, v18, 0, 8, 1);
+			CelDrawHdrLightRed(589 + GetWidthDiff(), 220, (char *)pCursCels, v17, v18, 0, 8, 1);
 	}
 	if ( plr[myplr].InvBody[4]._itype != -1 )
 	{
-		InvDrawSlotBack(401, 320, 56, 84);
+		InvDrawSlotBack(401 + GetWidthDiff(), 320, 56, 84);
 		v20 = myplr;
 		v21 = myplr;
 		v22 = plr[myplr].InvBody[4]._iCurs + 12;
@@ -356,21 +356,21 @@ void __cdecl DrawInv()
 				v25 = -75;
 			if ( !plr[v21].InvBody[4]._iStatFlag )
 				v25 = -27;
-			CelDecodeClr(v25, v24, screen_yc, (char *)pCursCels, v22, v23, 0, 8);
+			CelDecodeClr(v25, v24 + GetWidthDiff(), screen_yc, (char *)pCursCels, v22, v23, 0, 8);
 			v20 = myplr;
 		}
 		if ( plr[v20].InvBody[4]._iStatFlag )
-			CelDrawHdrOnly(v24, screen_yc, (char *)pCursCels, v22, v23, 0, 8);
+			CelDrawHdrOnly(v24 + GetWidthDiff(), screen_yc, (char *)pCursCels, v22, v23, 0, 8);
 		else
 			CelDrawHdrLightRed(v24, screen_yc, (char *)pCursCels, v22, v23, 0, 8, 1);
 		if ( plr[myplr].InvBody[4]._iLoc == ILOC_TWOHAND )
 		{
-			InvDrawSlotBack(631, 320, 56, 84);
+			InvDrawSlotBack(631 + GetWidthDiff(), 320, 56, 84);
 			light_table_index = 0;
 			cel_transparency_active = 1;
-			v26 = &gpBuffer->row[160].pixels[581];
+			v26 = &gpBuffer->row[160].pixels[581 + GetWidthDiff()];
 			if ( v23 != 28 )
-				v26 = &gpBuffer->row[160].pixels[567];
+				v26 = &gpBuffer->row[160].pixels[567 + GetWidthDiff()];
 			CelDecodeHdrLightTrans(v26, (char *)pCursCels, v22, v23, 0, 8);
 			cel_transparency_active = 0;
 		}
@@ -390,18 +390,18 @@ void __cdecl DrawInv()
 				v31 = -75;
 			if ( !plr[v28].InvBody[5]._iStatFlag )
 				v31 = -27;
-			CelDecodeClr(v31, v30 != 28 ? 633 : 645, screen_yd, (char *)pCursCels, v29, v30, 0, 8);
+			CelDecodeClr(v31, (v30 != 28 ? 633 : 645) + GetWidthDiff(), screen_yd, (char *)pCursCels, v29, v30, 0, 8);
 			v27 = myplr;
 		}
 		screen_x = v30 != 28 ? 633 : 645;
 		if ( plr[v27].InvBody[5]._iStatFlag )
-			CelDrawHdrOnly(screen_x, screen_yd, (char *)pCursCels, v29, v30, 0, 8);
+			CelDrawHdrOnly(screen_x + GetWidthDiff(), screen_yd, (char *)pCursCels, v29, v30, 0, 8);
 		else
-			CelDrawHdrLightRed(screen_x, screen_yd, (char *)pCursCels, v29, v30, 0, 8, 1);
+			CelDrawHdrLightRed(screen_x + GetWidthDiff(), screen_yd, (char *)pCursCels, v29, v30, 0, 8, 1);
 	}
 	if ( plr[myplr].InvBody[6]._itype != -1 )
 	{
-		InvDrawSlotBack(517, 320, 56, 84);
+		InvDrawSlotBack(517 + GetWidthDiff(), 320, 56, 84);
 		v32 = myplr;
 		v33 = myplr;
 		v34 = plr[myplr].InvBody[6]._iCurs + 12;
@@ -413,19 +413,19 @@ void __cdecl DrawInv()
 				v36 = -75;
 			if ( !plr[v33].InvBody[6]._iStatFlag )
 				v36 = -27;
-			CelDecodeClr(v36, 517, 320, (char *)pCursCels, v34, v35, 0, 8);
+			CelDecodeClr(v36, 517 + GetWidthDiff(), 320, (char *)pCursCels, v34, v35, 0, 8);
 			v32 = myplr;
 		}
 		if ( plr[v32].InvBody[6]._iStatFlag )
-			CelDrawHdrOnly(517, 320, (char *)pCursCels, v34, v35, 0, 8);
+			CelDrawHdrOnly(517 + GetWidthDiff(), 320, (char *)pCursCels, v34, v35, 0, 8);
 		else
-			CelDrawHdrLightRed(517, 320, (char *)pCursCels, v34, v35, 0, 8, 1);
+			CelDrawHdrLightRed(517 + GetWidthDiff(), 320, (char *)pCursCels, v34, v35, 0, 8, 1);
 	}
 	v37 = 0;
 	do
 	{
 		if ( plr[myplr].InvGrid[v37] )
-			InvDrawSlotBack(InvRect[v37 + 25].X + 64, InvRect[v37 + 25].Y + 159, 28, 28);
+			InvDrawSlotBack(InvRect[v37 + 25].X + GetWidthDiff() + 64, InvRect[v37 + 25].Y + 159, 28, 28);
 		++v37;
 	}
 	while ( v37 < 40 );
@@ -451,7 +451,7 @@ void __cdecl DrawInv()
 					v45 = -27;
 				CelDecodeClr(
 					v45,
-					InvRect[v38 + 25].X + 64,
+					InvRect[v38 + 25].X + 64 + GetWidthDiff(),
 					InvRect[v38 + 25].Y + 159,
 					(char *)pCursCels,
 					v44,
@@ -462,9 +462,9 @@ void __cdecl DrawInv()
 			v46 = InvRect[v38 + 25].X + 64;
 			v47 = InvRect[v38 + 25].Y + 159;
 			if ( plr[myplr].InvList[v42]._iStatFlag )
-				CelDrawHdrOnly(v46, v47, (char *)pCursCels, v44, screen_ye, 0, 8);
+				CelDrawHdrOnly(v46 + GetWidthDiff(), v47, (char *)pCursCels, v44, screen_ye, 0, 8);
 			else
-				CelDrawHdrLightRed(v46, v47, (char *)pCursCels, v44, screen_ye, 0, 8, 1);
+				CelDrawHdrLightRed(v46 + GetWidthDiff(), v47, (char *)pCursCels, v44, screen_ye, 0, 8, 1);
 		}
 		++v38;
 	}
@@ -1949,10 +1949,10 @@ void __cdecl CheckInvItem()
 {
 	if (pcurs < CURSOR_FIRSTITEM) {
 		CheckInvCut(myplr, MouseX, MouseY);
-		if (GetAsyncKeyState(VK_SHIFT) < 0 && plr[myplr]._pmode <= PM_WALK3 && MouseY <= 340 && MouseY >= 221 && MouseX >= 337 && MouseX <= 624 && FreeSlotOnBelt() != -1) {
+		if (GetAsyncKeyState(VK_SHIFT) < 0 && plr[myplr]._pmode <= PM_WALK3 && MouseY <= 340 && MouseY >= 221 && MouseX >= 337 + GetWidthDiff() && MouseX <= 624 + GetWidthDiff() && FreeSlotOnBelt() != -1) {
 			if (plr[myplr].HoldItem._itype != ITYPE_NONE && CanPutToBelt(plr[myplr].HoldItem._iMiscId)) {
 				//CheckInvCut(myplr, MouseX, MouseY, true);
-				CheckInvPaste(myplr, 200 + FreeSlotOnBelt() * 30, 359, true);
+				CheckInvPaste(myplr, 200 + FreeSlotOnBelt() * 30+GetWidthDiff()/2, 359, true);
 				CalcPlrInv(myplr, 1);
 			}
 		}
@@ -1963,7 +1963,7 @@ void __cdecl CheckInvItem()
 	}
 void __cdecl CheckInvScrn()
 {
-	if ( MouseX > 190 && MouseX < 437 && MouseY > 352 && MouseY < 385 )
+	if ( MouseX > 190+GetWidthDiff() && MouseX < 437 + GetWidthDiff() && MouseY > 352 && MouseY < 385 )
 		CheckInvItem();
 }
 

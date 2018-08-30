@@ -882,7 +882,7 @@ bool __fastcall LeftMouseDown(int a1)
 		CheckStoreBtn();
 		return 0;
 	}
-	if ( MouseY >= 352 )
+	if ( MouseY >= 352+GetHeightDiff() )
 	{
 		if ( !talkflag && !dropGoldFlag )
 		{
@@ -1165,8 +1165,8 @@ void __cdecl RightMouseDown()
 			{
 				SetSpell();
 			}
-			else if ( MouseY >= 352
-				   || (!sbookflag || MouseX <= 320)
+			else if ( MouseY >= 352+GetHeightDiff()
+				   || (!sbookflag || MouseX <= 320 + GetWidthDiff())
 				   && !TryIconCurs()
 				   && (pcursinvitem == -1 || !UseInvItem(myplr, pcursinvitem)) )
 			{

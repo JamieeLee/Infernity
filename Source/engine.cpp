@@ -1954,17 +1954,17 @@ void DrawXpBar()
 	unsigned int prevXp; 
 	unsigned int prevXpDelta;
 	unsigned int prevXpDelta_1; 
-	int barSize = 306;
+	int barSize = 306;// *ScreenWidth / 640;
 	int visibleBar = 0;
 	int offset = 3;
-	int barRows = 3;
-	int yPos = 632;
+	int barRows = 3;// *ScreenHeight / 480;
+	int yPos = 632+GetHeightDiff();
 	int barColor = 242;/*242white, 142red, 200yellow, 182blue*/
 	int emptyBarColor = 0;
 	int frameColor = 242;
 	int dividerHeight = 4;
 
-	PrintGameStr(145, 476, "XP", COL_WHITE);
+	PrintGameStr(145+GetWidthDiff()/2, 476 + GetHeightDiff(), "XP", COL_WHITE);
 	charLevel = player->_pLevel;
 	if (charLevel != 50) {
 		curXp = ExpLvlsTbl[charLevel];
