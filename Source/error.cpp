@@ -117,31 +117,31 @@ void __cdecl DrawDiabloMsg()
 	signed int v17; // [esp+Ch] [ebp-8h]
 	signed int screen_x; // [esp+10h] [ebp-4h]
 
-	CelDecodeOnly(165, 318, pSTextSlidCels, 1, 12);
-	CelDecodeOnly(591, 318, pSTextSlidCels, 4, 12);
-	CelDecodeOnly(165, 366, pSTextSlidCels, 2, 12);
-	CelDecodeOnly(591, 366, pSTextSlidCels, 3, 12);
-	screen_x = 173;
+	CelDecodeOnly(165+ GetWidthDiff() / 2, 318+GetHeightDiff()/2, pSTextSlidCels, 1, 12);
+	CelDecodeOnly(591 + GetWidthDiff() / 2, 318 + GetHeightDiff() / 2, pSTextSlidCels, 4, 12);
+	CelDecodeOnly(165 + GetWidthDiff() / 2, 366 + GetHeightDiff() / 2, pSTextSlidCels, 2, 12);
+	CelDecodeOnly(591 + GetWidthDiff() / 2, 366 + GetHeightDiff() / 2, pSTextSlidCels, 3, 12);
+	screen_x = 173 + GetWidthDiff() / 2;
 	v16 = 35;
 	do
 	{
-		CelDecodeOnly(screen_x, 318, pSTextSlidCels, 5, 12);
-		CelDecodeOnly(screen_x, 366, pSTextSlidCels, 7, 12);
+		CelDecodeOnly(screen_x, 318 + GetHeightDiff() / 2, pSTextSlidCels, 5, 12);
+		CelDecodeOnly(screen_x, 366 + GetHeightDiff() / 2, pSTextSlidCels, 7, 12);
 		screen_x += 12;
 		--v16;
 	}
 	while ( v16 );
-	v0 = 330;
+	v0 = 330 + GetHeightDiff() / 2;
 	v1 = 3;
 	do
 	{
-		CelDecodeOnly(165, v0, pSTextSlidCels, 6, 12);
-		CelDecodeOnly(591, v0, pSTextSlidCels, 8, 12);
+		CelDecodeOnly(165 + GetWidthDiff() / 2, v0, pSTextSlidCels, 6, 12);
+		CelDecodeOnly(591 + GetWidthDiff() / 2, v0, pSTextSlidCels, 8, 12);
 		v0 += 12;
 		--v1;
 	}
 	while ( v1 );
-	v2 = &gpBuffer->row[203].pixels[104];
+	v2 = &gpBuffer->row[203 + GetHeightDiff() / 2].pixels[104 + GetWidthDiff()/2];
 	v3 = 27;
 	do
 	{
@@ -153,7 +153,7 @@ void __cdecl DrawDiabloMsg()
 			--v4;
 		}
 		while ( v4 );
-		v5 = (int)(v2 - 1200);
+		v5 = (int)(v2 - 1200-GetWidthDiff());
 		v6 = 216;
 		do
 		{
@@ -163,12 +163,12 @@ void __cdecl DrawDiabloMsg()
 			--v6;
 		}
 		while ( v6 );
-		v2 = (char *)(v5 - 1200);
+		v2 = (char *)(v5 - 1200 - GetWidthDiff());
 		--v3;
 	}
 	while ( v3 );
 	strcpy(tempstr, MsgStrings[msgflag]);
-	v8 = screen_y_times_width[342] + 165;
+	v8 = screen_y_times_width[342 + GetHeightDiff() / 2] + 165 + GetWidthDiff()/2;
 	v9 = strlen(tempstr);
 	v10 = 0;
 	v11 = 0;

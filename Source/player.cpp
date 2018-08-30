@@ -1,5 +1,4 @@
 //HEADER_GOES_HERE
-
 #include "../types.h"
 
 int bullshitStructSize = StructSize<PlayerStruct>() / 4;
@@ -127,7 +126,7 @@ void DrawFloatingTextAbovePlayer() {
 	float DurationOfTextInSeconds = 2;
 	int PercentOfTheScreenToTravel = 20;
 	int percentToMerge = 80;
-	int ScreenHeight = 350;
+	int ScreenHeight = ScreenHeight*2/3;
 	int MaxFPS = 20;
 	int minHeight = 0;
 
@@ -1372,7 +1371,7 @@ void __fastcall InitPlayer(int pnum, bool FirstTime)
 		}
 		v16 = plr[v3].WorldX;
 		v17 = plr[v3].WorldY;
-		plr[v3].walkpath[0] = -1;
+		plr[v3].walkpath2[0] = -1;
 		plr[v3].destAction = -1;
 		v14 = v2 == myplr;
 		plr[v3]._px = v16;
@@ -3229,7 +3228,7 @@ LABEL_9:
 			ViewX = plr[v2].WorldX - ScrollInfo._sdx;
 			ViewY = plr[v2].WorldY - ScrollInfo._sdy;
 		}
-		if ( plr[v2].walkpath[0] == -1 )
+		if ( plr[v2].walkpath2[0] == -1 )
 			StartStand(v1, plr[v2]._pVar3);
 		else
 			StartWalkStand(v1);
@@ -3292,7 +3291,7 @@ LABEL_9:
 			ViewX = plr[v2].WorldX - ScrollInfo._sdx;
 			ViewY = plr[v2].WorldY - ScrollInfo._sdy;
 		}
-		if ( plr[v2].walkpath[0] == -1 )
+		if ( plr[v2].walkpath2[0] == -1 )
 			StartStand(v1, plr[v2]._pVar3);
 		else
 			StartWalkStand(v1);
@@ -3369,7 +3368,7 @@ LABEL_9:
 			ViewX = plr[v2].WorldX - ScrollInfo._sdx;
 			ViewY = plr[v2].WorldY - ScrollInfo._sdy;
 		}
-		if ( plr[v2].walkpath[0] == -1 )
+		if ( plr[v2].walkpath2[0] == -1 )
 			StartStand(v1, plr[v2]._pVar3);
 		else
 			StartWalkStand(v1);
@@ -4357,7 +4356,7 @@ void __fastcall CheckNewPath(int pnum)
 		MakePlrPath(v1, monster[plr[v2].destParam1]._mfutx, monster[plr[v2].destParam1]._mfuty, 0);
 	if ( plr[v2].destAction == 21 )
 		MakePlrPath(v1, plr[plr[v2].destParam1]._px, plr[plr[v2].destParam1]._py, 0);
-	if ( plr[v2].walkpath[0] == -1 )
+	if ( plr[v2].walkpath2[0] == -1 )
 	{
 		v18 = plr[v2].destAction;
 		if ( v18 == -1 )
@@ -4697,7 +4696,7 @@ LABEL_133:
 			v15 = 1024;
 			v16 = 512;
 		}
-		switch ( plr[v2].walkpath[0] )
+		switch ( plr[v2].walkpath2[0] )
 		{
 			case WALK_NE:
 				v95 = 2;
@@ -4748,8 +4747,8 @@ LABEL_32:
 			default:
 				break;
 		}
-		qmemcpy(plr[v2].walkpath, &plr[v2].walkpath[1], 0x18u);
-		plr[v2].walkpath[24] = -1;
+		qmemcpy(plr[v2].walkpath2, &plr[v2].walkpath2[1], 0x63u);
+		plr[v2].walkpath2[99] = -1;
 		if ( plr[v2]._pmode == PM_STAND )
 		{
 			StartStand(p, plr[v2]._pdir);
@@ -4996,7 +4995,7 @@ void __fastcall ClrPlrPath(int pnum)
 	v1 = pnum;
 	if ( (unsigned int)pnum >= MAX_PLRS )
 		TermMsg("ClrPlrPath: illegal player %d", pnum);
-	memset(plr[v1].walkpath, -1, 0x19u);
+	memset(plr[v1].walkpath2, -1, 0x64u);
 }
 
 BOOL __fastcall PosOkPlayer(int pnum, int px, int py)
@@ -5057,12 +5056,12 @@ void __fastcall MakePlrPath(int pnum, int xx, int yy, unsigned char endspace)
 
 	if ( v8 != v5 || plr[v6]._py != yy )
 	{
-		v9 = FindPath(PosOkPlayer, a2, v8, plr[v6]._py, v5, yy, plr[v6].walkpath);
+		v9 = FindPath(PosOkPlayer, a2, v8, plr[v6]._py, v5, yy, plr[v6].walkpath2);
 		if ( v9 )
 		{
 			if ( !endspace )
 			{
-				v10 = plr[v6].walkpath[--v9]; /* *((char *)&plr[v6]._pmode + v9-- + 3) */
+				v10 = plr[v6].walkpath2[--v9]; /* *((char *)&plr[v6]._pmode + v9-- + 3) */
 				switch ( v10 )
 				{
 					case 1: // N
@@ -5097,7 +5096,7 @@ LABEL_15:
 				plr[v6]._ptargx = v5;
 				plr[v6]._ptargy = v7;
 			}
-			plr[v6].walkpath[v9] = -1;
+			plr[v6].walkpath2[v9] = -1;
 		}
 	}
 }
@@ -5149,7 +5148,7 @@ void __fastcall CheckPlrSpell()
 			return;
 		}
 		if ( pcurs != CURSOR_HAND
-		  || MouseY >= 352+GetHeightDiff()
+		  || (MouseY >= 352+GetHeightDiff() && MouseX >= GetWidthDiff()/2 && MouseX <= ScreenWidth-GetWidthDiff()/2)
 		  || (chrflag && MouseX < 320 + GetWidthDiff() || invflag && MouseX > 320 + GetWidthDiff())
 		  && v2 != 2
 		  && v2 != 5

@@ -25,7 +25,7 @@ struct engine_cpp_init_1
 // 52B968: using guessed type int engine_cpp_init_value;
 
 uint SaveVersion = -1;
-uint CurVersion = 2;
+uint CurVersion = 3;
 
 
 
@@ -1892,11 +1892,10 @@ void RevealMapByOtherPlayers(int x, int y, int pnum) {
 		}
 	}
 }
-
 void PrintDebugInfo() {
 	if (showDebugInfo) {
 		std::stringstream ss;
-		ss << "debuginfo: " << MouseX << " " << MouseY << talkbtndown[0] << " " << talkbtndown[1] << " " << talkbtndown[2];
+		ss << "debuginfo: " << MouseX << " " << sizeof(PlayerStruct);
 		PrintGameStr(50, 200, (char*)ss.str().c_str(), COL_WHITE);
 	}
 }
@@ -1906,8 +1905,8 @@ void PrintInCombat() {
 	if (mc > 0 ){
 		std::stringstream ss;
 		ss << "enemies: " << mc;
-		PrintGameStr(550, 17, "In combat!", COL_RED);
-		PrintGameStr(550, 30, (char*)ss.str().c_str(), COL_RED);
+		PrintGameStr(550+GetWidthDiff(), 17, "In combat!", COL_RED);
+		PrintGameStr(550+GetWidthDiff(), 30, (char*)ss.str().c_str(), COL_RED);
 	}
 }
 

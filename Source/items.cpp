@@ -4328,8 +4328,8 @@ void __cdecl DrawUBack()
 	_BYTE *v5; // edi
 	signed int v6; // ecx
 
-	CelDecodeOnly(88, 487, pSTextBoxCels, 1, 271);
-	v0 = &gpBuffer->row[324].pixels[27];
+	CelDecodeOnly(88+GetWidthDiff(), 487, pSTextBoxCels, 1, 271);
+	v0 = &gpBuffer->row[324].pixels[27+GetWidthDiff()];
 	v1 = 148;
 	int someMagicNumber = 1032+GetWidthDiff();
 	do
@@ -4384,7 +4384,7 @@ void __fastcall PrintUString(int x, int y, int cjustflag, char *str, int col)
 	int a3; // [esp+18h] [ebp+8h]
 
 	v5 = str;
-	v6 = screen_y_times_width[SStringY[y] + 204] + x + 96;
+	v6 = screen_y_times_width[SStringY[y] + 204] + x + 96 + GetWidthDiff();
 	v7 = strlen(str);
 	v8 = 0;
 	v9 = 0;
@@ -4434,8 +4434,8 @@ void __fastcall DrawULine(int y)
 	char *v2; // edi
 	signed int v3; // edx
 
-	v1 = &gpBuffer->row[25].pixels[26];
-	v2 = &gpBuffer->row_unused_1[0].pixels[screen_y_times_width[SStringY[y] + 198] + 26];
+	v1 = &gpBuffer->row[25].pixels[26+GetWidthDiff()];
+	v2 = &gpBuffer->row_unused_1[0].pixels[screen_y_times_width[SStringY[y] + 198] + 26 + GetWidthDiff()];
 	v3 = 3;
 	do
 	{
@@ -4460,7 +4460,7 @@ void __cdecl DrawRareInfo()
 	{
 		//v0 = curruitem;
 		DrawUBack();
-		PrintUString(0, 2, 1, curruitem._iName, 3);
+		PrintUString(0, 2, 1, curruitem._iName, COL_RED);
 		DrawULine(5);
 
 		int offs = 0;

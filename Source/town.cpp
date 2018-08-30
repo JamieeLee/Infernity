@@ -1171,7 +1171,7 @@ void __fastcall T_DrawGame2(int x, int y)
 	int posy = y - 1;
 	int offsetX = ScrollInfo._sxoff + 64;
 	int offsetY = ScrollInfo._syoff + 160 + 15;
-	int HorCellDrawCount = ScreenWidth / 64 +1;
+	int HorCellDrawCount = ScreenWidth / 64 ;
 	int BottomHeight = 5;	
 	int magicThing = ScreenHeight / 32 - 4;
 	int v11 = magicThing;

@@ -882,7 +882,10 @@ bool __fastcall LeftMouseDown(int a1)
 		CheckStoreBtn();
 		return 0;
 	}
-	if ( MouseY >= 352+GetHeightDiff() && MouseX >= ScreenWidth-352 )
+
+
+
+	if (MouseX > GetWidthDiff() / 2 && MouseX < ScreenWidth-GetWidthDiff() / 2 && MouseY > 352 + GetHeightDiff())
 	{
 		if ( !talkflag && !dropGoldFlag )
 		{
@@ -1037,10 +1040,8 @@ LABEL_95:
 	v6 = pcursitem == -1;
 LABEL_98:
 	if (v6 && pcursmonst == -1 && pcursplr == -1) {
-		//MessageBox(NULL, "WALK1", NULL, NULL);
 		return 1;
 	}
-	//MessageBox(NULL, "WALK0", NULL, NULL);
 	return 0;
 }
 // 484368: using guessed type int FriendlyMode;
@@ -1085,6 +1086,7 @@ LABEL_3:
 			if ( pcursinvitem != -1 )
 			{
 				CheckIdentify(myplr, pcursinvitem);
+				PlaySFX(31);
 				return 1;
 			}
 LABEL_26:
@@ -1169,7 +1171,7 @@ void __cdecl RightMouseDown()
 				SetSpell();
 			}
 			else if ( MouseY >= 352+GetHeightDiff()
-				   || (!sbookflag || MouseX <= 320 + GetWidthDiff())
+				   || (!sbookflag || (MouseX <= 320 + GetWidthDiff()))
 				   && !TryIconCurs()
 				   && (pcursinvitem == -1 || !UseInvItem(myplr, pcursinvitem)) )
 			{
@@ -1754,7 +1756,7 @@ LABEL_18:
 							{
 								v6 = MouseX - 160;
 LABEL_27:
-								SetCursorPos(v6, v5);
+								//SetCursorPos(v6, v5);
 								return;
 							}
 						}

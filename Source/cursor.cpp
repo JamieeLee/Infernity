@@ -629,6 +629,7 @@ void __cdecl CheckCursMove()
 
 	v0 = MouseX;
 	v1 = MouseY;
+	goto LABEL_10;
 	if ( chrflag || questlog )
 	{
 		if ( MouseX >= 160 )
@@ -730,19 +731,19 @@ LABEL_40:
 		cursmy = v8;
 		return;
 	}
-	if ( MouseY > +GetHeightDiff())
+	if ( MouseY > 352+GetHeightDiff() && MouseX >= GetWidthDiff()/2 && MouseX <= ScreenWidth-GetWidthDiff()/2)
 	{
 		CheckPanelInfo();
 		return;
 	}
 	if ( doomflag )
 		return;
-	if ( invflag && MouseX > 320+GetWidthDiff() )
+	if ( invflag && MouseX > 320+GetWidthDiff() && MouseY < 352)
 	{
 		pcursinvitem = CheckInvHLight();
 		return;
 	}
-	if ( sbookflag && MouseX > 320 + GetWidthDiff() || (chrflag || questlog) && MouseX < 320 + GetWidthDiff())
+	if ((sbookflag && MouseX > 320 + GetWidthDiff() || (chrflag || questlog) && MouseX < 320) && MouseY < 352)
 		return;
 	if ( leveltype == DTYPE_TOWN )
 	{

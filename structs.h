@@ -1,6 +1,6 @@
 #include <string>
-#define GLOBAL_WIDTH 1600
-#define GLOBAL_HEIGHT 1200
+#define GLOBAL_WIDTH 1280
+#define GLOBAL_HEIGHT 960
 class FloatingText {
 public:
 	std::string text;
@@ -992,6 +992,7 @@ struct PlayerStruct
 	int currentInventoryIndex;
 	ItemStruct alternateWeapons[2];
 	int currentWeaponSet;
+	char walkpath2[100];
 };
 
 struct QuestStruct

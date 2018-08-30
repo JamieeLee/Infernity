@@ -85,6 +85,7 @@ unsigned char fontkern[68] =
 };
 int lineoffset[25] =
 {
+	/*
 	WorkingWidth * 594 + 241,//456433,
 	WorkingWidth * 32 + 0,//24576,
 	WorkingWidth * 32 + 0,//24576,
@@ -110,6 +111,34 @@ int lineoffset[25] =
   WorkingWidth * 594 + 241,//456433,
   WorkingWidth * 606 + 241 ,//465649,
   WorkingWidth * 617 + 241//474097
+  */
+
+
+	456433,
+	24576,
+	24576,
+	24576,
+	24756,
+	447217,
+	465649,
+	24576,
+	24576,
+	24576,
+	442609,
+	456433,
+	470257,
+	24576,
+	24576,
+	439537,
+	451057,
+	461809,
+	473329,
+	24576,
+	438001,
+	447217,
+	456433,
+	465649,
+	474097
 };
 unsigned char fontidx[256] =
 {
@@ -1980,7 +2009,6 @@ LABEL_33:
 
 void __fastcall control_print_info_str(int y, char *str, bool center, int lines)
 {
-	return;
 	int v4; // edi
 	char *v5; // ebx
 	unsigned char v6; // cl
@@ -1991,9 +2019,14 @@ void __fastcall control_print_info_str(int y, char *str, bool center, int lines)
 	unsigned char v11; // al
 	int width; // [esp+18h] [ebp+Ch]
 
+	PrintGameStr(ScreenWidth/2-GetTextWidth(str)/2, ScreenHeight-128+56+(y)*16, str, infoclr);
+	return;
+
+	int someMagicNumber = GetWidthDiff();//288 +
+
 	v4 = 0;
 	v5 = str;
-	width = lineoffset[y + 4 * lines + lines];
+	width = lineoffset[y + 4 * lines + lines];   // WorkingWidth * (WorkingHeight - 328 + 16*(y + 5*lines)) + 400;//
 	if ( center == 1 )
 	{
 		v6 = *str;
@@ -2008,9 +2041,9 @@ void __fastcall control_print_info_str(int y, char *str, bool center, int lines)
 			v6 = *v8;
 		}
 		while ( *v8 );
-		if ( v7 < 288 )
+		if ( v7 < someMagicNumber)
 LABEL_14:
-			v4 = (288 - v7) >> 1;
+			v4 = (someMagicNumber - v7) >> 1;
 		width += v4;
 	}
 	while ( 1 )
@@ -2025,7 +2058,7 @@ LABEL_14:
 		v4 += fontkern[(unsigned char)v9] + 2;
 		if ( (_BYTE)v9 )
 		{
-			if ( v4 < 288 )
+			if ( v4 < someMagicNumber)
 			{
 				_LOBYTE(v9) = infoclr;
 				CPrintString(width, v10, v9);

@@ -209,6 +209,7 @@ int HighlightedItemCol = -1;
 bool ShouldHighlightItems = false;
 void HighlightItemsNameOnMap()
 {
+	return;
 	class drawingQueue
 	{
 	public:

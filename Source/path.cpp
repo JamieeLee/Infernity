@@ -3,7 +3,7 @@
 #include "../types.h"
 
 // preallocated nodes, search is terminated after 300 nodes are visited
-PATHNODE path_nodes[300];
+PATHNODE path_nodes[900];
 // size of the pnode_tblptr stack
 int gdwCurPathStep;
 // the number of in-use nodes in path_nodes
@@ -11,11 +11,11 @@ int gdwCurNodes;
 /* for reconstructing the path after the A* search is done. The longest
  * possible path is actually 24 steps, even though we can fit 25
  */
-int pnode_vals[25];
+int pnode_vals[100];
 // a linked list of all visited nodes
 PATHNODE *pnode_ptr;
 // a stack for recursively searching nodes
-PATHNODE *pnode_tblptr[300];
+PATHNODE *pnode_tblptr[900];
 // a linked list of the A* frontier, sorted by distance
 PATHNODE *path_2_nodes;
 
@@ -40,6 +40,7 @@ char path_directions[9] = { 5, 1, 6, 2, 0, 3, 8, 4, 7 };
  */
 int __fastcall FindPath(BOOL (__fastcall *PosOk)(int, int, int), int PosOkArg, int sx, int sy, int dx, int dy, char *path)
 {
+	int maxPathLen = 100;//original 25
 	PATHNODE *path_start; // esi
 	char initial_h; // al
 	PATHNODE *next_node; // eax
@@ -85,15 +86,15 @@ int __fastcall FindPath(BOOL (__fastcall *PosOk)(int, int, int), int PosOkArg, i
 	{
 		while ( 1 )
 		{
-			path_is_full = path_length == 25;
-			if ( path_length >= 25 )
+			path_is_full = path_length == maxPathLen;
+			if ( path_length >= maxPathLen)
 				break;
 			pnode_vals[++path_length-1] = path_directions[3 * (current->y - (*previous)->y) - (*previous)->x + 4 + current->x];
 			current = *previous;
 			previous = &(*previous)->Parent;
 			if ( !*previous )
 			{
-				path_is_full = path_length == 25;
+				path_is_full = path_length == maxPathLen;
 				break;
 			}
 		}
@@ -487,7 +488,7 @@ PATHNODE *__cdecl path_new_step()
 {
 	PATHNODE *new_node; // esi
 
-	if ( gdwCurNodes == 300 )
+	if ( gdwCurNodes == 900 )
 		return 0;
 	new_node = &path_nodes[gdwCurNodes++];
 	memset(new_node, 0, 0x34u);

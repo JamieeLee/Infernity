@@ -2,12 +2,12 @@
 #ifndef __PATH_H__
 #define __PATH_H__
 
-extern PATHNODE path_nodes[300];
+extern PATHNODE path_nodes[900];
 extern int gdwCurPathStep;
 extern int gdwCurNodes;
-extern int pnode_vals[25];
+extern int pnode_vals[100];
 extern PATHNODE *pnode_ptr;
-extern PATHNODE *pnode_tblptr[300];
+extern PATHNODE *pnode_tblptr[900];
 extern PATHNODE *path_2_nodes;
 
 int __fastcall FindPath(BOOL (__fastcall *PosOk)(int, int, int), int PosOkArg, int sx, int sy, int dx, int dy, char *path);

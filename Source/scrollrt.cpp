@@ -866,7 +866,7 @@ void __fastcall DrawGame2(int x, int y)
 	v2 = ScrollInfo._sxoff + 64;
 	v3 = x - ScreenWidth/64;
 	ya = y - 1;
-	a5 = ScreenWidth / 64 + 1;
+	a5 = ScreenWidth / 64;
 	v4 = ScrollInfo._syoff + 175;
 	int magicThing = ScreenHeight / 32 - 4;
 	v11 = magicThing;
