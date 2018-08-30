@@ -1221,14 +1221,21 @@ int GetItemColor(int index) {
 
 
 int GetItemHighlightColor(int index) {
+	return GetItemHighlightColor(index, NULL, false);
+}
+
+
+
+int GetItemHighlightColor(int index, ItemStruct* it, bool f){
 
 
 		//int BorderColors[] = { 242/*undead*/, 232/*demon*/, 182/*beast*/
 
 //int filledColor = 142; // optimum balance in bright red between dark and light
 // 200 = unique style
-
-	ItemStruct* it = &item[index];
+	if (f == false) {
+		it = &item[index];
+	}
 	if (it->_iMagical <= 0) { return 242; }
 	else if (it->_iMagical == 1) {
 		if (IsItemRare(it->isRare, it->rareAffix)) {
@@ -3469,6 +3476,7 @@ void __cdecl scrollrt_draw_cursor_item()
 					v11 = 197;
 					if ( plr[myplr].HoldItem._iMagical )
 						v11 = 181;
+					v11 = GetItemHighlightColor(0, &plr[myplr].HoldItem, true);
 					if ( !plr[myplr].HoldItem._iStatFlag )
 						v11 = 229;
 					v12 = v9 + 64;
@@ -3694,11 +3702,13 @@ void DrawWeaponSwitchIcons() {
 		weaponSwitchIconsLoaded = true;
 		weaponSwitchIcons = LoadFileInMem("CtrlPan\\P8But2.CEL", 0);
 	}
-	CelDecodeOnly(431 + GetWidthDiff(), 233, weaponSwitchIcons, panbtn[7] + 3+(plr[myplr].currentWeaponSet!=0), 33);
-	CelDecodeOnly(397 + GetWidthDiff(), 233, weaponSwitchIcons, panbtn[7] + 5+(plr[myplr].currentWeaponSet == 0), 33);
-	int offset = 231;
-	CelDecodeOnly(431+offset + GetWidthDiff(), 233, weaponSwitchIcons, panbtn[7] + 3+(plr[myplr].currentWeaponSet != 0), 33);
-	CelDecodeOnly(397+offset + GetWidthDiff(), 233, weaponSwitchIcons, panbtn[7] + 5+(plr[myplr].currentWeaponSet == 0), 33);
+	if (panbtndown == 0) {
+		CelDecodeOnly(431 + GetWidthDiff(), 233, weaponSwitchIcons, panbtn[7] + 3 + (plr[myplr].currentWeaponSet != 0), 33);
+		CelDecodeOnly(397 + GetWidthDiff(), 233, weaponSwitchIcons, panbtn[7] + 5 + (plr[myplr].currentWeaponSet == 0), 33);
+		int offset = 231;
+		CelDecodeOnly(431 + offset + GetWidthDiff(), 233, weaponSwitchIcons, panbtn[7] + 3 + (plr[myplr].currentWeaponSet != 0), 33);
+		CelDecodeOnly(397 + offset + GetWidthDiff(), 233, weaponSwitchIcons, panbtn[7] + 5 + (plr[myplr].currentWeaponSet == 0), 33);
+	}
 	
 }
 
@@ -3742,7 +3752,7 @@ void __cdecl DrawAndBlit()
 			UpdateManaFlask();
 		//if ( drawbtnflag )
 			DrawCtrlPan();
-	    if ( drawsbarflag )
+	    //if ( drawsbarflag )
 			DrawInvBelt();
 		if (invflag) {
 			DrawWeaponSwitchIcons();

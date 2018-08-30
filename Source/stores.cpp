@@ -328,29 +328,29 @@ void __fastcall DrawSLine(int y)
 	v1 = screen_y_times_width[SStringY[y] + 198];
 	if ( stextsize == 1 )
 	{
-		v8 = 142170;
+		v8 = WorkingWidth * 185 + 90;// 142170;
 		v2 = v1 + 90;
-		v10 = 146;
-		v9 = 182;
+		v10 = 584;
+		v9 = WorkingWidth - 584;// 184;
 	}
 	else
 	{
-		v8 = 142490;
+		v8 = WorkingWidth * 185 + 410;// 142490;
 		v2 = v1 + 410;
-		v10 = 66;
-		v9 = 502;
+		v10 = 264;
+		v9 = WorkingWidth - 264;// 504;
 	}
 	v3 = (char *)gpBuffer + v8;
 	v4 = (char *)gpBuffer + v2;
 	v5 = 3;
 	do
 	{
-		qmemcpy(v4, v3, 4 * v10);
-		v7 = &v3[4 * v10];
-		v6 = &v4[4 * v10];
+		qmemcpy(v4, v3, v10);
+		v7 = &v3[v10];
+		v6 = &v4[v10];
 		*(_WORD *)v6 = *(_WORD *)v7;
-		v3 = &v7[v9 + 2];
-		v4 = &v6[v9 + 2];
+		v3 = &v7[v9];
+		v4 = &v6[v9];
 		--v5;
 	}
 	while ( v5 );

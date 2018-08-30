@@ -4443,8 +4443,8 @@ void __fastcall DrawULine(int y)
 		v1 += 264;
 		v2 += 264;
 		*v2 = *v1;
-		v1 += 504;
-		v2 += 504;
+		v1 += WorkingWidth-264;
+		v2 += WorkingWidth-264;//504
 		--v3;
 	}
 	while ( v3 );

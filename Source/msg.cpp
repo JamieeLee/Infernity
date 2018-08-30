@@ -1753,6 +1753,7 @@ int __fastcall On_WALKXY(struct TCmdLoc *pCmd, int pnum)
 	int v4; // esi
 	v2 = pnum;
 	v3 = pCmd;
+
 	if ( gbBufferMsgs != 1 )
 	{
 		v4 = pnum;

@@ -74,14 +74,14 @@ InvXY InvRect[73] =
   { 538 + GetWidthDiff(), 336 }, // inv row 4
   { 567 + GetWidthDiff(), 336 }, // inv row 4
   { 596 + GetWidthDiff(), 336 }, // inv row 4
-  { 205 + GetWidthDiff(), 385 }, // belt
-  { 234 + GetWidthDiff(), 385 }, // belt
-  { 263 + GetWidthDiff(), 385 }, // belt
-  { 292 + GetWidthDiff(), 385 }, // belt
-  { 321 + GetWidthDiff(), 385 }, // belt
-  { 350 + GetWidthDiff(), 385 }, // belt
-  { 379 + GetWidthDiff(), 385 }, // belt
-  { 408 + GetWidthDiff(), 385 }  // belt
+  { 205 + GetWidthDiff() / 2, 385 +GetHeightDiff()}, // belt
+  { 234 + GetWidthDiff() / 2, 385 + GetHeightDiff() }, // belt
+  { 263 + GetWidthDiff() / 2, 385 + GetHeightDiff() }, // belt
+  { 292 + GetWidthDiff() / 2, 385 + GetHeightDiff() }, // belt
+  { 321 + GetWidthDiff() / 2, 385 + GetHeightDiff() }, // belt
+  { 350 + GetWidthDiff() / 2, 385 + GetHeightDiff() }, // belt
+  { 379 + GetWidthDiff() / 2, 385 + GetHeightDiff() }, // belt
+  { 408 + GetWidthDiff() / 2, 385 + GetHeightDiff() }  // belt
 };
 
 /* rdata */
@@ -258,9 +258,10 @@ void __cdecl DrawInv()
 			v4 = -59;
 			if ( plr[v1].InvBody[0]._iMagical )
 				v4 = -75;
+			v4 = GetItemHighlightColor(0, &plr[v1].InvBody[0], true);
 			if ( !plr[v1].InvBody[0]._iStatFlag )
 				v4 = -27;
-			CelDecodeClr(v4 + GetWidthDiff(), 517, 219, (char *)pCursCels, v2, v3, 0, 8);
+			CelDecodeClr(v4, 517+ GetWidthDiff(), 219, (char *)pCursCels, v2, v3, 0, 8);
 			v0 = myplr;
 		}
 		if ( plr[v0].InvBody[0]._iStatFlag )
@@ -281,6 +282,7 @@ void __cdecl DrawInv()
 			v9 = -59;
 			if ( plr[v6].InvBody[1]._iMagical )
 				v9 = -75;
+			v9 = GetItemHighlightColor(0, &plr[myplr].InvBody[1], true);
 			if ( !plr[v6].InvBody[1]._iStatFlag )
 				v9 = -27;
 			CelDecodeClr(v9, 432 + GetWidthDiff(), 365, (char *)pCursCels, v7, v8, 0, 8);
@@ -305,6 +307,7 @@ void __cdecl DrawInv()
 			v14 = -59;
 			if ( plr[v11].InvBody[2]._iMagical )
 				v14 = -75;
+			v14 = GetItemHighlightColor(0, &plr[myplr].InvBody[2], true);
 			if ( !plr[v11].InvBody[2]._iStatFlag )
 				v14 = -27;
 			CelDecodeClr(v14, 633 + GetWidthDiff(), 365, (char *)pCursCels, v12, v13, 0, 8);
@@ -329,6 +332,7 @@ void __cdecl DrawInv()
 			v19 = -59;
 			if ( plr[v16].InvBody[3]._iMagical )
 				v19 = -75;
+			v19 = GetItemHighlightColor(0, &plr[myplr].InvBody[3], true);
 			if ( !plr[v16].InvBody[3]._iStatFlag )
 				v19 = -27;
 			CelDecodeClr(v19, 589 + GetWidthDiff(), 220, (char *)pCursCels, v17, v18, 0, 8);
@@ -354,6 +358,7 @@ void __cdecl DrawInv()
 			v25 = -59;
 			if ( plr[v21].InvBody[4]._iMagical )
 				v25 = -75;
+			v25 = GetItemHighlightColor(0, &plr[myplr].InvBody[4], true);
 			if ( !plr[v21].InvBody[4]._iStatFlag )
 				v25 = -27;
 			CelDecodeClr(v25, v24 + GetWidthDiff(), screen_yc, (char *)pCursCels, v22, v23, 0, 8);
@@ -377,7 +382,7 @@ void __cdecl DrawInv()
 	}
 	if ( plr[myplr].InvBody[5]._itype != -1 )
 	{
-		InvDrawSlotBack(631, 320, 56, 84);
+		InvDrawSlotBack(631 + GetWidthDiff(), 320, 56, 84);
 		v27 = myplr;
 		v28 = myplr;
 		v29 = plr[myplr].InvBody[5]._iCurs + 12;
@@ -388,6 +393,7 @@ void __cdecl DrawInv()
 			v31 = -59;
 			if ( plr[v28].InvBody[5]._iMagical )
 				v31 = -75;
+			v31 = GetItemHighlightColor(0, &plr[myplr].InvBody[5], true);
 			if ( !plr[v28].InvBody[5]._iStatFlag )
 				v31 = -27;
 			CelDecodeClr(v31, (v30 != 28 ? 633 : 645) + GetWidthDiff(), screen_yd, (char *)pCursCels, v29, v30, 0, 8);
@@ -411,6 +417,7 @@ void __cdecl DrawInv()
 			v36 = -59;
 			if ( plr[v33].InvBody[6]._iMagical )
 				v36 = -75;
+			v36 = GetItemHighlightColor(0, &plr[myplr].InvBody[6], true);
 			if ( !plr[v33].InvBody[6]._iStatFlag )
 				v36 = -27;
 			CelDecodeClr(v36, 517 + GetWidthDiff(), 320, (char *)pCursCels, v34, v35, 0, 8);
@@ -425,7 +432,7 @@ void __cdecl DrawInv()
 	do
 	{
 		if ( plr[myplr].InvGrid[v37] )
-			InvDrawSlotBack(InvRect[v37 + 25].X + GetWidthDiff() + 64, InvRect[v37 + 25].Y + 159, 28, 28);
+			InvDrawSlotBack(InvRect[v37 + 25].X + 64, InvRect[v37 + 25].Y + 159, 28, 28);
 		++v37;
 	}
 	while ( v37 < 40 );
@@ -447,11 +454,12 @@ void __cdecl DrawInv()
 				v45 = -59;
 				if ( *(&plr[0].InvList[0]._iMagical + v43) )
 					v45 = -75;
+				v45 = GetItemHighlightColor(0, (ItemStruct*)((char *)&plr[0].InvList[0] + v43), true);
 				if ( !*(int *)((char *)&plr[0].InvList[0]._iStatFlag + v43) )
 					v45 = -27;
 				CelDecodeClr(
 					v45,
-					InvRect[v38 + 25].X + 64 + GetWidthDiff(),
+					InvRect[v38 + 25].X + 64,
 					InvRect[v38 + 25].Y + 159,
 					(char *)pCursCels,
 					v44,
@@ -462,9 +470,9 @@ void __cdecl DrawInv()
 			v46 = InvRect[v38 + 25].X + 64;
 			v47 = InvRect[v38 + 25].Y + 159;
 			if ( plr[myplr].InvList[v42]._iStatFlag )
-				CelDrawHdrOnly(v46 + GetWidthDiff(), v47, (char *)pCursCels, v44, screen_ye, 0, 8);
+				CelDrawHdrOnly(v46 , v47, (char *)pCursCels, v44, screen_ye, 0, 8);
 			else
-				CelDrawHdrLightRed(v46 + GetWidthDiff(), v47, (char *)pCursCels, v44, screen_ye, 0, 8, 1);
+				CelDrawHdrLightRed(v46, v47, (char *)pCursCels, v44, screen_ye, 0, 8, 1);
 		}
 		++v38;
 	}
@@ -1952,7 +1960,7 @@ void __cdecl CheckInvItem()
 		if (GetAsyncKeyState(VK_SHIFT) < 0 && plr[myplr]._pmode <= PM_WALK3 && MouseY <= 340 && MouseY >= 221 && MouseX >= 337 + GetWidthDiff() && MouseX <= 624 + GetWidthDiff() && FreeSlotOnBelt() != -1) {
 			if (plr[myplr].HoldItem._itype != ITYPE_NONE && CanPutToBelt(plr[myplr].HoldItem._iMiscId)) {
 				//CheckInvCut(myplr, MouseX, MouseY, true);
-				CheckInvPaste(myplr, 200 + FreeSlotOnBelt() * 30+GetWidthDiff()/2, 359, true);
+				CheckInvPaste(myplr, 200 + FreeSlotOnBelt() * 30+GetWidthDiff()/2, 359+GetHeightDiff(), true);
 				CalcPlrInv(myplr, 1);
 			}
 		}
@@ -1963,7 +1971,7 @@ void __cdecl CheckInvItem()
 	}
 void __cdecl CheckInvScrn()
 {
-	if ( MouseX > 190+GetWidthDiff() && MouseX < 437 + GetWidthDiff() && MouseY > 352 && MouseY < 385 )
+	if ( MouseX > 190+GetWidthDiff()/2 && MouseX < 437 + GetWidthDiff()/2 && MouseY > 352+GetHeightDiff() && MouseY < 385 + GetHeightDiff())
 		CheckInvItem();
 }
 

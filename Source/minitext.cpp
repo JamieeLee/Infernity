@@ -196,7 +196,7 @@ void __fastcall PrintQTextChr(int screen_x, int screen_y, char *cel_buf, int fra
 		}
 		while ( v8 );
 LABEL_15:
-		v6 -= 790;
+		v6 -= 790 + GetWidthDiff();//790;
 	}
 	while ( (char *)v7 != v5 );
 }

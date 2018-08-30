@@ -1896,7 +1896,7 @@ void RevealMapByOtherPlayers(int x, int y, int pnum) {
 void PrintDebugInfo() {
 	if (showDebugInfo) {
 		std::stringstream ss;
-		ss << "debuginfo: " << MouseX << " " << MouseY;
+		ss << "debuginfo: " << MouseX << " " << MouseY << talkbtndown[0] << " " << talkbtndown[1] << " " << talkbtndown[2];
 		PrintGameStr(50, 200, (char*)ss.str().c_str(), COL_WHITE);
 	}
 }

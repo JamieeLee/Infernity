@@ -79,6 +79,7 @@ void PrintDebugInfo();
 void PrintInCombat();
 int GetItemColor(int index);
 int GetItemHighlightColor(int index);
+int GetItemHighlightColor(int index, ItemStruct* item, bool f);
 void CheckInvSwitchButtons();
 bool SwitchInvTab(int newTab);
 void DrawFloatingTextAbovePlayer();

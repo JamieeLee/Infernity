@@ -397,9 +397,9 @@ void __cdecl DrawSpell()
 		v2 = 4;
 	SetSpellTrans(v2);
 	if ( v6 == -1 )
-		DrawSpellCel(629, 631, (char *)pSpellCels, 27, 56);
+		DrawSpellCel(629+GetWidthDiff()/2, 631 + GetHeightDiff(), (char *)pSpellCels, 27, 56);
 	else
-		DrawSpellCel(629, 631, (char *)pSpellCels, (char)SpellITbl[v3], 56);
+		DrawSpellCel(629 + GetWidthDiff() / 2, 631+GetHeightDiff(), (char *)pSpellCels, (char)SpellITbl[v3], 56);
 }
 
 void __cdecl DrawSpellList()
@@ -500,12 +500,12 @@ LABEL_10:
 			}
 			if ( !currlevel && !*(_DWORD *)v20 )
 				SetSpellTrans(4);
-			DrawSpellCel(v17, xp, (char *)pSpellCels, (char)SpellITbl[v4], 56);
-			if ( MouseX >= v17 - 64 && MouseX < v17 - 64 + 56 && MouseY >= v22 && MouseY < v22 + 56 )
+			DrawSpellCel(v17+GetWidthDiff()/2, xp+GetHeightDiff()/2, (char *)pSpellCels, (char)SpellITbl[v4], 56);
+			if ( MouseX >= v17 - 64 + GetWidthDiff() / 2 && MouseX < v17 - 64 + 56 + GetWidthDiff() / 2 && MouseY >= v22 + GetHeightDiff() / 2 && MouseY < v22 + 56 + GetHeightDiff() / 2)
 			{
 				pSpell = v4;
 				pSplType = v1;
-				DrawSpellCel(v17, xp, (char *)pSpellCels, yp, 56);
+				DrawSpellCel(v17 + GetWidthDiff() / 2, xp + GetHeightDiff() / 2, (char *)pSpellCels, yp, 56);
 				if ( v1 )
 				{
 					switch ( v1 )
@@ -583,9 +583,9 @@ LABEL_32:
 				v16 = 0;
 				do
 				{
-					if ( plr[0]._pSplHotKey[v16 + bullshitStructSize * v0] == pSpell && plr[v0]._pSplTHotKey[v16] == pSplType )
+					if ( plr[0]._pSplHotKey[v16 + bullshitStructSize * v0] == pSpell && plr[v0]._pSplTHotKey[v16] == pSplType)
 					{
-						DrawSpellCel(v17, xp, (char *)pSpellCels, v16 + 48, 56);
+						DrawSpellCel(v17+GetWidthDiff()/2, xp+GetHeightDiff()/2, (char *)pSpellCels, v16 + 48, 56);
 						sprintf(tempstr, "Spell Hot Key #F%i", v16 + 5);
 						AddPanelString(tempstr, 1);
 						v0 = myplr;
@@ -1323,12 +1323,12 @@ void __cdecl DrawCtrlPan()
 	while ( v0 < 6 );
 	if ( numpanbtns == 8 )
 	{
-		CelDecodeOnly(151, 634, pMultiBtns, panbtn[6] + 1, 33);
+		CelDecodeOnly(151 + GetWidthDiff() / 2, 634 + GetHeightDiff(), pMultiBtns, panbtn[6] + 1, 33);
 		if ( FriendlyMode )
 			v3 = panbtn[7] + 3;
 		else
 			v3 = panbtn[7] + 5;
-		CelDecodeOnly(591, 634, pMultiBtns, v3, 33);
+		CelDecodeOnly(591 + GetWidthDiff() / 2, 634 + GetHeightDiff(), pMultiBtns, v3, 33);
 	}
 }
 // 484368: using guessed type int FriendlyMode;
@@ -1424,7 +1424,7 @@ void __cdecl DoSpeedBook()
 			v1 = 1;
 		}
 	}
-	SetCursorPos(X, Y);
+	SetCursorPos(X+GetWidthDiff()/2, Y+GetHeightDiff()/2);
 }
 // 4B8C98: using guessed type int spselflag;
 
@@ -1461,7 +1461,7 @@ void __cdecl DoPanBtn()
 		}
 		while ( v3 < v2 );
 	}
-	if ( !spselflag && v0 >= 565 && v0 < 621 && v1 >= 416 && v1 < 472 )
+	if ( !spselflag && v0 >= 565+GetWidthDiff()/2 && v0 < 621+GetWidthDiff()/2 && v1 >= 416+GetHeightDiff() && v1 < 472+GetHeightDiff() )
 	{
 		DoSpeedBook();
 		gamemenu_off();
@@ -1573,7 +1573,7 @@ void __cdecl CheckPanelInfo()
 		}
 		while ( v0 < numpanbtns );
 	}
-	if ( !spselflag && MouseX >= 565 && MouseX < 621 && MouseY >= 416 && MouseY < 472 )
+	if ( !spselflag && MouseX >= 565+GetWidthDiff()/2 && MouseX < 621+GetWidthDiff()/2 && MouseY >= 416 && MouseY < 472 )
 	{
 		strcpy(infostr, "Select current spell button");
 		_LOBYTE(infoclr) = 0;
@@ -1647,7 +1647,7 @@ LABEL_54:
 			}
 		}
 	}
-	if ( MouseX > 190 + GetWidthDiff() && MouseX < 437 + GetWidthDiff() && MouseY > 356 && MouseY < 385 )
+	if ( MouseX > 190 + GetWidthDiff()/2 && MouseX < 437 + GetWidthDiff()/2 && MouseY > 356+GetHeightDiff() && MouseY < 385 + GetHeightDiff())
 		pcursinvitem = CheckInvHLight();
 }
 // 484368: using guessed type int FriendlyMode;
@@ -2894,8 +2894,8 @@ void __cdecl DrawSpellBook()
 	int v11; // [esp+18h] [ebp-10h]
 	int v12; // [esp+1Ch] [ebp-Ch]
 
-	CelDecodeOnly(384, 511, pSpellBkCel, 1, 320);
-	CelDecodeOnly(76 * sbooktab + 391, 508, pSBkBtnCel, sbooktab + 1, 76);
+	CelDecodeOnly(384+GetWidthDiff(), 511, pSpellBkCel, 1, 320);
+	CelDecodeOnly(76 * sbooktab + 391 + GetWidthDiff(), 508, pSBkBtnCel, sbooktab + 1, 76);
 	v9 = 1;
 	v8 = 214;
 	v0 = plr[myplr]._pISpells[0] | plr[myplr]._pMemSpells[0] | plr[myplr]._pAblSpells[0];
@@ -2908,11 +2908,11 @@ void __cdecl DrawSpellBook()
 		{
 			v7 = GetSBookTrans(v2, 1u);
 			SetSpellTrans(v7);
-			DrawSpellCel(395, v8 + 1, (char *)pSBkIconCels, (char)SpellITbl[v2], 37);
+			DrawSpellCel(395 + GetWidthDiff(), v8 + 1, (char *)pSBkIconCels, (char)SpellITbl[v2], 37);
 			if ( v2 == plr[myplr]._pRSpell && v7 == _LOBYTE(plr[myplr]._pRSplType) )
 			{
 				SetSpellTrans(0);
-				DrawSpellCel(395, v8 + 1, (char *)pSBkIconCels, 43, 37);
+				DrawSpellCel(395 + GetWidthDiff(), v8 + 1, (char *)pSBkIconCels, 43, 37);
 			}
 			PrintSBookStr(10, v8 - 22, 0, spelldata[v2].sNameText, 0);
 			v3 = GetSBookTrans(v2, 0);
@@ -2959,6 +2959,7 @@ void __cdecl DrawSpellBook()
 
 void __fastcall PrintSBookStr(int x, int y, bool cjustflag, char *pszStr, int bright)
 {
+	x = x+GetWidthDiff();
 	char *v5; // ebx
 	signed int v6; // eax
 	int v7; // edi
@@ -3022,7 +3023,7 @@ void __cdecl CheckSBook()
 
 	v0 = MouseY;
 	v1 = MouseX;
-	if ( MouseX >= 331 && MouseX < 368 && MouseY >= 18 && MouseY < 314 )
+	if ( MouseX >= 331+GetWidthDiff() && MouseX < 368 + GetWidthDiff() && MouseY >= 18 && MouseY < 314 )
 	{
 		v2 = SpellPages[0][7 * sbooktab + (MouseY - 18) / 43];
 		v7 = SpellPages[0][7 * sbooktab + (MouseY - 18) / 43];
@@ -3047,8 +3048,8 @@ void __cdecl CheckSBook()
 			v0 = MouseY;
 		}
 	}
-	if ( v1 >= 327 && v1 < 633 && v0 >= 320 && v0 < 349 )
-		sbooktab = (v1 - 327) / 76;
+	if ( v1 >= 327+ GetWidthDiff() && v1 < 633+ GetWidthDiff() && v0 >= 320 && v0 < 349 )
+		sbooktab = (v1- GetWidthDiff() - 327) / 76;
 }
 // 4B8950: using guessed type int sbooktab;
 // 52571C: using guessed type int drawpanflag;
@@ -3314,7 +3315,7 @@ LABEL_18:
 			if ( talkbtndown[v5] )
 				v7 = (v5 != 0) + 5;
 		}
-		CelDecodeOnly(236, 18 * v5 + 596, pTalkBtns, v7, 61);
+		CelDecodeOnly(236+GetWidthDiff()/2, 18 * v5 + 596+GetHeightDiff(), pTalkBtns, v7, 61);
 		goto LABEL_18;
 	}
 }
@@ -3323,6 +3324,8 @@ LABEL_18:
 
 char *__fastcall control_print_talk_msg(char *msg, int x, int y, int *a4, int just)
 {
+	x += GetWidthDiff() / 2;
+	y += GetHeightDiff();
 	int v5; // edx
 	char *v6; // ebx
 	unsigned char v7; // al
@@ -3343,7 +3346,7 @@ char *__fastcall control_print_talk_msg(char *msg, int x, int y, int *a4, int ju
 		v10 = fontframe[fontidx[v7]];
 		v11 = v10;
 		a3 = v8 + fontkern[v10] + 1;
-		if ( a3 > 514 )
+		if ( a3 > 514 + GetWidthDiff()/2 )
 			break;
 		++v6;
 		if ( v10 )
@@ -3364,18 +3367,18 @@ int __cdecl control_check_talk_btn()
 
 	if ( !talkflag )
 		return 0;
-	if ( MouseX < 172 )
+	if ( MouseX < 172+GetWidthDiff()/2 )
 		return 0;
 	v0 = MouseY;
-	if ( MouseY < 421 || MouseX > 233 )
+	if ( MouseY < 421+GetHeightDiff() || MouseX > 233+GetWidthDiff()/2 )
 		return 0;
 	result = 0;
-	if ( MouseY <= 475 )
+	if ( MouseY <= 475+GetHeightDiff() )
 	{
 		talkbtndown[0] = 0;
 		talkbtndown[1] = 0;
 		talkbtndown[2] = 0;
-		talkbtndown[(v0 - 421) / 18] = 1;
+		talkbtndown[((v0 - 421)- GetHeightDiff()) / 18] = 1;
 		result = 1;
 	}
 	return result;
@@ -3394,9 +3397,9 @@ void __cdecl control_release_talk_btn()
 		talkbtndown[0] = 0;
 		talkbtndown[1] = 0;
 		talkbtndown[2] = 0;
-		if ( v0 >= 172 && MouseY >= 421 && v0 <= 233 && MouseY <= 475 )
+		if ( v0 >= 172+GetWidthDiff()/2 && MouseY >= 421+GetHeightDiff() && v0 <= 233+GetWidthDiff()/2 && MouseY <= 475+GetHeightDiff() )
 		{
-			v1 = (MouseY - 421) / 18;
+			v1 = (MouseY - 421 - GetHeightDiff()) / 18;
 			v2 = 0;
 			do
 			{

@@ -882,7 +882,7 @@ bool __fastcall LeftMouseDown(int a1)
 		CheckStoreBtn();
 		return 0;
 	}
-	if ( MouseY >= 352+GetHeightDiff() )
+	if ( MouseY >= 352+GetHeightDiff() && MouseX >= ScreenWidth-352 )
 	{
 		if ( !talkflag && !dropGoldFlag )
 		{
@@ -907,12 +907,12 @@ bool __fastcall LeftMouseDown(int a1)
 		sfx_stop();
 		return 0;
 	}
-	if ( chrflag && MouseX < 320 )
+	if ( chrflag && MouseX < 320 && MouseY < 352)
 	{
 		CheckChrBtns();
 		return 0;
 	}
-	if ( invflag && MouseX > 320 )
+	if ( invflag && MouseX > 320+GetWidthDiff() && MouseY < 352)
 	{
 		CheckInvSwitchButtons();
 
@@ -920,7 +920,7 @@ bool __fastcall LeftMouseDown(int a1)
 			CheckInvItem();
 		return 0;
 	}
-	if ( sbookflag && MouseX > 320 )
+	if ( sbookflag && MouseX > 320 + GetWidthDiff() && MouseY < 352)
 	{
 		CheckSBook();
 		return 0;
@@ -1036,8 +1036,11 @@ LABEL_95:
 		NetSendCmdLocParam1(1u, CMD_TALKXY, cursmx, cursmy, pcursmonst);
 	v6 = pcursitem == -1;
 LABEL_98:
-	if ( v6 && pcursmonst == -1 && pcursplr == -1 )
+	if (v6 && pcursmonst == -1 && pcursplr == -1) {
+		//MessageBox(NULL, "WALK1", NULL, NULL);
 		return 1;
+	}
+	//MessageBox(NULL, "WALK0", NULL, NULL);
 	return 0;
 }
 // 484368: using guessed type int FriendlyMode;
@@ -1470,10 +1473,10 @@ LABEL_106:
 										goto LABEL_110;
 									}
 									v4 = MouseX;
-									if ( MouseX >= 480 || MouseY >= 352 )
+									if ( MouseX >= 480 || MouseY >= 352 + GetHeightDiff())
 									{
 LABEL_101:
-										if ( !invflag && chrflag && v4 > 160 && MouseY < 352 )
+										if ( !invflag && chrflag && v4 > 160 && MouseY < 352 + GetHeightDiff())
 											SetCursorPos(v4 - 160, MouseY);
 										goto LABEL_106;
 									}
@@ -1731,10 +1734,10 @@ LABEL_72:
 					if ( !v4 || chrflag )
 					{
 LABEL_24:
-						if ( MouseX < 480 )
+						if ( MouseX < 480+GetWidthDiff() )
 						{
 							v5 = MouseY;
-							if ( MouseY < 352 )
+							if ( MouseY < 352+GetHeightDiff() )
 							{
 								v6 = MouseX + 160;
 								goto LABEL_27;
@@ -1747,7 +1750,7 @@ LABEL_18:
 						if ( MouseX > 160 )
 						{
 							v5 = MouseY;
-							if ( MouseY < 352 )
+							if ( MouseY < 352 + GetHeightDiff())
 							{
 								v6 = MouseX - 160;
 LABEL_27:
