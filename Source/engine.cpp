@@ -1892,12 +1892,19 @@ void RevealMapByOtherPlayers(int x, int y, int pnum) {
 		}
 	}
 }
+int num = 0;
+bool played = false;
 void PrintDebugInfo() {
 	if (showDebugInfo) {
 		std::stringstream ss;
-		ss << "debuginfo: " << MouseX << " " << MouseY << " " << ScreenWidth << " " << ScreenHeight;;
+		ss << "debuginfo: " << MouseX << " " << MouseY << " " << ScreenWidth << " " << ScreenHeight << " " << num;
+		if (played == false) {
+			PlaySFX(num++);
+			played = true;
+		}
 		PrintGameStr(50, 200, (char*)ss.str().c_str(), COL_WHITE);
 	}
+	else { played = false; }
 }
 
 void PrintInCombat() {

@@ -1087,7 +1087,7 @@ LABEL_3:
 			if ( pcursinvitem != -1 )
 			{
 				CheckIdentify(myplr, pcursinvitem);
-				PlaySFX(31);
+				PlaySFX(65);
 				return 1;
 			}
 LABEL_26:

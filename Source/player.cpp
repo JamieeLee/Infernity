@@ -106,6 +106,28 @@ int ExpLvlsTbl[51] =
 char *ClassStrTbl[3] = { "Warrior", "Rogue", "Sorceror" };
 
 
+void AutoPickGold(int pnum) {
+	if (GetConfigBoolVariable("autoPickGold") == false) { return; }
+	PlayerStruct& player = plr[pnum];
+	if (currlevel == 0 || (gbMaxPlayers > 1 && gbActivePlayers > 1) || invflag) return;
+	for (int orient = 0; orient < 9; ++orient) {
+		int row = player.WorldX + pathxdir[orient];
+		int col = player.WorldY + pathydir[orient];
+
+		int itemIndex = dItem[row][col] - 1;
+		if (itemIndex > -1) {
+			char* derp = (char*)&item;
+			ItemStruct* it = &(item[itemIndex]);
+			if (it->_itype == ITYPE_GOLD) {
+				NetSendCmdGItem(1u, CMD_REQUESTAGITEM, pnum, pnum, itemIndex);
+				item[itemIndex]._iRequest = 1;
+				//dItem[row][col] = 0;
+				PlaySFX(68);
+			}
+		}
+	}
+}
+
 int calculateDistanceSquared(int x, int y, int xx, int yy) {
 
 	int distancex = (xx - x) * (xx - x);
@@ -4924,12 +4946,21 @@ void __cdecl ProcessPlayers()
 						break;
 					case PM_WALK:
 						moreAction = PM_DoWalk(playerIndex);
+						if (playerIndex == myplr) {
+							AutoPickGold(myplr);
+						}
 						break;
 					case PM_WALK2:
 						moreAction = PM_DoWalk2(playerIndex);
+						if (playerIndex == myplr) {
+							AutoPickGold(myplr);
+						}
 						break;
 					case PM_WALK3:
 						moreAction = PM_DoWalk3(playerIndex);
+						if (playerIndex == myplr) {
+							AutoPickGold(myplr);
+						}
 						break;
 					case PM_ATTACK:
 						moreAction = PM_DoAttack(playerIndex);

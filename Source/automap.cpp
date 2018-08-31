@@ -227,7 +227,7 @@ void HighlightItemsNameOnMap()
 	const int borderX = 5;
 	bool highlightItem = false;
 	
-	/*
+	
 	for (unsigned int i = 0; i < drawQ.size(); ++i) {
 		if (drawQ[i].new_x == -1 && drawQ[i].new_y == -1) {
 			drawQ[i].new_x = drawQ[i].x; drawQ[i].new_y = drawQ[i].y;
@@ -272,7 +272,7 @@ void HighlightItemsNameOnMap()
 			if (canShow) { break; }
 		}
 	}
-	*/
+	
 
 	for (unsigned int i = 0; i < drawQ.size(); ++i) {
 		drawingQueue t = drawQ[i];
