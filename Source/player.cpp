@@ -123,10 +123,9 @@ void DrawFloatingTextAbovePlayer() {
 	if (GetConfigBoolVariable("showFloatingTexts") == false) {
 		return;
 	}
-	float DurationOfTextInSeconds = 2;
+	float DurationOfTextInSeconds = 3;
 	int PercentOfTheScreenToTravel = 20;
 	int percentToMerge = 80;
-	int ScreenHeight = ScreenHeight*2/3;
 	int MaxFPS = 20;
 	int minHeight = 0;
 
@@ -214,8 +213,8 @@ void DrawFloatingTextAbovePlayer() {
 					drawXOffset -= 160;
 				if (chrflag || questlog)
 					drawXOffset += 160;
-				//x = x + 320 + drawXOffset;
-				//y = y + 180;
+				x = x + ScreenWidth / 2;// 320 + drawXOffset;
+				y = y + GetHeightDiff()/2;
 			}
 			double PI = 3.14159265;
 			double DistanceToTravel = ScreenHeight * PercentOfTheScreenToTravel / 100;
@@ -232,6 +231,7 @@ void DrawFloatingTextAbovePlayer() {
 
 			int drawx = x - int(progress * diff_x);
 			int drawy = y - int(progress * diff_y);
+
 			if (drawx > 0 && drawy < ScreenWidth && drawy > minHeight && drawy < ScreenHeight) {
 				char bfr[256];
 
@@ -240,6 +240,8 @@ void DrawFloatingTextAbovePlayer() {
 				//string description;
 				sprintf(bfr, text.c_str(), val);
 				PrintGameStr(drawx, drawy, bfr, color);
+
+
 			}
 			FloatingTextQueue[i].IncreaseIterations();
 		}
