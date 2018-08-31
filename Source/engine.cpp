@@ -1895,7 +1895,7 @@ void RevealMapByOtherPlayers(int x, int y, int pnum) {
 void PrintDebugInfo() {
 	if (showDebugInfo) {
 		std::stringstream ss;
-		ss << "debuginfo: " << MouseX << " " << MouseY;
+		ss << "debuginfo: " << MouseX << " " << MouseY << " " << ScreenWidth << " " << ScreenHeight;;
 		PrintGameStr(50, 200, (char*)ss.str().c_str(), COL_WHITE);
 	}
 }
@@ -2200,6 +2200,30 @@ void GenerateRareAffix(int i,int x, int y, int minlvl, int maxlvl, char prefPowe
 		AddMissile(x, y, x, y, 0, MIS_RESURRECTBEAM, 0, myplr, 0, 0);
 		PlayRareSound();
 	}
+}
+
+int GetConfigIntVariable(std::string s, int def) {
+	string line;
+	ifstream myfile("infernity_config.ini");
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			std::size_t found = line.find(s);
+			if (found != std::string::npos) {
+				myfile.close();
+				int num = 0;
+				stringstream ss2;
+				ss2 << s << " %d ";
+				sscanf(line.c_str(), ss2.str().c_str(), &num);
+				return num;
+			}
+			else { myfile.close(); return def; }
+		}
+		myfile.close();
+		return def;
+	}
+	else {  return def; }
 }
 
 bool GetConfigBoolVariable(std::string s) {

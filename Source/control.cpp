@@ -2835,7 +2835,7 @@ void __cdecl RedBack()
 	v12 = v0 + 0x1200;
 	if ( leveltype == DTYPE_HELL )
 	{
-		v7 = gpBuffer->row[0].pixels;
+		v7 = (char*)&gpBuffer->row[0].pixels;
 		_EBX = &pLightTbl[v12];
 		v9 = ScreenHeight;
 		do
@@ -2857,7 +2857,7 @@ void __cdecl RedBack()
 	}
 	else
 	{
-		v1 = gpBuffer->row[0].pixels;
+		v1 = (char*)&gpBuffer->row[0].pixels;
 		_EBX = &pLightTbl[v12];
 		v3 = ScreenHeight;
 		do

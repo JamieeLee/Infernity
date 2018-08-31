@@ -308,6 +308,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	exception_get_filter();
 	if ( !diablo_find_window("INFERNITY") && diablo_get_not_running() ) // remove to enable running multiple times
 	{
+
 		diablo_init_screen();
 		diablo_parse_flags(lpCmdLine);
 		init_create_window(nCmdShow);

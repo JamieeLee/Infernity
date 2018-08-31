@@ -16,8 +16,8 @@ HMODULE ghDiabMod; // idb
 
 int dx_inf = 0x7F800000; // weak
 
-int ScreenWidth = GLOBAL_WIDTH;
-int ScreenHeight = GLOBAL_HEIGHT;
+int ScreenWidth = GLOBAL_WIDTH;// GetConfigIntVariable("resolutionWidth", 640);
+int ScreenHeight = GLOBAL_HEIGHT;// GetConfigIntVariable("resolutionHeight", 480);
 int WorkingWidth  = ScreenWidth+128;
 int WorkingHeight = ScreenHeight+176;
 

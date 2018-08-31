@@ -18,7 +18,7 @@ void __cdecl CaptureScreen()
 		bool success = CaptureHdr(hObject, ScreenWidth, ScreenHeight);
 		if (success)
 		{
-			success = CapturePix(hObject, ScreenWidth, ScreenHeight, WorkingWidth, (BYTE*)gpBuffer->row[0].pixels);
+			success = CapturePix(hObject, ScreenWidth, ScreenHeight, WorkingWidth, (BYTE*)&gpBuffer->row[0].pixels);
 			if (success)
 			{
 				success = CapturePal(hObject, palette);

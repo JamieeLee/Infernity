@@ -56,7 +56,7 @@ int __fastcall random(int idx, int v);
 bool IsInfernoEnabled();
 void ReloadConfig();
 bool GetConfigBoolVariable(std::string s);
-int GetConfigIntVariable(std::string s);
+int GetConfigIntVariable(std::string s, int def);
 void DrawXpBar();
 void DrawNumbersOnHealthMana();
 char GetAutomapTypeColor(int tx, int ty, bool view);

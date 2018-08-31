@@ -3204,7 +3204,7 @@ void __cdecl ClearScreenBuffer()
 	lock_buf_priv();
 
 	for (i = 0; i < ScreenHeight; i++) {
-		memset(gpBuffer->row[i].pixels, 0, ScreenWidth);
+		memset(&gpBuffer->row[i].pixels, 0, ScreenWidth);
 	}
 	unlock_buf_priv();
 }
