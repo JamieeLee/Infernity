@@ -4661,7 +4661,7 @@ bool __fastcall M_PathWalk(int i)
 {
 	int v1; // esi
 	BOOL (__fastcall *Check)(int, int, int); // ecx
-	char path[25]; // [esp+4h] [ebp-1Ch]
+	char path[100]; // [esp+4h] [ebp-1Ch]
 
 	v1 = i;
 	if ( (unsigned int)i >= MAXMONSTERS )
@@ -7826,7 +7826,7 @@ bool __fastcall DirOK(int i, int mdir)
 	v3 = mdir;
 	v25 = mdir;
 	a1 = i;
-	if ( (unsigned int)i >= MAXMONSTERS )
+	if ((unsigned int)i >= MAXMONSTERS)
 		TermMsg("DirOK: Invalid monster %d", i);
 	v4 = v2;
 	v5 = offset_y[v3];

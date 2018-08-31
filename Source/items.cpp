@@ -3363,15 +3363,10 @@ LABEL_13:
 		GetSuperItemSpace(x, y, itemavail[0]);
 		itemactive[numitems] = ii;
 		itemavail[0] = itemavail[-numitems + 126];/* MAXITEMS */
-		if (monster[m].MData->mType == MT_DIABLO) {
-			SetupAllItems(ii, idx, GetRndSeed(), monster[m].MData->mLevel*2, 15, onlygood, 0, 0, IsInfernoEnabled(), x, y);
-		}
-		else {
 			if ((!monster[m]._uniqtype))
 				SetupAllItems(ii, idx, GetRndSeed(), monster[m].MData->mLevel, 1, onlygood, 0, 0, IsInfernoEnabled(), x, y);
 			else
 				SetupAllItems(ii, idx, GetRndSeed(), monster[m].MData->mLevel, 15, onlygood, 0, 0, IsInfernoEnabled(), x, y);
-		}
 		++numitems;
 		if ( sendmsg )
 			NetSendCmdDItem(0, ii);
