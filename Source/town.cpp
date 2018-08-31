@@ -167,6 +167,7 @@ void __fastcall town_draw_clipped_town(void *unused, int x, int y, int sx, int s
 		v9 = v8 - 1;
 		v10 = v9;
 		v11 = sx - item[v10]._iAnimWidth2;
+		AddItemToDrawQueue(v11, sy, v10);
 		if (v9 == pcursitem || ShouldHighlightItems) {
 			int color = GetItemHighlightColor(v9);
 			CelDrawHdrClrHL(color,v11,sy,(char *)item[v10]._iAnimData,item[v10]._iAnimFrame,item[v10]._iAnimWidth,0,8);// was 181
@@ -461,6 +462,7 @@ void __fastcall town_draw_clipped_town_2(int x, int y, int a3, int a4, int a5, i
 		v11 = v10 - 1;
 		v12 = v11;
 		v13 = sx - item[v12]._iAnimWidth2;
+		AddItemToDrawQueue(v13, sy, v12);
 		if (v11 == pcursitem || ShouldHighlightItems) {
 			int color = GetItemHighlightColor(v11);
 			CelDrawHdrClrHL(color,v13,sy,(char *)item[v12]._iAnimData,item[v12]._iAnimFrame,item[v12]._iAnimWidth,a5,8);//was 181
@@ -747,6 +749,7 @@ void __fastcall town_draw_town_all(void *buffer, int x, int y, int a4, int dir, 
 	{
 		id = dItem[x][y] - 1;
 		xx = sx - item[id]._iAnimWidth2;
+		AddItemToDrawQueue(xx,sy,id);
 		if (id == pcursitem || ShouldHighlightItems) {
 			int color = GetItemHighlightColor(id);
 			CelDecodeClr(color, xx, sy, (char *)item[id]._iAnimData, item[id]._iAnimFrame, item[id]._iAnimWidth, 0, dir);//was 181
@@ -1624,6 +1627,7 @@ LABEL_24:
 void __fastcall T_DrawView(int StartX, int StartY)
 {
 	light_table_index = 0;
+	drawQ.clear();
 	cel_transparency_active = 0;
 	if ( zoomflag )
 		T_DrawGame2(StartX, StartY);

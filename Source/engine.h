@@ -96,6 +96,8 @@ extern int WorkingHeight;
 int GetHeightDiff();
 int GetWidthDiff();
 extern int CurFineMap;
+extern std::vector<drawingQueue> drawQ;
+void AddItemToDrawQueue(int x, int y, int id);
 
 
 extern std::map<std::string, bool> BoolConfig;

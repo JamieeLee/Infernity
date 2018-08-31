@@ -655,6 +655,7 @@ void DrawMonsterHealthBar(int monsterID)
 
 void __fastcall DrawView(int StartX, int StartY)
 {
+	drawQ.clear();
 	if ( zoomflag )
 		DrawGame2(StartX, StartY);
 	else
@@ -1359,6 +1360,9 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 				if ( v18 >= 1 && *(_DWORD *)v17 <= 0x32u && v18 <= *(_DWORD *)v17 )
 				{
 					v19 = a4 - v16->_iAnimWidth2;
+
+				
+					AddItemToDrawQueue(v19,a5,v49-1);
 					if (v49 - 1 == pcursitem || ShouldHighlightItems) {
 						int color = GetItemHighlightColor(v49 - 1);
 						CelDrawHdrClrHL(color, v19, a5, v17, v16->_iAnimFrame, v16->_iAnimWidth, 0, 8);//was color 181
@@ -1498,6 +1502,7 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 					if ( v38 >= 1 && *(_DWORD *)v37 <= 0x32u && v38 <= *(_DWORD *)v37 )
 					{
 						v39 = a4 - v36->_iAnimWidth2;
+						AddItemToDrawQueue(v39, sy, v49-1);
 						if (v49 - 1 == pcursitem || ShouldHighlightItems) {
 							int color = GetItemHighlightColor(v49 - 1);
 							CelDrawHdrClrHL(color, v39, a5, v37, v36->_iAnimFrame, v36->_iAnimWidth, 0, 8);// was 181
@@ -2037,6 +2042,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 				if ( v21 >= 1 && *(_DWORD *)v20 <= 0x32u && v21 <= *(_DWORD *)v20 )
 				{
 					v22 = v13 - v19->_iAnimWidth2;
+					AddItemToDrawQueue(v22, sy, v52-1);
 					if (v52 - 1 == pcursitem || ShouldHighlightItems) {
 						int color = GetItemHighlightColor(v52 - 1);
 						CelDrawHdrClrHL(color, v22, sy, v20, v19->_iAnimFrame, v19->_iAnimWidth, a5, 8);
@@ -2178,6 +2184,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 					if ( v41 >= 1 && *(_DWORD *)v40 <= 0x32u && v41 <= *(_DWORD *)v40 )
 					{
 						v42 = v13 - v39->_iAnimWidth2;
+						AddItemToDrawQueue(v42, sy, v52-1);
 						if (v52 - 1 == pcursitem || ShouldHighlightItems) {
 							int color = GetItemHighlightColor(v52 - 1);
 							CelDrawHdrClrHL(color, v42, sy, v40, v41, v39->_iAnimWidth, a5, 8);
@@ -2643,6 +2650,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 				if ( v20 >= 1 && *(_DWORD *)v19 <= 0x32u && v20 <= *(_DWORD *)v19 )
 				{
 					v21 = sx - v18->_iAnimWidth2;
+					AddItemToDrawQueue(v21, sy, v51-1);
 					if (v51 - 1 == pcursitem || ShouldHighlightItems) {
 						int color = GetItemHighlightColor(v51 - 1);
 						CelDecodeClr(color, v21, sy, v19, v18->_iAnimFrame, v18->_iAnimWidth, 0, a5);
@@ -2782,6 +2790,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 					if ( v40 >= 1 && *(_DWORD *)v39 <= 0x32u && v40 <= *(_DWORD *)v39 )
 					{
 						v41 = sx - v38->_iAnimWidth2;
+						AddItemToDrawQueue(v41,sy, v51-1);
 						if (v51 - 1 == pcursitem || ShouldHighlightItems) {
 							int color = GetItemHighlightColor(v51 - 1);
 							CelDecodeClr(color, v41, sy, v39, v38->_iAnimFrame, v38->_iAnimWidth, 0, a5);

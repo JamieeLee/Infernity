@@ -1,6 +1,25 @@
 #include <string>
-#define GLOBAL_WIDTH 1280
-#define GLOBAL_HEIGHT 960
+#define GLOBAL_WIDTH 1600
+#define GLOBAL_HEIGHT 1200
+
+class drawingQueue
+{
+public:
+	int ItemID;
+	int Row;
+	int Col;
+	int x;
+	int y;
+	int new_x = -1;
+	int new_y = -1;
+	int width;
+	int height;
+	int magicLevel;
+	std::string text;
+	drawingQueue(int x2, int y2, int width2, int height2, int Row2, int Col2, int ItemID2, int q2, std::string text2) { x = x2; y = y2; Row = Row2; Col = Col2; ItemID = ItemID2; width = width2; height = height2; magicLevel = q2; text = text2; }
+};
+
+
 class FloatingText {
 public:
 	std::string text;

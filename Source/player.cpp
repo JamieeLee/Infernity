@@ -195,8 +195,8 @@ void DrawFloatingTextAbovePlayer() {
 
 
 			if (FloatingTextQueue[i].showOnCenter == true) {
-				x = 320 - GetTextWidth((char*)text.c_str()) / 2; //(ScreenWidth - GetTextWidth((char*)text.c_str())) / 2;
-				y = 160; //int((float)ScreenHeight / 2.3);
+				x = ScreenWidth/2 - GetTextWidth((char*)text.c_str()) / 2; //(ScreenWidth - GetTextWidth((char*)text.c_str())) / 2;
+				y = ScreenHeight/3; //int((float)ScreenHeight / 2.3);
 			}
 			else {
 				x = FloatingTextQueue[i].posX;
@@ -214,8 +214,8 @@ void DrawFloatingTextAbovePlayer() {
 					drawXOffset -= 160;
 				if (chrflag || questlog)
 					drawXOffset += 160;
-				x = x + 320 + drawXOffset;
-				y = y + 180;
+				//x = x + 320 + drawXOffset;
+				//y = y + 180;
 			}
 			double PI = 3.14159265;
 			double DistanceToTravel = ScreenHeight * PercentOfTheScreenToTravel / 100;
