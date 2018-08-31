@@ -33,6 +33,7 @@ I will order a pizza and think about you while eating ;)
 - Showing current/max on health/mana orbs
 - Alternate weapon slot + switching between weapons
 - Fixed duping
+- HD
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
@@ -61,6 +62,7 @@ I will order a pizza and think about you while eating ;)
 - 1.11 - motion interpolation for highlighted items, clicking highlighted name will walk to item/pick it up if nearby
 - 1.12 - added alternate weapon slot and switching between weapons using 'v' hotkey
 - 1.13 - fixes all issues with loading in single player, butcher should be in multiplayer too, portals shouldn't break in multiplayer
+- 1.14 - HD! Best thing ever!
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
