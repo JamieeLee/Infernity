@@ -1711,7 +1711,8 @@ enum text_color
 	COL_BLUE = 0x1,
 	COL_RED = 0x2,
 	COL_GOLD = 0x3,
-	COL_ORANGE = 0x4
+	COL_ORANGE = 0x4,
+	COL_YELLOW = 0x5
 };
 
 enum _difficulty

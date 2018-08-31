@@ -78,6 +78,7 @@ int GetTextWidth(char* s);
 void PrintDebugInfo();
 void PrintInCombat();
 int GetItemColor(int index);
+int GetItemColor(int index, ItemStruct* item, bool f);
 int GetItemHighlightColor(int index);
 int GetItemHighlightColor(int index, ItemStruct* item, bool f);
 void CheckInvSwitchButtons();

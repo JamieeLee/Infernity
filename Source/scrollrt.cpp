@@ -1196,10 +1196,13 @@ LABEL_23:
 // 69CF20: using guessed type char arch_draw_type;
 // 69CF94: using guessed type int cel_transparency_active;
 // 69CF98: using guessed type int level_piece_id;
-
-
 int GetItemColor(int index) {
-	ItemStruct* it = &item[index];
+	return GetItemColor(index, NULL, false);
+}
+int GetItemColor(int index, ItemStruct* it, bool f) {
+	if (f == false) {
+		it = &item[index];
+	}
 	if (it->_iMagical <= 0) { return COL_WHITE; }
 	else if (it->_iMagical == 1){ 
 		if (IsItemRare(it->isRare, it->rareAffix)) {
@@ -1211,7 +1214,7 @@ int GetItemColor(int index) {
 	 }
 	else if (it->_iMagical == 2) {
 		if (IsItemRare(it->isRare, it->rareAffix)) {
-			return COL_ORANGE;
+			return COL_YELLOW;
 		}
 		else {
 			return COL_GOLD;
@@ -1230,31 +1233,31 @@ int GetItemHighlightColor(int index) {
 int GetItemHighlightColor(int index, ItemStruct* it, bool f){
 
 
-		//int BorderColors[] = { 242/*undead*/, 232/*demon*/, 182/*beast*/
-
+//int BorderColors[] = { 242/*undead*/, 232/*demon*/, 182/*beast*/
 //int filledColor = 142; // optimum balance in bright red between dark and light
 // 200 = unique style
+	//int resistColors[] = { 148,140,129 };// { 170,140,129,148,242 };// {168, 216, 200, 242, 142 }; // arcane // fire // lightning // acid
 	if (f == false) {
 		it = &item[index];
 	}
-	if (it->_iMagical <= 0) { return 242; }
+	if (it->_iMagical <= 0) { return 242; } //white normal item
 	else if (it->_iMagical == 1) {
 		if (IsItemRare(it->isRare, it->rareAffix)) {
-			return 232;
+			return 152;//152; // orange rare item // 142 red
 		}
 		else {
-			return 181; // blue
+			return 181; // blue magic item
 		}
 	}
 	else if (it->_iMagical == 2) {
 		if (IsItemRare(it->isRare, it->rareAffix)) {
-			return 232;
+			return 148;//160;//yellow superunique
 		}
 		else {
-			return 200;
+			return 200; // gold unique
 		}
 	}
-	return 242;
+	return 242;//white normal item
 }
 
 void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, int a5, int a6)

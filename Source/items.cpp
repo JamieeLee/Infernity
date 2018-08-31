@@ -3864,15 +3864,7 @@ void __fastcall GetItemStr(int i)
 		else
 			strcpy(infostr, item[i]._iIName);
 
-		if (item[i]._iMagical == 1) {
-			infoclr = COL_BLUE;
-		}
-		if (item[i]._iMagical == 2) {
-			infoclr = COL_GOLD;
-		}
-		if (IsItemRare(item[i].isRare, item[i].rareAffix) && item[i]._iMagical == 1) {
-			infoclr = COL_RED;
-		}
+		infoclr = GetItemColor(i);
 	}
 }
 // 4B883C: using guessed type int infoclr;
@@ -4460,7 +4452,7 @@ void __cdecl DrawRareInfo()
 	{
 		//v0 = curruitem;
 		DrawUBack();
-		PrintUString(0, 2, 1, curruitem._iName, COL_RED);
+		PrintUString(0, 2, 1, curruitem._iName, GetItemColor(0,&curruitem,true));
 		DrawULine(5);
 
 		int offs = 0;
@@ -4499,7 +4491,7 @@ void __cdecl DrawUniqueInfo()
 		v0 = curruitem._iUid;
 		DrawUBack();
 		v1 = v0;
-		PrintUString(0, 2, 1, UniqueItemList[v1].UIName, 3);
+		PrintUString(0, 2, 1, UniqueItemList[v1].UIName, GetItemColor(0, &curruitem, true));
 		DrawULine(5);
 		PrintItemPower(UniqueItemList[v1].UIPower1, &curruitem);
 		v2 = 14 - (char)UniqueItemList[v1].UINumPL;

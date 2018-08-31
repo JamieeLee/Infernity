@@ -215,16 +215,10 @@ void AddItemToDrawQueue( int x, int y,int id) {
 		sprintf(textOnGround, "%s", it->_iIdentified ? it->_iIName : it->_iName);
 	}
 	int centerXOffset = GetTextWidth(textOnGround) / 2;
-
-		std::string t2(textOnGround);
-
-		int mag = it->_iMagical;
-		if (it->rareAffix > 0) {
-			mag = 3;
-		}
+	std::string t2(textOnGround);
 		x -= centerXOffset +15;
 		y -= 193;
-		drawQ.push_back(drawingQueue(x, y, centerXOffset * 2, 13, it->_ix, it->_iy, id, mag, t2));
+		drawQ.push_back(drawingQueue(x, y, centerXOffset * 2, 13, it->_ix, it->_iy, id, GetItemColor(id), t2));
 
 }
 
@@ -289,7 +283,7 @@ void HighlightItemsNameOnMap()
 		int bgcolor = 0;
 		if(true){
 		
-			char color = By(t.magicLevel, COL_WHITE, COL_BLUE, COL_GOLD, COL_RED);
+			char color = t.color;
 			int sx = t.new_x;
 			int sy = t.new_y;
 

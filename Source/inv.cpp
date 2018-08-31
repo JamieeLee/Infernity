@@ -3019,16 +3019,7 @@ LABEL_36:
 	}
 	else
 	{
-		v8 = v2->_iMagical;
-		if ( v8 == 1 )
-		{
-			infoclr = COL_BLUE;
-			if (IsItemRare(v2->isRare, v2->rareAffix)) { infoclr = COL_RED; }
-		}
-		else if ( v8 == 2 )
-		{
-			infoclr = COL_GOLD;
-		}
+		infoclr = GetItemColor(0, v2, true);
 		strcpy(infostr, v2->_iName);
 		if (v2->_iIdentified)
 		{

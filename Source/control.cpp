@@ -776,7 +776,84 @@ void __fastcall ToggleSpell(int slot)
 }
 // 52571C: using guessed type int drawpanflag;
 
+
+char GetLetterColor(uchar mask, int colorIndex)
+{
+	switch (colorIndex) {
+	case COL_WHITE:	break;
+	case COL_BLUE:  if (mask >  253) { mask = 191; }
+					else if (mask >= 240) { mask -= 62; }                       break;
+	case COL_RED:	if (mask >= 240) { mask -= 16; }                                                            break;
+	case COL_GOLD:  if (mask >= 240) { if (mask >= 254) { mask = 207; } else { mask -= 46; } }                    break;
+	case COL_ORANGE:if (mask >= 240) { mask -= 32; }                                                            break;
+	case COL_YELLOW:if (mask >  251) { mask = 151; }
+					else if (mask >= 240) { mask = 145 + ((mask - 240) >> 1); } break;
+	}
+	return mask;
+}
+
+
 void __fastcall CPrintString(int No, unsigned char pszStr, int Just)
+{
+	int *v3; // ebx
+	char *v4; // esi
+	char *v5; // edi
+	int v6; // ebx
+	signed int v7; // edx
+	unsigned int v8; // eax
+	unsigned int v9; // ecx
+	char v10; // cf
+	unsigned int v11; // ecx
+	signed int v12; // edx
+	int v13; // eax
+	int v14; // ecx
+	char v15; // al
+	signed int v16; // edx
+	int v17; // eax
+	int v18; // ecx
+	char v19; // al
+	signed int v20; // edx
+	int v21; // eax
+	int v22; // ecx
+	char v23; // al
+
+	v3 = (int *)((char *)pPanelText + 4 * pszStr);
+	v4 = (char *)pPanelText + *v3;
+	v5 = (char *)gpBuffer + No;
+	v6 = (int)&v4[v3[1] - *v3];
+	do
+	{
+		v12 = 13;
+		do
+		{
+			while (1)
+			{
+				v13 = (unsigned char)*v4++;
+				if ((v13 & 0x80u) == 0)
+					break;
+				_LOBYTE(v13) = -(char)v13;
+				v5 += v13;
+				v12 -= v13;
+				if (!v12)
+					goto LABEL_28;
+			}
+			v12 -= v13;
+			v14 = v13;
+			do
+			{
+				v15 = *v4++;
+				v15 = GetLetterColor(v15,(char)Just);
+				*v5++ = v15;
+				--v14;
+			} while (v14);
+		} while (v12);
+	LABEL_28:
+		v5 -= WorkingWidth + 13;
+	} while ((char *)v6 != v4);
+}
+
+/*
+void __fastcall CPrintString2(int No, unsigned char pszStr, int Just)
 {
 	int *v3; // ebx
 	char *v4; // esi
@@ -806,7 +883,7 @@ void __fastcall CPrintString(int No, unsigned char pszStr, int Just)
 	v6 = (int)&v4[v3[1] - *v3];
 	if ( (_BYTE)Just )
 	{
-		if ( (unsigned char)Just == 1 )
+		if ( (unsigned char)Just == COL_BLUE )
 		{
 			do
 			{
@@ -848,7 +925,7 @@ LABEL_28:
 			}
 			while ( (char *)v6 != v4 );
 		}
-		else if ( (unsigned char)Just == 2 )
+		else if ( (unsigned char)Just == COL_RED )
 		{
 			do
 			{
@@ -884,7 +961,7 @@ LABEL_39:
 			}
 			while ( (char *)v6 != v4 );
 		}
-		else
+		else if ((unsigned char)Just == COL_GOLD)
 		{
 			do
 			{
@@ -925,9 +1002,48 @@ LABEL_52:
 			}
 			while ( (char *)v6 != v4 );
 		}
+		else if ((unsigned char)Just == COL_ORANGE)
+		{
+			do
+			{
+				v20 = 13;
+				do
+				{
+					while (1)
+					{
+						v21 = (unsigned char)*v4++;
+						if ((v21 & 0x80u) == 0)
+							break;
+						_LOBYTE(v21) = -(char)v21;
+						v5 += v21;
+						v20 -= v21;
+						if (!v20)
+							goto LABEL_52;
+					}
+					v20 -= v21;
+					v22 = v21;
+					do
+					{
+						v23 = *v4++;
+						if ((unsigned char)v23 >= 0xF0u)
+						{
+							if ((unsigned char)v23 >= 0xFEu)
+								v23 = -49;
+							else
+								v23 -= 46;
+						}
+						*v5++ = v23;
+						--v22;
+					} while (v22);
+				} while (v20);
+			LABEL_52:
+				v5 -= WorkingWidth + 13;
+			} while ((char *)v6 != v4);
+		}
 	}
 	else
 	{
+		//COL_WHITE
 		do
 		{
 			v7 = 13;
@@ -972,7 +1088,7 @@ LABEL_15:
 		}
 		while ( (char *)v6 != v4 );
 	}
-}
+}*/
 
 void __fastcall AddPanelString(char *str, int just)
 {
@@ -1956,13 +2072,8 @@ LABEL_32:
 			else
 				v5 = plr[v2].HoldItem._iName;
 			strcpy(infostr, v5);
-			v6 = plr[myplr].HoldItem._iMagical;
-			if (v6 == 1) {
-				infoclr = COL_BLUE;
-				if (IsItemRare(plr[myplr].HoldItem.isRare, plr[myplr].HoldItem.rareAffix)) { infoclr = COL_RED; }
-			}
-			if ( v6 == 2 )
-				_LOBYTE(infoclr) = COL_GOLD;
+
+			infoclr = GetItemColor(0, &plr[myplr].HoldItem, true);
 		}
 		else
 		{
