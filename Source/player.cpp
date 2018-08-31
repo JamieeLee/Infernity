@@ -121,6 +121,7 @@ void AutoPickGold(int pnum) {
 			if (it->_itype == ITYPE_GOLD) {
 				NetSendCmdGItem(1u, CMD_REQUESTAGITEM, pnum, pnum, itemIndex);
 				item[itemIndex]._iRequest = 1;
+				CalcPlrInv(myplr, 1);
 				//dItem[row][col] = 0;
 				PlaySFX(68);
 			}
