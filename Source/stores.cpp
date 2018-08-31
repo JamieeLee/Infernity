@@ -708,8 +708,9 @@ void __fastcall S_ScrollSBuy(int idx)
 		if ( *((_DWORD *)v3 - 13) != -1 )
 		{
 			_LOBYTE(iclr) = COL_WHITE;
-			if ( *v3 )
-				_LOBYTE(iclr) = COL_BLUE;
+			iclr = GetItemColor(0, &smithitem[v1], true);
+			//if ( *v3 )
+			//	_LOBYTE(iclr) = COL_BLUE;
 			if ( !*((_DWORD *)v3 + 74) )
 				_LOBYTE(iclr) = COL_RED;
 			v4 = v3 + 65;
@@ -901,8 +902,9 @@ void __fastcall S_ScrollSPBuy(int idx)
 		else
 		{
 			_LOBYTE(iclr) = COL_WHITE;
-			if ( *v6 )
-				_LOBYTE(iclr) = COL_BLUE;
+			iclr = GetItemColor(0, &premiumitem[v4], true);
+			//if ( *v6 )
+				//_LOBYTE(iclr) = COL_BLUE;
 			if ( !*((_DWORD *)v6 + 74) )
 				_LOBYTE(iclr) = COL_RED;
 			AddSText(20, v2, 0, v6 + 65, iclr, 1);
@@ -1002,9 +1004,9 @@ void __fastcall S_ScrollSSell(int idx)
 			break;
 		if ( *((_DWORD *)v3 - 13) != -1 )
 		{
-			_LOBYTE(iclr) = 0;
-			if ( *v3 )
-				_LOBYTE(iclr) = 1;
+			iclr = GetItemColor(0, (ItemStruct *)(v3 - 60), true);
+			//if ( *v3 )
+			//	_LOBYTE(iclr) = 1;
 			if ( !*((_DWORD *)v3 + 74) )
 				_LOBYTE(iclr) = 2;
 			if ( *v3 && *((_DWORD *)v3 - 1) )
@@ -1584,9 +1586,7 @@ void __cdecl S_StartConfirm()
 	stextscrl = 0;
 	ClearSText(5, 23);
 	iclr = COL_WHITE;
-
-	if ( plr[myplr].HoldItem._iMagical )
-		iclr = COL_BLUE;
+	iclr = GetItemColor(0, &plr[myplr].HoldItem, true);
 	if ( !plr[myplr].HoldItem._iStatFlag )
 		iclr = COL_RED;
 
@@ -1696,8 +1696,7 @@ void __cdecl S_StartBBoy()
 	AddSLine(21);
 	iclr = COL_WHITE;
 
-	if ( boyitem._iMagical )
-		iclr = COL_BLUE;
+	iclr = GetItemColor(0, &boyitem, true);
 	if ( !boyitem._iStatFlag )
 		iclr = COL_RED;
 	if ( boyitem._iMagical )
@@ -1944,9 +1943,7 @@ void __cdecl S_StartIdShow()
 	stextscrl = 0;
 	ClearSText(5, 23);
 	iclr = COL_WHITE;
-
-	if ( plr[myplr].HoldItem._iMagical )
-		iclr = COL_BLUE;
+	iclr = GetItemColor(0, &plr[myplr].HoldItem, true);
 	if ( !plr[myplr].HoldItem._iStatFlag )
 		iclr = COL_RED;
 
