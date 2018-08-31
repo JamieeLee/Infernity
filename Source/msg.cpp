@@ -240,14 +240,6 @@ void __cdecl msg_pre_packet()
 
 void __fastcall DeltaExportData(int pnum)
 {
-
-	{
-		std::ofstream outfile;
-		outfile.open("test.txt", std::ios_base::app);
-		outfile << "exporting data\n";
-		outfile.close();
-	}
-
 	char *v1; // edi
 	DObjectStr *v2; // esi
 	void *v3; // ebx
@@ -606,6 +598,7 @@ void __fastcall DeltaAddItem(int ii)
 				_LOWORD(v9) = *(_WORD *)((char *)&item[0]._ivalue + v9);
 				v4->item[0].bMCh = v11;
 				v4->item[0].wValue = v9;
+				v4->item[0].dwBuff = *((_BYTE *)&item[0].isRare + v9);
 				return;
 			}
 		}
@@ -807,6 +800,7 @@ void __cdecl DeltaLoadLevel()
 						v18 = *(int *)((char *)&sgLevels[0].item[0].dwSeed + v13);
 						_LOWORD(v13) = *(short *)((char *)&sgLevels[0].item[0].wCI + v13);
 						v19 = v8 + 4721 * currlevel;
+
 						RecreateItem(v14, v16, v13, v18, v17, *(int *)((char *)&sgLevels[0].item[0].dwBuff + v19));
 						if ( *(&sgLevels[0].item[0].bId + v19) )
 							item[v14]._iIdentified = 1;
@@ -1317,7 +1311,7 @@ void __fastcall NetSendCmdDItem(unsigned char bHiPri, int ii)
 		v10 = item[v2]._ivalue;
 		cmd.bMCh = v9;
 		cmd.wValue = v10;
-		//cmd.dwBuff = item[v2].isRare;
+		cmd.dwBuff = item[v2].isRare;
 	}
 	if ( bHiPri )
 		NetSendHiPri((unsigned char *)&cmd, 0x16u);
@@ -1601,15 +1595,6 @@ void __fastcall DeltaImportData(unsigned char cmd, int recv_offset)
 	v2 = cmd;
 
 
-	{
-		std::ofstream outfile;
-		outfile.open("test.txt", std::ios_base::app);
-		outfile << "IMPORTING DATA ("<<(int)v2<<")\n";
-		outfile.close();
-	}
-
-
-
 	if ( sgRecvBuf[0] )
 		encrypt_decompress(&sgRecvBuf[1], recv_offset, 4721);
 	if ( v2 == CMD_DLEVEL_JUNK )
@@ -1700,12 +1685,6 @@ void *__fastcall DeltaImportMonster(void *src, void *dst)
 
 void __fastcall DeltaImportJunk(int src)
 {
-	{
-		std::ofstream outfile;
-		outfile.open("test.txt", std::ios_base::app);
-		outfile << "IMPORTING JUNK\n";
-		outfile.close();
-	}
 	char* data = (char*)src;
 
 	for (int playerIndex = 0; playerIndex < 4; playerIndex++) {
@@ -2350,6 +2329,8 @@ void __fastcall delta_put_item(struct TCmdPItem *pI, int x, int y, unsigned char
 
 	v10 = x;
 	v4 = pI;
+
+
 	if ( gbMaxPlayers != 1 )
 	{
 		v5 = bLevel;
@@ -2386,6 +2367,7 @@ void __fastcall delta_put_item(struct TCmdPItem *pI, int x, int y, unsigned char
 		v6->item[0].x = v10;
 		v6->item[0].bCmd = 2;
 		v6->item[0].y = y;
+		v6->item[0].dwBuff = v4->dwBuff;
 	}
 }
 // 67618C: using guessed type char sgbDeltaChanged;
@@ -3401,8 +3383,9 @@ int __fastcall On_DROPITEM(struct TCmdPItem *pCmd, int pnum)
 {
 	if ( gbBufferMsgs == 1 )
 		msg_send_packet(pnum, pCmd, 22);
-	else
+	else {
 		delta_put_item(pCmd, (unsigned char)pCmd->x, (unsigned char)pCmd->y, plr[pnum].plrlevel);
+	}
 	return 22;
 }
 // 676194: using guessed type char gbBufferMsgs;

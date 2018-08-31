@@ -652,7 +652,7 @@ struct  DMonsterStr
 
 /* __declspec(align(2))*/
 #pragma pack(push, 1)
-struct  TCmdPItem
+struct TCmdPItem
 {
 	char bCmd; /* unsigned */
 	unsigned char x;
@@ -671,7 +671,7 @@ struct  TCmdPItem
 #pragma pack(pop)
 
 /* __declspec(align(1))*/
-struct  DLevel
+struct DLevel
 {
 	TCmdPItem item[MAXITEMS];
 	DObjectStr object[MAXOBJECTS];

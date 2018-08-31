@@ -266,8 +266,8 @@ UniqMonstStruct UniqMonst[99] =
 	{ MT_HLSPWN,   "Bloodlust",				"GENERAL", 15, 825,  AI_SUCC,	 1, 20, 55, 104, 0,  0,   0, 0			  },
 	{ MT_HLSPWN,   "Webwidow",				 "GENERAL", 16, 774,  AI_SUCC,	 1, 20, 50, 88,  0,  0,   0, 0			  },
 	{ MT_SOLBRNR,  "Fleshdancer",			  "GENERAL", 16, 999,  AI_SUCC,	 3, 30, 50, 74,  0,  0,   0, 0			  },
-	{ MT_OBLORD,   "Grimspike",				"GENERAL", 19, 534,  AI_SNEAK,	1, 25, 40, 74,  3,  0,   0, 0			  },
-	{ MT_STORML,   "Doomlock",				 "GENERAL", 28, 534,  AI_SNEAK,	1, 35, 55, 78,  3,  0,   0, 0			  },
+	{ MT_OBLORD,   "Grimspike",				"GENERAL", 16, 534,  AI_SNEAK,	1, 25, 40, 74,  3,  0,   0, 0			  },
+	{ MT_STORML,   "Doomlock",				 "GENERAL", 16, 534,  AI_SNEAK,	1, 35, 55, 78,  3,  0,   0, 0			  },
 	{ MT_DIABLO, "Tiny Pancake",	  "GENERAL", 0,  1666,  AI_DIABLO,  3, 30, 50, 78,  0,  0,   0, 0 },
 	{ -1,		  NULL,					   NULL,	  0,  0,	0,		   0, 0,  0,  0,   0,  0,   0, 0			  }
 
@@ -927,7 +927,7 @@ void __fastcall InitMonster(int i, int rd, int mtype, int x, int y)
 		if (IsInfernoEnabled()) {
 			v26 = 4 * monster[v6].mMinDamage;
 			v27 = 16 * monster[v6]._mmaxhp + 6400;
-			_LOBYTE(monster[v6].mLevel) += 50;
+			_LOBYTE(monster[v6].mLevel) += 30;
 			monster[v6]._mmaxhp = v27;
 			monster[v6]._mhitpoints = v27;
 			_LOWORD(v27) = monster[v6].mExp;
@@ -945,7 +945,7 @@ void __fastcall InitMonster(int i, int rd, int mtype, int x, int y)
 		else {
 			v26 = 4 * monster[v6].mMinDamage;
 			v27 = 4 * monster[v6]._mmaxhp + 192;
-			_LOBYTE(monster[v6].mLevel) += 30;
+			_LOBYTE(monster[v6].mLevel) += 20;
 			monster[v6]._mmaxhp = v27;
 			monster[v6]._mhitpoints = v27;
 			_LOWORD(v27) = monster[v6].mExp;
@@ -1320,7 +1320,7 @@ LABEL_83:
 		{
 			if (IsInfernoEnabled()) {
 				v33 = v3->_mmaxhp;
-				_LOBYTE(v3->mLevel) += 50;
+				_LOBYTE(v3->mLevel) += 30;
 				v34 = 16 * v33 + 6400;
 				v3->_mmaxhp = v34;
 				v3->_mhitpoints = v34;
@@ -1332,7 +1332,7 @@ LABEL_83:
 			}
 			else {
 				v33 = v3->_mmaxhp;
-				_LOBYTE(v3->mLevel) += 30;
+				_LOBYTE(v3->mLevel) += 20;
 				v34 = 4 * v33 + 192;
 				v3->_mmaxhp = v34;
 				v3->_mhitpoints = v34;

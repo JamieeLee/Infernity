@@ -3507,7 +3507,6 @@ void __fastcall RecreateItem(int ii, int idx, unsigned short ic, int iseed, int 
 	int onlygood; // edx
 	int recreate; // ebx
 	int pregen; // edi
-
 	if ( idx )
 	{
 		if ( ic )
