@@ -698,6 +698,8 @@ void __fastcall DrawView(int StartX, int StartY)
 		DrawSpellList();
 	if ( dropGoldFlag )
 		DrawGoldSplit(dropGoldValue);
+	if (nameStashTabFlag)
+		DrawStashRename(renameStashValue);
 	if ( helpflag )
 		DrawHelp();
 	if ( msgflag )

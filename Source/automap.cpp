@@ -26,8 +26,8 @@ void __cdecl InitAutomapOnce()
 	automapflag = 0;
 	AutoMapScale = 50;
 	AutoMapPosBits = 32;
-	AutoMapXPos = 16;
-	AutoMapYPos = 8;
+	AutoMapXPos = ScreenWidth / 40;//16;
+	AutoMapYPos = ScreenHeight / 44;// 8;
 	AMPlayerX = 4;
 	AMPlayerY = 2;
 }
@@ -365,7 +365,7 @@ void __cdecl DrawAutomap()
 
 	if ( leveltype != DTYPE_TOWN )
 	{
-		gpBufEnd = (unsigned char *)&gpBuffer->row[352];
+		gpBufEnd = (unsigned char *)&gpBuffer->row[ScreenWidth-128];
 		v0 = AutoMapXOfs;
 		v1 = (ViewX - 16) >> 1;
 		v2 = AutoMapXOfs + v1;
@@ -387,7 +387,7 @@ void __cdecl DrawAutomap()
 				--v0;
 				--v3;
 			}
-			while ( v3 >= 40 );
+			while ( v3 >= 40);
 			AutoMapXOfs = v0;
 		}
 		v4 = v0 + v1;
@@ -406,14 +406,14 @@ void __cdecl DrawAutomap()
 			AutoMapYOfs = v5;
 		}
 		v8 = v5 + v6;
-		if ( v5 + v6 >= 40 )
+		if ( v5 + v6 >= 40)
 		{
 			do
 			{
 				--v5;
 				--v8;
 			}
-			while ( v8 >= 40 );
+			while ( v8 >= 40);
 			AutoMapYOfs = v5;
 		}
 		v9 = v5 + v6;
@@ -430,7 +430,7 @@ void __cdecl DrawAutomap()
 		}
 		else
 		{
-			v11 = AutoMapXPos - AutoMapPosBits * (v10 >> 1) + 384;
+			v11 = AutoMapXPos - AutoMapPosBits * (v10 >> 1) +  384;
 			v12 = 336 - AutoMapXPos * (v10 >> 1) - AutoMapYPos;
 		}
 		if ( ViewX & 1 )

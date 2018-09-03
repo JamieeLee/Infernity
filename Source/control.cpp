@@ -8,6 +8,7 @@ void *pDurIcons;
 void *pChrButtons;
 int drawhpflag; // idb
 int dropGoldFlag; // weak
+int nameStashTabFlag;
 int panbtn[8];
 int chrbtn[4];
 void *pMultiBtns;
@@ -16,6 +17,7 @@ void *pChrPanel;
 int lvlbtndown; // weak
 char sgszTalkSave[8][80];
 int dropGoldValue; // idb
+std::string renameStashValue;
 int drawmanaflag; // idb
 int chrbtnactive; // weak
 char sgszTalkMsg[80];
@@ -1421,7 +1423,9 @@ void __cdecl InitControlPan()
 	v5 = LoadFileInMem("CtrlPan\\Golddrop.cel", 0);
 	frame_4B8800 = 1;
 	dropGoldFlag = 0;
+	nameStashTabFlag = 0;
 	dropGoldValue = 0;
+	renameStashValue = "";
 	initialDropGoldValue = 0;
 	initialDropGoldIndex = 0;
 	pGBoxBuff = v5;
@@ -1855,6 +1859,10 @@ void __cdecl CheckBtnUp()
 						case PANBTN_INVENTORY:
 							sbookflag = 0;
 							invflag = invflag == 0;
+							if (nameStashTabFlag) {
+								renameStashValue = "";
+								nameStashTabFlag = 0;
+							}
 							if ( dropGoldFlag )
 							{
 								dropGoldFlag = 0;
@@ -1863,6 +1871,10 @@ void __cdecl CheckBtnUp()
 							break;
 						case PANBTN_SPELLBOOK:
 							invflag = 0;
+							if (nameStashTabFlag) {
+								renameStashValue = "";
+								nameStashTabFlag = 0;
+							}
 							if ( dropGoldFlag )
 							{
 								dropGoldFlag = 0;
@@ -2654,14 +2666,14 @@ void clearShit(int pnum) {
 }
 
 bool SwitchInvTab(int newTab) {
-
-	ItemStruct* invs = plr[myplr].InvList;
-
 	//if (pcurs < CURSOR_FIRSTITEM) {
-		if (newTab != plr[myplr].currentInventoryIndex) {
-			PlaySFX(IS_TITLEMOV);
-			CalcPlrInv(myplr, 0);
-			//clearShit(myplr);
+	if (newTab != plr[myplr].currentInventoryIndex) {
+		bool fromstash = plr[myplr].currentInventoryIndex >= 4;
+		bool tostash = newTab >= 4;
+		PlaySFX(IS_TITLEMOV);
+		CalcPlrInv(myplr, 0);
+
+		if (!fromstash && !tostash) {
 			qmemcpy(&plr[myplr].InvListExpanded[plr[myplr].currentInventoryIndex], &plr[myplr].InvList, sizeof(ItemStruct) * 40);
 			qmemcpy(&plr[myplr].InvList, &plr[myplr].InvListExpanded[newTab], sizeof(ItemStruct) * 40);
 
@@ -2670,27 +2682,117 @@ bool SwitchInvTab(int newTab) {
 			clearShit(myplr);
 			plr[myplr].NumInvExpanded[plr[myplr].currentInventoryIndex] = plr[myplr]._pNumInv;
 			plr[myplr]._pNumInv = plr[myplr].NumInvExpanded[newTab];
-			//std::set<int> seeds;
-			//for (int i = 0; i < 40; ++i) {
-			//	if (plr[myplr].InvList[i]._itype != -1 && plr[myplr].InvList[i]._iAnimData > 0) {
-			//		seeds.insert(plr[myplr].InvList[i]._iSeed);
-			//	}
-			//}
-			//plr[myplr]._pNumInv = seeds.size();
-			
-
-			plr[myplr].currentInventoryIndex = newTab;
-			CalcPlrInv(myplr, 1);
-
-
-			//CheckItemStats(myplr);
-			return true;
 		}
-	//}
+
+		else if (fromstash && tostash) {
+			qmemcpy(&plr[myplr].StashInvList[plr[myplr].currentInventoryIndex - 4], &plr[myplr].InvList, sizeof(ItemStruct) * 40);
+			qmemcpy(&plr[myplr].InvList, &plr[myplr].StashInvList[newTab - 4], sizeof(ItemStruct) * 40);
+
+			qmemcpy(&plr[myplr].StashInvGrid[plr[myplr].currentInventoryIndex - 4], &plr[myplr].InvGrid, sizeof(char) * 40);
+			qmemcpy(&plr[myplr].InvGrid, &plr[myplr].StashInvGrid[newTab - 4], sizeof(char) * 40);
+			clearShit(myplr);
+			plr[myplr].StashNumInv[plr[myplr].currentInventoryIndex - 4] = plr[myplr]._pNumInv;
+			plr[myplr]._pNumInv = plr[myplr].StashNumInv[newTab - 4];
+		}
+
+		else if (!fromstash && tostash) {
+			plr[myplr].lastTab = plr[myplr].currentInventoryIndex;
+			qmemcpy(&plr[myplr].InvListExpanded[plr[myplr].currentInventoryIndex], &plr[myplr].InvList, sizeof(ItemStruct) * 40);
+			qmemcpy(&plr[myplr].InvList, &plr[myplr].StashInvList[newTab - 4], sizeof(ItemStruct) * 40);
+
+			qmemcpy(&plr[myplr].InvGridExpanded[plr[myplr].currentInventoryIndex], &plr[myplr].InvGrid, sizeof(char) * 40);
+			qmemcpy(&plr[myplr].InvGrid, &plr[myplr].StashInvGrid[newTab - 4], sizeof(char) * 40);
+			clearShit(myplr);
+			plr[myplr].NumInvExpanded[plr[myplr].currentInventoryIndex] = plr[myplr]._pNumInv;
+			plr[myplr]._pNumInv = plr[myplr].StashNumInv[newTab - 4];
+		}
+
+		else if (fromstash && !tostash) {
+			plr[myplr].lastTab = plr[myplr].currentInventoryIndex;
+			qmemcpy(&plr[myplr].StashInvList[plr[myplr].currentInventoryIndex - 4], &plr[myplr].InvList, sizeof(ItemStruct) * 40);
+			qmemcpy(&plr[myplr].InvList, &plr[myplr].InvListExpanded[newTab], sizeof(ItemStruct) * 40);
+
+			qmemcpy(&plr[myplr].StashInvGrid[plr[myplr].currentInventoryIndex - 4], &plr[myplr].InvGrid, sizeof(char) * 40);
+			qmemcpy(&plr[myplr].InvGrid, &plr[myplr].InvGridExpanded[newTab], sizeof(char) * 40);
+			clearShit(myplr);
+			plr[myplr].StashNumInv[plr[myplr].currentInventoryIndex - 4] = plr[myplr]._pNumInv;
+			plr[myplr]._pNumInv = plr[myplr].NumInvExpanded[newTab];
+		}
+
+		plr[myplr].currentInventoryIndex = newTab;
+		CalcPlrInv(myplr, 1);
+
+
+		//CheckItemStats(myplr);
+		return true;
+	}
 	return false;
 }
 
+void ToggleStash() {
+	int stashtab = plr[myplr].currentInventoryIndex - 4;
+	if (stashtab >= 0) {
+		SwitchInvTab(plr[myplr].lastTab);
+	}
+	else {
+		if (plr[myplr].lastTab >= 4) {
+			SwitchInvTab(plr[myplr].lastTab);
+		}
+		else {
+			SwitchInvTab(4);
+		}
+	}
+}
+
+void CheckStashButtons() {
+	if (currlevel != 0) { return; }
+	//if (plr[myplr].HoldItem._itype != -1) { return; }
+	if (pcurs >= CURSOR_FIRSTITEM){return; }
+	int maxstash = 99;
+	int mx = MouseX - GetWidthDiff();
+	if (MouseY >= 192 && MouseY <= 210) {
+		int stashtab = plr[myplr].currentInventoryIndex - 4;
+		if (mx >= 471 && mx <= 490) {
+			ToggleStash();
+		}
+		if (stashtab >= 0) {
+
+			if (mx >= 403 && mx <= 422) {
+				int newtab = stashtab - 10;
+				if (newtab < 0) {
+					SwitchInvTab(4);
+				}
+				else {
+					SwitchInvTab(4 + newtab);
+				}
+			}
+
+			else if (mx >= 428 && mx <= 447) {
+				if (stashtab > 0) {
+					SwitchInvTab(stashtab + 3);
+				}
+			}
+			else if (mx >= 513 && mx <= 532) {
+				if (stashtab < maxstash) {
+					SwitchInvTab(stashtab + 5);
+				}
+			}
+
+			else if (mx >= 537 && mx <= 556) {
+				int newtab = stashtab + 10;
+				if (newtab > 99) {
+					SwitchInvTab(103);
+				}
+				else {
+					SwitchInvTab(4 + newtab);
+				}
+			}
+		}
+	}
+}
+
 void CheckInvSwitchButtons() {
+	if (!invflag) { return; }
 	if (MouseX >= 320 + GetWidthDiff() && MouseX <= 335 + GetWidthDiff()) {
 		if (MouseY >= 225 && MouseY <= 245) {
 			SwitchInvTab(0);
@@ -3208,6 +3310,51 @@ char *__fastcall get_pieces_str(int nGold)
 	return result;
 }
 
+
+
+void __fastcall DrawStashRename(std::string s)
+{
+	char *v2; // eax
+	char v3; // cl
+	signed int i; // eax
+	int screen_x; // [esp+10h] [ebp-4h]
+	int screen_xa; // [esp+10h] [ebp-4h]
+	screen_x = 0;
+	if (plr[myplr].currentInventoryIndex < 4) { return; }
+	CelDecodeOnly(415, 338, pGBoxBuff, 1, 261);
+	if (strlen(plr[myplr].StashNames[plr[myplr].currentInventoryIndex - 4]) > 0) {
+		sprintf(tempstr, "Current name: %s", plr[myplr].StashNames[plr[myplr].currentInventoryIndex - 4]);
+	}
+	else {
+		sprintf(tempstr, "Current name: None");
+	}
+	sprintf(tempstr, "Current name: %s", plr[myplr].StashNames[plr[myplr].currentInventoryIndex-4]);
+	ADD_PlrStringXY(366, 87, 600, tempstr, 3);
+	sprintf(tempstr, "What's the new name? ");
+	ADD_PlrStringXY(366, 103, 600, tempstr, 3);
+
+	if (s.length() == 0)
+	{
+		screen_xa = 450;
+	}
+	else
+	{
+		//sprintf(tempstr, "%s", s);
+		strcpy(tempstr, s.c_str());
+		PrintGameStr(388, 140, tempstr, 0);
+		v3 = tempstr[0];
+		for (i = 0; i < v3; v3 = tempstr[i])
+		{
+			++i;
+			screen_x += fontkern[fontframe[fontidx[(unsigned char)v3]]] + 1;
+		}
+		screen_xa = screen_x + 452;
+	}
+	CelDecodeOnly(screen_xa, 300, pCelBuff, frame_4B8800, 12);
+	frame_4B8800 = (frame_4B8800 & 7) + 1;
+}
+
+
 void __fastcall DrawGoldSplit(int amount)
 {
 	int v1; // ebp
@@ -3302,6 +3449,55 @@ void __fastcall control_drop_gold(int vkey)
 	if ( dropGoldValue > 0 )
 		control_remove_gold(myplr, initialDropGoldIndex);
 	dropGoldFlag = 0;
+}
+
+#include <algorithm>
+void __fastcall control_rename_stash(int vkey)
+{
+	char v1; // bl
+	int v2; // eax
+	int v3; // eax
+	size_t v4; // esi
+	char v6[6]; // [esp+8h] [ebp-8h]
+
+	v1 = vkey;
+	if ((signed int)(plr[myplr]._pHitPoints & 0xFFFFFFC0) <= 0)
+	{
+		nameStashTabFlag = 0;
+		renameStashValue = "";
+		return;
+	}
+	if (v1 != VK_RETURN)
+	{
+		if (v1 == VK_ESCAPE)
+		{
+			nameStashTabFlag = 0;
+			renameStashValue = "";
+			return;
+		}
+		if (v1 == VK_BACK)
+		{
+			if (renameStashValue.length() > 0) {
+				renameStashValue.pop_back();
+			}
+		}
+		else
+		{
+			if (renameStashValue.length() < 15) {
+				renameStashValue.push_back((char)vkey);
+			}
+		}
+		return;
+	}
+	if (renameStashValue.length() > 0) {
+		int stashtab = plr[myplr].currentInventoryIndex - 4;
+		if (stashtab >= 0) {
+			std::replace(renameStashValue.begin(), renameStashValue.end(), ' ', '_');
+			strcpy(plr[myplr].StashNames[stashtab], renameStashValue.c_str());
+		}
+	}
+		
+	nameStashTabFlag = 0;
 }
 // 4B84DC: using guessed type int dropGoldFlag;
 // 406C40: using guessed type char var_8[8];

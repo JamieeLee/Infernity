@@ -804,6 +804,7 @@ int __fastcall NetInit(int bSinglePlayer, int *pfExitProgram)
 	a4 = pfExitProgram;
 	v14 = bSinglePlayer;
 	v2 = 0;
+
 	while ( 1 )
 	{
 		*a4 = 0;
@@ -920,6 +921,7 @@ void __fastcall multi_send_pinfo(int pnum, char cmd)
 
 	v2 = cmd;
 	v3 = pnum;
+	
 	PackPlayer(&pkplr, myplr, 1);
 	dthread_send_delta(v3, v2, &pkplr, sizeof(LATEST_PKPLAYER_STRUCT));
 }

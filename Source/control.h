@@ -8,6 +8,7 @@ extern void *pDurIcons;
 extern void *pChrButtons;
 extern int drawhpflag; // idb
 extern int dropGoldFlag; // weak
+extern int nameStashTabFlag;
 extern int panbtn[8];
 extern int chrbtn[4];
 extern void *pMultiBtns;
@@ -16,6 +17,7 @@ extern void *pChrPanel;
 extern int lvlbtndown; // weak
 extern char sgszTalkSave[8][80];
 extern int dropGoldValue; // idb
+extern std::string renameStashValue;
 extern int drawmanaflag; // idb
 extern int chrbtnactive; // weak
 extern char sgszTalkMsg[80];
@@ -109,7 +111,9 @@ void __fastcall PrintSBookStr(int x, int y, bool cjustflag, char *pszStr, int br
 void __cdecl CheckSBook();
 char *__fastcall get_pieces_str(int nGold);
 void __fastcall DrawGoldSplit(int amount);
+void __fastcall DrawStashRename(std::string s);
 void __fastcall control_drop_gold(int vkey);
+void __fastcall control_rename_stash(int vkey);
 void __fastcall control_remove_gold(int pnum, int gold_index);
 void __fastcall control_set_gold_curs(int pnum);
 void __cdecl DrawTalkPan();

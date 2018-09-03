@@ -1086,6 +1086,8 @@ LABEL_28:
 	plr[v4].version = CurVersion;
 	
 	plr[v4].currentInventoryIndex = 0;
+
+
 	memset(plr[v4].InvGridExpanded, 0, sizeof(char) * 40);
 	memset(plr[v4].InvListExpanded, 0, sizeof(ItemStruct) * 40);
 	for (int i = 0; i < 4; ++i) {
@@ -1101,7 +1103,16 @@ LABEL_28:
 	plr[v4].alternateWeapons[0]._itype = -1;
 	plr[v4].alternateWeapons[1]._itype = -1;
 	plr[v4].currentWeaponSet = 0;
-	
+
+	for (int i = 0; i < 100; ++i) {
+		plr[v4].StashNumInv[i] = 0;
+		for (int j = 0; j < 40; ++j) {
+			plr[v4].StashInvList[i][j]._itype = -1;
+			plr[v4].StashInvGrid[i][j] = 0;
+		}	
+		strcpy(&plr[v4].StashNames[i][0], "Click to rename");
+	}
+	plr[v4].lastTab = 0;	
 	SetRndSeed(0);
 }
 

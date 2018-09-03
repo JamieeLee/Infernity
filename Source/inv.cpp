@@ -160,6 +160,47 @@ LABEL_9:
 	}
 	while ( v5 );
 }
+int ReverseXInv(int x) {
+	return ScreenWidth * 2 - 320 - x;
+}
+void DrawStashButtons() {
+	if (currlevel != 0) { return; }
+	int stashbuttons[5] = {475-8,500-8,539-4, 577,602 };
+	int colors[5] = { 182,182,182,182,182 };
+
+	int stashtab = plr[myplr].currentInventoryIndex - 4;
+	if (stashtab <= 0) { colors[0] = 0; colors[1] = 0;}
+	if (stashtab >= 99) { colors[3] = 0; colors[4] = 0; }
+	std::string texts[5] = { "<<","<","o",">",">>" };
+
+	if (stashtab >= 0) {
+		std::stringstream ss;
+		ss << stashtab+1;
+		int wid = 0;
+		if (strlen(plr[myplr].StashNames[stashtab]) >= 0) {
+			int wid = GetTextWidth(plr[myplr].StashNames[stashtab]) / 2;
+			PrintGameStr(GetWidthDiff() + 480 - wid, 179, plr[myplr].StashNames[stashtab], COL_ORANGE);
+			CelDecodeOnly(GetWidthDiff()+537-wid-8, 340, pCelBuff, frame_4B8800, 12);
+			CelDecodeOnly(GetWidthDiff()+537 + wid + 8, 340, pCelBuff, frame_4B8800, 12);
+			frame_4B8800 = (frame_4B8800 & 7) + 1;
+		}
+		PrintGameStr(GetWidthDiff() + 400, 192, "stash tab: ", COL_WHITE);
+		PrintGameStr(GetWidthDiff() + 400 + GetTextWidth((char*)"stash tab: "), 192, (char*)ss.str().c_str(), COL_RED);
+	}
+	for (int i = 0; i < 5; ++i) {
+		if (stashtab < 0 && i != 2) {
+			continue;
+		}
+		int x = stashbuttons[i] + GetWidthDiff();
+		int y = 352;
+		for (int j = 0; j < 20; ++j) {
+			for (int k = 0; k < 20; ++k) {
+				ColorPixel(x + j, y + k, colors[i]);
+			}
+		}
+		PrintGameStr(x-54-GetTextWidth((char*)texts[i].c_str())/2, y-145, (char*)texts[i].c_str(), COL_ORANGE);
+	}
+}
 
 
 void DrawExpandedInventoryButtons() {
@@ -184,6 +225,7 @@ void DrawExpandedInventoryButtons() {
 		ss << i + 1;
 		PrintGameStr(x - 61 +(i == 0), 241 + i * 29, (char*)ss.str().c_str(), COL_WHITE);
 	}
+	DrawStashButtons();
 }
 
 void __cdecl DrawInv()
@@ -1697,6 +1739,10 @@ void __fastcall CheckInvCut(int pnum, int mx, int my, bool shift)
 	if ( plr[pnum]._pmode > PM_WALK3 )
 		return;
 	v4 = 0;
+	if (nameStashTabFlag) {
+		renameStashValue = "";
+		nameStashTabFlag = 0;
+	}
 	if ( dropGoldFlag )
 	{
 		dropGoldFlag = 0;
@@ -2169,6 +2215,10 @@ void __fastcall InvGetItem(int pnum, int ii)
 
 	v7 = ii;
 	pnuma = pnum;
+	if (nameStashTabFlag) {
+		renameStashValue = "";
+		nameStashTabFlag = 0;
+	}
 	if ( dropGoldFlag )
 	{
 		dropGoldFlag = 0;
@@ -2240,6 +2290,10 @@ void __fastcall AutoGetItem(int pnum, int ii)
 
 	v2 = pnum;
 	i = ii;
+	if (nameStashTabFlag) {
+		renameStashValue = "";
+		nameStashTabFlag = 0;
+	}
 	if ( dropGoldFlag )
 	{
 		dropGoldFlag = 0;
@@ -3175,6 +3229,16 @@ void __cdecl StartGoldDrop()
 	if ( talkflag )
 		control_reset_talk();
 }
+
+
+void __cdecl StartStashRename()
+{
+	renameStashValue = "";
+	nameStashTabFlag = 1;
+	if (talkflag)
+		control_reset_talk();
+}
+
 // 4B84DC: using guessed type int dropGoldFlag;
 // 4B8960: using guessed type int talkflag;
 // 4B8CB8: using guessed type char pcursinvitem;
@@ -3299,6 +3363,7 @@ int __fastcall UseInvItem(int pnum, int cii)
 			dropGoldFlag = 0;
 			dropGoldValue = 0;
 		}
+		nameStashTabFlag = 0;
 		if ( v9 == 21 && !currlevel && !*(_DWORD *)&spelldata[v6[56]].sTownSpell
 		  || v9 == 22 && !currlevel && !*(_DWORD *)&spelldata[v6[56]].sTownSpell )
 		{

@@ -87,7 +87,6 @@ void __fastcall PackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool manashi
 	
 	pPack->currentInventoryIndex=pPlayer->currentInventoryIndex;
 
-
 	for (int j = 0; j < 4; ++j) {
 		pPack->NumInvExpanded[j]= pPlayer->NumInvExpanded[j];
 		for (i = 0; i < 40; i++) {
@@ -110,6 +109,25 @@ void __fastcall PackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool manashi
 	PackItem(&pPack->alternateWeapons[0], &pPlayer->alternateWeapons[0]);
 	PackItem(&pPack->alternateWeapons[1], &pPlayer->alternateWeapons[1]);
 	pPack->currentWeaponSet = pPlayer->currentWeaponSet;
+
+	
+	for (int j = 0; j < 100; ++j) {
+		strcpy(pPack->StashNames[j], pPlayer->StashNames[j]);
+		pPack->StashNumInv[j] = pPlayer->StashNumInv[j];
+		for (i = 0; i < 40; i++) {
+			pPack->StashInvGrid[j][i] = pPlayer->StashInvGrid[j][i];
+		}
+	}
+
+	for (int j = 0; j < 100; ++j) {
+		for (i = 0; i < 40; i++) {
+			PackItem(&pPack->StashInvList[j][i], &pPlayer->StashInvList[j][i]);
+		}
+	}
+	pPack->lastTab = pPlayer->lastTab;
+	
+	
+
 }
 // 679660: using guessed type char gbMaxPlayers;
 
@@ -306,6 +324,34 @@ void __fastcall UnPackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool killo
 		pPlayer->alternateWeapons[0]._itype = -1;
 		pPlayer->alternateWeapons[1]._itype = -1;
 	}
+
+	
+	
+	if (pPlayer->version > 3) {
+
+		pPlayer->lastTab = pPack->lastTab;
+		for (int i = 0; i < 100; ++i) {
+			strcpy(&pPlayer->StashNames[i][0], &pPack->StashNames[i][0]);
+			pPlayer->StashNumInv[i] = pPack->StashNumInv[i];
+			for (int j = 0; j < 40; ++j) {
+				UnPackItem(&pPack->StashInvList[i][j], &pPlayer->StashInvList[i][j]);
+				pPlayer->StashInvGrid[i][j] = pPack->StashInvGrid[i][j];
+			}
+		}
+	}
+	else {
+		pPlayer->lastTab = 0;
+		for (int i = 0; i < 100; ++i) {
+			strcpy(&pPlayer->StashNames[i][0], "Click to rename");
+			pPlayer->StashNumInv[i] = 0;
+			for (int j = 0; j < 40; ++j) {
+				memset(&pPlayer->StashInvList[i][j], 0, StructSize<ItemStruct>());
+				pPlayer->StashInvList[i][j]._itype = -1;
+				pPlayer->StashInvGrid[i][j] = 0;
+			}
+		}
+	}
+	
 	CalcPlrInv(pnum, 0);
 }
 

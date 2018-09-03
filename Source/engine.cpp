@@ -25,7 +25,7 @@ struct engine_cpp_init_1
 // 52B968: using guessed type int engine_cpp_init_value;
 
 uint SaveVersion = -1;
-uint CurVersion = 3;
+uint CurVersion = 4;
 
 
 
@@ -1897,7 +1897,7 @@ bool played = false;
 void PrintDebugInfo() {
 	if (showDebugInfo) {
 		std::stringstream ss;
-		ss << "debuginfo: " << MouseX << " " << MouseY << " " << ScreenWidth << " " << ScreenHeight << " " << num;
+		ss << "debuginfo: " << MouseX << " " << MouseY << " " << (int)plr[myplr].HoldItem._itype;
 		if (played == false) {
 			PlaySFX(num++);
 			played = true;

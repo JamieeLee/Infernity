@@ -45,6 +45,7 @@ bool __cdecl UseScroll();
 void __fastcall UseStaffCharge(int pnum);
 bool __cdecl UseStaff();
 void __cdecl StartGoldDrop();
+void __cdecl StartStashRename();
 int __fastcall UseInvItem(int pnum, int cii);
 void __cdecl DoTelekinesis();
 int __fastcall CalculateGold(int pnum);

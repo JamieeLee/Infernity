@@ -221,6 +221,7 @@ LABEL_41:
 			IncProgress();
 			if (IsInfernoEnabled())
 				InitDiabloMsg(2);
+			if (plr[myplr].currentInventoryIndex >= 4 && currlevel) { ToggleStash(); }
 			break;
 		default:
 			break;

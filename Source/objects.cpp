@@ -4925,6 +4925,10 @@ void __fastcall OperateShrine(int pnum, int i, int sType)
 
 	param2 = i;
 	arglist = pnum;
+	if (nameStashTabFlag) {
+		renameStashValue = "";
+		nameStashTabFlag = 0;
+	}
 	if ( dropGoldFlag )
 	{
 		dropGoldFlag = 0;

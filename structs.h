@@ -1,6 +1,6 @@
 #include <string>
-#define GLOBAL_WIDTH 1600
-#define GLOBAL_HEIGHT 1200
+#define GLOBAL_WIDTH 1280		
+#define GLOBAL_HEIGHT 960
 class drawingQueue
 {
 public:
@@ -720,7 +720,7 @@ struct PkItemStruct
 /* __declspec(align(2)) */
 #pragma pack(push, 1)
 
-#define LATEST_PKPLAYER_STRUCT PkPlayerStruct3
+#define LATEST_PKPLAYER_STRUCT PkPlayerStruct4
 struct PkPlayerStruct
 {
 	FILETIME archiveTime;
@@ -779,6 +779,15 @@ struct PkPlayerStruct3 :PkPlayerStruct2
 {
 	PkItemStruct alternateWeapons[2];
 	int currentWeaponSet;
+};
+
+struct PkPlayerStruct4 :PkPlayerStruct3
+{
+	PkItemStruct StashInvList[100][40];
+	char StashInvGrid[100][40];
+	int StashNumInv[100];
+	char StashNames[100][16];
+	int lastTab;
 };
 #pragma pack(pop)
 
@@ -1011,6 +1020,11 @@ struct PlayerStruct
 	ItemStruct alternateWeapons[2];
 	int currentWeaponSet;
 	char walkpath2[100];
+	ItemStruct StashInvList[100][40];
+	char StashInvGrid[100][40];
+	int StashNumInv[100];
+	char StashNames[100][16];
+	int lastTab;
 };
 
 struct QuestStruct

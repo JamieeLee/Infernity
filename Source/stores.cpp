@@ -2076,6 +2076,7 @@ void __fastcall StartStore(char s)
 		chrflag = 0;
 		questlog = 0;
 		dropGoldFlag = 0;
+		nameStashTabFlag = 0;
 		ClearSText(0, 24);
 		ReleaseStoreBtn();
 		switch ( t )

@@ -464,7 +464,6 @@ bool __cdecl OLoad()
 
 void __fastcall LoadPlayer(int i)
 {
-	
 	//memcpy(&plr[i], tbuff, 0x54B0u);
 	//tbuff = (char *)tbuff + 21680;
 	int wtfsize = 21680;// StructSize<PlayerStruct>();
@@ -492,6 +491,19 @@ void __fastcall LoadPlayer(int i)
 		plr[i].alternateWeapons[0]._itype = -1;
 		plr[i].alternateWeapons[1]._itype = -1;
 		plr[i].currentWeaponSet = 0;
+	}
+
+	if (SaveVersion <= 3) {
+		for (int ii = 0; ii < 100; ++ii) {
+			strcpy(plr[i].StashNames[ii], "Click to rename");
+			plr[i].StashNumInv[ii] = 0;
+			for (int j = 0; j < 40; ++j) {
+				memset(&plr[i].StashInvList[ii][j], 0, sizeof(ItemStruct));
+				plr[i].StashInvList[ii][j]._itype = -1;
+				plr[i].StashInvGrid[ii][j] = 0;
+			}
+		}
+		plr[i].lastTab = 0;
 	}
 }
 

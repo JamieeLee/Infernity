@@ -651,6 +651,12 @@ LABEL_10:
 		control_drop_gold(VK_ESCAPE);
 		result = 1;
 	}
+
+	if (nameStashTabFlag)
+	{
+		control_rename_stash(VK_ESCAPE);
+		result = 1;
+	}
 	if ( spselflag )
 	{
 		spselflag = 0;
@@ -888,7 +894,7 @@ bool __fastcall LeftMouseDown(int a1)
 
 	if (MouseX > GetWidthDiff() / 2 && MouseX < ScreenWidth-GetWidthDiff() / 2 && MouseY > 352 + GetHeightDiff())
 	{
-		if ( !talkflag && !dropGoldFlag )
+		if ( !talkflag && !dropGoldFlag && !nameStashTabFlag)
 		{
 			if ( !gmenu_exception() )
 				CheckInvScrn();
@@ -897,6 +903,11 @@ bool __fastcall LeftMouseDown(int a1)
 		if ( pcurs <= 1 || pcurs >= 12 )
 			return 0;
 		goto LABEL_48;
+	}
+
+	if (invflag && MouseY >= 164 && MouseY <= 175 && MouseX >= 400 + GetWidthDiff() && MouseX <= 560 + GetWidthDiff() && plr[myplr].currentInventoryIndex >= 4) {
+		StartStashRename();
+		return 0;
 	}
 	if ( gmenu_exception() || TryIconCurs() )
 		return 0;
@@ -919,8 +930,9 @@ bool __fastcall LeftMouseDown(int a1)
 	if ( invflag && MouseX > 320+GetWidthDiff() && MouseY < 352)
 	{
 		CheckInvSwitchButtons();
+		CheckStashButtons();
 
-		if ( !dropGoldFlag )
+		if ( !dropGoldFlag && !nameStashTabFlag)
 			CheckInvItem();
 		return 0;
 	}
@@ -1256,7 +1268,7 @@ void __fastcall PressKey(int vkey)
 				diablo_hotkey_msg(2);
 			if ( v1 == VK_F12 )
 				diablo_hotkey_msg(3);
-			if ( v1 == VK_RETURN )
+			if ( v1 == VK_RETURN && !nameStashTabFlag)
 				control_type_message();
 			if ( v1 == VK_ESCAPE )
 			{
@@ -1290,7 +1302,7 @@ LABEL_113:
 								{
 									QuestlogEnter();
 								}
-								else
+								else if (!nameStashTabFlag)
 								{
 									control_type_message();
 								}
@@ -1563,7 +1575,7 @@ void __fastcall PressChar(int vkey)
 	v1 = vkey;
 	if ( !gmenu_exception() && !control_talk_last_key(v1) && sgnTimeoutCurs == CURSOR_NONE && !deathflag )
 	{
-		if ( (_BYTE)v1 == 'p' || (_BYTE)v1 == 'P' )
+		if (((_BYTE)v1 == 'p' || (_BYTE)v1 == 'P') && !nameStashTabFlag)
 		{
 			diablo_pause_game();
 		}
@@ -1577,6 +1589,12 @@ void __fastcall PressChar(int vkey)
 			if ( dropGoldFlag )
 			{
 				control_drop_gold(v1);
+				return;
+			}
+
+			if (nameStashTabFlag)
+			{
+				control_rename_stash(v1);
 				return;
 			}
 			switch ( v1 )
@@ -1628,6 +1646,11 @@ void __fastcall PressChar(int vkey)
 					return;
 				case '%':
 				case '5':
+					if (GetAsyncKeyState(VK_SHIFT) & 0x8000)
+					{
+						ToggleStash();
+						return;
+					}
 					v9 = myplr;
 					v14 = plr[myplr].SpdList[4]._itype;
 					if ( v14 != -1 && v14 != 11 )

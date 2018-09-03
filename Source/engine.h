@@ -82,6 +82,8 @@ int GetItemColor(int index, ItemStruct* item, bool f);
 int GetItemHighlightColor(int index);
 int GetItemHighlightColor(int index, ItemStruct* item, bool f);
 void CheckInvSwitchButtons();
+void CheckStashButtons();
+void ToggleStash();
 bool SwitchInvTab(int newTab);
 void DrawFloatingTextAbovePlayer();
 void DrawFloatingExp(int xpGain, int row, int col);
@@ -122,7 +124,7 @@ template<typename T> size_t StructSize(int version = -1) { return sizeof(T); }
 	for( int i = 0; i < countof(s); i+=2 ) if( size_t(version) > s[i] ) return size; else size = s[i+1]; return size; }
 
 SS(ItemStruct, 0, 368);
-SS(PlayerStruct, 2, 81520, 1, 80780, 0, 21720); // 21944 = wtf?
+SS(PlayerStruct, 3, 81620, 2, 81520, 1, 80780, 0, 21720); // 3, 81620, 
 #undef SS
 
 void __cdecl engine_cpp_init_2();
