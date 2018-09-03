@@ -34,6 +34,7 @@ I will order a pizza and think about you while eating ;)
 - Alternate weapon slot + switching between weapons
 - Fixed duping
 - HD
+- Stash (You can only use it in town, you can quickswitch to it using Shift+5
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
@@ -44,9 +45,10 @@ I will order a pizza and think about you while eating ;)
 # Installing
 - Get `infernity.exe` [here](https://github.com/qndel/Infernity/blob/master/Source/Infernity.exe)
 - Get `infernity_config.ini`  [here](https://github.com/qndel/Infernity/blob/master/Source/infernity_config.ini)
+- Get `ddraw.dll` [here](https://github.com/qndel/Infernity/blob/master/Source/ddraw.dll)
 - Create a file named `enable_inferno` in your diablo folder.
 - Launch `Infernity.exe` in your Diablo folder to play. The following files from the original game patched to 1.09 need to be present: `DIABDAT.MPQ`, `DiabloUI.dll`, `SmackW32.dll`, `Standard.snp`, and `Storm.dll`.
-- Additionally, Strange Bytes' [DirectDraw patch](http://www.strangebytes.com/index.php/projects/1-diablo-1-windows-7-vista-patch) is recommended to help fix compatibility issues and run the game in windowed mode.
+- ddraw.dll used to be optional, but after making Infernity HD, it's required. It's a modified version which allows resolutions up to 2560x1440 (4k was buggy so I didn't add it)
  # Changelog
 - 1.00 - Added Inferno difficulty and 3 affix items.
 - 1.01 - Added health bar (can turn on/off in config)
@@ -63,6 +65,7 @@ I will order a pizza and think about you while eating ;)
 - 1.12 - added alternate weapon slot and switching between weapons using 'v' hotkey
 - 1.13 - fixes all issues with loading in single player, butcher should be in multiplayer too, portals shouldn't break in multiplayer
 - 1.14 - HD! Best thing ever!
+- 1.15 - STASH!
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
@@ -73,6 +76,7 @@ Some screenshots from the mod (You can find more screenshots on discord):
 ![Screenshot 3: Shrines revealed](https://media.discordapp.net/attachments/474387916043321364/477974757116215306/unknown.png?width=460&height=936 "Shrines revealed!")
 ![Screenshot 4: Bonus affixes](https://i.imgur.com/py6Ibzi.gif "Bonus affix!")
 ![Screenshot 5: Frame colors](https://i.imgur.com/TqMLJx3.png "Frame colors!")
+![Screenshot 6: Stash!](https://i.imgur.com/hnTJ5N0.jpg "Stash!")
 
 
 # Credits
