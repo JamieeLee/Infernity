@@ -34,7 +34,7 @@ I will order a pizza and think about you while eating ;)
 - Alternate weapon slot + switching between weapons
 - Fixed duping
 - HD
-- Stash (You can only use it in town, you can quickswitch to it using Shift+5
+- Stash (You can only use it in town, you can quickswitch to it using Shift+5)
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
