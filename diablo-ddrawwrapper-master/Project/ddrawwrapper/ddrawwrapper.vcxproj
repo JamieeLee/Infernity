@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -14,18 +14,21 @@
     <ProjectGuid>{99418D1A-5BE9-4905-9002-B66A5979640B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ddrawwrapper</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -40,14 +43,15 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <TargetName>ddraw</TargetName>
-    <IncludePath>$(DXSDK_DIR)\Include\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(DXSDK_DIR)\Lib\$(PlatformShortName)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(DXSDK_DIR)\Include\;$(IncludePath);$(ProjectDir)\..\..\Detours-master\include</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)\Lib\$(PlatformShortName)\;$(LibraryPath);$(ProjectDir)\..\..\Detours-master\lib.X86</LibraryPath>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <TargetName>ddraw</TargetName>
-    <IncludePath>$(DXSDK_DIR)\Include\;$(IncludePath)</IncludePath>
-    <LibraryPath>$(DXSDK_DIR)\Lib\$(PlatformShortName)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(DXSDK_DIR)\Include\;$(IncludePath);$(ProjectDir)\..\..\Detours-master\include</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)\Lib\$(PlatformShortName)\;$(LibraryPath);$(ProjectDir)\..\..\Detours-master\lib.X86</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -63,8 +67,13 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;d3d9.lib;d3dx9.lib;detours.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent />
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)$(Configuration)\ddraw.dll" C:\Diablo</Command>
+      <Command>copy /Y "$(SolutionDir)$(Configuration)\ddraw.dll" $(ProjectDir)\..\..\..\Source\DiabloGame\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -85,8 +94,13 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>kernel32.lib;user32.lib;d3d9.lib;d3dx9.lib;detours.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent />
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)$(Configuration)\ddraw.dll" C:\Diablo</Command>
+      <Command>copy /Y "$(SolutionDir)$(Configuration)\ddraw.dll" $(ProjectDir)\..\..\..\Source\DiabloGame\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -8,7 +8,6 @@
 
 #ifndef H_DDW
 #define H_DDW
-
 // Global function def
 void debugMessage(int, char*, char*);
 
@@ -22,7 +21,6 @@ class FAR IDirectDrawGammaControlWrapper;
 
 // Custom vertex format
 const DWORD D3DFVF_TLVERTEX = D3DFVF_XYZRHW | D3DFVF_TEX1;
-
 // Custom vertex
 struct TLVERTEX
 {
@@ -100,6 +98,7 @@ public:
 	// Application display mode
 	DWORD displayModeWidth;
 	DWORD displayModeHeight;
+	DWORD displayModeBPP;
 
 	// Display resolution
 	UINT displayWidth;
@@ -305,8 +304,8 @@ public:
 	~IDirectDrawSurfaceWrapper();
 
 	// Helper functions
-	HRESULT WrapperInitialize(LPDDSURFACEDESC lpDDSurfaceDesc, DWORD displayModeWidth, DWORD displayModeHeight, DWORD displayWidth, DWORD displayHeight);
-	BOOL ReInitialize(DWORD displayWidth, DWORD displayHeight);
+	HRESULT WrapperInitialize(LPDDSURFACEDESC lpDDSurfaceDesc, DWORD displayModeWidth, DWORD displayModeHeight, DWORD displayWidth, DWORD displayHeight, DWORD bpp);
+	BOOL ReInitialize(DWORD displayWidth, DWORD displayHeight, DWORD bpp);
 
 	// RGB video memory
 	UINT32 *rgbVideoMem;
@@ -324,6 +323,7 @@ private:
 	DDSURFACEDESC surfaceDesc;
 	LONG surfaceWidth;
 	LONG surfaceHeight;
+	LONG surfaceBPP;
 
 	// Color keys(DDCKEY_DESTBLT, DDCKEY_DESTOVERLAY, DDCKEY_SRCBLT, DDCKEY_SRCOVERLAY)
 	DDCOLORKEY colorKeys[4];

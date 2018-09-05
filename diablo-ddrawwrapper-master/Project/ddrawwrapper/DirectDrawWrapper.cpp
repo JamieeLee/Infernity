@@ -123,7 +123,7 @@ HRESULT __stdcall IDirectDrawWrapper::CreateSurface(LPDDSURFACEDESC lpDDSurfaceD
 	lpAttachedSurface = new IDirectDrawSurfaceWrapper(this);
 	if(lpAttachedSurface == NULL) return DDERR_OUTOFMEMORY; //OOM Fail
 	// Initialize the surface wrapper
-	HRESULT hr = lpAttachedSurface->WrapperInitialize(lpDDSurfaceDesc, displayModeWidth, displayModeHeight, displayWidth, displayHeight);
+	HRESULT hr = lpAttachedSurface->WrapperInitialize(lpDDSurfaceDesc, displayModeWidth, displayModeHeight, displayWidth, displayHeight, displayModeBPP);
 	// If fail then return result
 	if(hr != DD_OK) return hr;
 
@@ -560,6 +560,7 @@ HRESULT __stdcall IDirectDrawWrapper::SetCooperativeLevel(HWND in_hWnd, DWORD dw
 	*/
 }
 
+#include <sstream>
 // Sets the mode of the display-device hardware.
 HRESULT __stdcall IDirectDrawWrapper::SetDisplayMode(DWORD dwWidth, DWORD dwHeight, DWORD dwBPP)
 {
@@ -569,6 +570,7 @@ HRESULT __stdcall IDirectDrawWrapper::SetDisplayMode(DWORD dwWidth, DWORD dwHeig
 	// Set display mode to dwWidth x dwHeight with dwBPP color depth
 	displayModeWidth = dwWidth;
 	displayModeHeight = dwHeight;
+	displayModeBPP = dwBPP;
 
 	// Ignore color depth
 
@@ -1024,8 +1026,8 @@ IDirectDrawWrapper::IDirectDrawWrapper()
 	inMenu = false;
 	curMenu = 0;
     // Resolutions
-	windowedResolutions = new POINT[10];
-	windowedResolutionCount = 10;
+	windowedResolutions = new POINT[13];
+	windowedResolutionCount = 13;
 	windowedResolutions[0].x = 640;
 	windowedResolutions[0].y = 480;
 	windowedResolutions[1].x = 800;
@@ -1038,14 +1040,20 @@ IDirectDrawWrapper::IDirectDrawWrapper()
 	windowedResolutions[4].y = 864;
 	windowedResolutions[5].x = 1280;
 	windowedResolutions[5].y = 960;
-	windowedResolutions[6].x = 1400;
-	windowedResolutions[6].y = 1050;
-	windowedResolutions[7].x = 1440;
-	windowedResolutions[7].y = 1080;
-	windowedResolutions[8].x = 1600;
-	windowedResolutions[8].y = 1200;
-	windowedResolutions[9].x = 1920;
-	windowedResolutions[9].y = 1440;
+	windowedResolutions[6].x = 1366;
+	windowedResolutions[6].y = 768;
+	windowedResolutions[7].x = 1400;
+	windowedResolutions[7].y = 1050;
+	windowedResolutions[8].x = 1440;
+	windowedResolutions[8].y = 1080;
+	windowedResolutions[9].x = 1600;
+	windowedResolutions[9].y = 1200;
+	windowedResolutions[10].x = 1920;
+	windowedResolutions[10].y = 1080;
+	windowedResolutions[11].x = 1920;
+	windowedResolutions[11].y = 1440;
+	windowedResolutions[12].x = 2560;
+	windowedResolutions[12].y = 1440;
 
 	fullscreenResolutionCount = 0;
 	fullscreenResolutions = NULL;
@@ -1241,6 +1249,34 @@ HRESULT IDirectDrawWrapper::WrapperInitialize(WNDPROC wp, HMODULE hMod)
 /* Helper function to present the d3d surface
  * 
  */
+#include <sstream>
+extern int gameState;
+
+void memcpy2(void* dest, void* src, int size)
+{
+	UINT32 *pdest = (UINT32*)dest;
+	UINT32 *psrc = (UINT32*)src;
+	/*
+	int loops = (size / sizeof(uint32_t));
+	for (int index = 0; index < loops; ++index)
+	{
+		*((uint32_t*)pdest) = *((uint32_t*)psrc);
+		pdest += sizeof(uint32_t);
+		psrc += sizeof(uint32_t);
+	}
+	*/
+
+	//loops = (size % sizeof(uint32_t));
+	for (int index = 0; index < size/2; index+=sizeof(UINT32))
+	{
+		*pdest = *psrc;
+		++pdest;
+		*pdest = *psrc;
+		++pdest;
+
+		++psrc;
+	}
+}
 HRESULT IDirectDrawWrapper::Present()
 {
 	// Make sure the device exists
@@ -1260,19 +1296,42 @@ HRESULT IDirectDrawWrapper::Present()
 	// Make sure the attached surface exists
 	if(lpAttachedSurface != NULL)
 	{
+
+		{
+			std::stringstream ss;
+			//ss << surfaceTexture->
+		}
 		// Lock full dynamic texture
-		D3DLOCKED_RECT d3dlrect;
+		D3DLOCKED_RECT d3dlrect;       //&d3dlrect
+
+
 		if(surfaceTexture->LockRect(0, &d3dlrect, NULL, D3DLOCK_DISCARD) != D3D_OK)
 		{
 			debugMessage(0, "IDirectDrawWrapper::Present","Failed to lock texture memory");
 			return false;
 		}
-
 		// Copy bits to texture by scanline observing pitch
-		for(DWORD y = 0; y < displayModeHeight; y++)
-		{
-			memcpy((BYTE *)d3dlrect.pBits + (y * d3dlrect.Pitch), &lpAttachedSurface->rgbVideoMem[y * displayModeWidth], displayModeWidth * sizeof(UINT32));
-		}
+			for (DWORD y = 0; y < displayModeHeight; y++)
+			{
+				//&lpAttachedSurface->rgbVideoMem[y * displayModeWidth]
+				//* displayModeBPP/32
+				if (gameState == 0) {
+					//UINT32 hey = RGB(0, 0, 255);
+					//memcpy((BYTE *)d3dlrect.pBits + (y * d3dlrect.Pitch), &lpAttachedSurface->rgbVideoMem[y * displayModeWidth], displayModeWidth * sizeof(UINT32));
+					for (int i = 0; i < displayModeWidth; ++i) {
+						//lpAttachedSurface->rgbVideoMem[y * displayModeWidth + i] = RGB(255, 0, 255);
+					}
+					//memcpy((BYTE *)d3dlrect.pBits + (y * d3dlrect.Pitch), &lpAttachedSurface->rgbVideoMem[y * displayModeWidth/2], displayModeWidth * sizeof(UINT32));
+					memcpy2((BYTE *)d3dlrect.pBits + (y * d3dlrect.Pitch), &lpAttachedSurface->rgbVideoMem[y * displayModeWidth / 2], displayModeWidth * sizeof(UINT32));
+					//memcpy((BYTE *)d3dlrect.pBits + (y * d3dlrect.Pitch), &hey, displayModeWidth );
+				}
+				else if(gameState == 1) {
+					memcpy2((BYTE *)d3dlrect.pBits + (y * d3dlrect.Pitch), &lpAttachedSurface->rgbVideoMem[y * displayModeWidth / 2], displayModeWidth * sizeof(UINT32));
+				}
+				else if (gameState == 2) {
+					memcpy((BYTE *)d3dlrect.pBits + (y * d3dlrect.Pitch), &lpAttachedSurface->rgbVideoMem[y * displayModeWidth], displayModeWidth * sizeof(UINT32));
+				}
+			}
 
 		// Unlock dynamic texture
 		if(surfaceTexture->UnlockRect(NULL) != D3D_OK)
@@ -1878,7 +1937,7 @@ bool IDirectDrawWrapper::CreateD3DDevice()
 		}
 
 		// No modes above maximum size
-		if(d3ddispmode.Width < 1920 && d3ddispmode.Height < 1440) {
+		if(d3ddispmode.Width <= 2560 && d3ddispmode.Height <= 1440) {
 			fullscreenResolutions[fullscreenResolutionCount].x = d3ddispmode.Width;
 			fullscreenResolutions[fullscreenResolutionCount].y = d3ddispmode.Height;
 			fullscreenRefreshes[fullscreenResolutionCount] = d3ddispmode.RefreshRate;

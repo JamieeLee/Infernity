@@ -1040,7 +1040,8 @@ HRESULT __stdcall IDirectDrawSurfaceWrapper::SetPalette(LPDIRECTDRAWPALETTE lpDD
     DDERR_UNSUPPORTED
 	*/
 }
-
+#include <fstream>
+int gameState = 0;
 // Notifies DirectDraw that the direct surface manipulations are complete.
 HRESULT __stdcall IDirectDrawSurfaceWrapper::Unlock(LPVOID lpRect)
 {
@@ -1061,10 +1062,20 @@ HRESULT __stdcall IDirectDrawSurfaceWrapper::Unlock(LPVOID lpRect)
 	// Always unlock full rect(fix)
 
 	// Translate all of raw video memory to rgb video memory with palette
-	for(long i = 0; i < surfaceWidth * surfaceHeight; i++)
-	{
-		rgbVideoMem[i] = attachedPalette->rgbPalette[rawVideoMem[i]];
+	if (gameState == 0) {
+		for (long i = 0; i < surfaceWidth * surfaceHeight; ++i) {
+			rgbVideoMem[i] = attachedPalette->rgbPalette[rawVideoMem[i]];
+		}
 	}
+	else {
+
+		for (long i = 0; i < surfaceWidth * surfaceHeight * surfaceBPP / 8; i += surfaceBPP / 8)
+		{
+			int index = i * 8 / surfaceBPP;
+			rgbVideoMem[index] = attachedPalette->rgbPalette[rawVideoMem[i]] + RGB(rawVideoMem[i + 3], rawVideoMem[i + 2], rawVideoMem[i + 1]);
+		}
+	}
+
 
 	/*
 	A pointer to a RECT structure that was used to lock the surface in the corresponding 
@@ -1196,6 +1207,7 @@ HRESULT __stdcall IDirectDrawSurfaceWrapper::UpdateOverlay(LPRECT lpSrcRect, LPD
 // The IDirectDrawSurface7::UpdateOverlayDisplay method is not currently implemented
 HRESULT __stdcall IDirectDrawSurfaceWrapper::UpdateOverlayDisplay(DWORD dwFlags)
 {
+	gameState = dwFlags;//temporarily using this function for setting game state
 	debugMessage(0, "IDirectDrawSurfaceWrapper::UpdateOverlayDisplay", "Not Supported in DirectDraw");
 	// Not supported
 	return DDERR_UNSUPPORTED;
@@ -1572,26 +1584,26 @@ IDirectDrawSurfaceWrapper::~IDirectDrawSurfaceWrapper()
 }
 
 // Helper funtion to reallocate memory if display resolution changes
-BOOL IDirectDrawSurfaceWrapper::ReInitialize(DWORD displayWidth, DWORD displayHeight)
+BOOL IDirectDrawSurfaceWrapper::ReInitialize(DWORD displayWidth, DWORD displayHeight, DWORD bpp)
 {
 	char message[2048] = "\0";
 	
 	//store old memory pointer
 	BYTE* oldMem = rawVideoMem;
 	// Allocate new raw video memory to fit resolution
-	rawVideoMem = new BYTE[displayWidth * displayHeight];
+	rawVideoMem = new BYTE[displayWidth * displayHeight * bpp/8];
 	if(rawVideoMem == NULL) 
 	{
 		debugMessage(0, "IDirectDrawSurfaceWrapper::ReInitialize", "Failed to allocate new raw video memory");
 		return false;
 	}
 	// Clear new video memory
-	ZeroMemory(rawVideoMem, displayWidth * displayHeight * sizeof(BYTE));
+	ZeroMemory(rawVideoMem, displayWidth * displayHeight * sizeof(BYTE) * bpp/8);
 	// If we have old memory
 	if(oldMem != NULL)
 	{
 		// Copy from old to new only in the area of the surface
-		memcpy(rawVideoMem, oldMem, surfaceWidth  * surfaceHeight);
+		memcpy(rawVideoMem, oldMem, surfaceWidth  * surfaceHeight * bpp/8);
 		// Delete old mem
 		delete oldMem;
 	}
@@ -1603,7 +1615,7 @@ BOOL IDirectDrawSurfaceWrapper::ReInitialize(DWORD displayWidth, DWORD displayHe
 }
 
 // Initialize wrapper function
-HRESULT IDirectDrawSurfaceWrapper::WrapperInitialize(LPDDSURFACEDESC lpDDSurfaceDesc, DWORD displayModeWidth, DWORD displayModeHeight, DWORD displayWidth, DWORD displayHeight)
+HRESULT IDirectDrawSurfaceWrapper::WrapperInitialize(LPDDSURFACEDESC lpDDSurfaceDesc, DWORD displayModeWidth, DWORD displayModeHeight, DWORD displayWidth, DWORD displayHeight, DWORD bpp)
 {
 	//set width and height
 	/*if(lpDDSurfaceDesc->dwFlags & DDSD_WIDTH)
@@ -1644,21 +1656,31 @@ HRESULT IDirectDrawSurfaceWrapper::WrapperInitialize(LPDDSURFACEDESC lpDDSurface
 
 	surfaceWidth = displayModeWidth;
 	surfaceHeight = displayModeHeight;
+	surfaceBPP = bpp;
+	/*
+	lpDDSurfaceDesc->ddpfPixelFormat.dwRBitMask = 0x00ff0000;
+	lpDDSurfaceDesc->ddpfPixelFormat.dwGBitMask = 0x0000ff00;
+	lpDDSurfaceDesc->ddpfPixelFormat.dwBBitMask = 0x000000ff;
+	lpDDSurfaceDesc->ddpfPixelFormat.dwRGBBitCount = 24;
+	lpDDSurfaceDesc->ddpfPixelFormat.dwFlags = DDPF_RGB;
+	lpDDSurfaceDesc->ddpfPixelFormat.dwRGBAlphaBitMask = 0x00000000;
+	*/
 
 	//Overallocate the memory to prevent access outside of memory range by the exe
 	//if(!ReInitialize(displayWidth, displayHeight)) return DDERR_OUTOFMEMORY;
-	//maximum supported resolution is 1920x1440
-	rawVideoMem = new BYTE[1920 * 1440];
+	//maximum supported resolution is 2560x1440
+	int resSize = 2560 * 1440 * bpp/8;
+	rawVideoMem = new BYTE[resSize];
 	if(rawVideoMem == NULL)
 	{
 		debugMessage(0, "IDirectDrawSurfaceWrapper::WrapperInitialize", "Failed to allocate raw video memory");
 		return DDERR_OUTOFMEMORY;
 	}
 	// Clear raw memory
-	ZeroMemory(rawVideoMem, 1920 * 1440 * sizeof(BYTE));
+	ZeroMemory(rawVideoMem, resSize * sizeof(BYTE));
 
 	// Allocate virtual video memory RGB
-	rgbVideoMem = new UINT32[surfaceWidth * surfaceHeight];
+	rgbVideoMem = new UINT32[surfaceWidth * surfaceHeight * bpp/8];
 	if(rgbVideoMem == NULL) 
 	{
 		debugMessage(0, "IDirectDrawSurfaceWrapper::WrapperInitialize", "Failed to allocate rgb video memory");
