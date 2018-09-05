@@ -37,6 +37,7 @@ I will order a pizza and think about you while eating ;)
 - Fixed duping
 - HD
 - Stash (You can only use it in town, you can quickswitch to it using Shift+5)
+- TrueColor support
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
@@ -68,6 +69,7 @@ I will order a pizza and think about you while eating ;)
 - 1.13 - fixes all issues with loading in single player, butcher should be in multiplayer too, portals shouldn't break in multiplayer
 - 1.14 - HD! Best thing ever!
 - 1.15 - STASH!
+- 1.16 - True Color support (RGB)
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
