@@ -118,7 +118,7 @@ void __fastcall mainmenu_action(int option)
 		while ( 1 )
 		{
 			a2 = 0;
-			if ( !UiMainMenuDialog("Infernity v1.15", &a2, effects_play_sound, 30) )
+			if ( !UiMainMenuDialog("Infernity v1.16", &a2, effects_play_sound, 30) )
 				TermMsg("Unable to display mainmenu");
 			if ( a2 == 1 )
 				break;

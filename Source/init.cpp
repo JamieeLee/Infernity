@@ -20,7 +20,7 @@ int init_inf = 0x7F800000; // weak
 /* rdata */
 
 char gszVersionNumber[260] = "internal version unknown";
-char gszProductName[260] = "Infernity v1.15";
+char gszProductName[260] = "Infernity v1.16";
 
 struct init_cpp_init
 {
@@ -205,6 +205,8 @@ void __fastcall init_create_window(int nCmdShow)
 	UpdateWindow(hWnd);
 	init_await_mom_parent_exit();
 	dx_init(hWnd);
+	rgbBuffer = new RGBScreen;
+	memset(rgbBuffer, 0, sizeof(RGBScreen));
 	BlackPalette();
 	snd_init(hWnd);
 	init_archives();

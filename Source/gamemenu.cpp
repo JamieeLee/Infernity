@@ -96,6 +96,7 @@ void __cdecl gamemenu_new_game()
 	scrollrt_draw_game_screen(1);
 	gbRunGame = 0;
 	gamemenu_off();
+	setGameState(0);
 }
 // 525650: using guessed type int gbRunGame;
 // 52571C: using guessed type int drawpanflag;

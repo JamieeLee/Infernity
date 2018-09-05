@@ -92,6 +92,7 @@ void __fastcall ShowProgress(int uMsg)
 	signed int v7; // [esp-4h] [ebp-10h]
 
 	gbSomebodyWonGameKludge = 0;
+	setGameState(1);
 	plrmsg_delay(1);
 	saveProc = SetWindowProc(DisableInputWndProc);
 	interface_msg_pump();
@@ -235,6 +236,7 @@ LABEL_41:
 	if ( gbSomebodyWonGameKludge && plr[myplr].plrlevel == 16 )
 		PrepDoEnding();
 	gbSomebodyWonGameKludge = 0;
+	setGameState(2);
 }
 // 5BB1ED: using guessed type char leveltype;
 // 5CF31C: using guessed type char setlvltype;

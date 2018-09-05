@@ -8,6 +8,7 @@ extern IDirectDraw *lpDDInterface;
 extern IDirectDrawPalette *lpDDPalette; // idb
 extern int sgdwLockCount;
 extern Screen *gpBuffer;
+extern RGBScreen *rgbBuffer;
 extern IDirectDrawSurface *lpDDSBackBuf;
 extern IDirectDrawSurface *lpDDSPrimary;
 extern char gbBackBuf; // weak

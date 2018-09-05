@@ -3362,6 +3362,7 @@ void __fastcall scrollrt_draw_game_screen(bool draw_cursor)
 		scrollrt_draw_cursor_back_buffer();
 		unlock_buf_priv();
 	}
+	memset(rgbBuffer, 0, sizeof(RGBScreen));
 }
 // 52571C: using guessed type int drawpanflag;
 
@@ -3675,8 +3676,9 @@ void __fastcall DoBlitScreen(int dwX, int dwY, int dwWdt, int dwHgt)
 				Sleep(1u);
 				if ( error_code == DDERR_SURFACELOST )
 					return;
-				if ( error_code == DDERR_WASSTILLDRAWING || error_code == DDERR_SURFACEBUSY )
+				if (error_code == DDERR_WASSTILLDRAWING || error_code == DDERR_SURFACEBUSY) {
 					continue;
+				}
 			}
 			if ( error_code != DDERR_SURFACELOST && error_code != DDERR_WASSTILLDRAWING && error_code != DDERR_SURFACEBUSY )
 				DDErrMsg(error_code, 3596, "C:\\Src\\Diablo\\Source\\SCROLLRT.CPP");
@@ -3685,24 +3687,19 @@ void __fastcall DoBlitScreen(int dwX, int dwY, int dwWdt, int dwHgt)
 	}
 	else
 	{
-		v14 = WorkingWidth * dwY + dwX + WorkingWidth * 160 + 64;
-		v17 = DDS_desc.lPitch - dwWdt;
-		v15 = dwX + dwY * DDS_desc.lPitch;
-		v6 = WorkingWidth - dwWdt;
-		error_codea = (unsigned int)dwWdt >> 2;
-		v16 = v6;
 		lock_buf_priv();
-		v7 = (char *)gpBuffer + v14;
-		v8 = (char *)DDS_desc.lpSurface + v15;
-		v9 = dwHgt;
-		do
-		{
-			qmemcpy(v8, v7, 4 * error_codea);
-			v7 += 4 * error_codea + v16;
-			v8 += 4 * error_codea + v17;
-			--v9;
+		for (int i = 0; i <= dwWdt; ++i) {
+			for (int j = 0; j <= dwHgt; ++j) {
+				char* surf = (char *)DDS_desc.lpSurface + ((dwX + i) + (dwY + j) * DDS_desc.lPitch)*4;
+				for (int k = 0; k < 4; ++k) {
+					surf[k] = 0;
+				}
+				surf[0] = gpBuffer->row[dwX + j].pixels[dwY + i];
+				surf[1] = (rgbBuffer->row[dwX + j].pixels[dwY + i] & 0x0000FF);
+				surf[2] = (rgbBuffer->row[dwX + j].pixels[dwY + i] & 0x00FF00) >> 8;
+				surf[3] = (rgbBuffer->row[dwX + j].pixels[dwY + i] & 0xFF0000) >> 16;
+			}
 		}
-		while ( v9 );
 		unlock_buf_priv();
 	}
 }
@@ -3790,6 +3787,7 @@ void __cdecl DrawAndBlit()
 		drawmanaflag = 0;
 		drawbtnflag = 0;
 		drawsbarflag = 0;
+		memset(rgbBuffer, 0, sizeof(RGBScreen));
 	}
 }
 // 4B8960: using guessed type int talkflag;

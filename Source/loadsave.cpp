@@ -987,13 +987,27 @@ void __fastcall SavePlayer(int i)
 	//memcpy(tbuff, &plr[i], 0x54B0u);
 	//tbuff = (char *)tbuff + 21680;
 
-	int wtfsize = 21680;// StructSize<PlayerStruct>();
-	int size2 = StructSize<PlayerStruct>() - 21720;
-
-	memcpy(tbuff, &plr[i], wtfsize);
-	tbuff = (char *)tbuff + wtfsize;
+	int size1 = 21680;// StructSize<PlayerStruct>();
+	//int size2 = StructSize<PlayerStruct>() - 21720;
+	int size2 = 81620 - 21720;
+	int size3 = StructSize<PlayerStruct>() - 81620;
+	memcpy(tbuff, &plr[i], size1);
+	tbuff = (char *)tbuff + size1;
 	memcpy(tbuff, &plr[i].InvListExpanded, size2);
 	tbuff = (char *)tbuff + size2;
+	unsigned char* startcpy = (unsigned char*)&plr[i].StashInvList;
+	int left = size3;
+	do{
+		int localsize = 1000;
+		if (localsize >= left) {
+			localsize = left;
+		}
+		memcpy(tbuff, startcpy, localsize);
+		tbuff = (char *)tbuff + localsize;
+		left -= localsize;
+	} while (left > 0);
+	//memcpy(tbuff, &plr[i].StashInvList, size3);
+	//tbuff = (char *)tbuff + size3;
 }
 
 void __fastcall SaveMonster(int i)

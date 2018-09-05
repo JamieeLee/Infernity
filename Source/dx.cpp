@@ -7,12 +7,19 @@ IDirectDraw *lpDDInterface;
 IDirectDrawPalette *lpDDPalette; // idb
 int sgdwLockCount;
 Screen *gpBuffer;
+RGBScreen *rgbBuffer;
 IDirectDrawSurface *lpDDSBackBuf;
 IDirectDrawSurface *lpDDSPrimary;
 static CRITICAL_SECTION sgMemCrit;
 char gbBackBuf; // weak
 char gbEmulate; // weak
 HMODULE ghDiabMod; // idb
+int currentGameState=0;
+void setGameState(int state) {
+	currentGameState = state;
+	lpDDSPrimary->UpdateOverlayDisplay(state);
+	//hijacked a function to pass menu/cutscene/game state
+}
 
 int dx_inf = 0x7F800000; // weak
 
@@ -78,7 +85,7 @@ void __fastcall dx_init(HWND hWnd)
 	if ( v3 )
 		ErrDlg(IDD_DIALOG1, v3, "C:\\Src\\Diablo\\Source\\dx.cpp", 149);
 	fullscreen = 1;
-	v4 = lpDDInterface->SetCooperativeLevel(v1, DDSCL_EXCLUSIVE|DDSCL_ALLOWREBOOT|DDSCL_FULLSCREEN);
+	v4 = lpDDInterface->SetCooperativeLevel(v1, DDSCL_EXCLUSIVE|DDSCL_ALLOWREBOOT|DDSCL_FULLSCREEN|DDSCL_ALLOWMODEX);
 	if ( v4 == DDERR_EXCLUSIVEMODEALREADYSET )
 	{
 		MI_Dummy(0); // v5
@@ -87,14 +94,17 @@ void __fastcall dx_init(HWND hWnd)
 	{
 		ErrDlg(IDD_DIALOG1, v4, "C:\\Src\\Diablo\\Source\\dx.cpp", 170);
 	}
-	if ( lpDDInterface->SetDisplayMode(ScreenWidth, ScreenHeight, 8) )
+	
+	if ( lpDDInterface->SetDisplayMode(ScreenWidth, ScreenHeight, 32) )
 	{
 		v6 = GetSystemMetrics(SM_CXSCREEN);
 		v7 = GetSystemMetrics(SM_CYSCREEN);
-		v8 = lpDDInterface->SetDisplayMode(v6, v7, 8);
+
+		v8 = lpDDInterface->SetDisplayMode(v6, v7, 32);
 		if ( v8 )
 			ErrDlg(IDD_DIALOG1, v8, "C:\\Src\\Diablo\\Source\\dx.cpp", 183);
 	}
+	
 	dx_create_primary_surface();
 	palette_init();
 	GdiSetBatchLimit(1);
@@ -123,7 +133,7 @@ void __cdecl dx_create_back_buffer()
 		if ( !v1 )
 		{
 			lpDDSPrimary->Unlock(NULL);
-			sgpBackBuf = DiabloAllocPtr(WorkingWidth*WorkingHeight*2);
+			sgpBackBuf = DiabloAllocPtr(WorkingWidth*WorkingHeight*2*4);
 			return;
 		}
 		if ( v1 != DDERR_CANTLOCKSURFACE )
@@ -133,10 +143,10 @@ void __cdecl dx_create_back_buffer()
 	v4.dwWidth = WorkingWidth;
 	v4.lPitch = WorkingWidth;
 	v4.dwSize = 108;
-	v4.dwFlags = DDSD_PIXELFORMAT|DDSD_PITCH|DDSD_WIDTH|DDSD_HEIGHT|DDSD_CAPS;
+	v4.dwFlags = DDSD_PITCH|DDSD_WIDTH|DDSD_HEIGHT|DDSD_CAPS;//DDSD_PIXELFORMAT|
 	v4.ddsCaps.dwCaps = DDSCAPS_SYSTEMMEMORY|DDSCAPS_OFFSCREENPLAIN;
 	v4.dwHeight = WorkingHeight + 128 + 2;
-	v4.ddpfPixelFormat.dwSize = 32;
+	v4.ddpfPixelFormat.dwSize = sizeof(DDPIXELFORMAT);
 	v2 = lpDDSPrimary->GetPixelFormat(&v4.ddpfPixelFormat);
 	if ( v2 )
 		ErrDlg(IDD_DIALOG1, v2, "C:\\Src\\Diablo\\Source\\dx.cpp", 94);

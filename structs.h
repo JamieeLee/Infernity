@@ -1,5 +1,5 @@
 #include <string>
-#define GLOBAL_WIDTH 1280		
+#define GLOBAL_WIDTH 1280	
 #define GLOBAL_HEIGHT 960
 class drawingQueue
 {
@@ -453,6 +453,21 @@ struct Screen
 	ScreenRow row_unused_1[160];
 	ScreenRow row[2500];
 	ScreenRow row_unused_2[16];
+};
+
+
+struct RGBScreenRow
+{
+	int col_unused_1[64];
+	int pixels[GLOBAL_WIDTH];
+	int col_unused_2[64];
+};
+
+struct RGBScreen
+{
+	RGBScreenRow row_unused_1[160];
+	RGBScreenRow row[GLOBAL_HEIGHT];
+	RGBScreenRow row_unused_2[16];
 };
 
 struct _SNETVERSIONDATA

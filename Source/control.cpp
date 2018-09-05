@@ -788,6 +788,7 @@ char GetLetterColor(uchar mask, int colorIndex)
 	case COL_RED:	if (mask >= 240) { mask -= 16; }                                                            break;
 	case COL_GOLD:  if (mask >= 240) { if (mask >= 254) { mask = 207; } else { mask -= 46; } }                    break;
 	case COL_ORANGE:if (mask >= 240) { mask -= 32; }                                                            break;
+	case COL_TEST:if (mask >= 240) { mask -= 32; }                                                            break;
 	case COL_YELLOW:if (mask >  251) { mask = 151; }
 					else if (mask >= 240) { mask = 145 + ((mask - 240) >> 1); } break;
 	}
@@ -795,11 +796,12 @@ char GetLetterColor(uchar mask, int colorIndex)
 }
 
 
-void __fastcall CPrintString(int No, unsigned char pszStr, int Just)
+void __fastcall CPrintString(int No, unsigned char pszStr, int color)
 {
 	int *v3; // ebx
 	char *v4; // esi
 	char *v5; // edi
+	int *v5_2; // edi
 	int v6; // ebx
 	signed int v7; // edx
 	unsigned int v8; // eax
@@ -822,6 +824,7 @@ void __fastcall CPrintString(int No, unsigned char pszStr, int Just)
 	v3 = (int *)((char *)pPanelText + 4 * pszStr);
 	v4 = (char *)pPanelText + *v3;
 	v5 = (char *)gpBuffer + No;
+	v5_2 = (int *)rgbBuffer + No;
 	v6 = (int)&v4[v3[1] - *v3];
 	do
 	{
@@ -835,6 +838,7 @@ void __fastcall CPrintString(int No, unsigned char pszStr, int Just)
 					break;
 				_LOBYTE(v13) = -(char)v13;
 				v5 += v13;
+				v5_2 += v13;
 				v12 -= v13;
 				if (!v12)
 					goto LABEL_28;
@@ -844,13 +848,17 @@ void __fastcall CPrintString(int No, unsigned char pszStr, int Just)
 			do
 			{
 				v15 = *v4++;
-				v15 = GetLetterColor(v15,(char)Just);
+				v15 = GetLetterColor(v15,(char)color);
 				*v5++ = v15;
+				if (color == COL_TEST) {
+					*v5_2++ = RGB(25, 15, 0);
+				}
 				--v14;
 			} while (v14);
 		} while (v12);
 	LABEL_28:
 		v5 -= WorkingWidth + 13;
+		v5_2 -= WorkingWidth + 13;
 	} while ((char *)v6 != v4);
 }
 

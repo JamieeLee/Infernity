@@ -20,6 +20,9 @@ struct movie_cpp_init
 
 void __fastcall play_movie(char *pszMovie, bool user_can_close)
 {
+	int tmpGameState = currentGameState;
+	setGameState(0);
+
 	char *v2; // esi
 	WNDPROC saveProc; // edi
 	//int v4; // eax
@@ -63,7 +66,8 @@ void __fastcall play_movie(char *pszMovie, bool user_can_close)
 		}
 		SetWindowProc(saveProc);
 		sound_disable_music(0);
-	}
+	}	
+	setGameState(tmpGameState);
 }
 // 634980: using guessed type int window_activated;
 // 659AF8: using guessed type int movie_playing;

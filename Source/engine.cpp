@@ -1897,12 +1897,12 @@ bool played = false;
 void PrintDebugInfo() {
 	if (showDebugInfo) {
 		std::stringstream ss;
-		ss << "debuginfo: " << MouseX << " " << MouseY << " " << (int)plr[myplr].HoldItem._itype;
+		ss << "debuginfo: " << MouseX << " " << MouseY;
 		if (played == false) {
 			PlaySFX(num++);
 			played = true;
 		}
-		PrintGameStr(50, 200, (char*)ss.str().c_str(), COL_WHITE);
+		PrintGameStr(50, 200, (char*)ss.str().c_str(), COL_TEST);
 	}
 	else { played = false; }
 }
