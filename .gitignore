@@ -11,7 +11,7 @@ BnetLog.txt
 # PE shared library and associated files.
 *.lib
 *.exp
-*.dll
+#*.dll
 
 # PE executable.
 #*.exe
