@@ -38,6 +38,7 @@ I will order a pizza and think about you while eating ;)
 - HD
 - Stash (You can only use it in town, you can quickswitch to it using Shift+5)
 - TrueColor support
+- Sprite limit raised to 10k
 ## TO DO:
 - Level cap raised to 60.
 - Penalty to resistances/AC on Inferno difficulty.
@@ -70,6 +71,7 @@ I will order a pizza and think about you while eating ;)
 - 1.14 - HD! Best thing ever!
 - 1.15 - STASH!
 - 1.16 - True Color support (RGB)
+- 1.17 - Sprite limit raised to 10k! (Firewall/chainlightning/monster spells should always work)
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
