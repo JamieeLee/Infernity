@@ -6,8 +6,8 @@ SPRITEDATA RCDATA diablo_sprites.png
 VS_VERSION_INFO VERSIONINFO
 //FILEVERSION    	1,0,0,0
 //PRODUCTVERSION 	1,0,0,0
-FILEVERSION    	6,1,7600,16385
-PRODUCTVERSION 	6,1,7600,16385
+FILEVERSION    	1,17,0,0
+PRODUCTVERSION 	1,17,0,0
 FILEFLAGSMASK  	VS_FF_PRERELEASE
 FILEOS         	VOS__WINDOWS32
 FILETYPE       	VFT_DLL
@@ -17,17 +17,17 @@ BEGIN
     BEGIN
         BLOCK "040904B0" /* LANG_ENGLISH/SUBLANG_ENGLISH_US,Unicode CP */
         BEGIN
-            VALUE "CompanyName",      "StrangeBytes.com"
+            VALUE "CompanyName",      "Qndel"
             VALUE "FileDescription",  "Microsoft DirectDraw"
             //VALUE "FileVersion",      "1.0B\0"
-			VALUE "FileVersion",      "6.1.7600.16385"
+			VALUE "FileVersion",      "1.17.0.0"
             VALUE "InternalName",     "ddrawwrapper"
             //VALUE "OriginalFilename", "ddraw.dll"
 			VALUE "OriginalFilename", "DDraw.dll"
-            VALUE "ProductName",      "DiabloDirectDrawPatch"
+            VALUE "ProductName",      "InfernityDirectDrawPatch"
 	    VALUE "LegalCopyright",   "StrangeBytes.com"
             //VALUE "ProductVersion",   "1.0B\0"
-			VALUE "ProductVersion",   "6.1.7600.16385"
+			VALUE "ProductVersion",   "1.17.0.0"
         END
     END
     BLOCK "VarFileInfo"
