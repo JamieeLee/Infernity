@@ -1107,8 +1107,7 @@ void __fastcall PutMissile(int i)
 	int v1; // eax
 	int v2; // edx
 	int v3; // esi
-	int v4; // edx
-	_BYTE *v5; // edx
+	int* v5; // edx
 
 	v1 = i;
 	v2 = missile[i]._mix;
@@ -1117,11 +1116,10 @@ void __fastcall PutMissile(int i)
 		missile[v1]._miDelFlag = 1;
 	if (!missile[v1]._miDelFlag)
 	{
-		v4 = v3 + 112 * v2;
-		dFlags[0][v4] |= 1u;
-		v5 = (unsigned char *)dMissile + v4;
-		if (*v5)
-			*v5 = -1;
+		dFlags[v2][v3] |= 1u;
+		v5 = &dMissile[v2][v3];
+		if (v5)
+			*v5= -1;
 		else
 			*v5 = i + 1;
 		if (missile[v1]._miPreFlag)
@@ -4510,7 +4508,7 @@ int __fastcall AddMissile(int sx, int sy, int v1, int v2, int midir, int mitype,
 LABEL_9:
 	v12 = nummissiles;
 	v13 = missileavail[0];
-	v14 = missileavail[-nummissiles++ + 124]; /* MAXMISSILES */
+	v14 = missileavail[-nummissiles++ + MAXMISSILES-1]; /* MAXMISSILES */
 	missileavail[0] = v14;
 	v15 = v13;
 	missile[v15]._mitype = mitype;

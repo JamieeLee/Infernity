@@ -1311,28 +1311,20 @@ HRESULT IDirectDrawWrapper::Present()
 			return false;
 		}
 		// Copy bits to texture by scanline observing pitch
-			for (DWORD y = 0; y < displayModeHeight; y++)
-			{
-				//&lpAttachedSurface->rgbVideoMem[y * displayModeWidth]
-				//* displayModeBPP/32
-				if (gameState == 0) {
-					//UINT32 hey = RGB(0, 0, 255);
-					//memcpy((BYTE *)d3dlrect.pBits + (y * d3dlrect.Pitch), &lpAttachedSurface->rgbVideoMem[y * displayModeWidth], displayModeWidth * sizeof(UINT32));
-					for (int i = 0; i < displayModeWidth; ++i) {
-						//lpAttachedSurface->rgbVideoMem[y * displayModeWidth + i] = RGB(255, 0, 255);
-					}
-					//memcpy((BYTE *)d3dlrect.pBits + (y * d3dlrect.Pitch), &lpAttachedSurface->rgbVideoMem[y * displayModeWidth/2], displayModeWidth * sizeof(UINT32));
-					memcpy2((BYTE *)d3dlrect.pBits + (y * d3dlrect.Pitch), &lpAttachedSurface->rgbVideoMem[y * displayModeWidth / 2], displayModeWidth * sizeof(UINT32));
-					//memcpy((BYTE *)d3dlrect.pBits + (y * d3dlrect.Pitch), &hey, displayModeWidth );
-				}
-				else if(gameState == 1) {
-					memcpy2((BYTE *)d3dlrect.pBits + (y * d3dlrect.Pitch), &lpAttachedSurface->rgbVideoMem[y * displayModeWidth / 2], displayModeWidth * sizeof(UINT32));
-				}
-				else if (gameState == 2) {
-					memcpy((BYTE *)d3dlrect.pBits + (y * d3dlrect.Pitch), &lpAttachedSurface->rgbVideoMem[y * displayModeWidth], displayModeWidth * sizeof(UINT32));
+		for (DWORD y = 0; y < displayModeHeight; y++)
+		{
+			if (gameState == 0 || gameState == 1) {
+				for (DWORD x = 0; x < displayModeWidth; ++x) {
+					UINT32* ptr = (UINT32*)d3dlrect.pBits;
+					int yy = y * 480 / displayModeHeight;
+					int xx = x * 640 / displayModeWidth;
+					ptr[(y * d3dlrect.Pitch) / sizeof(UINT32) + x] = lpAttachedSurface->rgbVideoMem[yy*displayModeWidth + xx];
 				}
 			}
-
+			else if (gameState == 2) {
+				memcpy((BYTE *)d3dlrect.pBits + (y * d3dlrect.Pitch), &lpAttachedSurface->rgbVideoMem[y * displayModeWidth], displayModeWidth * sizeof(UINT32));
+			}
+		}
 		// Unlock dynamic texture
 		if(surfaceTexture->UnlockRect(NULL) != D3D_OK)
 		{	

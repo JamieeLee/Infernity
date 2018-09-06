@@ -8533,7 +8533,7 @@ void __fastcall MissToMonst(int i, int x, int y)
 
 	v3 = i;
 	v30 = x;
-	if ( (unsigned int)i >= 0x7D )
+	if ( (unsigned int)i >= MAXMISSILES )
 		TermMsg("MissToMonst: Invalid missile %d", i);
 	v4 = &missile[v3];
 	v5 = v4->_misource;
@@ -8660,13 +8660,12 @@ BOOL __fastcall PosOkMonst(int i, int x, int y)
 		if ( object[v8]._oSolidFlag )
 			return 0;
 	}
-	_LOBYTE(v5) = dMissile[0][v5 + y];
-	if ( (_BYTE)v5 )
+	v5 = dMissile[0][v5 + y];
+	if (v5)
 	{
 		if ( v10 >= 0 )
 		{
-			v5 = (char)v5;
-			if ( (char)v5 > 0 )
+			if(v5 > 0 )
 			{
 				if ( missile[v5]._mitype == 5 )
 					goto LABEL_24;
@@ -8719,13 +8718,11 @@ BOOL __fastcall PosOkMonst2(int i, int x, int y)
 		}
 		if ( result )
 		{
-			_LOBYTE(v9) = dMissile[v3][y];
-			if ( (_BYTE)v9 )
-			{
+			v9 = dMissile[v3][y];
+			if (v9){
 				if ( v4 >= 0 )
 				{
-					v9 = (char)v9;
-					if ( (char)v9 > 0 )
+					if (v9 > 0 )
 					{
 						if ( missile[v9]._mitype == 5 )
 							goto LABEL_23;
@@ -8796,14 +8793,13 @@ BOOL __fastcall PosOkMonst3(int i, int x, int y)
 	}
 	if ( SolidLoc(x, y) && !v4 || dPlayer[v3][y] || dMonster[0][v3 * 112 + y] )
 		return 0;
-	_LOBYTE(v9) = dMissile[v3][y];
+	v9 = dMissile[v3][y];
 	result = 1;
-	if ( (_BYTE)v9 )
+	if (v9 )
 	{
 		if ( v13 >= 0 )
 		{
-			v9 = (char)v9;
-			if ( (char)v9 > 0 )
+			if (v9 > 0 )
 			{
 				if ( missile[v9]._mitype == 5 )
 					goto LABEL_33;

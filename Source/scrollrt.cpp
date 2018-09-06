@@ -83,7 +83,7 @@ void __cdecl ClearCursor() // CODE_FIX: this was supposed to be in cursor.cpp
 void __fastcall DrawMissile(int x, int y, int sx, int sy, int a5, int a6, int del_flag)
 {
 	int v7; // ebx
-	char v8; // al
+	int v8; // al
 	int v9; // eax
 	int v10; // eax
 	MissileStruct *v11; // eax
@@ -182,7 +182,7 @@ void __fastcall DrawMissile(int x, int y, int sx, int sy, int a5, int a6, int de
 void __fastcall DrawClippedMissile(int x, int y, int sx, int sy, int a5, int a6, int a7)
 {
 	int v7; // ebx
-	char v8; // al
+	int v8; // al
 	int v9; // eax
 	int v10; // eax
 	MissileStruct *v11; // eax

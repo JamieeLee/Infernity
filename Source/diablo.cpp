@@ -306,7 +306,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	srand(GetTickCount());
 	encrypt_init_lookup_table();
 	exception_get_filter();
-	if ( !diablo_find_window("INFERNITY") && diablo_get_not_running() ) // remove to enable running multiple times
+	if (!diablo_find_window("INFERNITY") && diablo_get_not_running()) // remove to enable running multiple times
 	{
 
 		diablo_init_screen();

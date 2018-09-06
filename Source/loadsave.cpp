@@ -43,7 +43,7 @@ void __fastcall LoadGame(bool firstflag)
 	char *v38; // edi
 	signed int v39; // ebx
 	bool *v40; // edi
-	char *v41; // edi
+	int *v41; // edi
 	int v42; // esi
 	char dst[260]; // [esp+0h] [ebp-120h]
 	int len; // [esp+104h] [ebp-1Ch]
@@ -364,7 +364,7 @@ void __fastcall LoadGame(bool firstflag)
 		do
 		{
 			from_save = 112;
-			v41 = (char *)dMissile + quest_num;
+			v41 = (int *)dMissile + quest_num;
 			do
 			{
 				*v41 = BLoad();
@@ -617,7 +617,7 @@ void __cdecl SaveGame()
 	signed int v38; // ebx
 	unsigned char *v39; // edi
 	signed int v40; // ebx
-	char *v41; // edi
+	int* v41; // edi
 	int v42; // esi
 	void *v43; // esi
 	int v44; // eax
@@ -908,7 +908,7 @@ void __cdecl SaveGame()
 		v40 = 0;
 		do
 		{
-			v41 = (char *)dMissile + v40;
+			v41 = (int*)dMissile + v40;
 			v47 = 112;
 			do
 			{

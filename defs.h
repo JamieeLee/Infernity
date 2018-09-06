@@ -15,7 +15,7 @@
 #define MAXDUNX					112
 #define MAXDUNY					112
 #define MAXITEMS				127
-#define MAXMISSILES				125
+#define MAXMISSILES				10000
 #define MAXMONSTERS				200
 #define MAXMULTIQUESTS			4
 #define MAXOBJECTS				127
