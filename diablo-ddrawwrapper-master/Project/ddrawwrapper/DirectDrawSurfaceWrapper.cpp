@@ -1041,8 +1041,38 @@ HRESULT __stdcall IDirectDrawSurfaceWrapper::SetPalette(LPDIRECTDRAWPALETTE lpDD
 	*/
 }
 #include <fstream>
+#include <sstream>
 int gameState = 0;
 // Notifies DirectDraw that the direct surface manipulations are complete.
+
+
+LPCWSTR  s2ws(const std::string& s)
+{
+	int len;
+	int slength = (int)s.length() + 1;
+	len = MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, 0, 0);
+	wchar_t* buf = new wchar_t[len];
+	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
+	std::wstring r(buf);
+	delete[] buf;
+	LPCWSTR result = r.c_str();
+}
+
+void printInfo(std::string s, int v1, int v2, int v3) {
+	std::stringstream ss;
+	ss << s << " " << v1 << " " << v2 << " " << v3;
+	MessageBox(NULL, s2ws(ss.str()), NULL, NULL);
+}
+
+
+int clamp(int mn, int mx,int s) {
+	if (s < mn) { return mn; }
+	else if (s > mx) { return mx; }
+	return s;
+}
+int RGB2(int v1, int v2, int v3) {
+	return RGB(clamp(0,255,v1), clamp(0,255,v2), clamp(0,255,v3));
+}
 HRESULT __stdcall IDirectDrawSurfaceWrapper::Unlock(LPVOID lpRect)
 {
 	char message[2048] = "\0";
@@ -1072,7 +1102,9 @@ HRESULT __stdcall IDirectDrawSurfaceWrapper::Unlock(LPVOID lpRect)
 		for (long i = 0; i < surfaceWidth * surfaceHeight * surfaceBPP / 8; i += surfaceBPP / 8)
 		{
 			int index = i * 8 / surfaceBPP;
-			rgbVideoMem[index] = attachedPalette->rgbPalette[rawVideoMem[i]] + RGB(rawVideoMem[i + 3], rawVideoMem[i + 2], rawVideoMem[i + 1]);
+			int v1 = RGB(rawVideoMem[i + 3], rawVideoMem[i + 2], rawVideoMem[i + 1]);
+			int v2 = attachedPalette->rgbPalette[rawVideoMem[i]];
+			rgbVideoMem[index] = RGB2((GetRValue(v1)+ GetRValue(v2)), (GetGValue(v1) + GetGValue(v2)), (GetBValue(v1) + GetBValue(v2)));
 		}
 	}
 

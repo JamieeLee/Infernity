@@ -218,7 +218,7 @@ void __cdecl lock_buf_priv()
 			DDErrMsg(v1, 235, "C:\\Src\\Diablo\\Source\\dx.cpp");
 		v0 = (Screen *)v2.lpSurface;
 		gpBufEnd += (unsigned int)v2.lpSurface;
-LABEL_8:
+	LABEL_8:
 		gpBuffer = v0;
 		goto LABEL_9;
 	}
