@@ -1130,6 +1130,11 @@ LABEL_28:
 		strcpy(&plr[v4].StashNames[i][0], "Click to rename");
 	}
 	plr[v4].lastTab = 0;	
+
+	for (int i = 0; i < 12;++i) {
+		plr[v4].NewSpellHotkeys[i] = -1;
+		plr[v4].NewSpellTHotkeys[i] = -1;
+	}
 	SetRndSeed(0);
 }
 

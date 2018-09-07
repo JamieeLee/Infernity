@@ -505,6 +505,13 @@ void __fastcall LoadPlayer(int i)
 		}
 		plr[i].lastTab = 0;
 	}
+
+	if (SaveVersion <= 4) {
+		for (int ii = 0; ii < 12; ++ii) {
+			plr[i].NewSpellHotkeys[ii] = -1;
+			plr[i].NewSpellTHotkeys[ii] = -1;
+		}
+	}
 }
 
 void __fastcall LoadMonster(int i)

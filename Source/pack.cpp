@@ -125,6 +125,10 @@ void __fastcall PackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool manashi
 		}
 	}
 	pPack->lastTab = pPlayer->lastTab;
+	for (int i = 0; i < 12; ++i) {
+		pPack->NewSpellTHotkeys[i] = pPlayer->NewSpellTHotkeys[i];
+		pPack->NewSpellHotkeys[i] = pPlayer->NewSpellHotkeys[i];
+	}
 	
 	
 
@@ -349,6 +353,16 @@ void __fastcall UnPackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool killo
 				pPlayer->StashInvList[i][j]._itype = -1;
 				pPlayer->StashInvGrid[i][j] = 0;
 			}
+		}
+	}
+	for (int i = 0; i < 12; ++i) {
+		if (pPlayer->version > 4) {
+			pPlayer->NewSpellHotkeys[i] = pPack->NewSpellHotkeys[i];
+			pPlayer->NewSpellTHotkeys[i] = pPack->NewSpellTHotkeys[i];
+		}
+		else {
+			pPlayer->NewSpellHotkeys[i] = -1;
+			pPlayer->NewSpellTHotkeys[i] = -1;
 		}
 	}
 	

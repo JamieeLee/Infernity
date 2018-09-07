@@ -405,7 +405,7 @@ void __cdecl DrawAutomap()
 				++v7;
 			}
 			while ( v7 < 0 );
-			AutoMapYOfs = v5;
+			//AutoMapYOfs = v5;
 		}
 		v8 = v5 + v6;
 		if ( v5 + v6 >= 40)
@@ -416,7 +416,7 @@ void __cdecl DrawAutomap()
 				--v8;
 			}
 			while ( v8 >= 40);
-			AutoMapYOfs = v5;
+			//AutoMapYOfs = v5;
 		}
 		v9 = v5 + v6;
 		AMdword_4B7E44 = v9;

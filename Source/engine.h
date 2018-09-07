@@ -126,7 +126,7 @@ template<typename T> size_t StructSize(int version = -1) { return sizeof(T); }
 	for( int i = 0; i < countof(s); i+=2 ) if( size_t(version) > s[i] ) return size; else size = s[i+1]; return size; }
 
 SS(ItemStruct, 0, 368);
-SS(PlayerStruct, 3, 81620, 2, 81520, 1, 80780, 0, 21720); // 3, 81620, 
+SS(PlayerStruct, 4, 1559624, 3, 81620, 2, 81520, 1, 80780, 0, 21720); // 3, 81620, 
 #undef SS
 
 void __cdecl engine_cpp_init_2();

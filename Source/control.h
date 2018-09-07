@@ -95,6 +95,8 @@ void __cdecl DrawInfoBox();
 void __fastcall control_print_info_str(int y, char *str, bool center, int lines);
 void __fastcall PrintGameStr(int x, int y, char *str, int color);
 void __fastcall PrintGameStr(int x, int y, char *str, int color, bool mix, char r, char g, char b);
+void __fastcall PrintGameStrAccurate(int x, int y, char *str, int color);
+void __fastcall PrintGameStrAccurate(int x, int y, char *str, int color, bool mix, char r, char g, char b);
 void __cdecl DrawChr();
 void __fastcall ADD_PlrStringXY(int x, int y, int width, char *pszStr, char col);
 char __fastcall DrawMultiColorText(int xPos, int yPos, int xPosEnd, char* text, int fontColor);

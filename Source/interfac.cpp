@@ -237,6 +237,7 @@ LABEL_41:
 		PrepDoEnding();
 	gbSomebodyWonGameKludge = 0;
 	setGameState(2);
+	plr[myplr]._pBaseToBlk = ToBlkTbl[plr[myplr]._pClass]; // base block bonus fix
 }
 // 5BB1ED: using guessed type char leveltype;
 // 5CF31C: using guessed type char setlvltype;

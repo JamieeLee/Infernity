@@ -614,16 +614,58 @@ LABEL_32:
 				v16 = 0;
 				do
 				{
-					if ( plr[0]._pSplHotKey[v16 + bullshitStructSize * v0] == pSpell && plr[v0]._pSplTHotKey[v16] == pSplType)
+					//if ( plr[myplr]._pSplHotKey[v16] == pSpell && plr[myplr]._pSplTHotKey[v16] == pSplType)
+					if (plr[myplr].NewSpellHotkeys[v16] == pSpell && plr[myplr].NewSpellTHotkeys[v16] == pSplType)
 					{
-						DrawSpellCel(v17+GetWidthDiff()/2, xp+GetHeightDiff()/2, (char *)pSpellCels, v16 + 48, 56);
-						sprintf(tempstr, "Spell Hot Key #F%i", v16 + 5);
+						int force0 = 0;
+						//DrawSpellCel(v17+GetWidthDiff()/2, xp+GetHeightDiff()/2, (char *)pSpellCels, force0 + 48, 56);
+						char hotkeytext[10];
+						sprintf(hotkeytext, "F%i", v16 + 1);
+						/*
+						if (type == 0) {
+							v8 = plr[myplr]._pAblSpells[0];
+							v9 = plr[myplr]._pAblSpells[1];
+						}
+						else if (type == 1) {
+							v8 = plr[myplr]._pMemSpells[0];
+							v9 = plr[myplr]._pMemSpells[1];
+						}
+						else if (type == 2) {
+							v8 = plr[myplr]._pScrlSpells[0];
+							v9 = plr[myplr]._pScrlSpells[1];
+						}
+						else if (type == 3) {
+							v8 = plr[myplr]._pISpells[0];
+							v9 = plr[myplr]._pISpells[1];
+						}
+						else if (type >= 4) {
+							v9 = plr[myplr].NewSpellTHotkeys[slot];
+							v8 = plr[myplr].NewSpellHotkeys[slot]; 
+						}*/
+
+
+						if (pSplType == 0) {
+							PrintGameStrAccurate(v17 + GetWidthDiff() / 2 - 26, xp + GetHeightDiff() / 2 - 198, hotkeytext, COL_YELLOW, true, 0, 0, 22);
+						}
+						else if (pSplType == 1) {//ok
+							PrintGameStrAccurate(v17 + GetWidthDiff() / 2 - 26, xp + GetHeightDiff() / 2 - 198, hotkeytext, COL_YELLOW, true, 0, 0, 22);
+						}
+						else if (pSplType == 2) {//ok
+							PrintGameStrAccurate(v17 + GetWidthDiff() / 2 - 26, xp + GetHeightDiff() / 2 - 198, hotkeytext, COL_YELLOW, true, 0, 0, 22);
+						}
+						else if (pSplType == 3) {
+							PrintGameStrAccurate(v17 + GetWidthDiff() / 2 - 26, xp + GetHeightDiff() / 2 - 198, hotkeytext, COL_YELLOW, true, 0, 0, 22);
+						}
+						else if (pSplType >= 4) {
+							PrintGameStrAccurate(v17 + GetWidthDiff() / 2 - 26, xp + GetHeightDiff() / 2 - 198, hotkeytext, COL_YELLOW, true, 66, 20, 0);
+						}
+						sprintf(tempstr, "Spell Hot Key #F%i", v16 + 1);
 						AddPanelString(tempstr, 1);
 						v0 = myplr;
 					}
 					++v16;
 				}
-				while ( v16 < 4 );
+				while ( v16 < 12 );
 				v1 = v24;
 				goto LABEL_66;
 			}
@@ -678,37 +720,61 @@ void __cdecl SetSpell()
 
 void __fastcall SetSpeedSpell(int slot)
 {
-	int v1; // esi
-	int v2; // eax
-	signed int v3; // ebp
-	int v4; // edx
-	int v5; // ebx
-	int *v6; // edi
-
-	v1 = pSpell;
 	if ( pSpell != -1 )
 	{
-		v2 = myplr;
-		v3 = 0;
-		v4 = myplr;
-		v5 = pSplType;
-		v6 = plr[myplr]._pSplHotKey;
-		do
-		{
-			if ( *v6 == v1 && plr[v4]._pSplTHotKey[v3] == v5 )
-				*v6 = -1;
-			++v3;
-			++v6;
+		for (int i = 0; i < 12; ++i) {
+			if (plr[myplr].NewSpellHotkeys[i] == pSpell && plr[myplr].NewSpellTHotkeys[i] == pSplType) {
+				plr[myplr].NewSpellHotkeys[i] = -1;
+			}
 		}
-		while ( v3 < 4 );
-		plr[0]._pSplHotKey[slot + bullshitStructSize * v2] = v1;
-		plr[v4]._pSplTHotKey[slot] = v5;
+		plr[myplr].NewSpellHotkeys[slot] = pSpell;
+		plr[myplr].NewSpellTHotkeys[slot] = pSplType;
 	}
 }
 // 4B8834: using guessed type int pSpell;
 // 4B8954: using guessed type int pSplType;
 
 void __fastcall ToggleSpell(int slot)
+{
+	int v8, v9;
+	int spellHotkey = plr[myplr].NewSpellHotkeys[slot];
+	if (spellHotkey != -1)
+	{
+		int type = plr[myplr].NewSpellTHotkeys[slot];
+		if (type == 0){
+			v8 = plr[myplr]._pAblSpells[0];
+			v9 = plr[myplr]._pAblSpells[1];
+		}
+		else if (type == 1) {
+			v8 = plr[myplr]._pMemSpells[0];
+			v9 = plr[myplr]._pMemSpells[1];
+		}
+		else if (type == 2) {
+			v8 = plr[myplr]._pScrlSpells[0];
+			v9 = plr[myplr]._pScrlSpells[1];
+		}
+		else if (type == 3) {
+			v8 = plr[myplr]._pISpells[0];
+			v9 = plr[myplr]._pISpells[1];
+		}
+		else if (type >= 4) {
+			v9 = plr[myplr].NewSpellTHotkeys[slot];
+			v8 = plr[myplr].NewSpellHotkeys[slot]; /* check */
+		}
+
+		if ( v9 & ((unsigned __int64)((__int64)1 << ((unsigned char)spellHotkey - 1)) >> 32) | v8 & (unsigned int)((__int64)1 << ((unsigned char)spellHotkey - 1)) )
+		{
+			drawpanflag = 255;
+			plr[myplr]._pRSpell = spellHotkey;
+			plr[myplr]._pRSplType = plr[myplr].NewSpellTHotkeys[slot];
+		}
+	}
+}
+
+
+
+
+void __fastcall ToggleSpell2(int slot)
 {
 	int v1; // eax
 	int v2; // edx
@@ -719,28 +785,28 @@ void __fastcall ToggleSpell(int slot)
 	int v7; // eax
 	int v8; // ebx
 	int v9; // edi
-	//int v10; // [esp+4h] [ebp-Ch]
+			//int v10; // [esp+4h] [ebp-Ch]
 	char *v11; // [esp+8h] [ebp-8h]
 	int v12; // [esp+Ch] [ebp-4h]
 
 	v1 = slot + bullshitStructSize * myplr;
 	v2 = plr[0]._pSplHotKey[v1];
 	v12 = plr[0]._pSplHotKey[v1];
-	if ( v2 != -1 )
+	if (v2 != -1)
 	{
 		v3 = myplr;
 		v4 = &plr[myplr]._pSplTHotKey[slot];
 		v11 = v4;
 		v5 = *v4;
-		if ( v5 )
+		if (v5)
 		{
 			v6 = v5 - 1;
-			if ( v6 )
+			if (v6)
 			{
 				v7 = v6 - 1;
-				if ( v7 )
+				if (v7)
 				{
-					if ( v7 == 1 )
+					if (v7 == 1)
 					{
 						v8 = plr[v3]._pISpells[0];
 						v9 = plr[v3]._pISpells[1];
@@ -768,7 +834,7 @@ void __fastcall ToggleSpell(int slot)
 			v8 = plr[v3]._pAblSpells[0];
 			v9 = plr[v3]._pAblSpells[1];
 		}
-		if ( v9 & ((unsigned __int64)((__int64)1 << ((unsigned char)v2 - 1)) >> 32) | v8 & (unsigned int)((__int64)1 << ((unsigned char)v2 - 1)) )
+		if (v9 & ((unsigned __int64)((__int64)1 << ((unsigned char)v2 - 1)) >> 32) | v8 & (unsigned int)((__int64)1 << ((unsigned char)v2 - 1)))
 		{
 			drawpanflag = 255;
 			plr[v3]._pRSpell = v12;
@@ -2206,6 +2272,13 @@ LABEL_14:
 // 4B883C: using guessed type int infoclr;
 
 
+void __fastcall PrintGameStrAccurate(int x, int y, char *str, int color) {
+	PrintGameStrAccurate(x, y, str, color, true, 0, 0, 0);
+}
+
+void __fastcall PrintGameStrAccurate(int x, int y, char *str, int color, bool mix, char r, char g, char b) {
+	PrintGameStr(x, y, str, color, mix, r, g, b);
+}
 
 
 void __fastcall PrintGameStr(int x, int y, char *str, int color) {

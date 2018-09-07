@@ -336,6 +336,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		UiTitleDialog(7);
 		BlackPalette();
 #endif
+
 		mainmenu_action(0); /* v11 fix unused arg */
 		UiDestroy();
 		SaveGamma();
@@ -827,6 +828,10 @@ LRESULT __stdcall GM_Game(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			PressChar(wParam);
 			return 0;
 		case WM_SYSKEYDOWN:
+			if (wParam == VK_F10) {
+				PressKey(wParam);
+				return 0;
+			}
 			if ( PressSysKey(wParam) )
 				return 0;
 			return init_palette(hWnd, uMsg, wParam, lParam);
@@ -1211,9 +1216,9 @@ void __cdecl RightMouseDown()
 
 bool __fastcall PressSysKey(int wParam)
 {
-	if ( gmenu_exception() || wParam != VK_F10 )
+	if ( gmenu_exception())// || wParam != VK_F10 )
 		return 0;
-	diablo_hotkey_msg(1);
+	//diablo_hotkey_msg(1);
 	return 1;
 }
 
@@ -1261,6 +1266,7 @@ void __fastcall PressKey(int vkey)
 			goto LABEL_113;
 		if ( sgnTimeoutCurs == CURSOR_NONE )
 		{
+			/*
 			if ( v1 == VK_F9 )
 				diablo_hotkey_msg(0);
 			if ( v1 == VK_F10 )
@@ -1269,6 +1275,7 @@ void __fastcall PressKey(int vkey)
 				diablo_hotkey_msg(2);
 			if ( v1 == VK_F12 )
 				diablo_hotkey_msg(3);
+			*/
 			if ( v1 == VK_RETURN && !nameStashTabFlag)
 				control_type_message();
 			if ( v1 == VK_ESCAPE )
@@ -1308,6 +1315,7 @@ LABEL_113:
 									control_type_message();
 								}
 								return;
+								/*
 							case VK_F1:
 								if ( helpflag )
 								{
@@ -1384,6 +1392,28 @@ LABEL_59:
 							case VK_F12:
 								v3 = 3;
 								goto LABEL_59;
+								*/
+							case VK_F1:
+							case VK_F2:
+							case VK_F3:
+							case VK_F4:
+							case VK_F5:
+							case VK_F6:
+							case VK_F7:
+							case VK_F8:
+							case VK_F9:
+							case VK_F10:
+							case VK_F11:
+							case VK_F12: {
+								int spellKey = v1 - VK_F1;
+								if (spselflag) {
+									SetSpeedSpell(spellKey);
+								}
+								else {
+									ToggleSpell(spellKey);
+								}
+								return;
+							}
 							case VK_UP:
 								if ( stextflag )
 								{
@@ -1486,7 +1516,9 @@ LABEL_106:
 										automapflag = 0;
 										msgdelay = 0;
 										gamemenu_off();
-										goto LABEL_110;
+										doom_close();
+										return;
+										//goto LABEL_110;
 									}
 									v4 = MouseX;
 									if ( MouseX >= 480 || MouseY >= 352 + GetHeightDiff())

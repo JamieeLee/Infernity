@@ -3644,9 +3644,12 @@ void memcpyRGB(char* dest, char* src, char* src2, int size)
 	for (int index = 0; index < size; index++)
 	{
 		*dest++ = *src++;
-		*dest++ = *src2++;
-		*dest++ = *src2++;
-		*dest++ = *src2++;
+		memcpy(dest, src2, 3);
+		dest += 3;
+		src2 += 3;
+		//*dest++ = *src2++;
+		//*dest++ = *src2++;
+		//*dest++ = *src2++;
 	}
 }
 void __fastcall DoBlitScreen(int dwX, int dwY, int dwWdt, int dwHgt)

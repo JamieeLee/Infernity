@@ -738,7 +738,7 @@ struct PkItemStruct
 /* __declspec(align(2)) */
 #pragma pack(push, 1)
 
-#define LATEST_PKPLAYER_STRUCT PkPlayerStruct4
+#define LATEST_PKPLAYER_STRUCT PkPlayerStruct5
 struct PkPlayerStruct
 {
 	FILETIME archiveTime;
@@ -806,6 +806,11 @@ struct PkPlayerStruct4 :PkPlayerStruct3
 	int StashNumInv[100];
 	char StashNames[100][16];
 	int lastTab;
+};
+struct PkPlayerStruct5 :PkPlayerStruct4
+{
+	int NewSpellHotkeys[12];
+	int NewSpellTHotkeys[12];
 };
 #pragma pack(pop)
 
@@ -1043,6 +1048,8 @@ struct PlayerStruct
 	int StashNumInv[100];
 	char StashNames[100][16];
 	int lastTab;
+	int NewSpellHotkeys[12];
+	int NewSpellTHotkeys[12];
 };
 
 struct QuestStruct

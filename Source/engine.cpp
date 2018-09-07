@@ -25,7 +25,7 @@ struct engine_cpp_init_1
 // 52B968: using guessed type int engine_cpp_init_value;
 
 uint SaveVersion = -1;
-uint CurVersion = 4;
+uint CurVersion = 5;
 
 
 
@@ -1899,12 +1899,12 @@ void PrintDebugInfo() {
 		std::stringstream ss;
 		int isActivated = -1;
 		if (pcursmonst != -1) { isActivated = monster[pcursmonst].isActivated; }
-		ss << "debuginfo: " << MouseX << " " << MouseY << " " << AutoMapXOfs << " " << AutoMapYOfs << " " << pcursmonst << " " << isActivated;
+		ss << "debuginfo: " << MouseX << " " << MouseY << " " << sizeof(PlayerStruct);
 		if (played == false) {
 			PlaySFX(num++);
 			played = true;
 		}
-		PrintGameStr(50, 200, (char*)ss.str().c_str(), COL_ORANGE, true, 0, 255 , 0);
+		PrintGameStr(50, 200, (char*)ss.str().c_str(), COL_ORANGE, true, 0, 25 , 0);
 	}
 	else { played = false; }
 }
