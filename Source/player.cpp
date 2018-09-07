@@ -144,6 +144,20 @@ unsigned char fix[9] = { 0u, 0u, 3u, 3u, 3u, 6u, 6u, 6u, 8u }; /* PM_ChangeLight
 
 
 std::vector<FloatingText> FloatingTextQueue;
+
+void AddToFloatingQueue(FloatingText ft) {
+		if (!GetConfigBoolVariable("mergeFloatingTexts") || ft.callerID == -1) {
+			FloatingTextQueue.push_back(ft);
+			return;
+		}
+		for (int i = 0; i < FloatingTextQueue.size(); ++i) {
+			if (ft.callerID == FloatingTextQueue[i].callerID) {
+				FloatingTextQueue[i].value += ft.value;
+				return;
+			}
+		}
+		FloatingTextQueue.push_back(ft);
+}
 void DrawFloatingTextAbovePlayer() {
 	if (GetConfigBoolVariable("showFloatingTexts") == false) {
 		return;
@@ -160,6 +174,7 @@ void DrawFloatingTextAbovePlayer() {
 		indexes.push_back(FloatingTextQueue.size() - 1);
 	}
 	for (;;) {
+		break;
 		if (!GetConfigBoolVariable("mergeFloatingTexts")) {
 			break;
 		}
@@ -292,10 +307,10 @@ void DrawFloatingExp(int xpGain, int row, int col) {
 			sprintf(buff, "%.2f", levelProgress);
 			std::stringstream ss;
 			ss << "+ %i XP (" << buff << "%%)";
-			FloatingTextQueue.push_back(FloatingText(ss.str(), COL_WHITE, row, col, false, -1, "gainXP", xpGain));
+			AddToFloatingQueue(FloatingText(ss.str(), COL_WHITE, row, col, false, -1, "gainXP", xpGain));
 		}
 		else {
-			FloatingTextQueue.push_back(FloatingText("+ %i XP", COL_WHITE, row, col, false, -1, "gainXP", xpGain));
+			AddToFloatingQueue(FloatingText("+ %i XP", COL_WHITE, row, col, false, -1, "gainXP", xpGain));
 		}
 	}
 }
@@ -306,7 +321,7 @@ void DrawFloatingDamage(int damage, int row, int col, int callerID, int color) {
 	}
 	damage >>= 6;
 	//if (abs(damage) > ReceivedDamageThreshold) {
-		FloatingTextQueue.push_back(FloatingText("- %i HP", color, row, col, false, callerID, "damageDealtToMonster", abs(damage)));
+		AddToFloatingQueue(FloatingText("- %i HP", color, row, col, false, callerID, "damageDealtToMonster", abs(damage)));
 	//}
 }
 

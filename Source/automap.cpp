@@ -219,20 +219,18 @@ void AddItemToDrawQueue( int x, int y,int id) {
 	else {
 		sprintf(textOnGround, "%s", it->_iIdentified ? it->_iIName : it->_iName);
 	}
-	int centerXOffset = GetTextWidth(textOnGround) / 2;
+	int centerXOffset =  GetTextWidth(textOnGround) ;
 	std::string t2(textOnGround);
-		x -= centerXOffset +15;
+		x -= centerXOffset / 2 + 20;
 		y -= 193;
-		drawQ.push_back(drawingQueue(x, y, centerXOffset * 2, 13, it->_ix, it->_iy, id, GetItemColor(id), t2));
+		drawQ.push_back(drawingQueue(x, y, GetTextWidth(textOnGround), 13, it->_ix, it->_iy, id, GetItemColor(id), t2));
 
 }
 
 void HighlightItemsNameOnMap()
 {
 	const int borderX = 5;
-	bool highlightItem = false;
-	
-	
+	bool highlightItem = false;	
 	for (unsigned int i = 0; i < drawQ.size(); ++i) {
 		if (drawQ[i].new_x == -1 && drawQ[i].new_y == -1) {
 			drawQ[i].new_x = drawQ[i].x; drawQ[i].new_y = drawQ[i].y;
@@ -277,7 +275,6 @@ void HighlightItemsNameOnMap()
 			if (canShow) { break; }
 		}
 	}
-	
 
 	for (unsigned int i = 0; i < drawQ.size(); ++i) {
 		drawingQueue t = drawQ[i];
@@ -382,7 +379,7 @@ void __cdecl DrawAutomap()
 				++v2;
 			}
 			while ( v2 < 0 );
-			AutoMapXOfs = v0;
+			//AutoMapXOfs = v0;
 		}
 		v3 = v0 + v1;
 		if ( v0 + v1 >= 40 )
@@ -393,7 +390,7 @@ void __cdecl DrawAutomap()
 				--v3;
 			}
 			while ( v3 >= 40);
-			AutoMapXOfs = v0;
+			//AutoMapXOfs = v0;
 		}
 		v4 = v0 + v1;
 		AMdword_4B7E40 = v4;

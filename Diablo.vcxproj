@@ -14,7 +14,7 @@
     <SccProjectName />
     <SccLocalPath />
     <ProjectGuid>{23114A83-7D81-4F17-A6B8-2FC51F3D72F2}</ProjectGuid>
-    <WindowsTargetPlatformVersion>7.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -23,7 +23,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v141_xp</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -38,12 +38,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>.\Source/WinRel\</OutDir>
-    <IntDir>.\Source/WinRel\</IntDir>
+    <OutDir>$(ProjectDir)Source\DiabloGame</OutDir>
+    <TargetName>Infernity</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>.\Source\WinDebug</OutDir>
-    <IntDir>.\Source\WinDebug</IntDir>
+    <OutDir>$(ProjectDir)Source\DiabloGame</OutDir>
     <TargetName>Infernity</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -60,6 +59,7 @@
       <ProgramDataBaseFileName>.\Source/WinRel\</ProgramDataBaseFileName>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <MinimalRebuild>true</MinimalRebuild>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -78,7 +78,7 @@
     </Bscmake>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <OutputFile>.\Source/WinRel\Diablo.exe</OutputFile>
+      <OutputFile>.\Source/DiabloGame\Infernity.exe</OutputFile>
       <AdditionalDependencies>DiabloUI/WinRel/DiabloUI.lib;3rdParty/Storm/Source/WinRel/Storm.lib;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <DataExecutionPrevention>false</DataExecutionPrevention>
     </Link>
@@ -97,6 +97,7 @@
       <ObjectFileName>.\Source/WinDebug\</ObjectFileName>
       <ProgramDataBaseFileName>.\Source/WinDebug\</ProgramDataBaseFileName>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>

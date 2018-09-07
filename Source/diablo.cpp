@@ -1649,7 +1649,9 @@ void __fastcall PressChar(int vkey)
 				case '5':
 					if (GetAsyncKeyState(VK_SHIFT) & 0x8000)
 					{
-						ToggleStash();
+						if (currlevel) {
+							ToggleStash();
+						}
 						return;
 					}
 					v9 = myplr;
