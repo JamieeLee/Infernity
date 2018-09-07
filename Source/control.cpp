@@ -795,14 +795,14 @@ char GetLetterColor(uchar mask, int colorIndex)
 }
 
 void __fastcall CPrintString(int No, unsigned char pszStr, int color) {
-	CPrintString(No, pszStr, color, true, 0);
+	CPrintString(No, pszStr, color, true, 0,0,0);
 }
-void __fastcall CPrintString(int No, unsigned char pszStr, int color, bool mix, int rgbColor)
+void __fastcall CPrintString(int No, unsigned char pszStr, int color, bool mix, char r,char g, char b)
 {
 	int *v3; // ebx
 	char *v4; // esi
 	char *v5; // edi
-	int *v5_2; // edi
+	tripleChar *v5_2; // edi
 	int v6; // ebx
 	signed int v7; // edx
 	unsigned int v8; // eax
@@ -825,7 +825,7 @@ void __fastcall CPrintString(int No, unsigned char pszStr, int color, bool mix, 
 	v3 = (int *)((char *)pPanelText + 4 * pszStr);
 	v4 = (char *)pPanelText + *v3;
 	v5 = (char *)gpBuffer + No;
-	v5_2 = (int *)rgbBuffer + No;
+	v5_2 = (tripleChar*)rgbBuffer + No;
 	v6 = (int)&v4[v3[1] - *v3];
 	do
 	{
@@ -853,13 +853,17 @@ void __fastcall CPrintString(int No, unsigned char pszStr, int color, bool mix, 
 				if (mix == true) {
 					*v5++ = v15;
 				}
-					*v5_2++ = rgbColor;
+				tripleChar* tc = v5_2;
+					tc->rgb[0] = r;
+					tc->rgb[1] = g;
+					tc->rgb[2] = b;
+					*v5_2++;
 				--v14;
 			} while (v14);
 		} while (v12);
 	LABEL_28:
 		v5 -= WorkingWidth + 13;
-		v5_2 -= WorkingWidth + 13;
+		v5_2 -= (WorkingWidth + 13);
 	} while ((char *)v6 != v4);
 }
 
@@ -2205,9 +2209,9 @@ LABEL_14:
 
 
 void __fastcall PrintGameStr(int x, int y, char *str, int color) {
-	PrintGameStr(x, y, str, color, true, 0);
+	PrintGameStr(x, y, str, color, true, 0,0,0);
 }
-void __fastcall PrintGameStr(int x, int y, char *str, int color, bool mix, int rgbColor)
+void __fastcall PrintGameStr(int x, int y, char *str, int color, bool mix, char r, char g, char b)
 {
 	char *v4; // edi
 	int v5; // esi
@@ -2221,7 +2225,7 @@ void __fastcall PrintGameStr(int x, int y, char *str, int color, bool mix, int r
 		++v4;
 		v7 = fontframe[fontidx[i]];
 		if ( v7 )
-			CPrintString(v5, v7, color,mix,rgbColor);
+			CPrintString(v5, v7, color,mix,r,g,b);
 		v5 += fontkern[v7] + 1;
 	}
 }

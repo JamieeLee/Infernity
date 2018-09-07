@@ -330,7 +330,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		if ( showintrodebug )
 		{
 			UiTitleDialog(7);
-			BlackPalette();
+			//BlackPalette();
 		}
 #else
 		UiTitleDialog(7);

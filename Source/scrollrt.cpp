@@ -3362,7 +3362,6 @@ void __fastcall scrollrt_draw_game_screen(bool draw_cursor)
 		scrollrt_draw_cursor_back_buffer();
 		unlock_buf_priv();
 	}
-	memset(rgbBuffer, 0, sizeof(RGBScreen));
 }
 // 52571C: using guessed type int drawpanflag;
 
@@ -3640,6 +3639,16 @@ void __cdecl DrawFPS()
 }
 #endif
 
+void memcpyRGB(char* dest, char* src, char* src2, int size)
+{
+	for (int index = 0; index < size; index++)
+	{
+		*dest++ = *src++;
+		*dest++ = *src2++;
+		*dest++ = *src2++;
+		*dest++ = *src2++;
+	}
+}
 void __fastcall DoBlitScreen(int dwX, int dwY, int dwWdt, int dwHgt)
 {
 	int v4; // esi
@@ -3687,20 +3696,33 @@ void __fastcall DoBlitScreen(int dwX, int dwY, int dwWdt, int dwHgt)
 	}
 	else
 	{
+
 		lock_buf_priv();
-		for (int i = 0; i <= dwWdt; ++i) {
-			for (int j = 0; j <= dwHgt; ++j) {
-				char* surf = (char *)DDS_desc.lpSurface + ((dwX + i) + (dwY + j) * DDS_desc.lPitch)*4;
-				for (int k = 0; k < 4; ++k) {
-					surf[k] = 0;
-				}
-				surf[0] = gpBuffer->row[dwX + j].pixels[dwY + i];
-				surf[1] = (rgbBuffer->row[dwX + j].pixels[dwY + i] & 0x0000FF);
-				surf[2] = (rgbBuffer->row[dwX + j].pixels[dwY + i] & 0x00FF00) >> 8;
-				surf[3] = (rgbBuffer->row[dwX + j].pixels[dwY + i] & 0xFF0000) >> 16;
-			}
+		for (int j = 0; j < dwHgt; ++j) {
+			memcpyRGB((char*)DDS_desc.lpSurface+(dwX+(dwY+j)*DDS_desc.lPitch)*4,&gpBuffer->row[dwX+j].pixels[dwY], rgbBuffer->row[dwX+j].pixels[dwY].rgb, dwWdt);
 		}
 		unlock_buf_priv();
+
+		//for (int k = 0; k < 4; ++k) {
+		//	surf[k] = 0;
+		//}
+		//UINT32* surf = (UINT32 *)DDS_desc.lpSurface + ((dwX + i) + (dwY + j) * DDS_desc.lPitch);
+		//tripleChar* tc = (tripleChar*)&rgbBuffer->row[dwX + j].pixels[dwY + i];
+		//*surf = (DWORD((gpBuffer->row[dwX + j].pixels[dwY + i] << 24) | (tc->rgb[0] << 16) | (tc->rgb[1] << 8) | (tc->rgb[2])));
+		//*surf = gpBuffer->row[dwX + j].pixels[dwY + i];
+		//*surf = 0xFEFEFEFE;// ((gpBuffer->row[dwX + j].pixels[dwY + i]) | (tc->rgb[0] << 8) | (tc->rgb[1] << 16) | (tc->rgb[2]) >> 24);
+		//for (int i = 0; i <= dwWdt; ++i) {
+		//char* surf = (char *)DDS_desc.lpSurface + ((dwX + i) + (dwY + j) * DDS_desc.lPitch)*4;
+		//surf[0] = gpBuffer->row[dwX + j].pixels[dwY + i];
+		//	surf[1] = rgbBuffer->row[dwX + j].pixels[dwY + i].rgb[0];
+		//surf[2] = rgbBuffer->row[dwX + j].pixels[dwY + i].rgb[1];
+		//surf[3] = rgbBuffer->row[dwX + j].pixels[dwY + i].rgb[2];
+
+		//UINT32* surf = (UINT32 *)DDS_desc.lpSurface + ((dwX + i) + (dwY + j) * DDS_desc.lPitch);
+		//tripleChar* tc = (tripleChar*)&rgbBuffer->row[dwX + j].pixels[dwY + i];
+		//*surf = (DWORD((gpBuffer->row[dwX + j].pixels[dwY + i] << 24) | (tc->rgb[0] << 16) | (tc->rgb[1] << 8) | (tc->rgb[2])));
+		//*surf = gpBuffer->row[dwX + j].pixels[dwY + i];
+		//}
 	}
 }
 

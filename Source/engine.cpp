@@ -1904,7 +1904,7 @@ void PrintDebugInfo() {
 			PlaySFX(num++);
 			played = true;
 		}
-		PrintGameStr(50, 200, (char*)ss.str().c_str(), COL_ORANGE, true, RGB(0,255,0));
+		PrintGameStr(50, 200, (char*)ss.str().c_str(), COL_ORANGE, true, 0, 255 , 0);
 	}
 	else { played = false; }
 }

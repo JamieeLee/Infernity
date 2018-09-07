@@ -1061,17 +1061,16 @@ LPCWSTR  s2ws(const std::string& s)
 void printInfo(std::string s, int v1, int v2, int v3) {
 	std::stringstream ss;
 	ss << s << " " << v1 << " " << v2 << " " << v3;
-	MessageBox(NULL, s2ws(ss.str()), NULL, NULL);
+	MessageBoxA(NULL, ss.str().c_str(), NULL, NULL);
 }
 
 
-int clamp(int mn, int mx,int s) {
-	if (s < mn) { return mn; }
-	else if (s > mx) { return mx; }
+char clamp(int s) {
+	if (s > 255) { return 255; }
 	return s;
 }
 int RGB2(int v1, int v2, int v3) {
-	return RGB(clamp(0,255,v1), clamp(0,255,v2), clamp(0,255,v3));
+	return RGB(clamp(v1), clamp(v2), clamp(v3));
 }
 HRESULT __stdcall IDirectDrawSurfaceWrapper::Unlock(LPVOID lpRect)
 {
@@ -1099,12 +1098,11 @@ HRESULT __stdcall IDirectDrawSurfaceWrapper::Unlock(LPVOID lpRect)
 	}
 	else {
 
-		for (int i = 0; i < ((surfaceWidth * surfaceHeight)<<2); i<<=2)
+		for (int i = 0; i < ((surfaceWidth * surfaceHeight)); i++)
 		{
-			int index = i>>2;
-			int v1 = RGB(rawVideoMem[i + 3], rawVideoMem[i + 2], rawVideoMem[i + 1]);
-			int v2 = attachedPalette->rgbPalette[rawVideoMem[i]];
-			rgbVideoMem[index] = RGB2((GetRValue(v1) + GetRValue(v2)), (GetGValue(v1) + GetGValue(v2)), (GetBValue(v1) + GetBValue(v2)));
+			int ii = i << 2;
+			int v2 = attachedPalette->rgbPalette[rawVideoMem[ii]];
+			rgbVideoMem[i] =  RGB2((rawVideoMem[ii + 3] + GetRValue(v2)), (rawVideoMem[ii + 2] + GetGValue(v2)), (rawVideoMem[ii + 1] + GetBValue(v2)));
 		}
 	}
 
@@ -1623,19 +1621,19 @@ BOOL IDirectDrawSurfaceWrapper::ReInitialize(DWORD displayWidth, DWORD displayHe
 	//store old memory pointer
 	BYTE* oldMem = rawVideoMem;
 	// Allocate new raw video memory to fit resolution
-	rawVideoMem = new BYTE[displayWidth * displayHeight * bpp/8];
+	rawVideoMem = new BYTE[displayWidth * displayHeight * 4];
 	if(rawVideoMem == NULL) 
 	{
 		debugMessage(0, "IDirectDrawSurfaceWrapper::ReInitialize", "Failed to allocate new raw video memory");
 		return false;
 	}
 	// Clear new video memory
-	ZeroMemory(rawVideoMem, displayWidth * displayHeight * sizeof(BYTE) * bpp/8);
+	ZeroMemory(rawVideoMem, displayWidth * displayHeight * sizeof(BYTE) * 4);
 	// If we have old memory
 	if(oldMem != NULL)
 	{
 		// Copy from old to new only in the area of the surface
-		memcpy(rawVideoMem, oldMem, surfaceWidth  * surfaceHeight * bpp/8);
+		memcpy(rawVideoMem, oldMem, surfaceWidth  * surfaceHeight * 4);
 		// Delete old mem
 		delete oldMem;
 	}
@@ -1701,7 +1699,7 @@ HRESULT IDirectDrawSurfaceWrapper::WrapperInitialize(LPDDSURFACEDESC lpDDSurface
 	//Overallocate the memory to prevent access outside of memory range by the exe
 	//if(!ReInitialize(displayWidth, displayHeight)) return DDERR_OUTOFMEMORY;
 	//maximum supported resolution is 2560x1440
-	int resSize = 2560 * 1440 * bpp/8;
+	int resSize = 2560*1440 * 4;
 	rawVideoMem = new BYTE[resSize];
 	if(rawVideoMem == NULL)
 	{
@@ -1712,7 +1710,7 @@ HRESULT IDirectDrawSurfaceWrapper::WrapperInitialize(LPDDSURFACEDESC lpDDSurface
 	ZeroMemory(rawVideoMem, resSize * sizeof(BYTE));
 
 	// Allocate virtual video memory RGB
-	rgbVideoMem = new UINT32[surfaceWidth * surfaceHeight * bpp/8];
+	rgbVideoMem = new UINT32[surfaceWidth * surfaceHeight * 4];
 	if(rgbVideoMem == NULL) 
 	{
 		debugMessage(0, "IDirectDrawSurfaceWrapper::WrapperInitialize", "Failed to allocate rgb video memory");
