@@ -1296,11 +1296,6 @@ HRESULT IDirectDrawWrapper::Present()
 	// Make sure the attached surface exists
 	if(lpAttachedSurface != NULL)
 	{
-
-		{
-			std::stringstream ss;
-			//ss << surfaceTexture->
-		}
 		// Lock full dynamic texture
 		D3DLOCKED_RECT d3dlrect;       //&d3dlrect
 

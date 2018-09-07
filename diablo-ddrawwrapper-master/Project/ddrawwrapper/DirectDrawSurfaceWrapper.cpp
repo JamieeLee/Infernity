@@ -1099,12 +1099,12 @@ HRESULT __stdcall IDirectDrawSurfaceWrapper::Unlock(LPVOID lpRect)
 	}
 	else {
 
-		for (long i = 0; i < surfaceWidth * surfaceHeight * surfaceBPP / 8; i += surfaceBPP / 8)
+		for (int i = 0; i < ((surfaceWidth * surfaceHeight)<<2); i<<=2)
 		{
-			int index = i * 8 / surfaceBPP;
+			int index = i>>2;
 			int v1 = RGB(rawVideoMem[i + 3], rawVideoMem[i + 2], rawVideoMem[i + 1]);
 			int v2 = attachedPalette->rgbPalette[rawVideoMem[i]];
-			rgbVideoMem[index] = RGB2((GetRValue(v1)+ GetRValue(v2)), (GetGValue(v1) + GetGValue(v2)), (GetBValue(v1) + GetBValue(v2)));
+			rgbVideoMem[index] = RGB2((GetRValue(v1) + GetRValue(v2)), (GetGValue(v1) + GetGValue(v2)), (GetBValue(v1) + GetBValue(v2)));
 		}
 	}
 

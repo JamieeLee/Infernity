@@ -133,7 +133,7 @@ void __cdecl dx_create_back_buffer()
 		if ( !v1 )
 		{
 			lpDDSPrimary->Unlock(NULL);
-			sgpBackBuf = DiabloAllocPtr(WorkingWidth*WorkingHeight*2*4);
+			sgpBackBuf = DiabloAllocPtr(WorkingWidth*WorkingHeight*2*4*4);
 			return;
 		}
 		if ( v1 != DDERR_CANTLOCKSURFACE )
