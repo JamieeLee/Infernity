@@ -2456,21 +2456,23 @@ void __cdecl DrawChr()
 	v23 = plr[myplr]._pMaxHP;
 	a5[0] = v23 > plr[myplr]._pMaxHPBase;
 	sprintf(a4, "%i", v23 >> 6);
-	ADD_PlrStringXY(95, 304, 126, a4, a5[0]);
+	int offset = -5;
+	int offset2 = -8;
+	ADD_PlrStringXY(95+offset, 304, 136, a4, a5[0]);
 	v24 = plr[myplr]._pHitPoints;
 	if ( v24 != plr[myplr]._pMaxHP )
 		a5[0] = 2;
 	sprintf(a4, "%i", v24 >> 6);
-	ADD_PlrStringXY(143, 304, 174, a4, a5[0]);
+	ADD_PlrStringXY(143 + offset2, 304, 184, a4, a5[0]);
 	v25 = plr[myplr]._pMaxMana;
 	a5[0] = v25 > plr[myplr]._pMaxManaBase;
 	sprintf(a4, "%i", v25 >> 6);
-	ADD_PlrStringXY(95, 332, 126, a4, a5[0]);
+	ADD_PlrStringXY(95 + offset, 332, 136, a4, a5[0]);
 	v26 = plr[myplr]._pMana;
 	if ( v26 != plr[myplr]._pMaxMana )
 		a5[0] = 2;
 	sprintf(a4, "%i", v26 >> 6);
-	ADD_PlrStringXY(143, 332, 174, a4, a5[0]);
+	ADD_PlrStringXY(143 + offset2, 332, 184, a4, a5[0]);
 }
 
 

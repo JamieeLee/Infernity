@@ -123,7 +123,9 @@ void AutoPickGold(int pnum) {
 				item[itemIndex]._iRequest = 1;
 				CalcPlrInv(myplr, 1);
 				//dItem[row][col] = 0;
-				PlaySFX(68);
+				if (!effect_is_playing(68)) {
+					PlaySFX(68);
+				}
 			}
 		}
 	}
