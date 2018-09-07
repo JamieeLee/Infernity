@@ -2086,7 +2086,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 			}
 		}
 	}
-	if ( v53 & 0x10 && (v53 & 0x40 || plr[myplr]._pInfraFlag) && v44 < 0 )
+	if ( v53 & 0x10 && (v53 & 0x40 || plr[myplr]._pInfraFlag || (GetConfigBoolVariable("highlightMonstersInCombat") && monster[-1 - v44].isActivated)) && v44 < 0 )
 	{
 		v26 = -1 - v44;
 		draw_monster_num = -1 - v44;
@@ -2100,7 +2100,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 				{
 					v29 = sy + v27->_myoff;
 					v30 = sx + v27->_mxoff - v28->flags_2;
-					if ( v26 == pcursmonst )
+					if ( v26 == pcursmonst || (GetConfigBoolVariable("highlightMonstersInCombat") && monster[v26].isActivated))
 					{
 						Cl2DecodeClrHL(233, v30, v29, (char *)v27->_mAnimData, v27->_mAnimFrame, v28->flags_1, a5, 8);
 						v26 = draw_monster_num;
@@ -2144,7 +2144,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 			}
 		}
 	}
-	if ( v43 > 0 && (v53 & 0x40 || plr[myplr]._pInfraFlag) )
+	if ( v43 > 0 && (v53 & 0x40 || plr[myplr]._pInfraFlag || (GetConfigBoolVariable("highlightMonstersInCombat") && monster[v43 - 1].isActivated))) 
 	{
 		v34 = v43 - 1;
 		draw_monster_num = v43 - 1;
@@ -2158,7 +2158,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 				{
 					v37 = sy + v35->_myoff;
 					v38 = sx + v35->_mxoff - v36->flags_2;
-					if ( v34 == pcursmonst )
+					if ( v34 == pcursmonst || (GetConfigBoolVariable("highlightMonstersInCombat") && monster[v34].isActivated))
 					{
 						Cl2DecodeClrHL(233, v38, v37, (char *)v35->_mAnimData, v35->_mAnimFrame, v36->flags_1, a5, 8);
 						v34 = draw_monster_num;
@@ -2694,7 +2694,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 			}
 		}
 	}
-	if ( v52 & 0x10 && (v52 & 0x40 || plr[myplr]._pInfraFlag) && v43 < 0 )
+	if ( v52 & 0x10 && (v52 & 0x40 || plr[myplr]._pInfraFlag || (GetConfigBoolVariable("highlightMonstersInCombat") && monster[-1 - v43].isActivated)) && v43 < 0 )
 	{
 		v25 = -1 - v43;
 		draw_monster_num = -1 - v43;
@@ -2708,7 +2708,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 				{
 					v28 = sy + v26->_myoff;
 					v29 = sx + v26->_mxoff - v27->flags_2;
-					if ( v25 == pcursmonst )
+					if ( v25 == pcursmonst || (GetConfigBoolVariable("highlightMonstersInCombat") && monster[v25].isActivated))
 					{
 						Cl2DecodeFrm2(233, v29, v28, (char *)v26->_mAnimData, v26->_mAnimFrame, v27->flags_1, 0, a5);
 						v25 = draw_monster_num;
@@ -2751,7 +2751,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 			}
 		}
 	}
-	if ( v42 > 0 && (v52 & 0x40 || plr[myplr]._pInfraFlag) )
+	if ( v42 > 0 && (v52 & 0x40 || plr[myplr]._pInfraFlag || (GetConfigBoolVariable("highlightMonstersInCombat") && monster[v42 - 1].isActivated)) )
 	{
 		v33 = v42 - 1;
 		draw_monster_num = v42 - 1;
@@ -2765,7 +2765,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 				{
 					v36 = sy + v34->_myoff;
 					v37 = sx + v34->_mxoff - v35->flags_2;
-					if ( v33 == pcursmonst )
+					if ( v33 == pcursmonst || (GetConfigBoolVariable("highlightMonstersInCombat") && monster[v33].isActivated))
 					{
 						Cl2DecodeFrm2(233, v37, v36, (char *)v34->_mAnimData, v34->_mAnimFrame, v35->flags_1, 0, a5);
 						v33 = draw_monster_num;
@@ -3750,6 +3750,7 @@ void __cdecl DrawAndBlit()
 			dwHgt = ScreenHeight;//dwHgt = 352;
 		}
 		drawpanflag = 0;
+		memset(rgbBuffer, 0, sizeof(RGBScreen));
 		lock_buf_priv();
 		if ( leveltype )
 			DrawView(ViewX, ViewY);
@@ -3787,7 +3788,6 @@ void __cdecl DrawAndBlit()
 		drawmanaflag = 0;
 		drawbtnflag = 0;
 		drawsbarflag = 0;
-		memset(rgbBuffer, 0, sizeof(RGBScreen));
 	}
 }
 // 4B8960: using guessed type int talkflag;

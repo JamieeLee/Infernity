@@ -1713,7 +1713,6 @@ enum text_color
 	COL_GOLD = 0x3,
 	COL_ORANGE = 0x4,
 	COL_YELLOW = 0x5,
-	COL_TEST = 0x6,
 };
 
 enum _difficulty

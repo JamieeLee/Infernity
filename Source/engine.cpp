@@ -1897,12 +1897,14 @@ bool played = false;
 void PrintDebugInfo() {
 	if (showDebugInfo) {
 		std::stringstream ss;
-		ss << "debuginfo: " << MouseX << " " << MouseY;
+		int isActivated = -1;
+		if (pcursmonst != -1) { isActivated = monster[pcursmonst].isActivated; }
+		ss << "debuginfo: " << MouseX << " " << MouseY << " " << AutoMapXOfs << " " << AutoMapYOfs << " " << pcursmonst << " " << isActivated;
 		if (played == false) {
 			PlaySFX(num++);
 			played = true;
 		}
-		PrintGameStr(50, 200, (char*)ss.str().c_str(), COL_TEST);
+		PrintGameStr(50, 200, (char*)ss.str().c_str(), COL_ORANGE, true, RGB(0,255,0));
 	}
 	else { played = false; }
 }

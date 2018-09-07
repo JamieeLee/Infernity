@@ -788,15 +788,16 @@ char GetLetterColor(uchar mask, int colorIndex)
 	case COL_RED:	if (mask >= 240) { mask -= 16; }                                                            break;
 	case COL_GOLD:  if (mask >= 240) { if (mask >= 254) { mask = 207; } else { mask -= 46; } }                    break;
 	case COL_ORANGE:if (mask >= 240) { mask -= 32; }                                                            break;
-	case COL_TEST:if (mask >= 240) { mask -= 32; }                                                            break;
 	case COL_YELLOW:if (mask >  251) { mask = 151; }
 					else if (mask >= 240) { mask = 145 + ((mask - 240) >> 1); } break;
 	}
 	return mask;
 }
 
-
-void __fastcall CPrintString(int No, unsigned char pszStr, int color)
+void __fastcall CPrintString(int No, unsigned char pszStr, int color) {
+	CPrintString(No, pszStr, color, true, 0);
+}
+void __fastcall CPrintString(int No, unsigned char pszStr, int color, bool mix, int rgbColor)
 {
 	int *v3; // ebx
 	char *v4; // esi
@@ -849,10 +850,10 @@ void __fastcall CPrintString(int No, unsigned char pszStr, int color)
 			{
 				v15 = *v4++;
 				v15 = GetLetterColor(v15,(char)color);
-				*v5++ = v15;
-				if (color == COL_TEST) {
-					*v5_2++ = RGB(25, 15, 0);
+				if (mix == true) {
+					*v5++ = v15;
 				}
+					*v5_2++ = rgbColor;
 				--v14;
 			} while (v14);
 		} while (v12);
@@ -2203,8 +2204,10 @@ LABEL_14:
 
 
 
-
-void __fastcall PrintGameStr(int x, int y, char *str, int color)
+void __fastcall PrintGameStr(int x, int y, char *str, int color) {
+	PrintGameStr(x, y, str, color, true, 0);
+}
+void __fastcall PrintGameStr(int x, int y, char *str, int color, bool mix, int rgbColor)
 {
 	char *v4; // edi
 	int v5; // esi
@@ -2218,7 +2221,7 @@ void __fastcall PrintGameStr(int x, int y, char *str, int color)
 		++v4;
 		v7 = fontframe[fontidx[i]];
 		if ( v7 )
-			CPrintString(v5, v7, color);
+			CPrintString(v5, v7, color,mix,rgbColor);
 		v5 += fontkern[v7] + 1;
 	}
 }

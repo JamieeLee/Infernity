@@ -26,8 +26,8 @@ void __cdecl InitAutomapOnce()
 	automapflag = 0;
 	AutoMapScale = 50;
 	AutoMapPosBits = 32;
-	AutoMapXPos = ScreenWidth / 40;//16;
-	AutoMapYPos = ScreenHeight / 44;// 8;
+	AutoMapXPos = 16;//16;
+	AutoMapYPos = 8;// 8;
 	AMPlayerX = 4;
 	AMPlayerY = 2;
 }
@@ -57,20 +57,25 @@ void __cdecl InitAutomap()
 	signed int v15; // edx
 	int size; // [esp+Ch] [ebp-4h]
 
-	v0 = 50;
+	int old_320 = ScreenWidth / 2;
+	int old_32 = ScreenWidth / 20;
+	int old_50 = 50*640/ScreenWidth;
+	int old_5 = 5*640/ScreenWidth;
+
+	v0 = old_50;
 	v1 = 0;
 	do
 	{
 		v2 = (v0 << 6) / 100;
-		v3 = 2 * (320 / v2);
-		v4 = 320 % v2;
+		v3 = 2 * (old_320 / v2);
+		v4 = old_320 % v2;
 		v5 = v3 + 1;
 		AMbyte_4B7E4C[v1] = v5;
 		if ( v4 )
 			AMbyte_4B7E4C[v1] = v5 + 1;
-		if ( v4 >= 32 * v0 / 100 )
+		if ( v4 >= old_32 * v0 / 100 )
 			++AMbyte_4B7E4C[v1];
-		v0 += 5;
+		v0 += old_5;
 		++v1;
 	}
 	while ( v1 < 31 );
@@ -128,7 +133,7 @@ void __cdecl InitAutomap()
 
 void __cdecl StartAutomap()
 {
-	AutoMapXOfs = 0;
+	AutoMapXOfs = -(ScreenWidth-640)*20/640;
 	AutoMapYOfs = 0;
 	automapflag = 1;
 }
