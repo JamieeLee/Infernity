@@ -20,7 +20,7 @@ int init_inf = 0x7F800000; // weak
 /* rdata */
 
 char gszVersionNumber[260] = "internal version unknown";
-char gszProductName[260] = "Infernity v1.17";
+char gszProductName[260] = "Infernity v1.18";
 
 struct init_cpp_init
 {
