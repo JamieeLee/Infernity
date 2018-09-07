@@ -1,6 +1,6 @@
 #include <string>
-#define GLOBAL_WIDTH 2560
-#define GLOBAL_HEIGHT 1440
+#define GLOBAL_WIDTH 1280
+#define GLOBAL_HEIGHT 960
 class drawingQueue
 {
 public:

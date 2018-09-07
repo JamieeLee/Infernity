@@ -626,7 +626,8 @@ void __cdecl SaveGame()
 	int v47; // [esp+114h] [ebp-4h]
 
 	//v0 = codec_get_encoded_len(262147); /* FILEBUFF */
-	v0 = codec_get_encoded_len(262147 +StructSize<PlayerStruct>() - 21720); /* FILEBUFF *///sizeof(PlayerStruct)-21720
+	//37632 for changing dMissile[112][112] from char to int
+	v0 = codec_get_encoded_len(262147 + 37632 + (1 + 1 + 176)*(MAXMISSILES - 125) +StructSize<PlayerStruct>() - 21720); /* FILEBUFF *///sizeof(PlayerStruct)-21720
 	ptr = DiabloAllocPtr(v0);
 	tbuff = ptr;
 	SaveVersion = CurVersion; // for buffer save/load 
@@ -1083,7 +1084,8 @@ void __cdecl SaveLevel()
 	if ( !currlevel )
 		glSeedTbl[0] = GetRndSeed();
 	//v0 = codec_get_encoded_len(262147); /* FILEBUFF */
-	v0 = codec_get_encoded_len(262147+ StructSize<PlayerStruct>()-21720); /* FILEBUFF */ //sizeof(PlayerStruct)- 21720
+    //37632 for changing dMissile[112][112] from char to int
+	v0 = codec_get_encoded_len(262147+ 37632+ (1 + 1 + 176)*(MAXMISSILES - 125)+ StructSize<PlayerStruct>()-21720); /* FILEBUFF */ //sizeof(PlayerStruct)- 21720
 	SaveBuff = DiabloAllocPtr(v0);
 	SaveVersion = CurVersion; // for buffer save/load 
 	tbuff = SaveBuff;
