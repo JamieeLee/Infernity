@@ -72,6 +72,7 @@ I will order a pizza and think about you while eating ;)
 - 1.15 - STASH!
 - 1.16 - True Color support (RGB)
 - 1.17 - Sprite limit raised to 10k! (Firewall/chainlightning/monster spells should always work)
+- 1.18 - Hotkeys F1-F12, they save in multiplayer
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
