@@ -124,8 +124,8 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 				return 0;
 			}
-			// Always pass ~ to menu
-			if(wParam == VK_OEM_3)
+			// Always pass ~ to menu // replaced with scrollock
+			if(wParam == VK_OEM_3 || wParam == VK_SCROLL)
 			{
 				return 0;
 			}
@@ -144,10 +144,10 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 				return 0;
 			}
 			// Always pass ~ to menu
-			if(wParam == VK_OEM_3)
+			if(wParam == VK_OEM_3 || wParam == VK_SCROLL)
 			{
 				// Pass to menu and set inMenu to result
-				inMenu = lpDD->MenuKey(VK_OEM_3);
+				inMenu = lpDD->MenuKey(wParam);
 				return 0;
 			}
 			// Everything gets passed if we are in the menu

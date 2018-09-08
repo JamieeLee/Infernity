@@ -1373,22 +1373,22 @@ HRESULT IDirectDrawWrapper::Present()
 			d3dSprite->SetTransform(&mat);
 		}
 		
-		
+		int addY = (displayModeWidth - 480) / 2;
 		D3DXVECTOR3 pos;	
 		pos.z = 0.0f;
 		int selectionLeft, selectionRight;
 
 		// Custom Diablo Logo
-		pos.x = (640 - menuSprites[17].right) / 2;
-		pos.y = 3;
+		pos.x = ((displayModeWidth - menuSprites[17].right) / 2);
+		pos.y = 3 + addY;;
 		d3dSprite->Draw(menuTexture, &menuSprites[17], NULL, &pos, 0xFFFFFFFF);
 
 		// RESOLUTION
-		pos.x = (640 - menuSprites[11].right) / 2;
-		pos.y = menuLocations[0];
+		pos.x = ((displayModeWidth - menuSprites[11].right) / 2);
+		pos.y = menuLocations[0]+addY;
 		d3dSprite->Draw(menuTexture, &menuSprites[11], NULL, &pos, 0xFFFFFFFF);
 
-		pos.y = menuLocations[1];
+		pos.y = menuLocations[1] + addY;
 		// Print display string
 		char temp[1024];
 		// If windowed selected
@@ -1411,7 +1411,7 @@ HRESULT IDirectDrawWrapper::Present()
 				resolutionStringWidth += menuSprites[10].right - menuSprites[10].left;
 			}
 		}
-		pos.x = (640 - resolutionStringWidth) / 2;
+		pos.x = (displayModeWidth - resolutionStringWidth) / 2;
 		// Set location for menu selection marker
 		if(curMenu == 0)
 		{
@@ -1435,8 +1435,8 @@ HRESULT IDirectDrawWrapper::Present()
 		}
 
 		// FULLSCREEN:
-		pos.x = (640 - (menuSprites[12].right + (menuSprites[16].right - menuSprites[16].left) + 10)) / 2;
-		pos.y = menuLocations[2];
+		pos.x = (displayModeWidth - (menuSprites[12].right + (menuSprites[16].right - menuSprites[16].left) + 10)) / 2;
+		pos.y = menuLocations[2] + addY;
 		// Set location for menu selection marker
 		if(curMenu == 1)
 		{
@@ -1458,8 +1458,8 @@ HRESULT IDirectDrawWrapper::Present()
 		}
 		
 		// VSYNC:
-		pos.x = (640 - (menuSprites[13].right + (menuSprites[16].right - menuSprites[16].left) + 10)) / 2;
-		pos.y = menuLocations[3];
+		pos.x = (displayModeWidth - (menuSprites[13].right + (menuSprites[16].right - menuSprites[16].left) + 10)) / 2;
+		pos.y = menuLocations[3] + addY;
 		// Set location for menu selection marker
 		if(curMenu == 2)
 		{
@@ -1481,8 +1481,8 @@ HRESULT IDirectDrawWrapper::Present()
 		}
 
 		// ACCEPT
-		pos.x = (640 - menuSprites[14].right) / 2;
-		pos.y = menuLocations[4];
+		pos.x = (displayModeWidth - menuSprites[14].right) / 2;
+		pos.y = menuLocations[4] + addY;
 		// Set location for menu selection marker
 		if(curMenu == 3)
 		{
@@ -1501,7 +1501,7 @@ HRESULT IDirectDrawWrapper::Present()
 		if(curMenuFrame > 7) curMenuFrame = 0;
 
 		pos.x = selectionLeft;
-		pos.y = menuLocations[curMenu + 1] - 5;
+		pos.y = menuLocations[curMenu + 1] + addY - 5;
 		d3dSprite->Draw(menuTexture,&sLoc,NULL,&pos,0xFFFFFFFF);
 		pos.x = selectionRight;
 		d3dSprite->Draw(menuTexture,&sLoc,NULL,&pos,0xFFFFFFFF);
@@ -1540,7 +1540,7 @@ HRESULT IDirectDrawWrapper::Present()
  */
 BOOL IDirectDrawWrapper::MenuKey(WPARAM vKey)
 {
-	if(vKey == VK_OEM_3)
+	if(vKey == VK_OEM_3 || vKey == VK_SCROLL)
 	{
 		if(inMenu == TRUE)
 			// No longer in the menu
