@@ -1899,7 +1899,7 @@ void PrintDebugInfo() {
 		std::stringstream ss;
 		int isActivated = -1;
 		if (pcursmonst != -1) { isActivated = monster[pcursmonst].isActivated; }
-		ss << "debuginfo: " << MouseX << " " << MouseY << " " << sizeof(PlayerStruct);
+		ss << "debuginfo: " << MouseX << " " << MouseY << " " << plr[myplr].NewSpellHotkeys[0] << " " << plr[myplr].NewSpellTHotkeys[0];
 		if (played == false) {
 			PlaySFX(num++);
 			played = true;

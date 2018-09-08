@@ -72,7 +72,6 @@ void __fastcall LoadGame(bool firstflag)
 	}
 		//if (GetConfigBoolVariable("convertCharactersToInfernity") == true) {
 
-
 	setlevel = OLoad();
 	setlvlnum = ILoad();
 	currlevel = ILoad();
@@ -99,6 +98,12 @@ void __fastcall LoadGame(bool firstflag)
 	}
 	while ( v9 ^ v10 );
 	LoadPlayer(myplr);
+	if (SaveVersion >= 5) {
+		for (int i = 0; i < 12; ++i) {
+			plr[myplr].NewSpellHotkeys[i] = ILoad();
+			plr[myplr].NewSpellTHotkeys[i] = ILoad();
+		}
+	}
 	quest_num = 0;
 	do
 		LoadQuest(quest_num++);
@@ -505,7 +510,6 @@ void __fastcall LoadPlayer(int i)
 		}
 		plr[i].lastTab = 0;
 	}
-
 	if (SaveVersion <= 4) {
 		for (int ii = 0; ii < 12; ++ii) {
 			plr[i].NewSpellHotkeys[ii] = -1;
@@ -634,7 +638,8 @@ void __cdecl SaveGame()
 
 	//v0 = codec_get_encoded_len(262147); /* FILEBUFF */
 	//37632 for changing dMissile[112][112] from char to int
-	v0 = codec_get_encoded_len(262147 + 37632 + (1 + 1 + 176)*(MAXMISSILES - 125) +StructSize<PlayerStruct>() - 21720); /* FILEBUFF *///sizeof(PlayerStruct)-21720
+	//96 for hotkeys
+	v0 = codec_get_encoded_len(262147 + 96 + 37632 + (1 + 1 + 176)*(MAXMISSILES - 125) +StructSize<PlayerStruct>() - 21720); /* FILEBUFF *///sizeof(PlayerStruct)-21720
 	ptr = DiabloAllocPtr(v0);
 	tbuff = ptr;
 	SaveVersion = CurVersion; // for buffer save/load 
@@ -669,6 +674,10 @@ void __cdecl SaveGame()
 	}
 	while ( v2 < NUMLEVELS );
 	SavePlayer(myplr);
+	for (int i = 0; i < 12; ++i) {
+		ISave(plr[myplr].NewSpellHotkeys[i]);
+		ISave(plr[myplr].NewSpellTHotkeys[i]);
+	}
 	v3 = 0;
 	do
 		SaveQuest(v3++);
@@ -1092,7 +1101,8 @@ void __cdecl SaveLevel()
 		glSeedTbl[0] = GetRndSeed();
 	//v0 = codec_get_encoded_len(262147); /* FILEBUFF */
     //37632 for changing dMissile[112][112] from char to int
-	v0 = codec_get_encoded_len(262147+ 37632+ (1 + 1 + 176)*(MAXMISSILES - 125)+ StructSize<PlayerStruct>()-21720); /* FILEBUFF */ //sizeof(PlayerStruct)- 21720
+	//96 for hotkeys
+	v0 = codec_get_encoded_len(262147+ 96 + 37632+ (1 + 1 + 176)*(MAXMISSILES - 125)+ StructSize<PlayerStruct>()-21720); /* FILEBUFF */ //sizeof(PlayerStruct)- 21720
 	SaveBuff = DiabloAllocPtr(v0);
 	SaveVersion = CurVersion; // for buffer save/load 
 	tbuff = SaveBuff;
