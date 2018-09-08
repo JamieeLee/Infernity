@@ -15,7 +15,11 @@ public:
 	int height;
 	int color;
 	std::string text;
-	drawingQueue(int x2, int y2, int width2, int height2, int Row2, int Col2, int ItemID2, int q2, std::string text2) { x = x2; y = y2; Row = Row2; Col = Col2; ItemID = ItemID2; width = width2; height = height2; color = q2; text = text2; }
+	int r;
+	int g;
+	int b;
+	bool mix;
+	drawingQueue(int x2, int y2, int width2, int height2, int Row2, int Col2, int ItemID2, int q2, std::string text2,int mix2, int r2, int g2, int b2) { x = x2; y = y2; Row = Row2; Col = Col2; ItemID = ItemID2; width = width2; height = height2; color = q2; text = text2; r = r2; g = g2; b = b2; mix = mix2; }
 };
 
 

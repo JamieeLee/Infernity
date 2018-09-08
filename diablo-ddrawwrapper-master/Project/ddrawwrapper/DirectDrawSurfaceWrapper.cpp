@@ -1067,6 +1067,7 @@ void printInfo(std::string s, int v1, int v2, int v3) {
 
 char clamp(int s) {
 	if (s > 255) { return 255; }
+	if (s < 0) { return 0; }
 	return s;
 }
 int RGB2(int v1, int v2, int v3) {
@@ -1102,7 +1103,7 @@ HRESULT __stdcall IDirectDrawSurfaceWrapper::Unlock(LPVOID lpRect)
 		{
 			int ii = i << 2;
 			int v2 = attachedPalette->rgbPalette[rawVideoMem[ii]];
-			rgbVideoMem[i] =  RGB2((rawVideoMem[ii + 3] + GetRValue(v2)), (rawVideoMem[ii + 2] + GetGValue(v2)), (rawVideoMem[ii + 1] + GetBValue(v2)));
+			rgbVideoMem[i] = RGB2((-rawVideoMem[ii + 3] + GetRValue(v2)), (-rawVideoMem[ii + 2] + GetGValue(v2)), (-rawVideoMem[ii + 1] + GetBValue(v2)));
 		}
 	}
 

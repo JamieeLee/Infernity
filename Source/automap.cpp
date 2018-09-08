@@ -208,9 +208,118 @@ int HighlightedItemRow = -1;
 int HighlightedItemCol = -1;
 bool ShouldHighlightItems = false;
 std::vector<drawingQueue> drawQ;
+lua_State* L;
 
-void AddItemToDrawQueue( int x, int y,int id) {
+struct lootFilterData {
+	int r;
+	int g;
+	int b;
+	int color2;
+	bool show;
+	std::string name;
+};
+
+lootFilterData luaLootFilter(std::string playerName, int playerClass, std::string itemName, int type, int loc, int rarity, int color)
+{
+	lua_getglobal(L, "lootFilter");
+	lua_pushstring(L, playerName.c_str());
+	lua_pushnumber(L, playerClass);
+	lua_pushstring(L, itemName.c_str());
+	lua_pushnumber(L, type);
+	lua_pushnumber(L, loc);
+	lua_pushnumber(L, rarity);
+	lua_pushnumber(L, color);
+	lua_call(L, 7,6);
+
+	lootFilterData d;
+	d.b = (int)lua_tointeger(L, -1);
+	lua_pop(L, 1);
+	d.g = (int)lua_tointeger(L, -1);
+	lua_pop(L, 1);
+	d.r = (int)lua_tointeger(L, -1);
+	lua_pop(L, 1);
+	d.color2 = (int)lua_tointeger(L, -1);
+	lua_pop(L, 1);
+	d.show = (int)lua_tointeger(L, -1);
+	lua_pop(L, 1);
+	d.name = lua_tostring(L, -1);
+	lua_pop(L, 1);
+	return d;
+}
+#define lua_open()  luaL_newstate()
+bool luaInit = false;
+bool lootFilterBroken = false;
+
+void fatalLua(const char* message) {
+	MessageBox(NULL, message, "LootFilterError", MB_ICONEXCLAMATION);
+	lootFilterBroken = true;
+	//exit(EXIT_FAILURE);
+}
+
+
+void LuaInit() {
+	if (luaInit == false) {
+		luaInit = true;
+		L = lua_open();
+		luaL_openlibs(L);
+	}
+}
+void printDebug(std::string s, int v) {
+	std::stringstream ss;
+	ss << s << " " << v;
+	MessageBox(NULL, ss.str().c_str(), NULL, NULL);
+}
+
+void printDebugLootFilter(char *pname, int pclass, char* itemName, int itemType, int itemSlot,int itemRarity, int itemColor){
+	std::stringstream ss;
+	ss << pname << " " << pclass << " " << itemName << " " << itemType << " " << itemSlot << " " << itemRarity << " " << itemColor;
+	MessageBox(NULL, ss.str().c_str(), NULL, NULL);
+}
+
+
+int GetItemRarity(int index, ItemStruct* it, bool f) {
+	if (f == false) {
+		it = &item[index];
+	}
+	if (it->_iMagical <= 0) { return COL_WHITE; }
+	else if (it->_iMagical == 1) {
+		if (IsItemRare(it->isRare, it->rareAffix)) {
+			return 3;
+		}
+		else {
+			return 1;
+		}
+	}
+	else if (it->_iMagical == 2) {
+		if (IsItemRare(it->isRare, it->rareAffix)) {
+			return 4;
+		}
+		else {
+			return 2;
+		}
+	}
+	return 0;
+}
+
+
+int GetItemRarity(int index) {
+	return GetItemRarity(index, NULL, false);
+}
+
+void AddItemToDrawQueue(int x, int y, int id) {
+
+	if (lootFilterBroken == false) {
+		if (luaL_dofile(L, "lootFilter.lua") != LUA_OK) {
+		fatalLua(lua_tostring(L, -1));
+		return;
+		}
+	}
+	else {
+		return;
+	}
+
 	ItemStruct* it = &item[id];
+	bool error = false;
 
 	char textOnGround[256];
 	if (it->_itype == ITYPE_GOLD) {
@@ -219,11 +328,17 @@ void AddItemToDrawQueue( int x, int y,int id) {
 	else {
 		sprintf(textOnGround, "%s", it->_iIdentified ? it->_iIName : it->_iName);
 	}
-	int centerXOffset =  GetTextWidth(textOnGround) ;
-	std::string t2(textOnGround);
+
+	int rarity = GetItemRarity(id);
+	std::string name(plr[myplr]._pName);
+	std::string itemName(textOnGround);
+
+	lootFilterData lfd = luaLootFilter(name, plr[myplr]._pClass, itemName, it->_itype, (int)it->_iLoc, rarity, GetItemColor(id));
+	if (lfd.show == false) { return; }
+	int centerXOffset =  GetTextWidth((char*)lfd.name.c_str()) ;
 		x -= centerXOffset / 2 + 20;
 		y -= 193;
-		drawQ.push_back(drawingQueue(x, y, GetTextWidth(textOnGround), 13, it->_ix, it->_iy, id, GetItemColor(id), t2));
+		drawQ.push_back(drawingQueue(x, y, GetTextWidth((char*)lfd.name.c_str()), 13, it->_ix, it->_iy, id, lfd.color2, lfd.name, 1, lfd.r, lfd.g,lfd.b));
 
 }
 
@@ -317,7 +432,12 @@ void HighlightItemsNameOnMap()
 			DrawTransparentBackground(sx2, sy2, t.width + 1, t.height, 0, 0, bgcolor, bgcolor);
 			//"\204X\204 values are \204next level\204 stats."
 			//"\204this\204 shit is \201on fire\201"
-			DrawMultiColorText(sx, sy, t.width, &t.text[0u], color);
+			//DrawMultiColorText(sx, sy, t.width, &t.text[0u], color);
+			PrintGameStr(sx, sy, &t.text[0u], t.color, t.mix, t.r, t.g, t.b);
+			//std::stringstream ss;
+			//ss << t.color << " " << t.mix << " " << t.r << " " << t.g << " " << t.b;
+			//MessageBox(NULL, ss.str().c_str(), NULL, NULL);
+			//PrintGameStr(sx, sy, &t.text[0u], COL_WHITE, true,0,0,0);
 			//PrintGameStr(sx,sy, &t.text[0u], color);
 		}
 	}

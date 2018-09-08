@@ -738,7 +738,7 @@ LABEL_23:
 // 525748: using guessed type char sgbMouseDown;
 
 LRESULT __stdcall GM_Game(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-{
+{ 
 	if ( uMsg > WM_LBUTTONDOWN )
 	{
 		if ( uMsg == WM_LBUTTONUP )
@@ -1919,8 +1919,18 @@ LABEL_27:
 					return;
 				case 'L':
 				case 'l':
-					if ( debug_mode_key_inverted_v )
-						ToggleLighting();
+					try {
+							if (luaL_dofile(L, "lootFilter.lua") != LUA_OK) {
+							fatalLua(lua_tostring(L, -1));
+						}
+						else {
+							NetSendCmdString(1 << myplr, "LootFilter reloaded successfuly.");
+							lootFilterBroken = false;
+						}
+					}
+					catch (...) {}
+					//if ( debug_mode_key_inverted_v )
+					//	ToggleLighting();
 					return;
 				case 'M':
 					NextDebugMonster();

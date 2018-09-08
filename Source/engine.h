@@ -53,6 +53,11 @@ int __fastcall random(int idx, int v);
 #include <map>
 #include <sstream>
 #include <fstream>
+extern "C" {
+#include "lua.h"
+#include "lualib.h"
+#include "lauxlib.h"
+}
 bool IsInfernoEnabled();
 void ReloadConfig();
 bool GetConfigBoolVariable(std::string s);
@@ -103,6 +108,8 @@ extern std::vector<drawingQueue> drawQ;
 void AddItemToDrawQueue(int x, int y, int id);
 extern int currentGameState;
 void setGameState(int state);
+void fatalLua(const char* message);
+void LuaInit();
 
 
 extern std::map<std::string, bool> BoolConfig;
@@ -118,6 +125,8 @@ extern int HighlightedItemID;
 extern int HighlightedItemRow;
 extern int HighlightedItemCol;
 extern bool ShouldHighlightItems;
+extern lua_State* L;
+extern bool lootFilterBroken;
 
 // try versioning struct size
 #define countof( a ) __crt_countof( a ) 

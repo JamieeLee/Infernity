@@ -3797,6 +3797,10 @@ void __cdecl DrawAndBlit()
 		DrawXpBar();
 		DrawNumbersOnHealthMana();
 		PrintDebugInfo();
+		if (lootFilterBroken == true) {
+			std::string s="Loot filter broken! Fix the errors and press L to reload!";
+			PrintGameStr(ScreenWidth / 2 - GetTextWidth((char*)s.c_str()) / 2, 10, (char*)s.c_str(), COL_RED, true, 20, 0, 0);
+		}
 		PrintInCombat();
 		if ( talkflag )
 		{
