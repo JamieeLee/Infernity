@@ -871,6 +871,14 @@ bool __fastcall LeftMouseDown(int a1)
 	unsigned short v15; // [esp-8h] [ebp-10h]
 
 	v1 = a1;
+
+	if ((GetKeyState(VK_CAPITAL) & 0x0001) != 0){ //inverting shift press with caps lock
+		if (v1 == 1) { v1 = 5; }
+		else if (v1 == 5) { v1 = 1; }
+	}
+
+
+
 	if ( gmenu_left_mouse(1) || control_check_talk_btn() || sgnTimeoutCurs )
 		return 0;
 	if ( deathflag )
