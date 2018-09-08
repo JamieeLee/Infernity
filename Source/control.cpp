@@ -1801,7 +1801,7 @@ void __cdecl CheckPanelInfo()
 		}
 		while ( v0 < numpanbtns );
 	}
-	if ( !spselflag && MouseX >= 565+GetWidthDiff()/2 && MouseX < 621+GetWidthDiff()/2 && MouseY >= 416 && MouseY < 472 )
+	if ( !spselflag && MouseX >= 565+GetWidthDiff()/2 && MouseX < 621+GetWidthDiff()/2 && MouseY >= 416+GetHeightDiff() && MouseY < 472 + GetHeightDiff())
 	{
 		strcpy(infostr, "Select current spell button");
 		_LOBYTE(infoclr) = 0;
@@ -2221,7 +2221,7 @@ void __fastcall control_print_info_str(int y, char *str, bool center, int lines)
 	unsigned char v11; // al
 	int width; // [esp+18h] [ebp+Ch]
 
-	PrintGameStr(ScreenWidth/2-GetTextWidth(str)/2, ScreenHeight-128+56+(y)*16, str, infoclr);
+	PrintGameStr(ScreenWidth/2-GetTextWidth(str)/2, ScreenHeight-128+56+(y)*12, str, infoclr);
 	return;
 
 	int someMagicNumber = GetWidthDiff();//288 +
