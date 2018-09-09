@@ -871,8 +871,9 @@ void __fastcall DrawGame2(int x, int y)
 	ya = y - 1;
 	a5 = ScreenWidth / 64;
 	v4 = ScrollInfo._syoff + 175;
-	int magicThing = ScreenHeight / 32 - 4;
+	int magicThing = ScreenHeight / 32;
 	v11 = magicThing;
+	
 	switch (ScrollInfo._sdir)
 	{
 	case DIR_SW:
@@ -887,12 +888,12 @@ void __fastcall DrawGame2(int x, int y)
 	case DIR_NW:
 		goto LABEL_13;
 	case DIR_N:
-		v11 = 9;
+		v11 = v11+1;
 		goto LABEL_13;
 	case DIR_NE:
 		goto LABEL_15;
 	case DIR_E:
-		v11 = 9;
+		v11 = v11+1;
 		goto LABEL_12;
 	case DIR_SE:
 	LABEL_12:
@@ -913,6 +914,7 @@ void __fastcall DrawGame2(int x, int y)
 	default:
 		break;
 	}
+	
 
 	a6 = 0;
 	gpBufEnd = (unsigned char*)gpBuffer + screen_y_times_width[160];
@@ -925,7 +927,7 @@ void __fastcall DrawGame2(int x, int y)
 		v2 = v6 + 32;
 		v4 = v5 + 16;
 		++a6;
-	} while (a6 < magicThing);
+	} while (a6 < 4);
 	gpBufEnd = (unsigned char*)gpBuffer + screen_y_times_width[WorkingWidth+64];
 	if (v11 > 0)
 	{
@@ -951,7 +953,7 @@ void __fastcall DrawGame2(int x, int y)
 		v2 = v10 + 32;
 		v4 = v9 + 16;
 		++a6a;
-	} while (a6a < magicThing);
+	} while (a6a < 4);
 }
 
 // 4B8968: using guessed type int sbookflag;
@@ -3561,6 +3563,8 @@ LABEL_17:
 				}
 			}
 		}
+		DoBlitScreen(0, 0, ScreenWidth, ScreenHeight);
+		/*
 		if ( a4 > 0 )
 			DoBlitScreen(0, 0, ScreenWidth, a4);
 		if ( a4 < ScreenHeight)
@@ -3591,6 +3595,7 @@ LABEL_17:
 			if ( sgdwCursWdt )
 				DoBlitScreen(sgdwCursX, sgdwCursY, sgdwCursWdt, sgdwCursHgt);
 		}
+		*/
 		if ( !lpDDSBackBuf )
 		{
 			v9 = lpDDSPrimary->Unlock(NULL);

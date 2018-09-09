@@ -257,11 +257,27 @@ void fatalLua(const char* message) {
 }
 
 
+static int printMessage(lua_State *L)
+{
+		std::stringstream ss;
+		std::string test;
+		test = lua_tostring(L, 1);
+		if (test.length() > 0) {
+			ss << test;
+			MessageBox(NULL, ss.str().c_str(), "LuaPrintMessage", NULL);
+		}
+		lua_pushnumber(L, 1);
+		return 1;
+}
+
+
+
 void LuaInit() {
 	if (luaInit == false) {
 		luaInit = true;
 		L = lua_open();
 		luaL_openlibs(L);
+		lua_register(L, "printMessage", printMessage);
 	}
 }
 void printDebug(std::string s, int v) {
