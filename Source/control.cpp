@@ -59,7 +59,7 @@ int panbtndown; // weak
 void *pTalkPanel; // idb
 int spselflag; // weak
 
-unsigned char fontframe[127] =
+const unsigned char fontframe[127] =
 {
 	0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
 	0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
@@ -75,7 +75,7 @@ unsigned char fontframe[127] =
    14,  15,  16,  17,  18,  19,  20,  21,  22,  23,
    24,  25,  26,  40,  66,  41,  67
 };
-unsigned char fontkern[68] =
+const unsigned char fontkern[68] =
 {
 	8,  10,   7,   9,   8,   7,   6,   8,   8,   3,
 	3,   8,   6,  11,   9,  10,   6,   9,   9,   6,
@@ -85,7 +85,7 @@ unsigned char fontkern[68] =
 	3,   2,   7,   6,   3,  10,  10,   6,   6,   7,
 	4,   4,   9,   6,   6,  12,   3,   7
 };
-int lineoffset[25] =
+const int lineoffset[25] =
 {
 	/*
 	WorkingWidth * 594 + 241,//456433,
@@ -142,7 +142,7 @@ int lineoffset[25] =
 	465649,
 	474097
 };
-unsigned char fontidx[256] =
+const unsigned char fontidx[256] =
 {
 	0,   1,   1,   1,   1,   1,   1,   1,   1,   1,
 	1,   1,   1,   1,   1,   1,   1,   1,   1,   1,
@@ -172,7 +172,7 @@ unsigned char fontidx[256] =
   117, 117, 117, 121,  98, 121
 };
 
-/* rdata */
+/* data */
 
 unsigned char SpellITbl[37] =
 {

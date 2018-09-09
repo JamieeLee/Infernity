@@ -15,7 +15,7 @@ int numitems;
 int gnNumGetRecords;
 
 
-PLStruct PL_Prefix[84] =
+const PLStruct PL_Prefix[84] =
 {
   { "Tin", IPL_TOHIT_CURSE, 6, 10, 3, PLT_WEAP|PLT_BOW|PLT_MISC, 0, 1, 0, 0, 0, -3 },
   { "Brass", IPL_TOHIT_CURSE, 1, 5, 1, PLT_WEAP|PLT_BOW|PLT_MISC, 0, 1, 0, 0, 0, -2 },
@@ -106,7 +106,7 @@ PLStruct PL_Prefix[84] =
 
 
 
-PLStruct PL_UPrefix[] =
+const PLStruct PL_UPrefix[] =
 {
 	{ "Tin", IPL_TOHIT_CURSE, 6, 10, 3, PLT_WEAP | PLT_BOW | PLT_MISC, 0, 1, 0, 0, 0, -3 },
 { "Brass", IPL_TOHIT_CURSE, 1, 5, 1, PLT_WEAP | PLT_BOW | PLT_MISC, 0, 1, 0, 0, 0, -2 },
@@ -196,7 +196,7 @@ PLStruct PL_UPrefix[] =
 { &empty_string, IPL_INVALID, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 };
 
-PLStruct PL_Suffix[96] =
+const PLStruct PL_Suffix[96] =
 {
   { "quality", IPL_DAMMOD, 1, 2, 2, PLT_WEAP|PLT_BOW, 0, 0, 1, 100, 200, 2 },
   { "maiming", IPL_DAMMOD, 3, 5, 7, PLT_WEAP|PLT_BOW, 0, 0, 1, 1300, 1500, 3 },
@@ -298,7 +298,7 @@ PLStruct PL_Suffix[96] =
 
 
 
-PLStruct PL_USuffix[] =
+const PLStruct PL_USuffix[] =
 {
 	{ "quality", IPL_DAMMOD, 1, 2, 2, PLT_WEAP | PLT_BOW, 0, 0, 1, 100, 200, 2 },
 { "maiming", IPL_DAMMOD, 3, 5, 7, PLT_WEAP | PLT_BOW, 0, 0, 1, 1300, 1500, 3 },
@@ -400,8 +400,7 @@ PLStruct PL_USuffix[] =
 { &empty_string, IPL_INVALID, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 };
 
-
-UItemStruct UniqueItemList[91] =
+const UItemStruct UniqueItemList[91] =
 {
   { "The Butcher's Cleaver", UITYPE_CLEAVER, 1u, 3u, 3650, IPL_STR, 10, 10, IPL_SETDAM, 4, 24, IPL_SETDUR, 10, 10, IPL_TOHIT, 0, 0, IPL_TOHIT, 0, 0, IPL_TOHIT, 0, 0 },
   { "The Undead Crown", UITYPE_SKCROWN, 1u, 3u, 16650, IPL_RNDSTEALLIFE, 0, 0, IPL_SETAC, 8, 8, IPL_INVCURS, 77, 0, IPL_TOHIT, 0, 0, IPL_TOHIT, 0, 0, IPL_TOHIT, 0, 0 },
@@ -496,7 +495,7 @@ UItemStruct UniqueItemList[91] =
   { &empty_string, UITYPE_INVALID, 0u, 0u, 0, IPL_TOHIT, 0, 0, IPL_TOHIT, 0, 0, IPL_TOHIT, 0, 0, IPL_TOHIT, 0, 0, IPL_TOHIT, 0, 0, IPL_TOHIT, 0, 0 }
 };
 
-/* rdata */
+/* data */
 
 
 ItemDataStruct AllItemsList[157] =

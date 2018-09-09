@@ -22,8 +22,10 @@ int (__fastcall *DrawPlrProc)(int player_num, int x, int y, int screen_x, int sc
 char sgSaveBack[8192];
 int draw_monster_num; // weak
 int sgdwCursHgtOld; // idb
-int scrollrt_inf = 0x7F800000; // weak
-/* rdata */
+
+const int scrollrt_inf = 0x7F800000; // weak
+
+/* data */
 
 /* used in 1.00 debug */
 char *szMonModeAssert[18] =

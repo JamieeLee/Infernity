@@ -24,12 +24,13 @@ int PlayerShiftX = 0;
 int PlayerShiftY = 0;
 bool showDebugInfo = false;
 
-int player_inf = 0x7F800000; // weak
-char ArmourChar[4] = { 'L', 'M', 'H', 0 };
-char WepChar[10] = { 'N', 'U', 'S', 'D', 'B', 'A', 'M', 'H', 'T', 0 };
-char CharChar[4] = { 'W', 'R', 'S', 0 };
 
-/* rdata */
+const int player_inf = 0x7F800000; // weak
+const char ArmourChar[4] = { 'L', 'M', 'H', 0 };
+const char WepChar[10] = { 'N', 'U', 'S', 'D', 'B', 'A', 'M', 'H', 'T', 0 };
+const char CharChar[4] = { 'W', 'R', 'S', 0 };
+
+/* data */
 
 int plrxoff[9] = { 0, 2, 0, 2, 1, 0, 1, 2, 1 };
 int plryoff[9] = { 0, 2, 2, 0, 1, 1, 0, 1, 2 };
@@ -690,10 +691,10 @@ int __fastcall GetPlrGFXSize(char *szCel)
 	v10 = ClassStrTbl;
 	do
 	{
-		v2 = ArmourChar;
+		v2 = (char *)ArmourChar;
 		do
 		{
-			v3 = WepChar;
+			v3 = (char *)WepChar;
 			do
 			{
 				sprintf(v6, "%c%c%c", CharChar[v1], *v2, *v3);
