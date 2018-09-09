@@ -29,7 +29,13 @@ char *sgszMusicTracks[6] =
   "Music\\DLvlD.wav",
   "Music\\Dintro.wav"
 };
-RECT8 QSRect[2] = { { { 15, -16 }, { 15, -16 } }, { { 30, -31 }, { 30, -31 } } }; /* psx version? */
+char unk_volume[4][2] =
+{
+	{ 15, -16 },
+	{ 15, -16 },
+	{ 30, -31 },
+	{ 30, -31 }
+};
 
 struct sound_cpp_init
 {
@@ -368,7 +374,7 @@ void __fastcall sound_create_primary_buffer(int music_track)
 			a2.cbSize = 0;
 		}
 		a2.nChannels = 2;
-		a2.nBlockAlign = 2 * a2.wBitsPerSample / 8; // a2.nChannels * x / 8 (BUG_FIX: per MSDN)
+		a2.nBlockAlign = 2 * a2.wBitsPerSample / 8; /// BUGFIX: should be `a2.nChannels * a2.wBitsPerSample / 8`
 		a2.nAvgBytesPerSec = a2.nSamplesPerSec * a2.nBlockAlign;
 		sglpDSB->SetFormat(&a2);
 	}

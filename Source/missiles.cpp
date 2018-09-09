@@ -7,9 +7,9 @@ int missileavail[MAXMISSILES];
 MissileStruct missile[MAXMISSILES];
 int nummissiles; // idb
 int ManashieldFlag;
-unk_missile_struct misflagstruct_unknown[MAXMISSILES];
+ChainStruct chain[MAXMISSILES];
 int MissilePreFlag; // weak
-int unk_missile_flag; // weak
+int numchains; // weak
 
 MissileData missiledata[68] =
 {
@@ -582,7 +582,7 @@ void __fastcall GetDamageAmt(int i, int *mind, int *maxd)
 			*mind = v14;
 		}
 		v16 = maxd;
-		v5 = 2 * plr[myplr]._pLevel + 40; // BUG_FIX: 2 * (plr[myplr]._pLevel + 20) + 4
+		v5 = 2 * plr[myplr]._pLevel + 40; /// BUGFIX: set to `2 * (plr[myplr]._pLevel + 20) + 4`
 		*maxd = v5;
 		if (v4 <= 0)
 			return;
@@ -701,7 +701,7 @@ void __fastcall GetDamageAmt(int i, int *mind, int *maxd)
 			*mind = v24;
 		}
 		v16 = maxd;
-		v5 = 2 * plr[myplr]._pLevel + 40; // BUG_FIX: 2 * (plr[myplr]._pLevel + 20) + 4
+		v5 = 2 * plr[myplr]._pLevel + 40; /// BUGFIX: set to `2 * (plr[myplr]._pLevel + 20) + 4`
 		*maxd = v5;
 		if (v4 <= 0)
 			return;
@@ -830,16 +830,15 @@ int __fastcall FindClosest(int sx, int sy, int rad)
 	while (1)
 	{
 		v4 = CrawlNum[v3];
-		v5 = *(&CrawlTable.n_1 + v4);
-		if (v5 > 0)
+		v5 = (unsigned char)CrawlTable[v4];
 			break;
 	LABEL_13:
 		v3 = v13++ + 1;
 		if (v13 >= rad)
 			return -1;
 	}
-	v6 = &CrawlTable.delta_1[0].y + v4;
-	while (1)
+	v6 = &CrawlTable[v4 + 2];
+	while ( 1 )
 	{
 		v7 = fx + (char)*(v6 - 1);
 		v8 = fy + (char)*v6;
@@ -2302,8 +2301,8 @@ void __cdecl InitMissiles()
 		++v4;
 	}
 	while ( v4 < MAXMISSILES );
-	unk_missile_flag = 0;
-	v5 = &misflagstruct_unknown[0].field_4;
+	numchains = 0;
+	v5 = &chain[0]._mitype;
 	do
 	{
 		*(v5 - 1) = -1;
@@ -2311,7 +2310,7 @@ void __cdecl InitMissiles()
 		v5[1] = 0;
 		v5 += 3;
 	}
-	while ( (signed int)v5 < (signed int)&misflagstruct_unknown[MAXMISSILES].field_4 );
+	while ( (signed int)v5 < (signed int)&chain[MAXMISSILES]._mitype );
 	v6 = 0;
 	do
 	{
@@ -2326,7 +2325,7 @@ void __cdecl InitMissiles()
 		++v6;
 	} while (v6 < 112);
 }
-// 64CCD8: using guessed type int unk_missile_flag;
+// 64CCD8: using guessed type int numchains;
 
 void __fastcall AddLArrow(int mi, int sx, int sy, int dx, int dy, int midir, int mienemy, int id, int dam)
 {
@@ -2660,13 +2659,13 @@ void __fastcall AddTeleport(int mi, int sx, int sy, int dx, int dy, int midir, i
 	do
 	{
 		v10 = CrawlNum[v23];
-		v11 = *(&CrawlTable.n_1 + v10);
-		v22 = *(&CrawlTable.n_1 + v10);
-		if (v11 <= 0)
+		v11 = (unsigned char)CrawlTable[v10];
+		v22 = (unsigned char)CrawlTable[v10];
+		if ( v11 <= 0 )
 			goto LABEL_13;
-		v12 = &CrawlTable.delta_1[0].y + v10;
-		v21 = &CrawlTable.delta_1[0].y + v10;
-		while (1)
+		v12 = &CrawlTable[v10 + 2];
+		v21 = &CrawlTable[v10 + 2];
+		while ( 1 )
 		{
 			v13 = dx + (char)*(v12 - 1);
 			v14 = dy + (char)*v12;
@@ -3003,11 +3002,11 @@ void __fastcall AddTown(int mi, int sx, int sy, int dx, int dy, int midir, int m
 		do
 		{
 			v12 = CrawlNum[v26];
-			v13 = *(&CrawlTable.n_1 + v12);
-			v27 = *(&CrawlTable.n_1 + v12);
-			if (v13 > 0)
+			v13 = (unsigned char)CrawlTable[v12];
+			v27 = (unsigned char)CrawlTable[v12];
+			if ( v13 > 0 )
 			{
-				v14 = &CrawlTable.delta_1[0].y + v12;
+				v14 = &CrawlTable[v12 + 2];
 				v25 = v14;
 				while (1)
 				{
@@ -3274,11 +3273,11 @@ void __fastcall AddGuardian(int mi, int sx, int sy, int dx, int dy, int midir, i
 	do
 	{
 		v14 = CrawlNum[v36];
-		v15 = *(&CrawlTable.n_1 + v14);
-		v35 = *(&CrawlTable.n_1 + v14);
-		if (v15 <= 0)
+		v15 = (unsigned char)CrawlTable[v14];
+		v35 = (unsigned char)CrawlTable[v14];
+		if ( v15 <= 0 )
 			goto LABEL_18;
-		v16 = &CrawlTable.delta_1[0].y + v14;
+		v16 = &CrawlTable[v14 + 2];
 		v34 = v16;
 		while (1)
 		{
@@ -3631,12 +3630,12 @@ void __fastcall AddStone(int mi, int sx, int sy, int dx, int dy, int midir, int 
 	do
 	{
 		v12 = CrawlNum[v26];
-		v13 = *(&CrawlTable.n_1 + v12);
-		v25 = *(&CrawlTable.n_1 + v12);
-		if (v13 > 0)
+		v13 = (unsigned char)CrawlTable[v12];
+		v25 = (unsigned char)CrawlTable[v12];
+		if ( v13 > 0 )
 		{
-			v14 = &CrawlTable.delta_1[0].y + v12;
-			while (1)
+			v14 = &CrawlTable[v12 + 2];
+			while ( 1 )
 			{
 				v10 = dx + (char)*(v14 - 1);
 				v11 = dy + (char)*v14;
@@ -3970,11 +3969,11 @@ void __fastcall AddFirewallC(int mi, int sx, int sy, int dx, int dy, int midir, 
 	do
 	{
 		v10 = CrawlNum[v22];
-		v11 = *(&CrawlTable.n_1 + v10);
-		v21 = *(&CrawlTable.n_1 + v10);
-		if (v11 <= 0)
+		v11 = (unsigned char)CrawlTable[v10];
+		v21 = (unsigned char)CrawlTable[v10];
+		if ( v11 <= 0 )
 			goto LABEL_16;
-		v12 = &CrawlTable.delta_1[0].y + v10;
+		v12 = &CrawlTable[v10 + 2];
 		v19 = v12;
 		while (1)
 		{
@@ -4641,11 +4640,11 @@ void __fastcall MI_Golem(int i)
 	do
 	{
 		v5 = CrawlNum[v21];
-		v6 = *(&CrawlTable.n_1 + v5);
-		v20 = *(&CrawlTable.n_1 + v5);
-		if (v6 <= 0)
+		v6 = (unsigned char)CrawlTable[v5];
+		v20 = (unsigned char)CrawlTable[v5];
+		if ( v6 <= 0 )
 			goto LABEL_16;
-		v7 = &CrawlTable.delta_1[0].y + v5;
+		v7 = &CrawlTable[v5 + 2];
 		v19 = v7;
 		while (1)
 		{
@@ -6019,10 +6018,10 @@ void __fastcall MI_Chain(int i)
 	for (j = 1; j < v8; ++j)
 	{
 		v9 = CrawlNum[j];
-		v10 = *(&CrawlTable.n_1 + v9);
-		if (v10 > 0)
+		v10 = (unsigned char)CrawlTable[v9];
+		if ( v10 > 0 )
 		{
-			v11 = &CrawlTable.delta_1[0].y + v9;
+			v11 = &CrawlTable[v9 + 2];
 			v18 = v10;
 			v19 = v11;
 			do

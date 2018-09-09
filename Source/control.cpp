@@ -204,7 +204,7 @@ char *PanBtnStr[8] =
   "Send Message",
   "Player Attack"
 };
-RECT32 attribute_inc_rects[4] =
+int attribute_inc_rects[4][4] =
 {
   { 137, 138, 41, 22 },
   { 137, 166, 41, 22 },
@@ -2950,11 +2950,11 @@ LABEL_12:
 					if ( v5 ^ v6 )
 					{
 						v10 = v0;
-						v11 = attribute_inc_rects[v0].x;
-						if ( v2 >= v11 && v2 <= v11 + attribute_inc_rects[v10].w )
+						v11 = attribute_inc_rects[v0][0];
+						if ( v2 >= v11 && v2 <= v11 + attribute_inc_rects[v10][2] )
 						{
-							v12 = attribute_inc_rects[v10].y;
-							if ( MouseY >= v12 && MouseY <= v12 + attribute_inc_rects[v10].h )
+							v12 = attribute_inc_rects[v10][1];
+							if ( MouseY >= v12 && MouseY <= v12 + attribute_inc_rects[v10][3] )
 							{
 								chrbtn[v0] = 1;
 								chrbtnactive = 1;
@@ -2992,11 +2992,11 @@ void __cdecl ReleaseChrBtns()
 		{
 			*v1 = 0;
 			v2 = v0;
-			v3 = attribute_inc_rects[v0].x;
-			if ( MouseX >= v3 && MouseX <= v3 + attribute_inc_rects[v2].w )
+			v3 = attribute_inc_rects[v0][0];
+			if ( MouseX >= v3 && MouseX <= v3 + attribute_inc_rects[v2][2] )
 			{
-				v4 = attribute_inc_rects[v2].y;
-				if ( MouseY >= v4 && MouseY <= v4 + attribute_inc_rects[v2].h )
+				v4 = attribute_inc_rects[v2][1];
+				if ( MouseY >= v4 && MouseY <= v4 + attribute_inc_rects[v2][3] )
 				{
 					if ( v0 )
 					{
@@ -3216,8 +3216,8 @@ int __fastcall GetSBookTrans(int ii, unsigned char townok)
 
 void __cdecl DrawSpellBook()
 {
-	int v0; // edi
-	int v1; // ebp
+	__int64 v0; // edi
+	__int64 v1; // ebp
 	int v2; // esi
 	char v3; // al
 	int v4; // eax
@@ -3234,13 +3234,12 @@ void __cdecl DrawSpellBook()
 	CelDecodeOnly(76 * sbooktab + 391 + GetWidthDiff(), 508, pSBkBtnCel, sbooktab + 1, 76);
 	v9 = 1;
 	v8 = 214;
-	v0 = plr[myplr]._pISpells[0] | plr[myplr]._pMemSpells[0] | plr[myplr]._pAblSpells[0];
-	v1 = plr[myplr]._pISpells[1] | plr[myplr]._pMemSpells[1] | plr[myplr]._pAblSpells[1];
+	v0 = plr[myplr]._pISpells64 | plr[myplr]._pMemSpells64 | plr[myplr]._pAblSpells64;
 	do
 	{
 		v2 = SpellPages[0][v9 + 7 * sbooktab - 1]; // *(&attribute_inc_rects[3].h + v9 + 7 * sbooktab); /* check */
-		if ( v2 != -1
-		  && v1 & ((unsigned __int64)((__int64)1 << ((unsigned char)v2 - 1)) >> 32) | v0 & (unsigned int)((__int64)1 << ((unsigned char)v2 - 1)) )
+		v1 = (__int64)1 << (v2 - 1);
+		if ( v2 != -1 && (v1 & v0) )
 		{
 			v7 = GetSBookTrans(v2, 1u);
 			SetSpellTrans(v7);

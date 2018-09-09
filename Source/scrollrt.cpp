@@ -1336,7 +1336,7 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 		{
 			v11 = &dead[(v7 & 0x1F) - 1];
 			v12 = (int *)v11->_deadData[(v7 >> 5) & 7];
-			v13 = a4 - v11->field_28;
+			v13 = a4 - v11->_deadWidth2;
 			if ( v12 )
 			{
 				v14 = v11->_deadFrame;
@@ -1344,9 +1344,9 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 				{
 					v15 = v11->_deadtrans;
 					if ( v15 )
-						Cl2DecodeFrm5(v13, a5, (char *)v12, v14, v11->field_24, 0, 8, v15);
+						Cl2DecodeFrm5(v13, a5, (char *)v12, v14, v11->_deadWidth, 0, 8, v15);
 					else
-						Cl2DecodeFrm6(v13, a5, (char *)v12, v14, v11->field_24, 0, 8);
+						Cl2DecodeFrm6(v13, a5, (char *)v12, v14, v11->_deadWidth, 0, 8);
 				}
 			}
 		}
@@ -2018,7 +2018,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 		{
 			v14 = &dead[(v9 & 0x1F) - 1];
 			v15 = (int *)v14->_deadData[(v9 >> 5) & 7];
-			v16 = v13 - v14->field_28;
+			v16 = v13 - v14->_deadWidth2;
 			if ( v15 )
 			{
 				v17 = v14->_deadFrame;
@@ -2026,9 +2026,9 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 				{
 					v18 = v14->_deadtrans;
 					if ( v18 )
-						Cl2DecodeFrm5(v16, sy, (char *)v15, v17, v14->field_24, a5, 8, v18);
+						Cl2DecodeFrm5(v16, sy, (char *)v15, v17, v14->_deadWidth, a5, 8, v18);
 					else
-						Cl2DecodeFrm6(v16, sy, (char *)v15, v17, v14->field_24, a5, 8);
+						Cl2DecodeFrm6(v16, sy, (char *)v15, v17, v14->_deadWidth, a5, 8);
 				}
 			}
 		}
@@ -2626,7 +2626,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 		{
 			v13 = &dead[(v9 & 0x1F) - 1];
 			v14 = (int *)v13->_deadData[(v9 >> 5) & 7];
-			v15 = sx - v13->field_28;
+			v15 = sx - v13->_deadWidth2;
 			if ( v14 )
 			{
 				v16 = v13->_deadFrame;
@@ -2634,9 +2634,9 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 				{
 					v17 = v13->_deadtrans;
 					if ( v17 )
-						Cl2DecodeFrm3(v15, sy, (char *)v14, v16, v13->field_24, 0, a5, v17);
+						Cl2DecodeFrm3(v15, sy, (char *)v14, v16, v13->_deadWidth, 0, a5, v17);
 					else
-						Cl2DecodeLightTbl(v15, sy, (char *)v14, v16, v13->field_24, 0, a5);
+						Cl2DecodeLightTbl(v15, sy, (char *)v14, v16, v13->_deadWidth, 0, a5);
 				}
 			}
 		}
@@ -3517,7 +3517,7 @@ void __fastcall DrawMain(int dwHgt, int draw_desc, int draw_hp, int draw_mana, i
 	signed int a4; // [esp+1Ch] [ebp-8h]
 
 	a4 = dwHgt;
-	if ( window_activated && lpDDSPrimary )
+	if ( gbActive && lpDDSPrimary )
 	{
 		if ( lpDDSPrimary->IsLost() == DDERR_SURFACELOST )
 		{
@@ -3605,7 +3605,7 @@ LABEL_17:
 #endif
 	}
 }
-// 634980: using guessed type int window_activated;
+// 634980: using guessed type int gbActive;
 // 679660: using guessed type char gbMaxPlayers;
 
 #ifdef _DEBUG
@@ -3616,7 +3616,7 @@ void __cdecl DrawFPS()
 	char String[12]; // [esp+8h] [ebp-10h]
 	HDC hdc; // [esp+14h] [ebp-4h]
 
-	if ( frameflag && window_activated )
+	if ( frameflag && gbActive )
 	{
 		++frameend;
 		v0 = GetTickCount();

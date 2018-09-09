@@ -8,8 +8,6 @@ Serious bugs (crash/fault)
 - TBA
 
 Minor bugs (noticeable but can be avoided)
-- Lighting of objects/items in dungeon is slightly lighter than it should be
-- Timed messages are broken and have been disabled `tmsg.cpp`
 - Server commands are broken and have been disabled `msgcmd.cpp`
 
 Code issues (incorrect code that still works)

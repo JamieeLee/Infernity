@@ -32,7 +32,7 @@ void __fastcall play_movie(char *pszMovie, bool user_can_close)
 
 	v6 = user_can_close;
 	v2 = pszMovie;
-	if ( window_activated )
+	if ( gbActive )
 	{
 		saveProc = SetWindowProc(MovieWndProc);
 		InvalidateRect(ghMainWnd, 0, 0);
@@ -46,7 +46,7 @@ void __fastcall play_movie(char *pszMovie, bool user_can_close)
 		{
 			do
 			{
-				if ( !window_activated || v6 && !movie_playing )
+				if ( !gbActive || v6 && !movie_playing )
 					break;
 				while ( PeekMessageA(&Msg, NULL, 0, 0, PM_REMOVE) )
 				{
@@ -69,7 +69,7 @@ void __fastcall play_movie(char *pszMovie, bool user_can_close)
 	}	
 	setGameState(tmpGameState);
 }
-// 634980: using guessed type int window_activated;
+// 634980: using guessed type int gbActive;
 // 659AF8: using guessed type int movie_playing;
 // 659AFC: using guessed type int loop_movie;
 
@@ -79,16 +79,16 @@ LRESULT __stdcall MovieWndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam
 	{
 LABEL_6:
 		movie_playing = 0;
-		return init_palette(hWnd, Msg, wParam, lParam);
+		return MainWndProc(hWnd, Msg, wParam, lParam);
 	}
 	if ( Msg != WM_SYSCOMMAND )
 	{
 		if ( Msg != WM_LBUTTONDOWN && Msg != WM_RBUTTONDOWN )
-			return init_palette(hWnd, Msg, wParam, lParam);
+			return MainWndProc(hWnd, Msg, wParam, lParam);
 		goto LABEL_6;
 	}
 	if ( wParam != SC_CLOSE )
-		return init_palette(hWnd, Msg, wParam, lParam);
+		return MainWndProc(hWnd, Msg, wParam, lParam);
 	movie_playing = 0;
 	return 0;
 }

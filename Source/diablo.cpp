@@ -501,7 +501,7 @@ void __cdecl diablo_init_screen()
 }
 // 69CEFC: using guessed type int scrollrt_cpp_init_value;
 
-HWND __fastcall diablo_find_window(LPCSTR lpClassName)
+BOOL __fastcall diablo_find_window(LPCSTR lpClassName)
 {
 	HWND result; // eax
 	HWND v2; // esi
@@ -510,19 +510,18 @@ HWND __fastcall diablo_find_window(LPCSTR lpClassName)
 
 	result = FindWindowA(lpClassName, 0);
 	v2 = result;
-	if ( result )
-	{
-		v3 = GetLastActivePopup(result);
-		if ( v3 )
-			v2 = v3;
-		v4 = GetTopWindow(v2);
-		if ( !v4 )
-			v4 = v2;
-		SetForegroundWindow(v2);
-		SetFocus(v4);
-		result = (HWND)1;
-	}
-	return result;
+	if ( !result )
+		return 0;
+
+	v3 = GetLastActivePopup(result);
+	if ( v3 )
+		v2 = v3;
+	v4 = GetTopWindow(v2);
+	if ( !v4 )
+		v4 = v2;
+	SetForegroundWindow(v2);
+	SetFocus(v4);
+	return 1;
 }
 
 void __fastcall diablo_reload_process(HMODULE hModule)
@@ -691,7 +690,7 @@ LRESULT __stdcall DisableInputWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 			{
 				return 0;
 			}
-			return init_palette(hWnd, uMsg, wParam, lParam);
+			return MainWndProc(hWnd, uMsg, wParam, lParam);
 		}
 		if ( !sgbMouseDown )
 		{
@@ -717,7 +716,7 @@ LABEL_21:
 					sgbMouseDown = 0;
 				return 0;
 			}
-			return init_palette(hWnd, uMsg, wParam, lParam);
+			return MainWndProc(hWnd, uMsg, wParam, lParam);
 		}
 		v5 = sgbMouseDown == 2;
 LABEL_23:
@@ -795,7 +794,7 @@ LRESULT __stdcall GM_Game(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 					gbGameLoopStartup = 1;
 					return 0;
 				}
-				return init_palette(hWnd, uMsg, wParam, lParam);
+				return MainWndProc(hWnd, uMsg, wParam, lParam);
 			}
 			MouseX = (unsigned short)lParam;
 			MouseY = (unsigned int)lParam >> 16;
@@ -834,7 +833,7 @@ LRESULT __stdcall GM_Game(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			}
 			if ( PressSysKey(wParam) )
 				return 0;
-			return init_palette(hWnd, uMsg, wParam, lParam);
+			return MainWndProc(hWnd, uMsg, wParam, lParam);
 		case WM_SYSCOMMAND:
 			if ( wParam == SC_CLOSE )
 			{
@@ -842,10 +841,10 @@ LRESULT __stdcall GM_Game(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				gbRunGameResult = 0;
 				return 0;
 			}
-			return init_palette(hWnd, uMsg, wParam, lParam);
+			return MainWndProc(hWnd, uMsg, wParam, lParam);
 	}
 	if ( uMsg != WM_MOUSEFIRST )
-		return init_palette(hWnd, uMsg, wParam, lParam);
+		return MainWndProc(hWnd, uMsg, wParam, lParam);
 	MouseX = (unsigned short)lParam;
 	MouseY = (unsigned int)lParam >> 16;
 	gmenu_on_mouse_move((unsigned short)lParam);
