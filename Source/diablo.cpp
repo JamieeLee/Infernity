@@ -1853,11 +1853,6 @@ LABEL_27:
 					return;
 				case 'V':
 					//NetSendCmdString(1 << myplr, gszVersionNumber);
-				{
-					int x = plr[myplr].WorldX;
-					int y = plr[myplr].WorldY;
-					CreateTypeItem(x,y, 0, ITYPE_MISC, IMISC_BOOK, 0, 1);
-				}
 					showDebugInfo = !showDebugInfo;
 					return;
 				case 'v': {
