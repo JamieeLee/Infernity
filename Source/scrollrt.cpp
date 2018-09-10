@@ -929,7 +929,7 @@ void __fastcall DrawGame2(int x, int y)
 		v2 = v6 + 32;
 		v4 = v5 + 16;
 		++a6;
-	} while (a6 < 4);
+	} while (a6 < magicThing);
 	gpBufEnd = (unsigned char*)gpBuffer + screen_y_times_width[WorkingWidth+64];
 	if (v11 > 0)
 	{
@@ -2960,6 +2960,79 @@ void __fastcall DrawObject(int x, int y, int a3, int a4, int pre_flag, int a6, i
 // 4B8CC1: using guessed type char pcursobj;
 
 void __fastcall scrollrt_draw_e_flag(char *buffer, int x, int y, int a4, int a5, int sx, int sy)
+{
+	return; //I have no idea how it works and what this does, but it fixes the annoying floating dungeon piece bug
+	int v7; // eax
+	char *v8; // esi
+	int v9; // ecx
+	int v10; // ebx
+	int v11; // edx
+	int v12; // eax
+	int v13; // eax
+	int v14; // ecx
+	int v15; // edi
+	int v16; // eax
+	unsigned short *v17; // esi
+	int v18; // eax
+	int v19; // eax
+	int v20; // eax
+	int v21; // eax
+	int v22; // [esp+Ch] [ebp-14h]
+	int xa; // [esp+10h] [ebp-10h]
+	unsigned char *a1; // [esp+14h] [ebp-Ch]
+	unsigned char *v25; // [esp+18h] [ebp-8h]
+	int i; // [esp+1Ch] [ebp-4h]
+
+	xa = x;
+	v22 = level_piece_id;
+	v7 = 112 * x + y;
+	v8 = buffer;
+	v9 = dPiece[0][v7];
+	v10 = cel_transparency_active;
+	v11 = dTransVal[0][v7];
+	v12 = dung_map[0][v7];
+	level_piece_id = v9;
+	v13 = (unsigned char)TransList[v12];
+	v14 = (unsigned char)nTransTable[v9];
+	v15 = light_table_index;
+	light_table_index = v11;
+	a1 = (unsigned char *)v8;
+	v25 = (unsigned char *)v8;
+	cel_transparency_active = v14 & v13;
+	v16 = gendung_get_dpiece_num_from_coord(xa, y);
+	arch_draw_type = 1;
+	v17 = (unsigned short *)((char *)dpiece_defs_map_1 + 32 * v16);
+	v18 = *v17;
+	level_cel_block = *v17;
+	if (v18)
+		drawUpperScreen(a1);
+	v19 = v17[1];
+	arch_draw_type = 2;
+	level_cel_block = v19;
+	if (v19)
+		drawUpperScreen(a1 + 32);
+	arch_draw_type = 0;
+	for (i = 1; i < (dword_5A5594 >> 1) - 1; ++i)
+	{
+		v25 -= WorkingWidth * 32;
+		if (a4 >= i)
+		{
+			v20 = v17[2 * i];
+			level_cel_block = v17[2 * i];
+			if (v20)
+				drawUpperScreen(v25);
+			v21 = v17[2 * i + 1];
+			level_cel_block = v17[2 * i + 1];
+			if (v21)
+				drawUpperScreen(v25 + 32);
+		}
+	}
+	scrollrt_draw_dungeon((char *)a1, xa, y, a4, a5, sx, sy, 0);
+	light_table_index = v15;
+	cel_transparency_active = v10;
+	level_piece_id = v22;
+}
+void __fastcall scrollrt_draw_e_flag2(char *buffer, int x, int y, int a4, int a5, int sx, int sy)
 {
 	int v7; // eax
 	char *v8; // esi

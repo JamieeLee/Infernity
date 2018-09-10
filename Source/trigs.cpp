@@ -496,7 +496,7 @@ unsigned char __cdecl ForceTownTrig()
 	if ( TownDownList[0] != -1 )
 	{
 		v1 = TownDownList;
-		while ( dPiece[0][cursmy + 112 * cursmx] != v0 )
+		while ( dPiece[cursmx][cursmy] != v0 )
 		{
 			++v1;
 			v0 = *v1;
@@ -515,7 +515,7 @@ LABEL_5:
 		if ( TownWarp1List[0] != -1 )
 		{
 			v3 = TownWarp1List;
-			while ( dPiece[0][cursmy + 112 * cursmx] != v2 )
+			while ( dPiece[cursmx][cursmy] != v2 )
 			{
 				++v3;
 				v2 = *v3;
@@ -1189,7 +1189,7 @@ void __cdecl CheckTrigForce()
 	int v1; // eax
 
 	trigflag[3] = 0;
-	if ( MouseY <= 351 )
+	if ( MouseY <= 351 + GetHeightDiff() || MouseX <= ScreenWidth/2-320 || MouseX >= (ScreenWidth/2+320))
 	{
 		if ( setlevel )
 		{

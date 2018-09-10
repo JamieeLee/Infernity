@@ -3024,7 +3024,6 @@ void __fastcall drawUpperScreen(unsigned char *pbDst)
 			if (block_lvid[level_piece_id] == 1 || block_lvid[level_piece_id] == 3)
 			{
 				drawBottomArchesUpperScreen(pbDst, &LeftMask[31]);
-				return;
 			}
 		}
 		if (arch_draw_type == 2)
@@ -3032,7 +3031,6 @@ void __fastcall drawUpperScreen(unsigned char *pbDst)
 			if (block_lvid[level_piece_id] == 2 || block_lvid[level_piece_id] == 3)
 			{
 				drawBottomArchesUpperScreen(pbDst, &RightMask[31]);
-				return;
 			}
 		}
 	}
