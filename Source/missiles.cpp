@@ -1912,6 +1912,27 @@ void __fastcall CheckMissileCol(int i, int mindam, int maxdam, bool shift, int m
 	int v28; // [esp-8h] [ebp-18h]
 	int mindama; // [esp+Ch] [ebp-4h]
 
+	//breaking barrels with missiles
+	int oi; 
+	if (dObject[mx][my] <= 0) {
+		oi = -1 - dObject[mx][my];
+	} 
+	else{
+		oi = dObject[mx][my] - 1;
+	}
+
+	if (object[oi]._otype >= OBJ_BARREL && object[oi]._otype <= OBJ_BARRELEX && object[oi]._oBreak == 1)
+	{
+		BreakBarrel(myplr, oi, 100, 0, 1);
+	}
+
+
+
+
+
+
+
+
 	v7 = mindam;
 	v8 = i;
 	mindama = mindam;

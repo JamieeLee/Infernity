@@ -142,14 +142,24 @@ void __fastcall LoadGame(bool firstflag)
 		v14 = missileactive;
 		do
 		{
-			*v14 = BLoad();
+			if (SaveVersion >= 5) {
+				*v14 = ILoad();
+			}
+			else {
+				*v14 = BLoad();
+			}
 			++v14;
 		}
 		while ( (signed int)v14 < (signed int)&missileactive[MAXMISSILES] );
 		v15 = missileavail;
 		do
 		{
-			*v15 = BLoad();
+			if (SaveVersion >= 5) {
+				*v15 = ILoad();
+			}
+			else {
+				*v15 = BLoad();
+			}
 			++v15;
 		}
 		while ( (signed int)v15 < (signed int)&missileavail[MAXMISSILES] );
@@ -707,14 +717,24 @@ void __cdecl SaveGame()
 		v8 = missileactive;
 		do
 		{
-			BSave(*(_BYTE *)v8);
+			if (SaveVersion >= 5) {
+				ISave(*v8);
+			}
+			else {
+				BSave(*(_BYTE *)v8);
+			}
 			++v8;
 		}
 		while ( (signed int)v8 < (signed int)&missileactive[MAXMISSILES] );
 		v9 = missileavail;
 		do
 		{
-			BSave(*(_BYTE *)v9);
+			if (SaveVersion >= 5) {
+				ISave(*v9);
+			}
+			else {
+				BSave(*(_BYTE *)v9);
+			}
 			++v9;
 		}
 		while ( (signed int)v9 < (signed int)&missileavail[MAXMISSILES] );
