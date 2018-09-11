@@ -1404,7 +1404,7 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 				if ( v22 )
 				{
 					if ( v22 == 2 )
-						scrollrt_draw_clipped_e_flag(dst_buf - 12384, a1a - 2, sy + 1, a4 - 96, a5 - 16);
+						scrollrt_draw_clipped_e_flag(dst_buf - (WorkingWidth * 16 + 96), a1a - 2, sy + 1, a4 - 96, a5 - 16);
 					scrollrt_draw_clipped_e_flag(dst_buf - 64, a1a - 1, sy + 1, a4 - 64, a5);
 				}
 			}
@@ -1461,7 +1461,7 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 				if ( v30 )
 				{
 					if ( v30 == 2 )
-						scrollrt_draw_clipped_e_flag(dst_buf - 12384, a1a - 2, sy + 1, a4 - 96, a5 - 16);
+						scrollrt_draw_clipped_e_flag(dst_buf - (WorkingWidth * 16 + 96), a1a - 2, sy + 1, a4 - 96, a5 - 16);
 					scrollrt_draw_clipped_e_flag(dst_buf - 64, a1a - 1, sy + 1, a4 - 64, a5);
 				}
 			}
@@ -2084,7 +2084,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 				if ( v25 )
 				{
 					if ( v25 == 2 )
-						scrollrt_draw_clipped_e_flag_2(dst_buf - 12384, a1 - 2, y + 1, a4, a5, v13 - 96, sy - 16);
+						scrollrt_draw_clipped_e_flag_2(dst_buf - (WorkingWidth * 16 + 96), a1 - 2, y + 1, a4, a5, v13 - 96, sy - 16);
 					scrollrt_draw_clipped_e_flag_2(dst_buf - 64, a1 - 1, y + 1, a4, a5, v13 - 64, sy);
 				}
 			}
@@ -2142,7 +2142,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 				if ( v33 )
 				{
 					if ( v33 == 2 )
-						scrollrt_draw_clipped_e_flag_2(dst_buf - 12384, a1 - 2, y + 1, a4, a5, v13 - 96, sy - 16);
+						scrollrt_draw_clipped_e_flag_2(dst_buf - (WorkingWidth * 16 + 96), a1 - 2, y + 1, a4, a5, v13 - 96, sy - 16);
 					scrollrt_draw_clipped_e_flag_2(dst_buf - 64, a1 - 1, y + 1, a4, a5, v13 - 64, sy);
 				}
 			}
@@ -3661,36 +3661,23 @@ void memcpyRGB(char* dest, char* src, char* src2, int size)
 }
 void __fastcall DoBlitScreen(int dwX, int dwY, int dwWdt, int dwHgt)
 {
-	int v4; // esi
-	int v5; // edi
-	int v6; // ecx
-	char *v7; // esi
-	char *v8; // edi
-	int v9; // edx
-	RECT Rect; // [esp+Ch] [ebp-20h]
-	int v14; // [esp+1Ch] [ebp-10h]
-	LONG v15; // [esp+20h] [ebp-Ch]
-	int v16; // [esp+24h] [ebp-8h]
-	LONG v17; // [esp+28h] [ebp-4h]
-	HRESULT error_code; // [esp+34h] [ebp+8h]
-	int error_codea; // [esp+34h] [ebp+8h]
-	int a4; // [esp+38h] [ebp+Ch]
+	RECT Rect;
+	HRESULT error_code;
+	int tickCountOld; 
 
-	v4 = dwY;
-	v5 = dwX;
 	if ( lpDDSBackBuf )
 	{
 		Rect.left = dwX + 64;
 		Rect.right = dwX + 64 + dwWdt - 1;
 		Rect.top = dwY + 160;
 		Rect.bottom = dwY + 160 + dwHgt - 1;
-		a4 = GetTickCount();
+		tickCountOld = GetTickCount();
 		while ( 1 )
 		{
-			error_code = lpDDSPrimary->BltFast(v5, v4, lpDDSBackBuf, &Rect, DDBLTFAST_WAIT);
+			error_code = lpDDSPrimary->BltFast(dwX, dwY, lpDDSBackBuf, &Rect, DDBLTFAST_WAIT);
 			if ( !error_code )
 				break;
-			if ( a4 - GetTickCount() <= 5000 )
+			if (tickCountOld - GetTickCount() <= 5000 )
 			{
 				Sleep(1u);
 				if ( error_code == DDERR_SURFACELOST )
