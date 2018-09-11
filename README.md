@@ -92,6 +92,7 @@ Some screenshots from the mod (You can find more screenshots on discord):
 ## https://github.com/diasurgical/devilution - for the code
 ## https://github.com/strangebytes/diablo-ddrawwrapper/ - for wrapper
 ## https://github.com/microsoft/detours - for stuff to compile wrapper
+## https://www.lua.org/ - for Lua
 ## RadTang - for the name
 ## GainTrain - for the idea
 
