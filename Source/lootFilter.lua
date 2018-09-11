@@ -257,7 +257,7 @@ end
 --item_name, show, color2, r,g,b
 
 function yourLootFilter(args)
-
+	return args.itemName,1,args.itemColor,0,0,0
 end
 
 
@@ -265,7 +265,7 @@ function lootFilterLowercase(args)
     if args.playerName == "pug" then
 	    return testLootFilter1(args)--qndel's amazing loot filter
     else
-		return args.itemName,1,args.itemColor,0,0,0
+		return yourLootFilter(args)
 	end
 end
 
