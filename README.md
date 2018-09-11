@@ -50,7 +50,7 @@ I will order a pizza and think about you while eating ;)
 ![Too much text? Here's a cat to keep you going](https://laughingsquid.com/wp-content/uploads/2013/05/57136754_o1.jpg "Can has kitten")
 
 # Installing
-- Get `Infernity.zip` [here](https://github.com/qndel/Infernity/blob/master/Infernity.zip)
+- Get `Infernity.zip` [here](https://github.com/qndel/Infernity/raw/master/Infernity.zip)
 - Unpack it in your Diablo folder
 - Launch `Infernity.exe` to play. The following files from the original game patched to 1.09 need to be present: `DIABDAT.MPQ`, `DiabloUI.dll`, `SmackW32.dll`, `Standard.snp`, and `Storm.dll`.
 - ddraw.dll used to be optional, but after making Infernity HD, it's required. It's a modified version which allows resolutions up to 2560x1440. The ddraw.dll menu can be toggled on/off with '~' or 'scroll lock'.
