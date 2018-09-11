@@ -1,0 +1,7 @@
+E:\MY_D1_MOD\Infernity\Source\DiabloGame\Infernity.exe
+E:\MY_D1_MOD\Infernity\Source\DiabloGame\ddraw.dll
+E:\MY_D1_MOD\Infernity\Source\DiabloGame\infernity_config.ini
+E:\MY_D1_MOD\Infernity\Source\DiabloGame\pvpgngateway.reg
+E:\MY_D1_MOD\Infernity\Source\DiabloGame\enable_inferno
+E:\MY_D1_MOD\Infernity\Source\DiabloGame\lootFilter.lua
+E:\MY_D1_MOD\Infernity\Source\DiabloGame\InfernityReadme.txt
