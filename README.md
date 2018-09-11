@@ -50,13 +50,10 @@ I will order a pizza and think about you while eating ;)
 ![Too much text? Here's a cat to keep you going](https://laughingsquid.com/wp-content/uploads/2013/05/57136754_o1.jpg "Can has kitten")
 
 # Installing
-- Get `infernity.exe` [here](https://github.com/qndel/Infernity/blob/master/Source/Infernity.exe)
-- Get `infernity_config.ini`  [here](https://github.com/qndel/Infernity/blob/master/Source/infernity_config.ini)
-- Get `ddraw.dll` [here](https://github.com/qndel/Infernity/blob/master/Source/ddraw.dll)
-- Get `lootFilter.lua` [here](https://github.com/qndel/Infernity/blob/master/Source/lootFilter.lua)
-- Create a file named `enable_inferno` in your diablo folder.
-- Launch `Infernity.exe` in your Diablo folder to play. The following files from the original game patched to 1.09 need to be present: `DIABDAT.MPQ`, `DiabloUI.dll`, `SmackW32.dll`, `Standard.snp`, and `Storm.dll`.
-- ddraw.dll used to be optional, but after making Infernity HD, it's required. It's a modified version which allows resolutions up to 2560x1440 (4k was buggy so I didn't add it). The ddraw.dll menu can be toggled on/off with '~' or 'scroll lock'.
+- Get `Infernity.zip` [here](https://github.com/qndel/Infernity/blob/master/Infernity.zip)
+- Unpack it in your Diablo folder
+- Launch `Infernity.exe` to play. The following files from the original game patched to 1.09 need to be present: `DIABDAT.MPQ`, `DiabloUI.dll`, `SmackW32.dll`, `Standard.snp`, and `Storm.dll`.
+- ddraw.dll used to be optional, but after making Infernity HD, it's required. It's a modified version which allows resolutions up to 2560x1440. The ddraw.dll menu can be toggled on/off with '~' or 'scroll lock'.
  # Changelog
 - 1.00 - Added Inferno difficulty and 3 affix items.
 - 1.01 - Added health bar (can turn on/off in config)
