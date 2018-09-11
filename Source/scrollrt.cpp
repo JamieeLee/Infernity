@@ -2692,7 +2692,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 				if ( v24 )
 				{
 					if ( v24 == 2 )
-						scrollrt_draw_e_flag(dst_buf - 12384, xa - 2, y + 1, a4, a5, sx - 96, sy - 16);
+						scrollrt_draw_e_flag(dst_buf - (WorkingWidth * 16 + 96), xa - 2, y + 1, a4, a5, sx - 96, sy - 16);
 					scrollrt_draw_e_flag(dst_buf - 64, xa - 1, y + 1, a4, a5, sx - 64, sy);
 				}
 			}
@@ -2749,7 +2749,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 				if ( v32 )
 				{
 					if ( v32 == 2 )
-						scrollrt_draw_e_flag(dst_buf - 12384, xa - 2, y + 1, a4, a5, sx - 96, sy - 16);
+						scrollrt_draw_e_flag(dst_buf - (WorkingWidth * 16 + 96), xa - 2, y + 1, a4, a5, sx - 96, sy - 16);
 					scrollrt_draw_e_flag(dst_buf - 64, xa - 1, y + 1, a4, a5, sx - 64, sy);
 				}
 			}
@@ -2961,7 +2961,6 @@ void __fastcall DrawObject(int x, int y, int a3, int a4, int pre_flag, int a6, i
 
 void __fastcall scrollrt_draw_e_flag(char *buffer, int x, int y, int a4, int a5, int sx, int sy)
 {
-	return; //I have no idea how it works and what this does, but it fixes the annoying floating dungeon piece bug
 	int v7; // eax
 	char *v8; // esi
 	int v9; // ecx

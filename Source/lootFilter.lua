@@ -116,6 +116,7 @@ goodBooks = {
 [SPL_MANASHIELD] = true,
 [SPL_FIREBALL] = true,
 [SPL_CHAINLIGHTNING] = true,
+[SPL_GUARDIAN] = true,
 [SPL_FLAMEWAVE] = true,
 [SPL_INFERNO] = false,
 [SPL_GOLEM] = true,
@@ -254,6 +255,10 @@ function testLootFilter1(args)
 	return args.itemName,1,args.itemColor,0,0,0
 end
 --item_name, show, color2, r,g,b
+
+function yourLootFilter(args)
+
+end
 
 
 function lootFilterLowercase(args)
