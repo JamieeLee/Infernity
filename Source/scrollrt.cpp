@@ -82,6 +82,15 @@ void __cdecl ClearCursor() // CODE_FIX: this was supposed to be in cursor.cpp
 	sgdwCursWdtOld = 0;
 }
 
+bool rogueDetectedTrap(int trapFlag) {
+	if (plr[myplr]._pClass == UI_ROGUE)
+	{
+		if (trapFlag) {
+			return true;
+		}
+	}
+	return false;
+}
 void __fastcall DrawMissile(int x, int y, int sx, int sy, int a5, int a6, int del_flag)
 {
 	int v7; // ebx
@@ -1649,6 +1658,17 @@ void __fastcall DrawClippedObject(int x, int y, int a3, int a4, int pre_flag, in
 			{
 				if (v20 == pcursobj || (ShouldHighlightItems && object[v10]._oSelFlag)) {
 					CelDrawHdrClrHL(194, v12, v11, v15, v16, object[v10]._oAnimWidth, a6, dir);
+					if (rogueDetectedTrap(object[v10]._oTrapFlag) == true) {
+						int offset = 2;
+						for (int k = 1; k <= offset; ++k) {
+							for (int i = -1; i <= 1; ++i) {
+								for (int j = -1; j <= 1; ++j) {
+									CelDrawHdrClrHL(140, v12+i*k, v11+j*k, v15, v16, object[v10]._oAnimWidth, a6, dir);
+								}
+							}
+						}
+					}
+
 				}
 				v19 = object[v10]._oAnimWidth;
 				v18 = object[v10]._oAnimFrame;
@@ -2935,6 +2955,16 @@ void __fastcall DrawObject(int x, int y, int a3, int a4, int pre_flag, int a6, i
 			{
 				if (v18 == pcursobj || (ShouldHighlightItems && object[v10]._oSelFlag)) {
 					CelDecodeClr(194, v12, v11, v15, v16, object[v10]._oAnimWidth, a6, dir);
+					if (rogueDetectedTrap(object[v10]._oTrapFlag) == true) {
+						int offset = 2;
+						for (int k = 1; k <= offset; ++k) {
+							for (int i = -1; i <= 1; ++i) {
+								for (int j = -1; j <= 1; ++j) {
+									CelDecodeClr(140, v12 + i*k, v11 + j*k, v15, v16, object[v10]._oAnimWidth, a6, dir);
+								}
+							}
+						}
+					}
 				}
 				if ( object[v10]._oLight )
 				{
