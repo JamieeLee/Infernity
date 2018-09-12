@@ -1942,16 +1942,16 @@ int getImprovedMissileMonster(int mx, int my) {
 				}
 			}
 
-			int dirmx = mx + posx;
-			int dirmy = my + posy;
-			int dirmx2 = mx - posx;
-			int dirmy2 = my - posy;
-			if (dirmx < 0 || dirmx >= 112) { dirmx = mx; }
-			if (dirmy < 0 || dirmy >= 112) { dirmy = my; }
-			if (dirmx2 < 0 || dirmx2 >= 112) { dirmx2 = mx; }
-			if (dirmy2 < 0 || dirmy2 >= 112) { dirmy2 = my; }
+			int dirmx = newx + posx;
+			int dirmy = newy + posy;
+			int dirmx2 = newx - posx;
+			int dirmy2 = newy - posy;
+			if (dirmx < 0 || dirmx >= 112) { dirmx = newx; }
+			if (dirmy < 0 || dirmy >= 112) { dirmy = newy; }
+			if (dirmx2 < 0 || dirmx2 >= 112) { dirmx2 = newx; }
+			if (dirmy2 < 0 || dirmy2 >= 112) { dirmy2 = newy; }
 
-			if ((monster[index]._lastx == mx && monster[index]._lasty == my) || (monster[index]._mfutx == mx && monster[index]._mfuty == my) || (monster[index]._moldx == mx && monster[index]._moldy == my)
+			if ((monster[index]._lastx == newx && monster[index]._lasty == newy) || (monster[index]._mfutx == newx && monster[index]._mfuty == newy) || (monster[index]._moldx == newx && monster[index]._moldy == newy)
 			 || (monster[index]._lastx == dirmx && monster[index]._lasty == dirmy) || (monster[index]._mfutx == dirmx && monster[index]._mfuty == dirmy) || (monster[index]._moldx == dirmx && monster[index]._moldy == dirmy)
 			 || (monster[index]._lastx == dirmx2 && monster[index]._lasty == dirmy2) || (monster[index]._mfutx == dirmx2 && monster[index]._mfuty == dirmy2) || (monster[index]._moldx == dirmx2 && monster[index]._moldy == dirmy2)
 				) {
@@ -1961,6 +1961,85 @@ int getImprovedMissileMonster(int mx, int my) {
 	}
 	return dMonster[mx][my];
 }
+
+
+int getImprovedMissilePlayer(int mx, int my) {
+	for (int k = 1; k <= 1; ++k) {
+		for (int i = -1; i <= 1; ++i) {
+			for (int j = -1; j <= 1; ++j) {
+				int newx = mx + i * k;
+				int newy = my + j * k;
+				if (newx < 0 || newy < 0 || newx >= 112 || newy >= 112) { continue; }
+				int index = 0;
+				int dPl = dPlayer[newx][newy];
+				if (dPl <= 0) {
+					index = -1 - dPl;
+				}
+				else {
+					index = dPl - 1;
+				}
+				if (index < 0) { continue; }
+				int posx = 0, posy = 0;
+				switch (plr[index]._pdir)
+				{
+				case DIR_S: {
+					posx++;
+					posy++;
+				}
+				case DIR_SW: {
+					posy++;
+					break;
+				}
+				case DIR_W: {
+					posx--;
+					posy++;
+					break;
+				}
+				case DIR_NW: {
+					posx--;
+					break;
+				}
+				case DIR_N: {
+					posx--;
+					posy--;
+					break;
+				}
+				case DIR_NE: {
+					posy--;
+					break;
+				}
+				case DIR_E: {
+					posx++;
+					posy--;
+					break;
+				}
+				case DIR_SE: {
+					posx++;
+					break;
+				}
+				}
+
+				int dirmx = newx + posx;
+				int dirmy = newy + posy;
+				int dirmx2 = newx - posx;
+				int dirmy2 = newy - posy;
+				if (dirmx < 0 || dirmx >= 112) { dirmx = newx; }
+				if (dirmy < 0 || dirmy >= 112) { dirmy = newy; }
+				if (dirmx2 < 0 || dirmx2 >= 112) { dirmx2 = newx; }
+				if (dirmy2 < 0 || dirmy2 >= 112) { dirmy2 = newy; }
+				if ((plr[index].WorldX == newx && plr[index].WorldY == newy) || (plr[index]._poldx == newx && plr[index]._poldy == newy) ||
+					(plr[index].WorldX == dirmx && plr[index].WorldY == dirmy) || (plr[index]._poldx == dirmx && plr[index]._poldy == dirmy) ||
+					(plr[index].WorldX == dirmx2 && plr[index].WorldY == dirmy2) || (plr[index]._poldx == dirmx2 && plr[index]._poldy == dirmy2)
+					) {
+						if (dPl < 0) { return dPl * (-1);}
+					return dPl;
+				}
+			}
+		}
+	}
+	return dPlayer[mx][my];
+}
+
 
 void __fastcall CheckMissileCol(int i, int mindam, int maxdam, bool shift, int mx, int my, int nodel)
 {
@@ -2003,12 +2082,6 @@ void __fastcall CheckMissileCol(int i, int mindam, int maxdam, bool shift, int m
 	}
 
 
-
-
-
-
-
-
 	v7 = mindam;
 	v8 = i;
 	mindama = mindam;
@@ -2030,7 +2103,8 @@ void __fastcall CheckMissileCol(int i, int mindam, int maxdam, bool shift, int m
 				missile[v8]._miHitFlag = 1;
 			}
 		}
-		v23 = dPlayer[0][v11];
+		//v23 = dPlayer[0][v11];
+		v23 = getImprovedMissilePlayer(mx, my);
 		if (v23 > 0)
 		{
 			v17 = PlayerMHit(
@@ -2064,7 +2138,8 @@ void __fastcall CheckMissileCol(int i, int mindam, int maxdam, bool shift, int m
 				if (v12 >= 0 || monster[-(v12 + 1)]._mmode != MM_STONE)
 				{
 				LABEL_13:
-					v14 = dPlayer[0][v11];
+					//v14 = dPlayer[0][v11];
+					v14 = getImprovedMissilePlayer(mx, my);
 					if (v14 <= 0)
 						goto LABEL_39;
 					v15 = missile[v8]._misource;
@@ -2120,7 +2195,8 @@ void __fastcall CheckMissileCol(int i, int mindam, int maxdam, bool shift, int m
 			}
 		}
 		v11 = my + 112 * mx;
-		v20 = dPlayer[0][v11];
+		//v20 = dPlayer[0][v11];
+		v20 = getImprovedMissilePlayer(mx, my);
 		if (v20 > 0)
 		{
 			v17 = PlayerMHit(
@@ -5634,8 +5710,8 @@ void __fastcall MI_Flash(int i)
 	if (!missile[i]._micaster)
 	{
 		v3 = missile[v2]._misource;
-		if (v3 != -1)
-			plr[v3]._pInvincible = 1;
+		//if (v3 != -1)
+			//plr[v3]._pInvincible = 1; // player vulnerable while casting flash
 	}
 	v4 = missile[v2]._mix;
 	--missile[v2]._mirange;
@@ -5652,8 +5728,8 @@ void __fastcall MI_Flash(int i)
 		if (v5)
 		{
 			v6 = missile[v2]._misource;
-			if (v6 != -1)
-				plr[v6]._pInvincible = 0;
+			//if (v6 != -1)
+				//plr[v6]._pInvincible = 0;
 		}
 	}
 	PutMissile(v1);
@@ -5673,8 +5749,8 @@ void __fastcall MI_Flash2(int i)
 	if (!missile[i]._micaster)
 	{
 		v3 = missile[v2]._misource;
-		if (v3 != -1)
-			plr[v3]._pInvincible = 1;
+		//if (v3 != -1)
+			//plr[v3]._pInvincible = 1;
 	}
 	v4 = missile[v2]._miy;
 	--missile[v2]._mirange;
@@ -5688,8 +5764,8 @@ void __fastcall MI_Flash2(int i)
 		if (v5)
 		{
 			v6 = missile[v2]._misource;
-			if (v6 != -1)
-				plr[v6]._pInvincible = 0;
+			//if (v6 != -1)
+				//plr[v6]._pInvincible = 0;
 		}
 	}
 	PutMissile(v1);

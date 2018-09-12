@@ -2160,7 +2160,7 @@ void __fastcall StartWalk3(int pnum, int xvel, int yvel, int xoff, int yoff, int
 		v19 = plr[v12].WorldX;
 		plr[v12]._pVar5 = v16;
 		dPlayer[v19][v18] = -1 - arglist;
-		dPlayer[a6][v15] = -1 - arglist;
+		dPlayer[a6][v15] = -1 - arglist; 
 		plr[v12]._pVar4 = x;
 		plr[v12]._pyoff = yoff;
 		dFlags[x][v16] |= 0x20u;
