@@ -1886,6 +1886,82 @@ LABEL_14:
 	return 0;
 }
 
+int getImprovedMissileMonster(int mx, int my) {
+
+	for (int i = -1; i <= 1;++ i) {
+		for (int j = -1; j <= 1; ++j) {
+			int newx = mx + i;
+			int newy = my + j;
+			if (newx < 0 || newy < 0 || newx >= 112 || newy >= 112) { continue; }
+			int index = 0;
+			int dMon = dMonster[newx][newy];
+			if (dMon <= 0) {
+				index = -1 - dMon;
+			}
+			else {
+				index = dMon - 1;
+			}
+			if (index < 0) { continue; }
+			int posx = 0, posy = 0;
+			switch (monster[index]._mdir)
+			{
+			case DIR_S: {
+				posx++;
+				posy++;
+			}
+			case DIR_SW: {
+				posy++;
+				break;
+			}
+			case DIR_W: {
+				posx--;
+				posy++;
+				break;
+			}
+			case DIR_NW: {
+				posx--;
+				break;
+			}
+			case DIR_N: {
+				posx--;
+				posy--;
+				break;
+			}
+			case DIR_NE: {
+				posy--;
+				break;
+			}
+			case DIR_E: {
+				posx++;
+				posy--;
+				break;
+			}
+			case DIR_SE: {
+				posx++;
+				break;
+				}
+			}
+
+			int dirmx = mx + posx;
+			int dirmy = my + posy;
+			int dirmx2 = mx - posx;
+			int dirmy2 = my - posy;
+			if (dirmx < 0 || dirmx >= 112) { dirmx = mx; }
+			if (dirmy < 0 || dirmy >= 112) { dirmy = my; }
+			if (dirmx2 < 0 || dirmx2 >= 112) { dirmx2 = mx; }
+			if (dirmy2 < 0 || dirmy2 >= 112) { dirmy2 = my; }
+
+			if ((monster[index]._lastx == mx && monster[index]._lasty == my) || (monster[index]._mfutx == mx && monster[index]._mfuty == my) || (monster[index]._moldx == mx && monster[index]._moldy == my)
+			 || (monster[index]._lastx == dirmx && monster[index]._lasty == dirmy) || (monster[index]._mfutx == dirmx && monster[index]._mfuty == dirmy) || (monster[index]._moldx == dirmx && monster[index]._moldy == dirmy)
+			 || (monster[index]._lastx == dirmx2 && monster[index]._lasty == dirmy2) || (monster[index]._mfutx == dirmx2 && monster[index]._mfuty == dirmy2) || (monster[index]._moldx == dirmx2 && monster[index]._moldy == dirmy2)
+				) {
+				return dMon;
+			}
+		}
+	}
+	return dMonster[mx][my];
+}
+
 void __fastcall CheckMissileCol(int i, int mindam, int maxdam, bool shift, int mx, int my, int nodel)
 {
 	int v7; // ebx
@@ -1923,7 +1999,7 @@ void __fastcall CheckMissileCol(int i, int mindam, int maxdam, bool shift, int m
 
 	if (object[oi]._otype >= OBJ_BARREL && object[oi]._otype <= OBJ_BARRELEX && object[oi]._oBreak == 1)
 	{
-		BreakBarrel(myplr, oi, 100, 0, 1);
+		BreakBarrel(myplr, oi, 1, 0, 1);
 	}
 
 
@@ -1940,12 +2016,13 @@ void __fastcall CheckMissileCol(int i, int mindam, int maxdam, bool shift, int m
 	if (v9 == 4 || (v10 = missile[v8]._misource, v10 == -1))
 	{
 		v11 = 112 * mx + my;
-		v21 = dMonster[0][v11];
+		//v21 = dMonster[0][v11];
+		v21 = getImprovedMissileMonster(mx, my);
 		if (v21 > 0)
 		{
 			v28 = missile[v8]._mitype;
 			v27 = missile[v8]._midist;
-			v22 = v9 == 4 ? MonsterMHit(missile[v8]._misource, v21 - 1, v7, maxdam, v27, v28, shift) : MonsterTrapHit(v21 - 1, v7, maxdam, v27, v28, shift);
+			v22 =  v9 == 4 ? MonsterMHit(missile[v8]._misource, v21 - 1, v7, maxdam, v27, v28, shift) : MonsterTrapHit(v21 - 1, v7, maxdam, v27, v28, shift);
 			if (v22)
 			{
 				if (!(_BYTE)nodel)
@@ -1980,7 +2057,8 @@ void __fastcall CheckMissileCol(int i, int mindam, int maxdam, bool shift, int m
 		if (!missile[v8]._micaster)
 		{
 			v11 = 112 * mx + my;
-			v12 = dMonster[0][v11];
+			//v12 = dMonster[0][v11];
+			v12 = getImprovedMissileMonster(mx, my);
 			if (v12 <= 0)
 			{
 				if (v12 >= 0 || monster[-(v12 + 1)]._mmode != MM_STONE)
@@ -2003,14 +2081,7 @@ void __fastcall CheckMissileCol(int i, int mindam, int maxdam, bool shift, int m
 						shift);
 					goto LABEL_35;
 				}
-				v13 = MonsterMHit(
-					v10,
-					-1 - v12,
-					mindama,
-					maxdam,
-					missile[v8]._midist,
-					missile[v8]._mitype,
-					shift);
+				v13 = MonsterMHit(v10,-1 - v12,mindama,maxdam,missile[v8]._midist,missile[v8]._mitype,shift);
 			}
 			else
 			{
@@ -2026,7 +2097,8 @@ void __fastcall CheckMissileCol(int i, int mindam, int maxdam, bool shift, int m
 		}
 		if (monster[v10]._mFlags & 0x10)
 		{
-			v18 = dMonster[0][my + 112 * mx];
+			//v18 = dMonster[0][my + 112 * mx];
+			v18 = getImprovedMissileMonster(mx, my);
 			if (v18 > 0)
 			{
 				if (monster[v18 - 1]._mFlags & 0x20) /* fix */

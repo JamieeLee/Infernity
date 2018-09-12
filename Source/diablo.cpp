@@ -338,7 +338,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 #endif
 
 		mainmenu_action(0); /* v11 fix unused arg */
-		UiDestroy();
+		UiDestroy(); 
 		SaveGamma();
 		setGameState(0);
 		if ( ghMainWnd )
