@@ -764,7 +764,6 @@ void __fastcall GetDamageAmt(int i, int *mind, int *maxd)
 		return;
 	}
 }
-
 int __fastcall CheckBlock(int fx, int fy, int tx, int ty)
 {
 	int v4; // edi
@@ -1312,7 +1311,33 @@ bool __fastcall MonsterTrapHit(int m, int mindam, int maxdam, int dist, int t, i
 	return 1;
 }
 
-bool __fastcall MonsterMHit(int pnum, int m, int mindam, int maxdam, int dist, int t, int shift)
+
+int CalculateSpellPower(int pnum) {
+	int power = 50;
+	int activeSpellType = plr[pnum]._pRSplType;
+	int magPower = (plr[pnum]._pMagic / 5);
+	int spellLevel = plr[myplr]._pSplLvl[plr[pnum]._pRSpell] + plr[myplr]._pISplLvlAdd;
+
+	power += 5 * spellLevel;
+
+	power += magPower;
+	int hpPercent = (plr[pnum]._pHPPer * 10) / 8;
+	int reverseHpPercent = 100 - hpPercent;
+	if (plr[pnum].pManaShield) {
+		power = power * 3 / 4;
+		power = (power*hpPercent*hpPercent)/10000;
+	}
+	if (!plr[pnum].pManaShield) {
+		power += (power*reverseHpPercent) / 200;
+	}
+
+	if (activeSpellType == 2 || activeSpellType == 3) {
+		power = power * 3 / 2;
+	}
+	return power;
+}
+
+bool __fastcall MonsterMissileHit(int pnum, int m, int mindam, int maxdam, int dist, int t, int shift)
 {
 	int v7; // edi
 	bool v8; // zf
@@ -1410,9 +1435,9 @@ bool __fastcall MonsterMHit(int pnum, int m, int mindam, int maxdam, int dist, i
 	if (v25 >= v13)
 		return 0;
 #endif
-	if (t == 63)
+	if (t == MIS_BONESPIRIT)
 	{
-		v19 = monster[v7]._mhitpoints / 3 >> 6;
+		v19 = monster[v7]._mhitpoints / 8 >> 6;
 	}
 	else
 	{
@@ -1430,6 +1455,9 @@ bool __fastcall MonsterMHit(int pnum, int m, int mindam, int maxdam, int dist, i
 
 	if (plr[v12]._pIFlags & 0x40000000 && monster[v7].MData->mMonstClass == 1) {//civerb affix for missiles
 		v19 *= 3;
+	}
+	if (t != MIS_ARROW) {
+		v19 = (v19*CalculateSpellPower(pnum))/100;
 	}
 
 
@@ -1486,7 +1514,7 @@ bool __fastcall MonsterMHit(int pnum, int m, int mindam, int maxdam, int dist, i
 	return 1;
 }
 
-bool __fastcall PlayerMHit(int pnum, int m, int dist, int mind, int maxd, int mtype, int shift, int earflag)
+bool __fastcall PlayerMissileHit(int pnum, int m, int dist, int mind, int maxd, int mtype, int shift, int earflag)
 {
 	int v8; // ebx
 	int v9; // esi
@@ -1527,6 +1555,12 @@ bool __fastcall PlayerMHit(int pnum, int m, int dist, int mind, int maxd, int mt
 	{
 		return 0;
 	}
+
+	if (mtype == MIS_FIREMOVE && m == -1) {
+		return 0;
+	}
+
+
 	v10 = 100;
 	v32 = random(72, 100);
 #ifdef _DEBUG
@@ -2095,7 +2129,7 @@ void __fastcall CheckMissileCol(int i, int mindam, int maxdam, bool shift, int m
 		{
 			v28 = missile[v8]._mitype;
 			v27 = missile[v8]._midist;
-			v22 =  v9 == 4 ? MonsterMHit(missile[v8]._misource, v21 - 1, v7, maxdam, v27, v28, shift) : MonsterTrapHit(v21 - 1, v7, maxdam, v27, v28, shift);
+			v22 =  v9 == 4 ? MonsterMissileHit(missile[v8]._misource, v21 - 1, v7, maxdam, v27, v28, shift) : MonsterTrapHit(v21 - 1, v7, maxdam, v27, v28, shift);
 			if (v22)
 			{
 				if (!(_BYTE)nodel)
@@ -2107,15 +2141,7 @@ void __fastcall CheckMissileCol(int i, int mindam, int maxdam, bool shift, int m
 		v23 = getImprovedMissilePlayer(mx, my);
 		if (v23 > 0)
 		{
-			v17 = PlayerMHit(
-				v23 - 1,
-				-1,
-				missile[v8]._midist,
-				v7,
-				maxdam,
-				missile[v8]._mitype,
-				shift,
-				_LOBYTE(missile[v8]._miAnimType) == 4);
+			v17 = PlayerMissileHit(v23 - 1,-1,missile[v8]._midist,v7,maxdam,missile[v8]._mitype,shift,_LOBYTE(missile[v8]._miAnimType) == 4);
 		LABEL_35:
 			if (v17)
 			{
@@ -2156,11 +2182,11 @@ void __fastcall CheckMissileCol(int i, int mindam, int maxdam, bool shift, int m
 						shift);
 					goto LABEL_35;
 				}
-				v13 = MonsterMHit(v10,-1 - v12,mindama,maxdam,missile[v8]._midist,missile[v8]._mitype,shift);
+				v13 = MonsterMissileHit(v10,-1 - v12,mindama,maxdam,missile[v8]._midist,missile[v8]._mitype,shift);
 			}
 			else
 			{
-				v13 = MonsterMHit(v10, v12 - 1, v7, maxdam, missile[v8]._midist, missile[v8]._mitype, shift);
+				v13 = MonsterMissileHit(v10, v12 - 1, v7, maxdam, missile[v8]._midist, missile[v8]._mitype, shift);
 			}
 			if (v13)
 			{
@@ -2199,15 +2225,7 @@ void __fastcall CheckMissileCol(int i, int mindam, int maxdam, bool shift, int m
 		v20 = getImprovedMissilePlayer(mx, my);
 		if (v20 > 0)
 		{
-			v17 = PlayerMHit(
-				v20 - 1,
-				missile[v8]._misource,
-				missile[v8]._midist,
-				mindama,
-				maxdam,
-				missile[v8]._mitype,
-				shift,
-				0);
+			v17 = PlayerMissileHit(v20 - 1,missile[v8]._misource,missile[v8]._midist,mindama,maxdam,missile[v8]._mitype,shift,0);
 			goto LABEL_35;
 		}
 	}
@@ -7380,7 +7398,8 @@ void __fastcall MI_Bonespirit(int i)
 				v9 = v8;
 				v10 = monster[v8]._my;
 				v11 = monster[v8]._mx;
-				missile[v2]._midam = monster[v8]._mhitpoints >> 7;
+				//missile[v2]._midam = monster[v8]._mhitpoints >> 7;
+				missile[v2]._midam = monster[v8]._mhitpoints >> 9; // bone spirit nerf?
 				v12 = GetDirection8(v7, y1, v11, v10);
 				SetMissDir(ia, v12);
 				GetMissileVel(ia, v7, y1, monster[v9]._mx, monster[v9]._my, 16);

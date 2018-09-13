@@ -155,6 +155,7 @@ extern int bxadd[8];
 extern int byadd[8];
 extern char *shrinestrs[26];
 extern char *shrinedesc[26];
+extern char *shrinedesc2[26];
 extern unsigned char shrinemin[26];
 extern unsigned char shrinemax[26];
 extern unsigned char shrineavail[26];

@@ -190,7 +190,8 @@ int PanBtnPos[8][5] =
   { 560, 361, 71, 19, 1 },
   { 560, 387, 71, 19, 0 },
   { 87,  443, 33, 32, 1 },
-  { 527, 443, 33, 32, 1 }
+  //{ 527, 443, 33, 32, 1 } // relocating player friendly/hostile button
+  { 87, 410, 33, 32, 1 }
 };
 char *PanBtnHotKey[8] = { "'c'", "'q'", "Tab", "Esc", "'i'", "'b'", "Enter", NULL };
 char *PanBtnStr[8] =
@@ -1556,7 +1557,8 @@ void __cdecl DrawCtrlPan()
 			v3 = panbtn[7] + 3;
 		else
 			v3 = panbtn[7] + 5;
-		CelDecodeOnly(591 + GetWidthDiff() / 2, 634 + GetHeightDiff(), pMultiBtns, v3, 33);
+		//CelDecodeOnly(591 + GetWidthDiff() / 2, 634 + GetHeightDiff(), pMultiBtns, v3, 33);
+		CelDecodeOnly(151 + GetWidthDiff() / 2, 602 + GetHeightDiff(), pMultiBtns, v3, 33);
 	}
 }
 // 484368: using guessed type int FriendlyMode;
@@ -3263,12 +3265,14 @@ void __cdecl DrawSpellBook()
 					v5 = v4 >> 6;
 					v12 = v4 >> 6;
 					GetDamageAmt(v2, &sel, &v11);
+					sel = sel*CalculateSpellPower(myplr)/100;
+					v11 = v11*CalculateSpellPower(myplr) / 100;
 					if ( sel == -1 )
 						sprintf(tempstr, "Mana: %i   Dam: n/a", v5);
 					else
 						sprintf(tempstr, "Mana: %i  Dam: %i - %i", v5, sel, v11);
 					if ( v2 == SPL_BONESPIRIT )
-						sprintf(tempstr, "Mana: %i  Dam: 1/3 tgt hp", v12);
+						sprintf(tempstr, "Mana: %i  Dam: 1/8 tgt hp", v12);
 					PrintSBookStr(10, v8, 0, tempstr, 0);
 					v6 = plr[myplr]._pISplLvlAdd + plr[myplr]._pSplLvl[v2];
 					if ( v6 < 0 )

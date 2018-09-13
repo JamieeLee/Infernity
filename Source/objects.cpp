@@ -326,25 +326,25 @@ char *shrinestrs[26] =
 
 char *shrinedesc[26] =
 {
-	"+5 to one attribute, -1 to others",
-	"-10 dura to one item, +10 to others",
-	"+2ac to items, -1 dmg to weapon",
+	"+5 to one attribute",
+	"-10 dura to one item",
+	"-1 dmg to weapon",
 	"weapon damage +1",
 	"cast mana shield",
 	"recharge staves",
 	"repair all items",
-	"-1 to random spell level, +1 to others",
+	"-1 to random spell level",
 	"refill chests",
 	"firebolt level +2",
 	"refill mana",
 	"cast mana shield",
-	"potions become rejuvenation",
+	"turn potions",
 	"+2 to magic",
 	"get 2 potions",
 	"cast phasing",
 	"holy bolt level +2",
 	"fill inventory with gold",
-	"refill hp/mana for other players",
+	"refill hp/mana",
 	"+2 to dexterity",
 	"+2 to strength",
 	"+2 to vitality",
@@ -352,6 +352,38 @@ char *shrinedesc[26] =
 	"holy bolt level +2",
 	"identify all items",
 	"+/- 1 to stats"
+};
+
+
+
+char *shrinedesc2[26] =
+{
+	"-1 to others",
+	"+10 to others",
+	"-1 dmg to weapon",
+	"",
+	"",
+	"",
+	"",
+	"-1 to random spell level",
+	"",
+	"",
+	"",
+	"",
+	"into rejuvenenation",
+	"",
+	"",
+	"",
+	"",
+	"fill inventory with gold",
+	"for other players",
+	"",
+	"",
+	"",
+	"",
+	"2",
+	"",
+	""
 };
 
 
@@ -6791,7 +6823,7 @@ void __fastcall BreakBarrel(int pnum, int i, int dam, unsigned char forcebreak, 
 										MonsterTrapHit(v11 - 1, 1, 4, 0, 1, 0);
 									v12 = dPlayer[0][forcebreaka];
 									if ( v12 > 0 )
-										PlayerMHit(v12 - 1, -1, 0, 8, 16, 1, 0, 0);
+										PlayerMissileHit(v12 - 1, -1, 0, 8, 16, 1, 0, 0);
 									v13 = dObject[0][forcebreaka];
 									if ( v13 > 0 )
 									{
@@ -7259,6 +7291,7 @@ void __fastcall GetObjectStr(int i)
 			sprintf(tempstr, "%s Shrine", shrinestrs[object[v1]._oVar1]);
 			strcpy(infostr, tempstr);
 			AddPanelString(shrinedesc[object[v1]._oVar1], 1);
+			AddPanelString(shrinedesc2[object[v1]._oVar1], 1);
 			break;
 		case OBJ_SKELBOOK:
 			strcpy(infostr, "Skeleton Tome");

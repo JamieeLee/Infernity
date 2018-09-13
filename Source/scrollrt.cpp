@@ -3905,6 +3905,15 @@ void __cdecl DrawAndBlit()
 		}
 		DrawXpBar();
 		DrawNumbersOnHealthMana();
+		PrintGameStr(526 + GetWidthDiff() / 2, 436 + GetHeightDiff(), "Spell", COL_ORANGE);
+		PrintGameStr(516 + GetWidthDiff() / 2, 446 + GetHeightDiff(), "Power", COL_ORANGE);
+		int power = CalculateSpellPower(myplr);
+		std::stringstream ss;
+		ss << power << "%";
+		int powercol = COL_GOLD;
+		if (power < 100) { powercol = COL_RED; };
+		if (power > 100) { powercol = COL_ORANGE; }
+		PrintGameStr(524 + GetWidthDiff() / 2, 466 + GetHeightDiff(), (char*)ss.str().c_str(), powercol);
 		PrintDebugInfo();
 		if (lootFilterBroken == true) {
 			std::string s="Loot filter broken! Fix the errors and press L to reload!";

@@ -78,6 +78,7 @@ void ReloadConfig();
 bool CanPutToBelt(int miscId);
 int FreeSlotOnBelt();
 bool CanRun(int pnum);
+int CalculateSpellPower(int pnum);
 int MonstersInCombat(int pnum);
 int GetTextWidth(char* s);
 void PrintDebugInfo();

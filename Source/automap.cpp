@@ -352,8 +352,16 @@ void AddItemToDrawQueue(int x, int y, int id) {
 	lootFilterData lfd = luaLootFilter(name, plr[myplr]._pClass, itemName, it->_itype, (int)it->_iLoc, rarity, GetItemColor(id));
 	if (lfd.show == false) { return; }
 	int centerXOffset =  GetTextWidth((char*)lfd.name.c_str()) ;
+	if (zoomflag) {
 		x -= centerXOffset / 2 + 20;
 		y -= 193;
+	}
+	else {
+
+		x -= centerXOffset  + 20;
+		y -= 0;
+
+	}
 		drawQ.push_back(drawingQueue(x, y, GetTextWidth((char*)lfd.name.c_str()), 13, it->_ix, it->_iy, id, lfd.color2, lfd.name, 1, lfd.r, lfd.g,lfd.b));
 
 }
@@ -415,7 +423,6 @@ void HighlightItemsNameOnMap()
 
 		int bgcolor = 0;
 		if(true){
-		
 			char color = t.color;
 			int sx = t.new_x;
 			int sy = t.new_y;
