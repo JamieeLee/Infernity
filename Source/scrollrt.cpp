@@ -670,8 +670,8 @@ void __fastcall DrawView(int StartX, int StartY)
 	if ( zoomflag )
 		DrawGame2(StartX, StartY);
 	else
-		DrawGame2(StartX, StartY);
-		//DrawZoom(StartX, StartY);
+		//DrawGame2(StartX, StartY);
+		DrawZoom2(StartX, StartY);
 
 	if ( automapflag )
 		DrawAutomap();
@@ -3061,11 +3061,96 @@ void __fastcall scrollrt_draw_e_flag(char *buffer, int x, int y, int a4, int a5,
 	cel_transparency_active = v10;
 	level_piece_id = v22;
 }
-// 69BEF8: using guessed type int light_table_index;
-// 69CF14: using guessed type int level_cel_block;
-// 69CF20: using guessed type char arch_draw_type;
-// 69CF94: using guessed type int cel_transparency_active;
-// 69CF98: using guessed type int level_piece_id;
+void __fastcall DrawZoom2(int x, int y)
+{
+	int yofs = 143;
+	int posx = x - ScreenWidth / 64;
+	int posy = y - 1;
+	int offsetX = ScrollInfo._sxoff + 64;
+	int offsetY = ScrollInfo._syoff + yofs;
+	int HorCellDrawCount = ScreenWidth / 64;
+	switch (ScrollInfo._sdir)
+	{
+	case DIR_SW: {
+		offsetY = ScrollInfo._syoff + yofs - 32;
+		--posx;
+		--posy;
+		break;
+	}
+	case DIR_W: {
+		offsetY = ScrollInfo._syoff + yofs - 32;
+		--posx;
+		--posy;
+		++HorCellDrawCount;
+		break;
+	}
+	case DIR_NW:
+	case DIR_N:
+	case DIR_NE:
+	{
+		++HorCellDrawCount;
+		break;
+	}
+	case DIR_E:
+	case DIR_SE: {
+		offsetX -= 64;
+		--posx;
+		++posy;
+		++HorCellDrawCount;
+		break;
+	}
+	case DIR_OMNI: {
+		offsetX -= 64;
+		offsetY = ScrollInfo._syoff + yofs - 32;
+		posx -= 2;
+		++HorCellDrawCount;
+		break;
+	}
+	default:
+		break;
+	}
+	int screenCellRow = 0;
+	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[160];
+	do {
+		scrollrt_draw_upper(posx, posy++, offsetX, offsetY, HorCellDrawCount, screenCellRow, 0);
+		scrollrt_draw_upper(posx++, posy, offsetX - 32, offsetY + 16, HorCellDrawCount, screenCellRow, 1);
+		offsetY += 32;
+		++screenCellRow;
+	} while (offsetY <= WorkingHeight + 256);
+	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[WorkingWidth + 32];
+	yofs -= 32;
+
+	for (int i = ScreenHeight - 1; i >= yofs; --i) {
+		for (int j = ScreenWidth - 1; j >= 0; --j) {
+			gpBuffer->row[i].pixels[j] = gpBuffer->row[i - yofs].pixels[j];
+		}
+	}
+
+	for (int i = ScreenHeight / 4 - 1; i >= 0; --i) {
+		for (int j = ScreenWidth / 4 - 1; j >= 0; --j) {
+			int hd2 = ScreenHeight >> 1;
+			int hd3 = ScreenHeight >> 1;
+			int wd2 = ScreenWidth >> 1;
+
+			gpBuffer->row[hd3 - i * 2].pixels[wd2 - j * 2 - 1] = gpBuffer->row[hd2 - i].pixels[wd2 - j];
+			gpBuffer->row[hd3 + i * 2].pixels[wd2 - j * 2 - 1] = gpBuffer->row[hd2 + i].pixels[wd2 - j];
+			gpBuffer->row[hd3 - i * 2 - 1].pixels[wd2 - j * 2 - 1] = gpBuffer->row[hd2 - i].pixels[wd2 - j];
+			gpBuffer->row[hd3 + i * 2 + 1].pixels[wd2 - j * 2 - 1] = gpBuffer->row[hd2 + i].pixels[wd2 - j];
+			gpBuffer->row[hd3 - i * 2].pixels[wd2 - j * 2] = gpBuffer->row[hd2 - i].pixels[wd2 - j];
+			gpBuffer->row[hd3 + i * 2].pixels[wd2 - j * 2] = gpBuffer->row[hd2 + i].pixels[wd2 - j];
+			gpBuffer->row[hd3 - i * 2 - 1].pixels[wd2 - j * 2] = gpBuffer->row[hd2 - i].pixels[wd2 - j];
+			gpBuffer->row[hd3 + i * 2 + 1].pixels[wd2 - j * 2] = gpBuffer->row[hd2 + i].pixels[wd2 - j];
+			gpBuffer->row[hd3 + i * 2 + 1].pixels[wd2 + j * 2 + 1] = gpBuffer->row[hd2 + i].pixels[wd2 + j];
+			gpBuffer->row[hd3 - i * 2 - 1].pixels[wd2 + j * 2 + 1] = gpBuffer->row[hd2 - i].pixels[wd2 + j];
+			gpBuffer->row[hd3 + i * 2].pixels[wd2 + j * 2 + 1] = gpBuffer->row[hd2 + i].pixels[wd2 + j];
+			gpBuffer->row[hd3 - i * 2].pixels[wd2 + j * 2 + 1] = gpBuffer->row[hd2 - i].pixels[wd2 + j];
+			gpBuffer->row[hd3 + i * 2].pixels[wd2 + j * 2] = gpBuffer->row[hd2 + i].pixels[wd2 + j];
+			gpBuffer->row[hd3 - i * 2].pixels[wd2 + j * 2] = gpBuffer->row[hd2 - i].pixels[wd2 + j];
+			gpBuffer->row[hd3 + i * 2 + 1].pixels[wd2 + j * 2] = gpBuffer->row[hd2 + i].pixels[wd2 + j];
+			gpBuffer->row[hd3 - i * 2 - 1].pixels[wd2 + j * 2] = gpBuffer->row[hd2 - i].pixels[wd2 + j];
+		}
+	}
+}
 void __fastcall DrawZoom(int x, int y)
 {
 	int v2; // edi

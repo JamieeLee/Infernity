@@ -133,7 +133,7 @@ void __cdecl InitAutomap()
 
 void __cdecl StartAutomap()
 {
-	AutoMapXOfs = -(ScreenWidth-640)*20/640;
+	AutoMapXOfs = 0;
 	AutoMapYOfs = 0;
 	automapflag = 1;
 }
@@ -515,7 +515,7 @@ void __cdecl DrawAutomap()
 				++v2;
 			}
 			while ( v2 < 0 );
-			//AutoMapXOfs = v0;
+			AutoMapXOfs = v0;
 		}
 		v3 = v0 + v1;
 		if ( v0 + v1 >= 40 )
@@ -526,7 +526,7 @@ void __cdecl DrawAutomap()
 				--v3;
 			}
 			while ( v3 >= 40);
-			//AutoMapXOfs = v0;
+			AutoMapXOfs = v0;
 		}
 		v4 = v0 + v1;
 		AMdword_4B7E40 = v4;
