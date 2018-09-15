@@ -111,7 +111,7 @@ void __fastcall PackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool manashi
 	pPack->currentWeaponSet = pPlayer->currentWeaponSet;
 
 	
-	for (int j = 0; j < 100; ++j) {
+	for (int j = 0; j < MAX_STASH_TABS; ++j) {
 		strcpy(pPack->StashNames[j], pPlayer->StashNames[j]);
 		pPack->StashNumInv[j] = pPlayer->StashNumInv[j];
 		for (i = 0; i < 40; i++) {
@@ -119,7 +119,7 @@ void __fastcall PackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool manashi
 		}
 	}
 
-	for (int j = 0; j < 100; ++j) {
+	for (int j = 0; j < MAX_STASH_TABS; ++j) {
 		for (i = 0; i < 40; i++) {
 			PackItem(&pPack->StashInvList[j][i], &pPlayer->StashInvList[j][i]);
 		}
@@ -334,7 +334,7 @@ void __fastcall UnPackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool killo
 	if (pPlayer->version > 3) {
 
 		pPlayer->lastTab = pPack->lastTab;
-		for (int i = 0; i < 100; ++i) {
+		for (int i = 0; i < MAX_STASH_TABS; ++i) {
 			strcpy(&pPlayer->StashNames[i][0], &pPack->StashNames[i][0]);
 			pPlayer->StashNumInv[i] = pPack->StashNumInv[i];
 			for (int j = 0; j < 40; ++j) {
@@ -345,7 +345,7 @@ void __fastcall UnPackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool killo
 	}
 	else {
 		pPlayer->lastTab = 0;
-		for (int i = 0; i < 100; ++i) {
+		for (int i = 0; i < MAX_STASH_TABS; ++i) {
 			strcpy(&pPlayer->StashNames[i][0], "Click to rename");
 			pPlayer->StashNumInv[i] = 0;
 			for (int j = 0; j < 40; ++j) {

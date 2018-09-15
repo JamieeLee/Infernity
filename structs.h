@@ -1,6 +1,8 @@
 #include <string>
 #define GLOBAL_WIDTH 1280
 #define GLOBAL_HEIGHT 960
+#define MAX_STASH_TABS 100
+#define MEGAPACKETSIZE 92000
 class drawingQueue
 {
 public:
@@ -412,10 +414,10 @@ struct PlayerStruct
 	ItemStruct alternateWeapons[2];
 	int currentWeaponSet;
 	char walkpath2[100];
-	ItemStruct StashInvList[100][40];
-	char StashInvGrid[100][40];
-	int StashNumInv[100];
-	char StashNames[100][16];
+	ItemStruct StashInvList[MAX_STASH_TABS][40];
+	char StashInvGrid[MAX_STASH_TABS][40];
+	int StashNumInv[MAX_STASH_TABS];
+	char StashNames[MAX_STASH_TABS][16];
 	int lastTab;
 	int NewSpellHotkeys[12];
 	int NewSpellTHotkeys[12];
@@ -930,8 +932,9 @@ struct TCmdDamage
 struct TCmdPlrInfoHdr
 {
 	unsigned char bCmd;
-	unsigned short wOffset;
+	//unsigned short wOffset;
 	unsigned short wBytes;
+	int wOffset;
 };
 
 struct TCmdString
@@ -1002,6 +1005,8 @@ struct TPktHdr
 	unsigned char bdex;
 	unsigned short wCheck;
 	unsigned short wLen;
+	//int wCheck;
+	//int wLen;
 };
 
 struct TPkt
@@ -1064,7 +1069,7 @@ struct TMegaPkt
 {
 	TMegaPkt *pNext;
 	int dwSpaceLeft;
-	unsigned char data[32000];
+	unsigned char data[MEGAPACKETSIZE];
 };
 
 //////////////////////////////////////////////////
@@ -1590,10 +1595,10 @@ struct PkPlayerStruct3 :PkPlayerStruct2
 
 struct PkPlayerStruct4 :PkPlayerStruct3
 {
-	PkItemStruct StashInvList[100][40];
-	char StashInvGrid[100][40];
-	int StashNumInv[100];
-	char StashNames[100][16];
+	PkItemStruct StashInvList[MAX_STASH_TABS][40];
+	char StashInvGrid[MAX_STASH_TABS][40];
+	int StashNumInv[MAX_STASH_TABS];
+	char StashNames[MAX_STASH_TABS][16];
 	int lastTab;
 };
 struct PkPlayerStruct5 :PkPlayerStruct4

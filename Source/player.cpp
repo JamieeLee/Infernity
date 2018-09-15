@@ -1122,7 +1122,7 @@ LABEL_28:
 	plr[v4].alternateWeapons[1]._itype = -1;
 	plr[v4].currentWeaponSet = 0;
 
-	for (int i = 0; i < 100; ++i) {
+	for (int i = 0; i < MAX_STASH_TABS; ++i) {
 		plr[v4].StashNumInv[i] = 0;
 		for (int j = 0; j < 40; ++j) {
 			plr[v4].StashInvList[i][j]._itype = -1;
@@ -1963,7 +1963,7 @@ void __fastcall StartWalk(int pnum, int xvel, int yvel, int xadd, int yadd, int 
 		InitPlayerLoc(arglist, 0);
 		if ( arglist == myplr )
 		{
-			if ( zoomflag )
+			if (true) //if (zoomflag)
 			{
 				if ( abs(ScrollInfo._sdx) < 3 )
 				{
@@ -1992,7 +1992,6 @@ LABEL_20:
 		}
 	}
 }
-// 52569C: using guessed type int zoomflag;
 
 void __fastcall StartWalk2(int pnum, int xvel, int yvel, int xoff, int yoff, int xadd, int yadd, int EndDir, int sdir)
 {
@@ -2074,7 +2073,7 @@ void __fastcall StartWalk2(int pnum, int xvel, int yvel, int xoff, int yoff, int
 
 		if ( arglist == myplr )
 		{
-			if ( zoomflag )
+			if(true)//if ( zoomflag )
 			{
 				if ( abs(ScrollInfo._sdx) < 3 )
 				{
@@ -2103,7 +2102,6 @@ LABEL_22:
 		}
 	}
 }
-// 52569C: using guessed type int zoomflag;
 
 void __fastcall StartWalk3(int pnum, int xvel, int yvel, int xoff, int yoff, int xadd, int yadd, int mapx, int mapy, int EndDir, int sdir)
 {
@@ -2189,7 +2187,7 @@ void __fastcall StartWalk3(int pnum, int xvel, int yvel, int xoff, int yoff, int
 		InitPlayerLoc(arglist, 0);
 		if ( arglist == myplr )
 		{
-			if ( zoomflag )
+			if(true)//if ( zoomflag )
 			{
 				if ( abs(ScrollInfo._sdx) < 3 )
 				{
@@ -2218,7 +2216,6 @@ LABEL_22:
 		}
 	}
 }
-// 52569C: using guessed type int zoomflag;
 // 5BB1ED: using guessed type char leveltype;
 
 void __fastcall StartAttack(int pnum, int d)

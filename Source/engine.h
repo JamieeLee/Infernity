@@ -78,7 +78,7 @@ void ReloadConfig();
 bool CanPutToBelt(int miscId);
 int FreeSlotOnBelt();
 bool CanRun(int pnum);
-int CalculateSpellPower(int pnum);
+int CalculateSpellPower(int pnum, int spell, int spellType);
 int MonstersInCombat(int pnum);
 int GetTextWidth(char* s);
 void PrintDebugInfo();
@@ -111,7 +111,7 @@ extern int currentGameState;
 void setGameState(int state);
 void fatalLua(const char* message);
 void LuaInit();
-
+void DrawGame(int StartX, int StartY, bool isTown);
 
 extern std::map<std::string, bool> BoolConfig;
 extern std::map<std::string, int> IntConfig;
@@ -128,6 +128,7 @@ extern int HighlightedItemCol;
 extern bool ShouldHighlightItems;
 extern lua_State* L;
 extern bool lootFilterBroken;
+extern int globalScrollZoom;
 
 // try versioning struct size
 #define countof( a ) __crt_countof( a ) 

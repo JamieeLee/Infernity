@@ -14,7 +14,6 @@ extern int glSeedTbl[NUMLEVELS];
 extern int gbRunGame; // weak
 extern int glMid3Seed[NUMLEVELS];
 extern int gbRunGameResult; // weak
-extern int zoomflag; // weak
 extern int gbProcessPlayers; // weak
 extern int glEndSeed[NUMLEVELS];
 extern int dword_5256E8; // weak

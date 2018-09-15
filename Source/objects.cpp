@@ -375,7 +375,7 @@ char *shrinedesc2[26] =
 	"",
 	"",
 	"",
-	"fill inventory with gold",
+	"",
 	"for other players",
 	"",
 	"",

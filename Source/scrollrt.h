@@ -31,8 +31,6 @@ void __fastcall DrawDeadPlayer(int x, int y, int sx, int sy, int a5, int a6, boo
 void __fastcall DrawPlayer(int pnum, int x, int y, int px, int py, unsigned char *animdata, int animframe, int animwidth, int a9, int a10);
 void __fastcall DrawClippedPlayer(int pnum, int x, int y, int px, int py, unsigned char *animdata, int animframe, int animwidth, int a9, int a10);
 void __fastcall DrawView(int StartX, int StartY);
-void __fastcall DrawGame(int x, int y);
-void __fastcall DrawGame2(int x, int y);
 void __fastcall scrollrt_draw_lower(int x, int y, int sx, int sy, int a5, int some_flag);
 void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, int a5, int a6);
 void __fastcall DrawClippedMonster(int x, int y, int a3, int a4, int mon_id, int a6, int a7);
@@ -46,9 +44,6 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 void __fastcall DrawMonster(int x, int y, int a3, int a4, int mon_id, int a6, int a7);
 void __fastcall DrawObject(int x, int y, int a3, int a4, int pre_flag, int a6, int dir);
 void __fastcall scrollrt_draw_e_flag(char *buffer, int x, int y, int a4, int a5, int sx, int sy);
-void __fastcall DrawZoom(int x, int y);
-void __fastcall DrawZoom2(int x, int y);
-void __fastcall T_DrawZoom2(int x, int y);
 void __cdecl ClearScreenBuffer();
 #ifdef _DEBUG
 void __cdecl ScrollView();

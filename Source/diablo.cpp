@@ -14,7 +14,6 @@ int glSeedTbl[NUMLEVELS];
 int gbRunGame; // weak
 int glMid3Seed[NUMLEVELS];
 int gbRunGameResult; // weak
-int zoomflag; // weak
 int gbProcessPlayers; // weak
 int glEndSeed[NUMLEVELS];
 int dword_5256E8; // weak
@@ -235,7 +234,6 @@ void __fastcall run_game_loop(int uMsg)
 void __fastcall start_game(int uMsg)
 {
 	cineflag = 0;
-	zoomflag = 1;
 	InitCursor();
 	InitLightTable();
 	LoadDebugGFX();
@@ -247,7 +245,6 @@ void __fastcall start_game(int uMsg)
 	sgbMouseDown = 0;
 	track_repeat_walk(0);
 }
-// 52569C: using guessed type int zoomflag;
 // 525718: using guessed type char cineflag;
 // 525748: using guessed type char sgbMouseDown;
 
@@ -764,6 +761,26 @@ LRESULT __stdcall GM_Game(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				}
 				return 0;
 			}
+
+
+			if (uMsg == WM_MOUSEWHEEL)
+			{
+				if ((short)HIWORD(wParam) < 0)
+				{
+					if (globalScrollZoom > 0) {
+						globalScrollZoom -= 5;
+					}
+				}
+				else
+				{
+					if (globalScrollZoom < 100) {
+						globalScrollZoom += 5;
+					}
+				}
+				return 0;
+			}
+
+
 			if ( uMsg != WM_RBUTTONUP )
 			{
 				if ( uMsg == WM_CAPTURECHANGED )
@@ -1863,7 +1880,6 @@ LABEL_27:
 				}
 				case 'Z':
 				case 'z':
-					zoomflag = zoomflag == 0;
 					return;
 #ifdef _DEBUG
 				case ')':
@@ -1971,14 +1987,6 @@ LABEL_27:
 		}
 	}
 }
-// 4B84DC: using guessed type int dropGoldFlag;
-// 4B8968: using guessed type int sbookflag;
-// 4B8C98: using guessed type int spselflag;
-// 52569C: using guessed type int zoomflag;
-// 525740: using guessed type int PauseMode;
-// 52575C: using guessed type int doomflag;
-// 69BD04: using guessed type int questlog;
-// 6AA705: using guessed type char stextflag;
 
 void __cdecl LoadLvlGFX()
 {

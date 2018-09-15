@@ -1042,466 +1042,20 @@ LABEL_36:
 }
 // 69CF14: using guessed type int level_cel_block;
 
-void __fastcall T_DrawGame(int x, int y)
-{
-	int v2; // esi
-	int v3; // edi
-	int v4; // ebx
-	int v5; // ebx
-	int v6; // esi
-	int v7; // ebx
-	int v8; // esi
-	int v9; // ebx
-	int v10; // esi
-	signed int v11; // [esp+Ch] [ebp-10h]
-	signed int a6; // [esp+10h] [ebp-Ch]
-	signed int a6a; // [esp+10h] [ebp-Ch]
-	signed int a5; // [esp+14h] [ebp-8h]
-	int ya; // [esp+18h] [ebp-4h]
-
-	v2 = ScrollInfo._sxoff + 64;
-	v3 = x - 10;
-	ya = y - 1;
-	v4 = ScrollInfo._syoff + 175;
-	dword_5C2FF8 = 10;
-	a5 = 10;
-	scr_pix_width = ScreenWidth;
-	scr_pix_height = 352;
-	dword_5C2FFC = 11;
-	v11 = 5;
-	if (chrflag || questlog)
-	{
-		ya = y - 3;
-		v3 += 2;
-		v2 = ScrollInfo._sxoff + 352;
-		a5 = 6;
-	}
-	if (invflag || sbookflag)
-	{
-		ya -= 2;
-		v3 += 2;
-		v2 -= 32;
-		a5 = 6;
-	}
-	switch (ScrollInfo._sdir)
-	{
-	case DIR_SW:
-		v4 = ScrollInfo._syoff + 143;
-		--v3;
-		--ya;
-		goto LABEL_15;
-	case DIR_W:
-		v4 = ScrollInfo._syoff + 143;
-		--v3;
-		--ya;
-		goto LABEL_14;
-	case DIR_NW:
-		goto LABEL_12;
-	case DIR_N:
-		goto LABEL_14;
-	case DIR_NE:
-		goto LABEL_15;
-	case DIR_E:
-		v2 -= 64;
-		--v3;
-		++ya;
-		goto LABEL_14;
-	case DIR_SE:
-		v2 -= 64;
-		--v3;
-		++ya;
-	LABEL_12:
-		++a5;
-		break;
-	case DIR_OMNI:
-		v2 -= 64;
-		v4 = ScrollInfo._syoff + 143;
-		v3 -= 2;
-	LABEL_14:
-		++a5;
-	LABEL_15:
-		v11 = 6;
-		break;
-	default:
-		break;
-	}
-	a6 = 0;
-	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[160];
-	do
-	{
-		town_draw_upper(v3, ya++, v2, v4, a5, a6, 0);
-		v5 = v4 + 16;
-		v6 = v2 - 32;
-		town_draw_upper(v3++, ya, v6, v5, a5, a6, 1);
-		v2 = v6 + 32;
-		v4 = v5 + 16;
-		++a6;
-	} while (a6 < 7);
-	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[512];
-	if (v11 > 0)
-	{
-		do
-		{
-			town_draw_lower(v3, ya++, v2, v4, a5, 0);
-			v7 = v4 + 16;
-			v8 = v2 - 32;
-			town_draw_lower(v3++, ya, v8, v7, a5, 1);
-			v2 = v8 + 32;
-			v4 = v7 + 16;
-			--v11;
-		} while (v11);
-	}
-	a6a = 0;
-	do
-	{
-		town_draw_lower_2(v3, ya++, v2, v4, a5, a6a, 0);
-		v9 = v4 + 16;
-		v10 = v2 - 32;
-		town_draw_lower_2(v3++, ya, v10, v9, a5, a6a, 1);
-		v2 = v10 + 32;
-		v4 = v9 + 16;
-		++a6a;
-	} while (a6a < 7);
-}
 int GetWidthForRes(int what) 
 {
 	return ceil(ScreenWidth * what / 640)*2;
 }
 
-void __fastcall T_DrawGame3(int x, int y)
+void DrawGame(int x, int y, bool isTown)
 {
-	int posx = x - ScreenWidth / 64;
-	int posy = y - 1;
-	int offsetX = ScrollInfo._sxoff + 64;
-	int offsetY = ScrollInfo._syoff + 160 + 15;
-	int HorCellDrawCount = ScreenWidth / 64;
-	int BottomHeight = 5;
-	int magicThing = ScreenHeight / 32 + 4;
-	int v11 = magicThing;
-	//if (ScreenHeight == GUI_Height && ScreenWidth == GUI_Width) {
-	/*
-	if (chrflag || questlog) {
-	posy -= 2;
-	posx += 2;
-	offsetX = ScrollInfo._sxoff + 352;
-	HorCellDrawCount = (ScreenWidth / 64) / 2 + 1;
-	}
-	if (invflag || sbookflag) {
-	posy -= 2;
-	posx += 2;
-	offsetX -= 32;
-	HorCellDrawCount = (ScreenWidth / 64) / 2 + 1;
-	}
-	*/
+	int targetHeight = GLOBAL_HEIGHT - GLOBAL_HEIGHT * globalScrollZoom / 200;
+	int targetWidth = GLOBAL_WIDTH - GLOBAL_WIDTH * globalScrollZoom / 200;
+	int widthDiff = GLOBAL_WIDTH - targetWidth;
+	int heightDiff = GLOBAL_HEIGHT - targetHeight;
 
-	switch (ScrollInfo._sdir)
-	{
-	case DIR_SW:
-		offsetY = ScrollInfo._syoff + 143;
-		--posx;
-		--posy;
-		goto LABEL_15;
-	case DIR_W:
-		offsetY = ScrollInfo._syoff + 143;
-		--posx;
-		--posy;
-		goto LABEL_14;
-	case DIR_NW:
-		goto LABEL_12;
-	case DIR_N:
-		goto LABEL_14;
-	case DIR_NE:
-		goto LABEL_15;
-	case DIR_E:
-		offsetX -= 64;
-		--posx;
-		++posy;
-		goto LABEL_14;
-	case DIR_SE:
-		offsetX -= 64;
-		--posx;
-		++posy;
-	LABEL_12:
-		++HorCellDrawCount;
-		break;
-	case DIR_OMNI:
-		offsetX -= 64;
-		offsetY = ScrollInfo._syoff + 143;
-		posx -= 2;
-	LABEL_14:
-		++HorCellDrawCount;
-	LABEL_15:
-		v11 = v11 + 1;
-		break;
-	default:
-		break;
-	}
-	int screenCellRow = 0;
-	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[160];
-	do
-	{
-		town_draw_upper(posx, posy++, offsetX, offsetY, HorCellDrawCount, screenCellRow, 0);
-		int v5 = offsetY + 16;
-		int v6 = offsetX - 32;
-		town_draw_upper(posx++, posy, v6, v5, HorCellDrawCount, screenCellRow, 1);
-		offsetX = v6 + 32;
-		offsetY = v5 + 16;
-		++screenCellRow;
-	} while (screenCellRow < magicThing);
-	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[WorkingWidth + 32];
-	if (v11 > 0)
-	{
-		do
-		{
-			town_draw_lower(posx, posy++, offsetX, offsetY, HorCellDrawCount, 0);
-			int v7 = offsetY + 16;
-			int v8 = offsetX - 32;
-			town_draw_lower(posx++, posy, v8, v7, HorCellDrawCount, 1);//1
-			offsetX = v8 + 32;
-			offsetY = v7 + 16;
-			--v11;
-		} while (v11);
-	}
-
-	screenCellRow = 0;
-	do
-	{
-		town_draw_lower_2(posx, posy++, offsetX, offsetY, HorCellDrawCount, screenCellRow, 0);
-		int v9 = offsetY + 16;
-		int v10 = offsetX - 32;
-		town_draw_lower_2(posx++, posy, v10, v9, HorCellDrawCount, screenCellRow, 1);
-		offsetX = v10 + 32;
-		offsetY = v9 + 16;
-		++screenCellRow;
-	} while (screenCellRow <  0);//7
-
-}
-
-void __fastcall T_DrawGame2(int x, int y)
-{
-	int posx = x - ScreenWidth / 64;
-	int posy = y - 1;
-	int offsetX = ScrollInfo._sxoff + 64;
-	int offsetY = ScrollInfo._syoff + 160 + 15;
-	int HorCellDrawCount = ScreenWidth / 64 ;
-	switch (ScrollInfo._sdir)
-	{
-	case DIR_SW: {
-		offsetY = ScrollInfo._syoff + 143;
-		--posx;
-		--posy;
-		break;
-	}
-	case DIR_W: {
-		offsetY = ScrollInfo._syoff + 143;
-		--posx;
-		--posy;
-		++HorCellDrawCount;
-		break;
-	}
-	case DIR_NW:
-	case DIR_N:
-	case DIR_NE:
-	{
-		++HorCellDrawCount;
-		break;
-	}
-	case DIR_E:
-	case DIR_SE:{
-		offsetX -= 64;
-		--posx;
-		++posy;
-		++HorCellDrawCount;
-		break;
-	}
-	case DIR_OMNI: {
-		offsetX -= 64;
-		offsetY = ScrollInfo._syoff + 143;
-		posx -= 2;
-		++HorCellDrawCount;
-		break;
-	}
-	default:
-		break;
-	}
-	int screenCellRow = 0;
-	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[160];
-	do{
-		town_draw_upper(posx, posy++, offsetX, offsetY, HorCellDrawCount, screenCellRow, 0);
-		town_draw_upper(posx++, posy, offsetX - 32, offsetY + 16, HorCellDrawCount, screenCellRow, 1);
-		offsetY += 32;
-		++screenCellRow;
-	} while (offsetY <= WorkingHeight+256);
-	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[WorkingWidth+32];
-}
-
-void __fastcall T_DrawZoom(int x, int y)
-{
-	int v2; // edi
-	int v3; // ebx
-	int v4; // esi
-	int v5; // esi
-	int v6; // edi
-	int v7; // esi
-	int v8; // edi
-	int v9; // esi
-	int v10; // edi
-	_WORD *v11; // edi
-	char *v12; // esi
-	char *v13; // ebx
-	signed int v14; // edx
-	signed int v15; // ecx
-	short v16; // ax
-	int v17; // eax
-	signed int v18; // [esp+Ch] [ebp-10h]
-	signed int v19; // [esp+Ch] [ebp-10h]
-	signed int a6; // [esp+10h] [ebp-Ch]
-	signed int a6a; // [esp+10h] [ebp-Ch]
-	int a6b; // [esp+10h] [ebp-Ch]
-	signed int a5; // [esp+14h] [ebp-8h]
-	int a5a; // [esp+14h] [ebp-8h]
-	int ya; // [esp+18h] [ebp-4h]
-
-	v18 = 0;
-	v2 = ScrollInfo._sxoff + 64;
-	dword_5C2FF8 = 6;
-	dword_5C2FFC = 6;
-	v3 = x - 6;
-	a5 = 6;
-	v4 = ScrollInfo._syoff + 143;
-	ya = y - 1;
-	scr_pix_width = 384;
-	scr_pix_height = 192;
-	switch ( ScrollInfo._sdir )
-	{
-		case DIR_SW:
-			v4 = ScrollInfo._syoff + 111;
-			v3 = x - 7;
-			ya = y - 2;
-			goto LABEL_9;
-		case DIR_W:
-			v4 = ScrollInfo._syoff + 111;
-			v3 = x - 7;
-			ya = y - 2;
-			goto LABEL_8;
-		case DIR_NW:
-			goto LABEL_6;
-		case DIR_N:
-			goto LABEL_8;
-		case DIR_NE:
-			goto LABEL_9;
-		case DIR_E:
-			v2 = ScrollInfo._sxoff;
-			v3 = x - 7;
-			ya = y;
-			goto LABEL_8;
-		case DIR_SE:
-			v2 = ScrollInfo._sxoff;
-			v3 = x - 7;
-			ya = y;
-LABEL_6:
-			a5 = 7;
-			break;
-		case DIR_OMNI:
-			v2 = ScrollInfo._sxoff;
-			v4 = ScrollInfo._syoff + 111;
-			v3 = x - 8;
-LABEL_8:
-			a5 = 7;
-LABEL_9:
-			v18 = 1;
-			break;
-		default:
-			break;
-	}
-	a6 = 0;
-	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[143];
-	do
-	{
-		town_draw_upper(v3, ya++, v2, v4, a5, a6, 0);
-		v5 = v4 + 16;
-		v6 = v2 - 32;
-		town_draw_upper(v3++, ya, v6, v5, a5, a6, 1);
-		v2 = v6 + 32;
-		v4 = v5 + 16;
-		++a6;
-	}
-	while ( a6 < 7 );
-	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[320];
-	if ( v18 > 0 )
-	{
-		do
-		{
-			town_draw_lower(v3, ya++, v2, v4, a5, 0);
-			v7 = v4 + 16;
-			v8 = v2 - 32;
-			town_draw_lower(v3++, ya, v8, v7, a5, 1);
-			v2 = v8 + 32;
-			v4 = v7 + 16;
-			--v18;
-		}
-		while ( v18 );
-	}
-	a6a = 0;
-	do
-	{
-		town_draw_lower_2(v3, ya++, v2, v4, a5, a6a, 0);
-		v9 = v4 + 16;
-		v10 = v2 - 32;
-		town_draw_lower_2(v3++, ya, v10, v9, a5, a6a, 1);
-		v2 = v10 + 32;
-		v4 = v9 + 16;
-		++a6a;
-	}
-	while ( a6a < 7 );
-	if ( chrflag || questlog )
-	{
-		a5a = 392064;
-		goto LABEL_23;
-	}
-	if ( invflag || sbookflag )
-	{
-		a5a = 391744;
-LABEL_23:
-		a6b = 245168;
-		v19 = 160;
-		goto LABEL_24;
-	}
-	a6b = 245088;
-	a5a = 391744;
-	v19 = 320;
-LABEL_24:
-	v11 = (_WORD *)((char *)gpBuffer + a5a);
-	v12 = (char *)gpBuffer + a6b;
-	v13 = &gpBuffer->row_unused_1[1].col_unused_1[a5a];
-	v14 = 176;
-	do
-	{
-		v15 = v19;
-		do
-		{
-			_LOBYTE(v16) = *v12++;
-			_HIBYTE(v16) = v16;
-			*v11 = v16;
-			*(_WORD *)v13 = v16;
-			++v11;
-			v13 += 2;
-			--v15;
-		}
-		while ( v15 );
-		v12 += -v19 - WorkingWidth;
-		v17 = 2 * (v19 + WorkingWidth);
-		v13 -= v17;
-		v11 = (_WORD *)((char *)v11 - v17);
-		--v14;
-	}
-	while ( v14 );
-}
-
-
-void __fastcall T_DrawZoom2(int x, int y)
-{
-	int yofs = 143;
+	int yofs = 175;
+	int yofs2 = heightDiff / 6;
 	int posx = x - ScreenWidth / 64;
 	int posy = y - 1;
 	int offsetX = ScrollInfo._sxoff + 64;
@@ -1550,62 +1104,46 @@ void __fastcall T_DrawZoom2(int x, int y)
 	int screenCellRow = 0;
 	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[160];
 	do {
-		town_draw_upper(posx, posy++, offsetX, offsetY, HorCellDrawCount, screenCellRow, 0);
-		town_draw_upper(posx++, posy, offsetX - 32, offsetY + 16, HorCellDrawCount, screenCellRow, 1);
+		if (isTown) {
+			town_draw_upper(posx, posy++, offsetX, offsetY, HorCellDrawCount, screenCellRow, 0);
+			town_draw_upper(posx++, posy, offsetX - 32, offsetY + 16, HorCellDrawCount, screenCellRow, 1);
+		}
+		else {
+			scrollrt_draw_upper(posx, posy++, offsetX, offsetY, HorCellDrawCount, screenCellRow, 0);
+			scrollrt_draw_upper(posx++, posy, offsetX - 32, offsetY + 16, HorCellDrawCount, screenCellRow, 1);
+		}
 		offsetY += 32;
 		++screenCellRow;
 	} while (offsetY <= WorkingHeight + 256);
 	gpBufEnd = (unsigned char *)gpBuffer + screen_y_times_width[WorkingWidth + 32];
 	yofs -= 32;
-
-	for (int i = ScreenHeight - 1; i >= yofs; --i) {
+	for (int i = ScreenHeight - 1; i >= yofs2; --i) {
 		for (int j = ScreenWidth - 1; j >= 0; --j) {
-			gpBuffer->row[i].pixels[j] = gpBuffer->row[i-yofs].pixels[j];
+			gpBuffer->row[i].pixels[j] = gpBuffer->row[i - yofs2].pixels[j];
 		}
 	}
-
-	for (int i = ScreenHeight / 4 - 1; i >= 0; --i){
-		for (int j = ScreenWidth/4 - 1; j >= 0; --j) {
-			int hd2 = ScreenHeight>>1;
-			int hd3 = ScreenHeight>>1;
-			int wd2 = ScreenWidth>>1;
-
-			gpBuffer->row[hd3 - i * 2    ].pixels[wd2 - j * 2 - 1] = gpBuffer->row[hd2 - i].pixels[wd2 - j];
-			gpBuffer->row[hd3 + i * 2    ].pixels[wd2 - j * 2 - 1] = gpBuffer->row[hd2 + i].pixels[wd2 - j];
-			gpBuffer->row[hd3 - i * 2 - 1].pixels[wd2 - j * 2 - 1] = gpBuffer->row[hd2 - i].pixels[wd2 - j];
-			gpBuffer->row[hd3 + i * 2 + 1].pixels[wd2 - j * 2 - 1] = gpBuffer->row[hd2 + i].pixels[wd2 - j];
-			gpBuffer->row[hd3 - i * 2    ].pixels[wd2 - j * 2    ] = gpBuffer->row[hd2 - i].pixels[wd2 - j];
-			gpBuffer->row[hd3 + i * 2    ].pixels[wd2 - j * 2    ] = gpBuffer->row[hd2 + i].pixels[wd2 - j];
-			gpBuffer->row[hd3 - i * 2 - 1].pixels[wd2 - j * 2    ] = gpBuffer->row[hd2 - i].pixels[wd2 - j];
-			gpBuffer->row[hd3 + i * 2 + 1].pixels[wd2 - j * 2    ] = gpBuffer->row[hd2 + i].pixels[wd2 - j];
-			gpBuffer->row[hd3 + i * 2 + 1].pixels[wd2 + j * 2 + 1] = gpBuffer->row[hd2 + i].pixels[wd2 + j];
-			gpBuffer->row[hd3 - i * 2 - 1].pixels[wd2 + j * 2 + 1] = gpBuffer->row[hd2 - i].pixels[wd2 + j];
-			gpBuffer->row[hd3 + i * 2    ].pixels[wd2 + j * 2 + 1] = gpBuffer->row[hd2 + i].pixels[wd2 + j];
-			gpBuffer->row[hd3 - i * 2    ].pixels[wd2 + j * 2 + 1] = gpBuffer->row[hd2 - i].pixels[wd2 + j];
-			gpBuffer->row[hd3 + i * 2    ].pixels[wd2 + j * 2    ] = gpBuffer->row[hd2 + i].pixels[wd2 + j];
-			gpBuffer->row[hd3 - i * 2    ].pixels[wd2 + j * 2    ] = gpBuffer->row[hd2 - i].pixels[wd2 + j];
-			gpBuffer->row[hd3 + i * 2 + 1].pixels[wd2 + j * 2    ] = gpBuffer->row[hd2 + i].pixels[wd2 + j];
-			gpBuffer->row[hd3 - i * 2 - 1].pixels[wd2 + j * 2    ] = gpBuffer->row[hd2 - i].pixels[wd2 + j];
+	int hd2 = (heightDiff >> 1);
+	int wd2 = (widthDiff >> 1);
+	for (int i = 0; i < ScreenHeight/2;++i) {
+		for (int j = 0; j < ScreenWidth/2; ++j) {
+			int tmprow = hd2+ i * targetHeight / GLOBAL_HEIGHT;
+			int tmprow2 = GLOBAL_HEIGHT-1-tmprow;
+			int tmpcol = wd2 + j * targetWidth / GLOBAL_WIDTH;
+			int tmpcol2 = GLOBAL_WIDTH-tmpcol-1;
+			gpBuffer->row[i].pixels[j] = gpBuffer->row[tmprow].pixels[tmpcol];
+			gpBuffer->row[i].pixels[ScreenWidth - 1 - j] = gpBuffer->row[tmprow].pixels[tmpcol2];
+			gpBuffer->row[ScreenHeight-1-i].pixels[j] = gpBuffer->row[tmprow2].pixels[tmpcol];
+			gpBuffer->row[ScreenHeight-1-i].pixels[ScreenWidth - 1 - j] = gpBuffer->row[tmprow2].pixels[tmpcol2];
 		}
 	}
 }
-// 4B8968: using guessed type int sbookflag;
-// 5C2FF8: using guessed type int dword_5C2FF8;
-// 5C2FFC: using guessed type int dword_5C2FFC;
-// 5C3000: using guessed type int scr_pix_width;
-// 5C3004: using guessed type int scr_pix_height;
-// 69BD04: using guessed type int questlog;
-// 69CF0C: using guessed type int gpBufEnd;
 
 void __fastcall T_DrawView(int StartX, int StartY)
 {
 	light_table_index = 0;
 	drawQ.clear();
 	cel_transparency_active = 0;
-	if ( zoomflag )
-		T_DrawGame2(StartX, StartY);
-	else
-		T_DrawZoom2(StartX, StartY); //T_DrawZoom
+	DrawGame(StartX, StartY, /*isTown*/true);
 	if ( automapflag )
 		DrawAutomap();
 	ShouldHighlightItems = ((GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && !(GetAsyncKeyState(VK_MENU) < 0)) || (!GetConfigBoolVariable("alwaysHighlightObjectsWithoutPressingAlt") && (GetAsyncKeyState(VK_MENU) < 0)));
@@ -1663,7 +1201,6 @@ void __fastcall T_DrawView(int StartX, int StartY)
 // 4B84DC: using guessed type int dropGoldFlag;
 // 4B8968: using guessed type int sbookflag;
 // 4B8C98: using guessed type int spselflag;
-// 52569C: using guessed type int zoomflag;
 // 525740: using guessed type int PauseMode;
 // 52B9F1: using guessed type char msgflag;
 // 646D00: using guessed type char qtextflag;
@@ -1716,22 +1253,7 @@ void __cdecl town_init_dpiece_defs_map()
 		++y;
 	}
 	while ( (signed int)v6 < (signed int)dPiece[1] );
-	if ( zoomflag )
-	{
-		scr_pix_width = ScreenWidth;
-		scr_pix_height = 352;
-		dword_5C2FF8 = 10;
-		dword_5C2FFC = 11;
-	}
-	else
-	{
-		scr_pix_width = 384;
-		scr_pix_height = 224;
-		dword_5C2FF8 = 6;
-		dword_5C2FFC = 7;
-	}
 }
-// 52569C: using guessed type int zoomflag;
 // 5C2FF8: using guessed type int dword_5C2FF8;
 // 5C2FFC: using guessed type int dword_5C2FFC;
 // 5C3000: using guessed type int scr_pix_width;

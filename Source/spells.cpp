@@ -81,7 +81,23 @@ int __fastcall GetManaAmount(int id, int sn)
 	if ( spelldata[sn].sMinMana > ma >> 6 )
 		ma = spelldata[sn].sMinMana << 6;
 
-	return ma * (100 - plr[id]._pISplCost) / 100;
+
+	int mindmg;
+	int maxdmg;
+	GetDamageAmt(sn, &mindmg, &maxdmg);
+	int newCost = 0;
+	if (mindmg == -1) {
+         //nondmg spell, mana cost decreases with power
+		newCost = 10000/(CalculateSpellPower(id, sn, 1)+1);
+		if (newCost >= 100) { newCost = 100; }
+
+	}
+	else {
+		//dmg spell, mana cost increases with power
+		newCost =  CalculateSpellPower(id, sn, 1);
+	}
+
+	return newCost*(ma * (100 - plr[id]._pISplCost) / 100) / 100;
 }
 
 // void __fastcall UseMana(int id, spell_id sn)

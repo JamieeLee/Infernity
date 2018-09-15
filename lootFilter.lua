@@ -210,6 +210,11 @@ function showNoItem()
 	return "",0,0,0,0,0
 end
 
+function showNoItem()
+	return "",0,0,0,0,0
+end
+
+
 
 function extractSpellNameFromBook(args)
 	local bname = string.gsub(args.itemName, "book of ", "")
@@ -254,7 +259,61 @@ function testLootFilter1(args)
 	end
 	return args.itemName,1,args.itemColor,0,0,0
 end
---item_name, show, color2, r,g,b
+
+function lootFilter(playerName,playerClass,itemName,itemType,itemSlot,itemRarity,itemColor)
+local isGood,v1,v2,v3,v4,v5,v6 = pcall(lootFilterLowercase,{playerName=playerName:lower(),playerClass=playerClass,itemName=itemName:lower(),itemType=itemType,itemSlot=itemSlot,itemRarity=itemRarity,itemColor=itemColor})
+    if isGood == true then
+		if v1 ~= nil and v2 ~= nil and v3 ~= nil and v4 ~= nil and v5 ~= nil then
+		    if type(v1) == "string" and type(v2) == "number" and type(v3) == "number" and type(v4) == "number" and type(v5) == "number" and type(v6) == "number" then
+				if (v2 == 0 or v2 == 1) and v3 >= 0 and v3 <= 255 and v4 >= 0 and v4 <= 255 and v5 >= 0 and v5 <= 255 and v6 >= 0 and v6 <= 255 then
+				    return v1,v2,v3,v4,v5,v6
+				else
+					printMsg("The number values for loot filter must be between 0 and 255.")
+				end
+			else
+				printMsg("Your loot filter returned bad values! Correct values would be text+5numbers.")	
+			end
+		else
+		    printMsg("One or more of the values returned by your lootFilter were empty!!!")	
+		end
+	else
+		printMsg(ret)
+	end
+	return itemName,1,itemColor,0,0,0
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function yourLootFilter(args)
 	return args.itemName,1,args.itemColor,0,0,0
@@ -267,10 +326,4 @@ function lootFilterLowercase(args)
     else
 		return yourLootFilter(args)
 	end
-end
-
-
-function lootFilter(playerName,playerClass,itemName,itemType,itemSlot,itemRarity,itemColor)
-	return lootFilterLowercase({playerName=playerName:lower(),playerClass=playerClass,itemName=itemName:lower(),itemType=itemType,itemSlot=itemSlot,itemRarity=itemRarity,itemColor=itemColor})
-	--return itemName,1,itemColor,0,0,0
 end

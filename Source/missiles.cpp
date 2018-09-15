@@ -1311,12 +1311,15 @@ bool __fastcall MonsterTrapHit(int m, int mindam, int maxdam, int dist, int t, i
 	return 1;
 }
 
-
-int CalculateSpellPower(int pnum) {
+int CalculateSpellPower(int pnum, int spell, int spellType) {
 	int power = 50;
 	int activeSpellType = plr[pnum]._pRSplType;
+	if (spellType != -1) { activeSpellType = spellType; }
 	int magPower = (plr[pnum]._pMagic / 5);
-	int spellLevel = plr[myplr]._pSplLvl[plr[pnum]._pRSpell] + plr[myplr]._pISplLvlAdd;
+	int activeSpell = plr[pnum]._pRSpell;
+	if (spell != -1) { activeSpell = spell; }
+	int baseSpellLevel = plr[pnum]._pSplLvl[activeSpell];
+	int spellLevel = baseSpellLevel + plr[pnum]._pISplLvlAdd;
 
 	power += 5 * spellLevel;
 
@@ -1457,7 +1460,7 @@ bool __fastcall MonsterMissileHit(int pnum, int m, int mindam, int maxdam, int d
 		v19 *= 3;
 	}
 	if (t != MIS_ARROW) {
-		v19 = (v19*CalculateSpellPower(pnum))/100;
+		v19 = (v19*CalculateSpellPower(pnum,-1,-1))/100;
 	}
 
 
@@ -1921,6 +1924,7 @@ LABEL_14:
 }
 
 int getImprovedMissileMonster(int mx, int my) {
+	return dMonster[mx][my];
 
 	for (int i = -1; i <= 1;++ i) {
 		for (int j = -1; j <= 1; ++j) {
@@ -1985,12 +1989,12 @@ int getImprovedMissileMonster(int mx, int my) {
 			if (dirmx2 < 0 || dirmx2 >= 112) { dirmx2 = newx; }
 			if (dirmy2 < 0 || dirmy2 >= 112) { dirmy2 = newy; }
 
-			if ((monster[index]._lastx == newx && monster[index]._lasty == newy) || (monster[index]._mfutx == newx && monster[index]._mfuty == newy) || (monster[index]._moldx == newx && monster[index]._moldy == newy)
-			 || (monster[index]._lastx == dirmx && monster[index]._lasty == dirmy) || (monster[index]._mfutx == dirmx && monster[index]._mfuty == dirmy) || (monster[index]._moldx == dirmx && monster[index]._moldy == dirmy)
-			 || (monster[index]._lastx == dirmx2 && monster[index]._lasty == dirmy2) || (monster[index]._mfutx == dirmx2 && monster[index]._mfuty == dirmy2) || (monster[index]._moldx == dirmx2 && monster[index]._moldy == dirmy2)
-				) {
+			//if ((monster[index]._lastx == newx && monster[index]._lasty == newy) || (monster[index]._mfutx == newx && monster[index]._mfuty == newy) || (monster[index]._moldx == newx && monster[index]._moldy == newy)
+			// || (monster[index]._lastx == dirmx && monster[index]._lasty == dirmy) || (monster[index]._mfutx == dirmx && monster[index]._mfuty == dirmy) || (monster[index]._moldx == dirmx && monster[index]._moldy == dirmy)
+			// || (monster[index]._lastx == dirmx2 && monster[index]._lasty == dirmy2) || (monster[index]._mfutx == dirmx2 && monster[index]._mfuty == dirmy2) || (monster[index]._moldx == dirmx2 && monster[index]._moldy == dirmy2)
+			//	) {
 				return dMon;
-			}
+			//}
 		}
 	}
 	return dMonster[mx][my];
@@ -2061,9 +2065,10 @@ int getImprovedMissilePlayer(int mx, int my) {
 				if (dirmy < 0 || dirmy >= 112) { dirmy = newy; }
 				if (dirmx2 < 0 || dirmx2 >= 112) { dirmx2 = newx; }
 				if (dirmy2 < 0 || dirmy2 >= 112) { dirmy2 = newy; }
-				if ((plr[index].WorldX == newx && plr[index].WorldY == newy) || (plr[index]._poldx == newx && plr[index]._poldy == newy) ||
-					(plr[index].WorldX == dirmx && plr[index].WorldY == dirmy) || (plr[index]._poldx == dirmx && plr[index]._poldy == dirmy) ||
-					(plr[index].WorldX == dirmx2 && plr[index].WorldY == dirmy2) || (plr[index]._poldx == dirmx2 && plr[index]._poldy == dirmy2)
+				if ((plr[index].WorldX == newx && plr[index].WorldY == newy) || (plr[index]._poldx == newx && plr[index]._poldy == newy)
+					||(plr[index].WorldX == dirmx && plr[index].WorldY == dirmy) 
+					//|| (plr[index]._poldx == dirmx && plr[index]._poldy == dirmy) 
+					//||(plr[index].WorldX == dirmx2 && plr[index].WorldY == dirmy2) || (plr[index]._poldx == dirmx2 && plr[index]._poldy == dirmy2)
 					) {
 						if (dPl < 0) { return dPl * (-1);}
 					return dPl;
@@ -2071,6 +2076,7 @@ int getImprovedMissilePlayer(int mx, int my) {
 			}
 		}
 	}
+	if (dPlayer[mx][my] < 0) { return dPlayer[mx][my] * (-1); }
 	return dPlayer[mx][my];
 }
 

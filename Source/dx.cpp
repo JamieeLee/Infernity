@@ -15,6 +15,7 @@ char gbBackBuf; // weak
 char gbEmulate; // weak
 HMODULE ghDiabMod; // idb
 int currentGameState=0;
+int globalScrollZoom = 0;
 void setGameState(int state) {
 	currentGameState = state;
 	lpDDSPrimary->UpdateOverlayDisplay(state);

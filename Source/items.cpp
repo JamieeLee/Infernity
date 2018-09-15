@@ -108,7 +108,7 @@ const PLStruct PL_Prefix[84] =
 
 const PLStruct PL_UPrefix[] =
 {
-	{ "Tin", IPL_TOHIT_CURSE, 6, 10, 3, PLT_WEAP | PLT_BOW | PLT_MISC, 0, 1, 0, 0, 0, -3 },
+{ "Tin", IPL_TOHIT_CURSE, 6, 10, 3, PLT_WEAP | PLT_BOW | PLT_MISC, 0, 1, 0, 0, 0, -3 },
 { "Brass", IPL_TOHIT_CURSE, 1, 5, 1, PLT_WEAP | PLT_BOW | PLT_MISC, 0, 1, 0, 0, 0, -2 },
 { "Bronze", IPL_TOHIT, 1, 5, 1, PLT_WEAP | PLT_BOW | PLT_MISC, 0, 1, 1, 100, 500, 2 },
 { "Iron", IPL_TOHIT, 6, 10, 4, PLT_WEAP | PLT_BOW | PLT_MISC, 0, 1, 1, 600, 1000, 3 },

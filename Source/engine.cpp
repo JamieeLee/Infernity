@@ -1901,7 +1901,7 @@ void PrintDebugInfo() {
 		std::stringstream ss;
 		int isActivated = -1;
 		if (pcursmonst != -1) { isActivated = monster[pcursmonst].isActivated; }
-		ss << "debuginfo: " << MouseX << " " << MouseY << " " << (int)plr[myplr]._pSplLvl[plr[myplr]._pRSpell] << " " <<  (int)plr[myplr]._pISplLvlAdd;
+		ss << "debuginfo: " << MouseX << " " << MouseY << " " << globalScrollZoom;
 		if (played == false) {
 			PlaySFX(num++);
 			played = true;
@@ -2016,6 +2016,46 @@ void DrawXpBar()
 		}
 	}
 }
+bool AreAffixesGoodForItem(int i, char affix) {
+	std::set<char> uselessAffixes;
+	uselessAffixes.insert(IPL_DUR);
+	uselessAffixes.insert(IPL_INDESTRUCTIBLE);
+	
+	switch (item[i]._itype) {
+	case ITYPE_SWORD:
+	case ITYPE_AXE:
+	case ITYPE_STAFF:
+	case ITYPE_MACE:
+		uselessAffixes.insert(IPL_ACP);
+		uselessAffixes.insert(IPL_LIGHT_ARROWS);
+		uselessAffixes.insert(IPL_FIRE_ARROWS);
+		break;
+	case ITYPE_BOW:
+		uselessAffixes.insert(IPL_ACP);
+		uselessAffixes.insert(IPL_LIGHTDAM);
+		uselessAffixes.insert(IPL_FIREDAM);
+
+		break;
+	case ITYPE_SHIELD:
+		uselessAffixes.insert(IPL_LIGHT_ARROWS);
+		uselessAffixes.insert(IPL_FIRE_ARROWS);
+		break;
+	case ITYPE_LARMOR:
+	case ITYPE_HELM:
+	case ITYPE_MARMOR:
+	case ITYPE_HARMOR:
+		break;
+	case ITYPE_RING:
+	case ITYPE_AMULET:
+		uselessAffixes.insert(IPL_ACP);
+		break;
+	default:
+		break;
+	}
+	return uselessAffixes.find(affix) == uselessAffixes.end();
+}
+
+
 bool AreAffixesGood(char p1, char p2) {
 	if (p1 == p2) { return false; }
 	map<int, set<int> > sadAffix;
@@ -2038,6 +2078,7 @@ bool AreAffixesGood(char p1, char p2) {
 
 	sadAffix[IPL_GETHIT] = { IPL_GETHIT_CURSE };
 	sadAffix[IPL_LIFE] = { IPL_LIFE_CURSE };
+	sadAffix[IPL_ACP] = { IPL_ACP_CURSE};
 	sadAffix[IPL_MANA] = { IPL_MANA_CURSE };
 	sadAffix[IPL_DUR_CURSE] = { IPL_DUR,IPL_INDESTRUCTIBLE };
 	sadAffix[IPL_TOHIT_DAMP_CURSE] = { IPL_TOHIT_CURSE,IPL_TOHIT,IPL_TOHIT_DAMP,IPL_DAMP };
@@ -2068,7 +2109,8 @@ void GenerateRareUniqueAffix(int i, int x, int y, int minlvl, int maxlvl, std::s
 			for (auto f : powers) {
 				if (!AreAffixesGood(f, PL_UPrefix[prefIter].PLPower)) { allGood = false; break; }
 			}
-			if (PL_UPrefix[prefIter].PLMinLvl >= minlvl && PL_UPrefix[prefIter].PLMinLvl <= maxlvl && PL_UPrefix[prefIter].PLOk && allGood==true)
+			bool affixGood = AreAffixesGoodForItem(i, PL_UPrefix[prefIter].PLPower);
+			if (PL_UPrefix[prefIter].PLMinLvl >= minlvl && PL_UPrefix[prefIter].PLMinLvl <= maxlvl && PL_UPrefix[prefIter].PLOk && allGood==true && affixGood==true)
 			{
 				pref[local_pref_iter++] = prefIter;
 				if (PL_Prefix[prefIter].PLDouble) {
@@ -2103,7 +2145,8 @@ void GenerateRareUniqueAffix(int i, int x, int y, int minlvl, int maxlvl, std::s
 			for (auto f : powers) {
 				if (!AreAffixesGood(f, PL_USuffix[sufIter].PLPower)) { allGood = false; break; }
 			}
-			if (PL_USuffix[sufIter].PLMinLvl >= minlvl && PL_USuffix[sufIter].PLMinLvl <= maxlvl && PL_Suffix[sufIter].PLOk && allGood==true)
+			bool affixGood = AreAffixesGoodForItem(i, PL_USuffix[sufIter].PLPower);
+			if (PL_USuffix[sufIter].PLMinLvl >= minlvl && PL_USuffix[sufIter].PLMinLvl <= maxlvl && PL_Suffix[sufIter].PLOk && allGood==true && affixGood==true)
 			{
 				suf[local_suf_iter++] = sufIter;
 				if (PL_USuffix[sufIter].PLDouble) {
@@ -2147,7 +2190,8 @@ void GenerateRareAffix(int i,int x, int y, int minlvl, int maxlvl, char prefPowe
 		do {
 			bool prefGood = AreAffixesGood(prefPower, PL_UPrefix[prefIter].PLPower);
 			bool sufGood = AreAffixesGood(sufPower, PL_UPrefix[prefIter].PLPower);
-			if (PL_UPrefix[prefIter].PLMinLvl >= minlvl && PL_UPrefix[prefIter].PLMinLvl <= maxlvl && PL_UPrefix[prefIter].PLOk && prefGood && sufGood)
+			bool affixGood = AreAffixesGoodForItem(i, PL_UPrefix[prefIter].PLPower);
+			if (PL_UPrefix[prefIter].PLMinLvl >= minlvl && PL_UPrefix[prefIter].PLMinLvl <= maxlvl && PL_UPrefix[prefIter].PLOk && prefGood && sufGood && affixGood)
 			{
 				pref[local_pref_iter++] = prefIter;
 				if (PL_Prefix[prefIter].PLDouble) {
@@ -2180,7 +2224,8 @@ void GenerateRareAffix(int i,int x, int y, int minlvl, int maxlvl, char prefPowe
 		do {
 			bool prefGood = AreAffixesGood(prefPower, PL_USuffix[sufIter].PLPower);
 			bool sufGood = AreAffixesGood(sufPower, PL_USuffix[sufIter].PLPower);
-			if (PL_USuffix[sufIter].PLMinLvl >= minlvl && PL_USuffix[sufIter].PLMinLvl <= maxlvl && PL_Suffix[sufIter].PLOk && prefGood && sufGood)
+			bool affixGood = AreAffixesGoodForItem(i, PL_USuffix[sufIter].PLPower);
+			if (PL_USuffix[sufIter].PLMinLvl >= minlvl && PL_USuffix[sufIter].PLMinLvl <= maxlvl && PL_Suffix[sufIter].PLOk && prefGood && sufGood && affixGood)
 			{
 				suf[local_suf_iter++] = sufIter;
 				if (PL_USuffix[sufIter].PLDouble) {

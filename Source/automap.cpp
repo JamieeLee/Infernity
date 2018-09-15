@@ -348,22 +348,49 @@ void AddItemToDrawQueue(int x, int y, int id) {
 	int rarity = GetItemRarity(id);
 	std::string name(plr[myplr]._pName);
 	std::string itemName(textOnGround);
-
 	lootFilterData lfd = luaLootFilter(name, plr[myplr]._pClass, itemName, it->_itype, (int)it->_iLoc, rarity, GetItemColor(id));
 	if (lfd.show == false) { return; }
 	int centerXOffset =  GetTextWidth((char*)lfd.name.c_str()) ;
-	if (zoomflag) {
+
+		int targetHeight = GLOBAL_HEIGHT - GLOBAL_HEIGHT * globalScrollZoom / 200;
+		int targetWidth = GLOBAL_WIDTH - GLOBAL_WIDTH * globalScrollZoom / 200;
+		int widthDiff = GLOBAL_WIDTH - targetWidth;
+		int heightDiff = GLOBAL_HEIGHT - targetHeight;
+		
+		//x += widthDiff/4;
+		//y += widthDiff/4;
+		std::stringstream ss;
+
+
+		
+		int distToCenterX = abs(ScreenWidth/2-x);
+		int distToCenterY = abs(ScreenHeight / 2 - y);
+		if (x <= ScreenWidth / 2) {
+			x = ScreenWidth / 2 - distToCenterX - distToCenterX * (globalScrollZoom) / 100;
+		}
+		else {
+			x = ScreenWidth / 2 + distToCenterX + distToCenterX * (globalScrollZoom) / 100;
+		}
+
+		if (y <= ScreenHeight / 2) {
+			y = ScreenHeight / 2 - distToCenterY - distToCenterY * (globalScrollZoom) / 100;
+		}
+		else {
+			y = ScreenHeight / 2 + distToCenterY + distToCenterY * (globalScrollZoom) / 100;
+		}
+
 		x -= centerXOffset / 2 + 20;
 		y -= 193;
-	}
-	else {
+		
 
-		x -= centerXOffset  + 20;
-		y -= 0;
 
-	}
+
+		//ss << x << " " << y << " ";
+
+		//NetSendCmdString(1 << myplr, ss.str().c_str());
+		//x += x  globalScrollZoom / 100;
+		//y += y * globalScrollZoom / 100;
 		drawQ.push_back(drawingQueue(x, y, GetTextWidth((char*)lfd.name.c_str()), 13, it->_ix, it->_iy, id, lfd.color2, lfd.name, 1, lfd.r, lfd.g,lfd.b));
-
 }
 
 void HighlightItemsNameOnMap()

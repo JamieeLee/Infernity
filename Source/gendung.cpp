@@ -650,27 +650,7 @@ void __cdecl SetDungeonMicros()
 	while ( (signed int)v8 < (signed int)dpiece_defs_map_2[0][16] ); /* check */
 	gendung_418D91();
 	gendung_4192C2();
-	if ( zoomflag )
-	{
-		scr_pix_width = 640;
-		scr_pix_height = 352;
-		dword_5C2FF8 = 10;
-		dword_5C2FFC = 11;
-	}
-	else
-	{
-		scr_pix_width = 384;
-		scr_pix_height = 224;
-		dword_5C2FF8 = 6;
-		dword_5C2FFC = 7;
-	}
 }
-// 52569C: using guessed type int zoomflag;
-// 5BB1ED: using guessed type char leveltype;
-// 5C2FF8: using guessed type int dword_5C2FF8;
-// 5C2FFC: using guessed type int dword_5C2FFC;
-// 5C3000: using guessed type int scr_pix_width;
-// 5C3004: using guessed type int scr_pix_height;
 
 void __cdecl DRLG_InitTrans()
 {

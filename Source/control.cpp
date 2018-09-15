@@ -3265,12 +3265,14 @@ void __cdecl DrawSpellBook()
 					v5 = v4 >> 6;
 					v12 = v4 >> 6;
 					GetDamageAmt(v2, &sel, &v11);
-					sel = sel*CalculateSpellPower(myplr)/100;
-					v11 = v11*CalculateSpellPower(myplr) / 100;
-					if ( sel == -1 )
+					if (sel == -1) {
 						sprintf(tempstr, "Mana: %i   Dam: n/a", v5);
-					else
+					}
+					else {
+						sel = sel * CalculateSpellPower(myplr, v2, v7) / 100;
+						v11 = v11 * CalculateSpellPower(myplr, v2, v7) / 100;
 						sprintf(tempstr, "Mana: %i  Dam: %i - %i", v5, sel, v11);
+					}
 					if ( v2 == SPL_BONESPIRIT )
 						sprintf(tempstr, "Mana: %i  Dam: 1/8 tgt hp", v12);
 					PrintSBookStr(10, v8, 0, tempstr, 0);

@@ -509,7 +509,7 @@ void __fastcall LoadPlayer(int i)
 	}
 
 	if (SaveVersion <= 3) {
-		for (int ii = 0; ii < 100; ++ii) {
+		for (int ii = 0; ii < MAX_STASH_TABS; ++ii) {
 			strcpy(plr[i].StashNames[ii], "Click to rename");
 			plr[i].StashNumInv[ii] = 0;
 			for (int j = 0; j < 40; ++j) {

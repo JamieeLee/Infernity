@@ -59,7 +59,6 @@ void __fastcall NetSendLoPri(unsigned char *pbMsg, unsigned char bLen)
 {
 	unsigned char *v2; // esi
 	unsigned char v3; // bl
-	int v4; // edx
 
 	v2 = pbMsg;
 	v3 = bLen;
@@ -68,8 +67,7 @@ void __fastcall NetSendLoPri(unsigned char *pbMsg, unsigned char bLen)
 		if ( bLen )
 		{
 			multi_copy_packet(pkdata_678658, pbMsg, bLen);
-			_LOBYTE(v4) = v3;
-			multi_send_packet(v2, v4);
+			multi_send_packet(v2, v3);
 		}
 	}
 }
@@ -94,6 +92,15 @@ void __fastcall multi_copy_packet(void *a1, void *packet, int size)
 
 void __fastcall multi_send_packet(void *packet, int dwSize)
 {
+
+	{
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "multi_send_packet " << dwSize << "\n";
+		outfile.close();
+	}
+
+
 	void *v2; // esi
 	unsigned char v3; // bl
 	TPkt pkt; // [esp+8h] [ebp-200h]
@@ -125,7 +132,6 @@ void __fastcall NetSendHiPri(unsigned char *pbMsg, unsigned char bLen)
 {
 	unsigned char *v2; // edi
 	unsigned char v3; // bl
-	int v4; // edx
 	unsigned char *v5; // eax
 	TSyncHeader *v6; // eax
 	int v7; // eax
@@ -138,8 +144,7 @@ void __fastcall NetSendHiPri(unsigned char *pbMsg, unsigned char bLen)
 	if ( pbMsg && bLen )
 	{
 		multi_copy_packet(pkdata_6761C0, pbMsg, bLen);
-		_LOBYTE(v4) = v3;
-		multi_send_packet(v2, v4);
+		multi_send_packet(v2, v3);
 	}
 	if ( !dword_678628 )
 	{
@@ -661,6 +666,18 @@ void __cdecl multi_process_tmsgs()
 
 void __fastcall multi_send_zero_packet(int pnum, char a2, void *pbSrc, int dwLen)
 {
+
+
+	{
+		std::ofstream outfile;
+		outfile.open("test.txt", std::ios_base::app);
+		outfile << "SEND ZERO PACKET: " << dwLen << "\n";
+		outfile.close();
+	}
+
+
+
+
 	unsigned int v4; // edi
 	short v5; // si
 	unsigned short dwBody; // ax
@@ -690,6 +707,15 @@ void __fastcall multi_send_zero_packet(int pnum, char a2, void *pbSrc, int dwLen
 		if ( v4 < gdwLargestMsgSize - 24 )
 			dwBody = v4;
 		*(_WORD *)&pkt.body[3] = dwBody;
+
+		{
+			std::ofstream outfile;
+			outfile.open("test.txt", std::ios_base::app);
+			outfile << "SEND ZERO PACKET DWBODY = : " << dwBody << "\n";
+			outfile.close();
+		}
+
+
 		memcpy(&pkt.body[5], pbSrc, dwBody);
 		pkt.hdr.wLen = *(_WORD *)&pkt.body[3] + 24;
 		if ( !SNetSendMessage(pnuma, &pkt.hdr, *(unsigned short *)&pkt.body[3] + 24) )
@@ -917,13 +943,9 @@ void __fastcall multi_send_pinfo(int pnum, char cmd)
 {
 	char v2; // bl
 	int v3; // esi
-	LATEST_PKPLAYER_STRUCT pkplr; // [esp+8h] [ebp-4F4h]
-
-	v2 = cmd;
-	v3 = pnum;
-	
+	LATEST_PKPLAYER_STRUCT pkplr; // [esp+8h] [ebp-4F4h]	
 	PackPlayer(&pkplr, myplr, 1);
-	dthread_send_delta(v3, v2, &pkplr, sizeof(LATEST_PKPLAYER_STRUCT));
+	dthread_send_delta(pnum, cmd, &pkplr, sizeof(LATEST_PKPLAYER_STRUCT));
 }
 
 int __fastcall InitNewSeed(int newseed)
@@ -1089,7 +1111,8 @@ void __fastcall multi_player_joins(int pnum, TCmdPlrInfoHdr *cmd, int a3)
 {
 	int v3; // ebx
 	TCmdPlrInfoHdr *v4; // edi
-	short *v5; // esi
+	//short *v5; // esi
+	int *v5;
 	int v6; // esi
 	bool v7; // zf
 	char *v8; // eax
@@ -1103,16 +1126,23 @@ void __fastcall multi_player_joins(int pnum, TCmdPlrInfoHdr *cmd, int a3)
 	v4 = cmd;
 	if ( myplr != pnum )
 	{
-		v5 = &sgwPackPlrOffsetTbl[pnum];
+		v5 = (int*)&sgwPackPlrOffsetTbl[pnum];
 		if ( *v5 == cmd->wOffset || (*v5 = 0, !cmd->wOffset) )
 		{
 			if ( !a3 && !*v5 )
 			{
 				multi_send_pinfo(pnum, CMD_ACK_PLRINFO);
 			}
-			memcpy((char *)&netplr[v3] + (unsigned short)v4->wOffset, &v4[1], (unsigned short)v4->wBytes);
+			memcpy((char *)&netplr[v3] + (int)v4->wOffset, &v4[1], v4->wBytes);
 			*v5 += v4->wBytes;
 			//if ( *v5 == 1266 )
+
+			{
+				std::ofstream outfile;
+				outfile.open("test.txt", std::ios_base::app);
+				outfile << "RECEIVED " << v4->wBytes << " BYTES! TOTAL: " << *v5 << "! FULL SIZE = "  << sizeof(LATEST_PKPLAYER_STRUCT) << "\n";
+				outfile.close();
+			}
 
 
 

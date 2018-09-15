@@ -652,10 +652,12 @@ LABEL_9:
 LABEL_10:
 	if ( MouseY >= (352 + GetHeightDiff()) && track_isscrolling() )
 		v1 = (352+GetHeightDiff());
-	if ( !zoomflag )
+	if ( true) // !zoomflag
 	{
-		v0 >>= 1;
-		v1 >>= 1;
+		//v0 >>= 1;
+		//v1 >>= 1;
+		v0 -= v0 * globalScrollZoom / 200;
+		v1 -= v1 * globalScrollZoom / 200;
 	}
 	v2 = v0 - ScrollInfo._sxoff;
 	v3 = v1 - ScrollInfo._syoff;
@@ -675,7 +677,9 @@ LABEL_10:
 	v4 = v3 >> 5;
 	v5 = v3 & 0x1F;
 	v76 = v2 & 0x3F;
-	v6 = (v2 >> 6) + (v3 >> 5) + ViewX - (zoomflag != 0 ? ScreenWidth/64 : ScreenWidth/128);
+	//v6 = (v2 >> 6) + (v3 >> 5) + ViewX - (zoomflag != 0 ? ScreenWidth/64 : ScreenWidth/128);
+	int zoomStuff = ScreenWidth / 64 - ScreenWidth * globalScrollZoom / 12800;
+	v6 = (v2 >> 6) + (v3 >> 5) + ViewX - zoomStuff;
 	v7 = v76 >> 1;
 	v8 = v4 + ViewY - (v2 >> 6);
 	if ( v5 < v76 >> 1 )
@@ -1293,7 +1297,6 @@ LABEL_172:
 // 4B8CC1: using guessed type char pcursobj;
 // 4B8CC2: using guessed type char pcursplr;
 // 4B8CCC: using guessed type int dword_4B8CCC;
-// 52569C: using guessed type int zoomflag;
 // 52575C: using guessed type int doomflag;
 // 5BB1ED: using guessed type char leveltype;
 // 69BD04: using guessed type int questlog;
