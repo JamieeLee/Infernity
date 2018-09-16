@@ -216,7 +216,7 @@ void DrawFloatingTextAbovePlayer() {
 
 			int walkStandX = ScrollInfo._sxoff;// +plr[myplr]._pyoff;
 			int walkStandY = ScrollInfo._syoff;// +plr[myplr]._pxoff;
-
+			
 			if (plr[myplr]._pmode == PM_WALK2 && ScrollInfo._sdir == 4) {
 				walkStandX += 32;
 				walkStandY += 16;
@@ -245,18 +245,29 @@ void DrawFloatingTextAbovePlayer() {
 				int col = FloatingTextQueue[i].posY - plr[myplr].WorldY;
 				int PlayerShiftY = 0;
 				int PlayerShiftX = 0;
-				x = 32 * (row - col) + (200 * (walkStandX) / 100 >> 1) - GetTextWidth((char*)text.c_str()) / 2;
-				y = 16 * (row + col) + (200 * (walkStandY) / 100 >> 1)  - 16;
+				//x = 32 * (row - col) + (200 * (walkStandX) / 100 >> 1);
+				//y = 16 * (row + col) + (200 * (walkStandY) / 100 >> 1)  - 16;
+				//walkStandX * (200-globalScrollZoom) / 200
+				walkStandX += (walkStandX* globalScrollZoom ) / 100;
+				walkStandY += (walkStandY* globalScrollZoom) / 100;
+				x = 64 * (row - col) * (globalScrollZoom + 100) / 200 + walkStandX;
+				y = 32 * (row + col) * (globalScrollZoom + 100) / 200 + walkStandY - 16;
 
 
 				int drawXOffset = 0;
-				if (invflag || sbookflag)
-					drawXOffset -= 160;
-				if (chrflag || questlog)
-					drawXOffset += 160;
+				//if (invflag || sbookflag)
+				//	drawXOffset -= 160;
+				//if (chrflag || questlog)
+				//	drawXOffset += 160;
 				x = x + ScreenWidth / 2;// 320 + drawXOffset;
 				y = y + GetHeightDiff()/2;
 			}
+
+			//POINT p = adjustCoordsToZoom(x, y);
+			//x = p.x; 
+			//y = p.y;
+		    y += 100;
+			x -= GetTextWidth((char*)text.c_str()) / 2;
 			double PI = 3.14159265;
 			double DistanceToTravel = ScreenHeight * PercentOfTheScreenToTravel / 100;
 			//y = ax + b
@@ -273,7 +284,7 @@ void DrawFloatingTextAbovePlayer() {
 			int drawx = x - int(progress * diff_x);
 			int drawy = y - int(progress * diff_y);
 
-			if (drawx > 0 && drawy < ScreenWidth && drawy > minHeight && drawy < ScreenHeight) {
+			if (drawx > 0 && drawx < ScreenWidth && drawy > minHeight && drawy < ScreenHeight) {
 				char bfr[256];
 
 				//int callerID;

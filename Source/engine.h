@@ -112,6 +112,8 @@ void setGameState(int state);
 void fatalLua(const char* message);
 void LuaInit();
 void DrawGame(int StartX, int StartY, bool isTown);
+POINT adjustCoordsToZoom(int x, int y);
+void AddToFloatingQueue(FloatingText ft);
 
 extern std::map<std::string, bool> BoolConfig;
 extern std::map<std::string, int> IntConfig;

@@ -261,7 +261,7 @@ function testLootFilter1(args)
 end
 
 function lootFilter(playerName,playerClass,itemName,itemType,itemSlot,itemRarity,itemColor)
-local isGood,v1,v2,v3,v4,v5,v6 = pcall(lootFilterLowercase,{playerName=playerName:lower(),playerClass=playerClass,itemName=itemName:lower(),itemType=itemType,itemSlot=itemSlot,itemRarity=itemRarity,itemColor=itemColor})
+	local isGood,v1,v2,v3,v4,v5,v6 = pcall(lootFilterLowercase,{playerName=playerName:lower(),playerClass=playerClass,itemName=itemName:lower(),itemType=itemType,itemSlot=itemSlot,itemRarity=itemRarity,itemColor=itemColor})
     if isGood == true then
 		if v1 ~= nil and v2 ~= nil and v3 ~= nil and v4 ~= nil and v5 ~= nil then
 		    if type(v1) == "string" and type(v2) == "number" and type(v3) == "number" and type(v4) == "number" and type(v5) == "number" and type(v6) == "number" then
@@ -314,6 +314,7 @@ end
 
 
 
+-- you can look what I've done in testLootFilter1 function and do stuff in yourLootFilter.
 
 function yourLootFilter(args)
 	return args.itemName,1,args.itemColor,0,0,0

@@ -768,12 +768,20 @@ LRESULT __stdcall GM_Game(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				if ((short)HIWORD(wParam) < 0)
 				{
 					if (globalScrollZoom > 0) {
+						int globalScrollZoom2 = globalScrollZoom - 5;
+						int targetHeight = GLOBAL_HEIGHT - GLOBAL_HEIGHT * globalScrollZoom2 / 200;
+						int targetWidth = GLOBAL_WIDTH - GLOBAL_WIDTH * globalScrollZoom2 / 200;
+						if (targetHeight < 480 || targetWidth < 640) { return 0; }
 						globalScrollZoom -= 5;
 					}
 				}
 				else
 				{
 					if (globalScrollZoom < 100) {
+						int globalScrollZoom2 = globalScrollZoom + 5;
+						int targetHeight = GLOBAL_HEIGHT - GLOBAL_HEIGHT * globalScrollZoom2 / 200;
+						int targetWidth = GLOBAL_WIDTH - GLOBAL_WIDTH * globalScrollZoom2 / 200;
+						if (targetHeight < 480 || targetWidth < 640) { return 0; }
 						globalScrollZoom += 5;
 					}
 				}

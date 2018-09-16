@@ -57,10 +57,10 @@ void __cdecl InitAutomap()
 	signed int v15; // edx
 	int size; // [esp+Ch] [ebp-4h]
 
-	int old_320 = ScreenWidth / 2;
-	int old_32 = ScreenWidth / 20;
-	int old_50 = 50*640/ScreenWidth;
-	int old_5 = 5*640/ScreenWidth;
+	int old_320 = 320;// ScreenWidth / 2;
+	int old_32 = 32;// ScreenWidth / 20;
+	int old_50 = 50;// 50 * 640 / ScreenWidth;
+	int old_5 = 5;// 5 * 640 / ScreenWidth;
 
 	v0 = old_50;
 	v1 = 0;
@@ -322,6 +322,35 @@ int GetItemRarity(int index) {
 	return GetItemRarity(index, NULL, false);
 }
 
+POINT adjustCoordsToZoom(int x, int y) {
+	int targetHeight = GLOBAL_HEIGHT - GLOBAL_HEIGHT * globalScrollZoom / 200;
+	int targetWidth = GLOBAL_WIDTH - GLOBAL_WIDTH * globalScrollZoom / 200;
+	int widthDiff = GLOBAL_WIDTH - targetWidth;
+	int heightDiff = GLOBAL_HEIGHT - targetHeight;
+	int distToCenterX = abs(ScreenWidth / 2 - x);
+	int distToCenterY = abs(ScreenHeight / 2 - y);
+	if (x <= ScreenWidth / 2) {
+		x = ScreenWidth / 2 - distToCenterX - distToCenterX * (globalScrollZoom) / 100;
+	}
+	else {
+		x = ScreenWidth / 2 + distToCenterX + distToCenterX * (globalScrollZoom) / 100;
+	}
+
+	if (y <= ScreenHeight / 2) {
+		y = ScreenHeight / 2 - distToCenterY - distToCenterY * (globalScrollZoom) / 100;
+	}
+	else {
+		y = ScreenHeight / 2 + distToCenterY + distToCenterY * (globalScrollZoom) / 100;
+	}
+
+	POINT p;
+	p.x = x;
+	p.y = y;
+	return p;
+
+
+}
+
 void AddItemToDrawQueue(int x, int y, int id) {
 
 	if (lootFilterBroken == false) {
@@ -352,45 +381,11 @@ void AddItemToDrawQueue(int x, int y, int id) {
 	if (lfd.show == false) { return; }
 	int centerXOffset =  GetTextWidth((char*)lfd.name.c_str()) ;
 
-		int targetHeight = GLOBAL_HEIGHT - GLOBAL_HEIGHT * globalScrollZoom / 200;
-		int targetWidth = GLOBAL_WIDTH - GLOBAL_WIDTH * globalScrollZoom / 200;
-		int widthDiff = GLOBAL_WIDTH - targetWidth;
-		int heightDiff = GLOBAL_HEIGHT - targetHeight;
-		
-		//x += widthDiff/4;
-		//y += widthDiff/4;
-		std::stringstream ss;
-
-
-		
-		int distToCenterX = abs(ScreenWidth/2-x);
-		int distToCenterY = abs(ScreenHeight / 2 - y);
-		if (x <= ScreenWidth / 2) {
-			x = ScreenWidth / 2 - distToCenterX - distToCenterX * (globalScrollZoom) / 100;
-		}
-		else {
-			x = ScreenWidth / 2 + distToCenterX + distToCenterX * (globalScrollZoom) / 100;
-		}
-
-		if (y <= ScreenHeight / 2) {
-			y = ScreenHeight / 2 - distToCenterY - distToCenterY * (globalScrollZoom) / 100;
-		}
-		else {
-			y = ScreenHeight / 2 + distToCenterY + distToCenterY * (globalScrollZoom) / 100;
-		}
-
-		x -= centerXOffset / 2 + 20;
-		y -= 193;
-		
-
-
-
-		//ss << x << " " << y << " ";
-
-		//NetSendCmdString(1 << myplr, ss.str().c_str());
-		//x += x  globalScrollZoom / 100;
-		//y += y * globalScrollZoom / 100;
-		drawQ.push_back(drawingQueue(x, y, GetTextWidth((char*)lfd.name.c_str()), 13, it->_ix, it->_iy, id, lfd.color2, lfd.name, 1, lfd.r, lfd.g,lfd.b));
+	POINT p = adjustCoordsToZoom(x, y);
+	x = p.x; y = p.y;
+	x -= centerXOffset / 2 + 20;
+	y -= 193;
+	drawQ.push_back(drawingQueue(x, y, GetTextWidth((char*)lfd.name.c_str()), 13, it->_ix, it->_iy, id, lfd.color2, lfd.name, 1, lfd.r, lfd.g,lfd.b));
 }
 
 void HighlightItemsNameOnMap()
@@ -1219,6 +1214,13 @@ void __cdecl DrawAutomapGame()
 		v0+=15;
 	}
 	PrintGameStr(8, v0, "INFERNITY", COL_RED);
+	v0 += 15;
+
+	int targetHeight = GLOBAL_HEIGHT - GLOBAL_HEIGHT * globalScrollZoom / 200;
+	int targetWidth = GLOBAL_WIDTH - GLOBAL_WIDTH * globalScrollZoom / 200;
+	std::stringstream res;
+	res << targetWidth << "x" << targetHeight;
+	PrintGameStr(8, v0, (char*)res.str().c_str(), COL_RED);
 }
 // 5CCB10: using guessed type char setlvlnum;
 // 5CF31D: using guessed type char setlevel;
