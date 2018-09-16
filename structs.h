@@ -1,6 +1,6 @@
 #include <string>
-#define GLOBAL_WIDTH 640
-#define GLOBAL_HEIGHT 480
+#define GLOBAL_WIDTH 1280
+#define GLOBAL_HEIGHT 960
 #define MAX_STASH_TABS 100
 #define MEGAPACKETSIZE 92000
 class drawingQueue
