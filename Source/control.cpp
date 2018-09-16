@@ -3389,7 +3389,7 @@ void __cdecl CheckSBook()
 			v0 = MouseY;
 		}
 	}
-	if ( v1 >= 327+ GetWidthDiff() && v1 < 633+ GetWidthDiff() && v0 >= 320 && v0 < 349 )
+	if ( v1 >= 327+ GetWidthDiff() && v1 < 633+ GetWidthDiff() && v0 >= 320 && v0 < 349 )/// BUGFIX: change `< 633` to `< 631`
 		sbooktab = (v1- GetWidthDiff() - 327) / 76;
 }
 // 4B8950: using guessed type int sbooktab;
