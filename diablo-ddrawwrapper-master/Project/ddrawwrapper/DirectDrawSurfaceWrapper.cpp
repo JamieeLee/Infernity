@@ -1091,15 +1091,17 @@ HRESULT __stdcall IDirectDrawSurfaceWrapper::Unlock(LPVOID lpRect)
 	else {
 		threadedStuff* t;
 		if (gameState == 12) {
+			
 			/*
 			for (int i = 0; i < ((surfaceWidth * surfaceHeight)); i++) {
 				unsigned int ii = i << 2;
 				rgbVideoMem[i] = RGB(rawVideoMem[ii + 3], rawVideoMem[ii + 2], rawVideoMem[ii + 1]);
-			}*/
+			}
+			*/
 
 			
 			t = new threadedStuff("ddraw.dll - unlock", 200, false, gData2);
-			std::vector<std::future<void> > results(t->dd->num_threads);
+			std::vector<std::future<void> > results(t->dd->num_threads+1);
 			int wid = surfaceWidth;
 			int hei = surfaceHeight;
 			UINT32* vidmem = rgbVideoMem;
@@ -1114,8 +1116,21 @@ HRESULT __stdcall IDirectDrawSurfaceWrapper::Unlock(LPVOID lpRect)
 					}
 				});
 			}
-			for (int j = 0; j < t->dd->num_threads; ++j) { results[j].get(); }
+
+
+			results[t->dd->num_threads] = t->dd->pp.push([wid, hei, t, vidmem, rawmem](int) {
+				int rest = ((wid * hei)) % t->dd->num_threads;
+				for (int i = ((wid * hei)) - rest; i < ((wid * hei)); ++i) {
+					unsigned int ii = i << 2;
+					vidmem[i] = RGB(rawmem[ii + 3], rawmem[ii + 2], rawmem[ii + 1]);
+				}
+			});
+
+
+
+			for (int j = 0; j <= t->dd->num_threads; ++j) { results[j].get(); }
 			delete t;
+			
 		}
 		else {
 			for (int i = 0; i < ((surfaceWidth * surfaceHeight)); i++) {

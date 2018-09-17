@@ -3335,8 +3335,13 @@ void __fastcall DoBlitScreen(int dwX, int dwY, int dwWdt, int dwHgt)
 	{
 		lock_buf_priv();
 		if (rgb_enabled && currentGameState != 1) {
+
+			//for (int y = 0; y < dwHgt; ++y) {
+			//	memcpyRGB((unsigned char*)DDS_desc.lpSurface + (dwX + (dwY + y)*DDS_desc.lPitch) * 4, (unsigned char*)&gpBuffer->row[dwX + y].pixels[dwY], (unsigned char*)rgbBuffer->row[dwX + y].pixels[dwY].argb, dwWdt);
+			//}
+			
 			threadedStuff* t = new threadedStuff("diablo", 200, GetConfigBoolVariable("logDrawingDataToFile"),gData);
-			std::vector<std::future<void> > results(t->dd->num_threads);
+			std::vector<std::future<void> > results(t->dd->num_threads+1);
 			for (int j = 0; j < t->dd->num_threads; ++j) {
 				results[j] = t->dd->pp.push([j,t](int) {
 					int mul = ScreenHeight / t->dd->num_threads;
@@ -3346,13 +3351,26 @@ void __fastcall DoBlitScreen(int dwX, int dwY, int dwWdt, int dwHgt)
 					}
 				});
 			}
-			for (int j = 0; j < t->dd->num_threads; ++j) { results[j].get(); }
+			results[t->dd->num_threads] = t->dd->pp.push([t](int) {
+				int rest = ScreenHeight % t->dd->num_threads;
+				for (int i = ScreenHeight - rest; i < ScreenHeight; ++i) {
+					int tid = i;
+					memcpyRGB((unsigned char*)DDS_desc.lpSurface + tid * DDS_desc.lPitch * 4, (unsigned char*)&gpBuffer->row[tid].pixels[0], (unsigned char*)rgbBuffer->row[tid].pixels[0].argb, GLOBAL_WIDTH);
+				}
+			});
+
+			
+
+			for (int j = 0; j <= t->dd->num_threads; ++j) { results[j].get(); }
 			
 			bool ac = gData.autoConfigDone;
 			delete t;
 			if (!ac && gData.autoConfigDone) {
-				NetSendCmdString(1 << myplr, "Autoconfig finished!");
+				std::stringstream ss;
+				ss << "Autoconfig finished - threads: " << gData.num_threads;
+				NetSendCmdString(1 << myplr, (char*)ss.str().c_str());
 			}
+			
 			
 
 			//memcpyRGB((unsigned char*)DDS_desc.lpSurface + (dwX + (dwY + j)*DDS_desc.lPitch) * 4, (unsigned char*)&gpBuffer->row[dwX + j].pixels[dwY], (unsigned char*)rgbBuffer->row[dwX + j].pixels[dwY].argb, dwWdt);

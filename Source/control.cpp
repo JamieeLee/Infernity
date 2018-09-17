@@ -2766,6 +2766,7 @@ void clearShit(int pnum) {
 }
 
 bool SwitchInvTab(int newTab) {
+	if (talkflag) { return false; }
 	//if (pcurs < CURSOR_FIRSTITEM) {
 	if (newTab != plr[myplr].currentInventoryIndex) {
 		bool fromstash = plr[myplr].currentInventoryIndex >= 4;

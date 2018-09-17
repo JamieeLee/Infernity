@@ -1314,8 +1314,10 @@ HRESULT IDirectDrawWrapper::Present()
 			
 			//for (DWORD y = 0; y < displayModeHeight; y++){
 			//	memcpy((BYTE *)d3dlrect.pBits + (y * d3dlrect.Pitch), &lpAttachedSurface->rgbVideoMem[y * displayModeWidth], displayModeWidth * sizeof(UINT32));}
+
+			
 			threadedStuff *t = new threadedStuff("ddraw.dll - present", 200, false, gData);
-			std::vector<std::future<void> > results(t->dd->num_threads);
+			std::vector<std::future<void> > results(t->dd->num_threads+1);
 			int wid = displayModeWidth;
 			int hei = displayModeHeight;
 			int pitch = d3dlrect.Pitch;
@@ -1330,8 +1332,19 @@ HRESULT IDirectDrawWrapper::Present()
 					}
 				});
 			}
-			for (int j = 0; j < t->dd->num_threads; ++j) { results[j].get(); }
+
+			results[t->dd->num_threads] = t->dd->pp.push([t	, wid, hei, pitch, bits, vidmem](int) {
+				int rest = hei % t->dd->num_threads;
+				for (int i = hei - rest; i < hei; ++i) {
+					int tid = i;
+					memcpy((BYTE *)bits + (tid * pitch), &vidmem[tid * wid], wid * sizeof(UINT32));
+				}
+			});
+
+
+			for (int j = 0; j <= t->dd->num_threads; ++j) { results[j].get(); }
 			delete t;
+			
 		
 			/*
 			std::vector<std::future<void> > results(t->dd->num_threads);

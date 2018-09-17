@@ -70,7 +70,7 @@ struct threadedStuff {
 			d.autoConfigDone = false;
 			d.initThread = true;
 			d.pp.init();
-			d.pp.resize(d.maxThreads);
+			d.pp.resize(d.maxThreads+1);
 		}
 	}
 	~threadedStuff() {

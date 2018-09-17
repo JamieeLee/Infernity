@@ -1606,7 +1606,7 @@ void __cdecl diablo_pause_game()
 
 void SwitchWeapons() {
 	
-	if (plr[myplr]._pmode != 1 && plr[myplr]._pmode != 2 && plr[myplr]._pmode != 3 && plr[myplr]._pmode != 8) {
+	if (plr[myplr]._pmode != 1 && plr[myplr]._pmode != 2 && plr[myplr]._pmode != 3 && plr[myplr]._pmode != 8 && !talkflag) {
 		ItemStruct wtf = plr[myplr].InvBody[4];
 		ItemStruct wtf2 = plr[myplr].InvBody[5];
 
