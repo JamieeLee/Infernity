@@ -334,6 +334,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		BlackPalette();
 #endif
 
+
 		mainmenu_action(0); /* v11 fix unused arg */ 
 		UiDestroy(); 
 		SaveGamma();

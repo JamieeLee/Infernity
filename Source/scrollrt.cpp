@@ -3223,8 +3223,8 @@ void __cdecl DrawFPS()
 {
 	DWORD v0; // eax
 	int v1; // esi
-	char String[12]; // [esp+8h] [ebp-10h]
-	HDC hdc; // [esp+14h] [ebp-4h]
+//	char String[12]; // [esp+8h] [ebp-10h]
+//	HDC hdc; // [esp+14h] [ebp-4h]
 
 	if ( frameflag && gbActive )
 	{
@@ -3255,18 +3255,20 @@ void __cdecl DrawFPS()
 }
 //#endif
 
+#include <future>
 #include <chrono>
 int lowest = 999999;
 int highest = 0;
 long long int sum = 0;
 int iter = 0;
-int bestAvg = 9999999999;
-int num_threads = 1;
+int bestAvg = 99999999;
+int num_threads = 1;// std::thread::hardware_concurrency();
 int bestNumThreads = num_threads;
 int autoconfigIter = 0;
 std::set<int> pastThreads;
 bool autoConfigDone = false;
-bool writeToFile = false;
+bool initThread = false;
+int maxThreads = 50;
 
 using namespace std::chrono;
 struct timer {
@@ -3281,22 +3283,23 @@ struct timer {
 			iter++;
 			sum += duration;
 			int avg = sum / iter;
-			if (writeToFile) {
+			if (GetConfigBoolVariable("logDrawingDataToFile") == true) {
 				std::ofstream outfile;
 				outfile.open("test.txt", std::ios_base::app);
-				outfile << label << " - Elapsed time: " << duration << " LOW: " << lowest << " HIGH: " << highest << " AVG: " << avg << " DONE WITH THREDS: " << num_threads << " BEST AVG: " << bestAvg << " bestnumt: " << bestNumThreads << "\n";
+				outfile << label << " - Elapsed time: " << duration << " LOW: " << lowest << " HIGH: " << highest << " AVG: " << avg << " DONE WITH THREADS: " << num_threads << " BEST AVG: " << bestAvg << " bestnumt: " << bestNumThreads << "\n";
 				outfile.close();
 			}
 		}
 	}
 };
-
+#include "..\ctpl_stl.h"
 #include <thread>
+ctpl::thread_pool pp;
 void autoconfig() {
 	if (autoConfigDone) { return; }
 	autoconfigIter++;
 
-	if (autoconfigIter >= 5) {
+	if (autoconfigIter >= 2) {
 		int avg = sum / iter;
 		autoconfigIter = 0;
 		if (avg < bestAvg) {
@@ -3305,11 +3308,14 @@ void autoconfig() {
 		}
 		sum = 0;
 		iter = 0;
+		lowest = 999999;
+		highest = 0;
 
-		if (num_threads < 100) { num_threads++; }
+		if (num_threads < maxThreads) { num_threads++; }
 		else {
 			autoConfigDone = true;
 			//MessageBox(NULL, "Autoconfig DONE", NULL, NULL);
+			NetSendCmdString(1 << myplr, "Autoconfig finished!");
 			num_threads = bestNumThreads;
 		}
 	}
@@ -3350,11 +3356,10 @@ void memcpyRGB2(unsigned char* dest, unsigned char* src, unsigned char* src2, in
 
 	}
 }
-
-void call_from_thread(int id) {
+void call_from_thread(int idm) {
 	int mul = GLOBAL_HEIGHT / num_threads;
 	for (int i = 0; i < mul; ++i) {
-		int tid = id * mul + i;
+		int tid = idm * mul + i;
 		memcpyRGB((unsigned char*)DDS_desc.lpSurface + tid * DDS_desc.lPitch * 4, (unsigned char*)&gpBuffer->row[tid].pixels[0], (unsigned char*)rgbBuffer->row[tid].pixels[0].argb, GLOBAL_WIDTH);
 	}
 }
@@ -3398,9 +3403,23 @@ void __fastcall DoBlitScreen(int dwX, int dwY, int dwWdt, int dwHgt)
 		lock_buf_priv();
 		if (rgb_enabled && currentGameState != 1) {
 			timer* t = new timer("diablo");
-			std::vector<std::thread> tt;
-			for (int i = 0; i < num_threads; ++i) {tt.push_back(std::thread(call_from_thread, i));}
-			for (int i = 0; i < num_threads; ++i) {tt[i].join();}
+
+
+			
+			if (initThread == false) {
+				initThread = true;
+				pp.init();
+				pp.resize(maxThreads);
+			}
+
+
+			std::vector<std::future<void>> results(num_threads);
+				for (int j = 0; j < num_threads; ++j) {
+					results[j] = pp.push([j](int) {call_from_thread(j); });
+				}
+				for (int j = 0; j < num_threads; ++j) {
+					results[j].get();
+				}
 			delete t;
 			autoconfig();
 

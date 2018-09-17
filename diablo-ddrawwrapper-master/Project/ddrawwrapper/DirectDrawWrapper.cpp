@@ -1373,7 +1373,7 @@ HRESULT IDirectDrawWrapper::Present()
 			d3dSprite->SetTransform(&mat);
 		}
 		
-		int addY = (displayModeWidth - 480) / 2;
+		int addY = (displayModeHeight - 480) / 2;
 		D3DXVECTOR3 pos;	
 		pos.z = 0.0f;
 		int selectionLeft, selectionRight;

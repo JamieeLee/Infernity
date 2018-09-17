@@ -1,6 +1,6 @@
 #include <string>
-#define GLOBAL_WIDTH 1280
-#define GLOBAL_HEIGHT 960
+#define GLOBAL_WIDTH 2560
+#define GLOBAL_HEIGHT 1440
 #define MAX_STASH_TABS 100
 #define MEGAPACKETSIZE 92000
 #define GRISWOLD_GOLD_LIMIT 1400000
@@ -1342,7 +1342,7 @@ struct ScreenRow
 struct Screen
 {
 	ScreenRow row_unused_1[160];
-	ScreenRow row[2500];
+	ScreenRow row[GLOBAL_HEIGHT];
 	ScreenRow row_unused_2[16];
 };
 
