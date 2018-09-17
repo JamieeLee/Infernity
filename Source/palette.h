@@ -38,6 +38,7 @@ extern const int palette_inf; // weak
 
 extern int gamma_correction; // idb
 extern int color_cycling_enabled; // idb
+extern int rgb_enabled;
 extern bool sgbFadedIn;
 
 #endif /* __PALETTE_H__ */

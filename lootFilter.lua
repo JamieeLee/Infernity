@@ -29,7 +29,7 @@ I've prepared some functions to show what you can do.
  example usage: printMsg("Hello from LUA!".." "..tostring(123))
  --]]
  
- function printMsg(data)
+function printMsg(data)
      if type(data) == "string" then
 	     printMessage(data)
 	else
@@ -324,6 +324,8 @@ end
 function lootFilterLowercase(args)
     if args.playerName == "pug" then
 	    return testLootFilter1(args)--qndel's amazing loot filter
+	elseif args.playerName == "ru" then
+	    return args.itemName,1,COLOR_WHITE,0,255,255
     else
 		return yourLootFilter(args)
 	end

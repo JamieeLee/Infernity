@@ -5171,7 +5171,7 @@ void __fastcall SpawnSmith(int lvl)
 				SetRndSeed(item[0]._iSeed);
 				GetItemAttrs(0, RndSmithItem(lvl) - 1, lvl);
 			}
-			while ( item[0]._iIvalue > 140000 );
+			while ( item[0]._iIvalue > GRISWOLD_GOLD_LIMIT);
 			qmemcpy(v4, item, sizeof(ItemStruct));
 			v4->_iCreateInfo = lvl | 0x400;
 			v4->_iIdentified = 1;
@@ -5256,7 +5256,7 @@ void __fastcall SpawnOnePremium(int i, int plvl)
 		GetItemAttrs(0, itype, plvl);
 		GetItemBonus(0, itype, plvl >> 1, plvl, 1);
 	}
-	while ( item[0]._iIvalue > 140000 );
+	while ( item[0]._iIvalue > GRISWOLD_GOLD_LIMIT);
 	qmemcpy(&premiumitem[i], item, sizeof(ItemStruct));
 	premiumitem[i]._iCreateInfo = plvl | 0x800;
 	premiumitem[i]._iIdentified = 1;
@@ -5455,7 +5455,7 @@ void __fastcall SpawnWitch(int lvl)
 					continue;
 			}
 			GetItemBonus(0, itype, iblvl >> 1, iblvl, 1);
-			if ( item[0]._iIvalue <= 140000 )
+			if ( item[0]._iIvalue <= ADRIA_GOLD_LIMIT)
 			{
 				qmemcpy(itm, item, sizeof(ItemStruct));
 				itm->_iIdentified = 1;
@@ -5517,7 +5517,7 @@ void __fastcall SpawnBoy(int lvl)
 			GetItemAttrs(0, itype, lvl);
 			GetItemBonus(0, itype, lvl, 2 * lvl, 1);
 		}
-		while ( item[0]._iIvalue > 90000 );
+		while ( item[0]._iIvalue > WIRT_GOLD_LIMIT);
 		qmemcpy(&boyitem, item, sizeof(boyitem));
 		boyitem._iCreateInfo = lvl | 0x10;
 		boyitem._iIdentified = 1;

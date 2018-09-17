@@ -45,17 +45,17 @@ void __fastcall DrawMonster(int x, int y, int a3, int a4, int mon_id, int a6, in
 void __fastcall DrawObject(int x, int y, int a3, int a4, int pre_flag, int a6, int dir);
 void __fastcall scrollrt_draw_e_flag(char *buffer, int x, int y, int a4, int a5, int sx, int sy);
 void __cdecl ClearScreenBuffer();
-#ifdef _DEBUG
+//#ifdef _DEBUG
 void __cdecl ScrollView();
 void __cdecl EnableFrameCount();
-#endif
+//#endif
 void __fastcall scrollrt_draw_game_screen(bool draw_cursor);
 void __cdecl scrollrt_draw_cursor_back_buffer();
 void __cdecl scrollrt_draw_cursor_item();
 void __fastcall DrawMain(int dwHgt, int draw_desc, int draw_hp, int draw_mana, int draw_sbar, int draw_btn);
-#ifdef _DEBUG
+//#ifdef _DEBUG
 void __cdecl DrawFPS();
-#endif
+//#endif
 void __fastcall DoBlitScreen(int dwX, int dwY, int dwWdt, int dwHgt);
 void __cdecl DrawAndBlit();
 

@@ -18,7 +18,12 @@ int currentGameState=0;
 int globalScrollZoom = 0;
 void setGameState(int state) {
 	currentGameState = state;
-	lpDDSPrimary->UpdateOverlayDisplay(state);
+	if (rgb_enabled) {
+		lpDDSPrimary->UpdateOverlayDisplay(state+10);
+	}
+	else {
+		lpDDSPrimary->UpdateOverlayDisplay(state);
+	}
 	//hijacked a function to pass menu/cutscene/game state
 }
 

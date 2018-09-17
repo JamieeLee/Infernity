@@ -3213,15 +3213,12 @@ LABEL_17:
 					DDErrMsg(v9, 3779, "C:\\Src\\Diablo\\Source\\SCROLLRT.CPP");
 			}
 		}
-#ifdef _DEBUG
-		DrawFPS();
-#endif
 	}
 }
 // 634980: using guessed type int gbActive;
 // 679660: using guessed type char gbMaxPlayers;
 
-#ifdef _DEBUG
+//#ifdef _DEBUG
 void __cdecl DrawFPS()
 {
 	DWORD v0; // eax
@@ -3242,29 +3239,128 @@ void __cdecl DrawFPS()
 		}
 		if ( framerate > 99 )
 			framerate = 99;
+
+		std::stringstream ss;
+		ss << "FPS: " << framerate;
+		PrintGameStr(200, 200, (char*)ss.str().c_str(), COL_ORANGE);
+		/*
 		wsprintfA(String, "%2d", framerate);
 		if ( !lpDDSPrimary->GetDC(&hdc) )
 		{
 			TextOutA(hdc, 0, 400, String, strlen(String));
 			lpDDSPrimary->ReleaseDC(hdc);
 		}
+		*/
 	}
 }
-#endif
+//#endif
 
-void memcpyRGB(char* dest, char* src, char* src2, int size)
+#include <chrono>
+int lowest = 999999;
+int highest = 0;
+long long int sum = 0;
+int iter = 0;
+int bestAvg = 9999999999;
+int num_threads = 1;
+int bestNumThreads = num_threads;
+int autoconfigIter = 0;
+std::set<int> pastThreads;
+bool autoConfigDone = false;
+bool writeToFile = false;
+
+using namespace std::chrono;
+struct timer {
+	high_resolution_clock::time_point timeStart;
+	std::string label;
+	timer(std::string l) { timeStart = high_resolution_clock::now(); label = l; }
+	~timer() {
+		auto duration = duration_cast<microseconds>(high_resolution_clock::now() - timeStart).count();
+		if (currentGameState == 2) {
+			if (duration < lowest) { lowest = duration; }
+			if (duration > highest) { highest = duration; }
+			iter++;
+			sum += duration;
+			int avg = sum / iter;
+			if (writeToFile) {
+				std::ofstream outfile;
+				outfile.open("test.txt", std::ios_base::app);
+				outfile << label << " - Elapsed time: " << duration << " LOW: " << lowest << " HIGH: " << highest << " AVG: " << avg << " DONE WITH THREDS: " << num_threads << " BEST AVG: " << bestAvg << " bestnumt: " << bestNumThreads << "\n";
+				outfile.close();
+			}
+		}
+	}
+};
+
+#include <thread>
+void autoconfig() {
+	if (autoConfigDone) { return; }
+	autoconfigIter++;
+
+	if (autoconfigIter >= 5) {
+		int avg = sum / iter;
+		autoconfigIter = 0;
+		if (avg < bestAvg) {
+			bestNumThreads = num_threads;
+			bestAvg = avg;
+		}
+		sum = 0;
+		iter = 0;
+
+		if (num_threads < 100) { num_threads++; }
+		else {
+			autoConfigDone = true;
+			//MessageBox(NULL, "Autoconfig DONE", NULL, NULL);
+			num_threads = bestNumThreads;
+		}
+	}
+}
+
+void memcpyRGB(unsigned char* dest, unsigned char* src, unsigned char* src2, int size)
 {
 	for (int index = 0; index < size; index++)
 	{
-		*dest++ = *src++;
-		memcpy(dest, src2, 3);
-		dest += 3;
-		src2 += 3;
-		//*dest++ = *src2++;
-		//*dest++ = *src2++;
-		//*dest++ = *src2++;
+		unsigned char srcval = *src++;
+		*dest++;
+		*src2++;
+		unsigned char r = *src2++;
+		unsigned char g = *src2++;
+		unsigned char b = *src2++;
+		*dest++ = (system_palette[srcval].peRed > r ? system_palette[srcval].peRed - r : 0);
+		*dest++ = (system_palette[srcval].peGreen > g ? system_palette[srcval].peGreen - g : 0);
+		*dest++ = (system_palette[srcval].peBlue > b ? system_palette[srcval].peBlue - b : 0);
 	}
 }
+
+void memcpyRGB2(unsigned char* dest, unsigned char* src, unsigned char* src2, int size)
+{
+	for (int index = 0; index < size; index++)
+	{
+		*dest++;
+		short r = system_palette[*src].peRed - *src2++;
+		short g = system_palette[*src].peGreen - *src2++;
+		short b = system_palette[*src++].peBlue - *src2++;
+		*dest++ = (unsigned char)(!r ? 0 : r);
+		*dest++ = (unsigned char)(!g ? 0 : g);
+		*dest++ = (unsigned char)(!b ? 0 : b);
+
+		//*dest++ = *src2++;
+		//*dest++ = *src2++;
+		//*dest++ = *src2++;
+
+
+	}
+}
+
+void call_from_thread(int id) {
+	int mul = GLOBAL_HEIGHT / num_threads;
+	for (int i = 0; i < mul; ++i) {
+		int tid = id * mul + i;
+		memcpyRGB((unsigned char*)DDS_desc.lpSurface + tid * DDS_desc.lPitch * 4, (unsigned char*)&gpBuffer->row[tid].pixels[0], (unsigned char*)rgbBuffer->row[tid].pixels[0].argb, GLOBAL_WIDTH);
+	}
+}
+
+
+
 void __fastcall DoBlitScreen(int dwX, int dwY, int dwWdt, int dwHgt)
 {
 	RECT Rect;
@@ -3299,12 +3395,131 @@ void __fastcall DoBlitScreen(int dwX, int dwY, int dwWdt, int dwHgt)
 	}
 	else
 	{
-
 		lock_buf_priv();
-		for (int j = 0; j < dwHgt; ++j) {
-			memcpyRGB((char*)DDS_desc.lpSurface+(dwX+(dwY+j)*DDS_desc.lPitch)*4,&gpBuffer->row[dwX+j].pixels[dwY], rgbBuffer->row[dwX+j].pixels[dwY].rgb, dwWdt);
+		if (rgb_enabled && currentGameState != 1) {
+			timer* t = new timer("diablo");
+			std::vector<std::thread> tt;
+			for (int i = 0; i < num_threads; ++i) {tt.push_back(std::thread(call_from_thread, i));}
+			for (int i = 0; i < num_threads; ++i) {tt[i].join();}
+			delete t;
+			autoconfig();
+
+		}
+		else {
+			for (int j = 0; j < dwHgt; ++j) {
+				memcpy((unsigned char*)DDS_desc.lpSurface + (dwX + (dwY + j)*DDS_desc.lPitch), (unsigned char*)&gpBuffer->row[dwX + j].pixels[dwY], dwWdt);
+			}
 		}
 		unlock_buf_priv();
+	}
+}
+
+
+void __fastcall DoBlitScreen2(int dwX, int dwY, int dwWdt, int dwHgt)
+{
+	RECT Rect;
+	HRESULT error_code;
+	int tickCountOld;
+
+	if (lpDDSBackBuf)
+	{
+		Rect.left = dwX + 64;
+		Rect.right = dwX + 64 + dwWdt - 1;
+		Rect.top = dwY + 160;
+		Rect.bottom = dwY + 160 + dwHgt - 1;
+		tickCountOld = GetTickCount();
+		while (1)
+		{
+			error_code = lpDDSPrimary->BltFast(dwX, dwY, lpDDSBackBuf, &Rect, DDBLTFAST_WAIT);
+			if (!error_code)
+				break;
+			if (tickCountOld - GetTickCount() <= 5000)
+			{
+				Sleep(1u);
+				if (error_code == DDERR_SURFACELOST)
+					return;
+				if (error_code == DDERR_WASSTILLDRAWING || error_code == DDERR_SURFACEBUSY) {
+					continue;
+				}
+			}
+			if (error_code != DDERR_SURFACELOST && error_code != DDERR_WASSTILLDRAWING && error_code != DDERR_SURFACEBUSY)
+				DDErrMsg(error_code, 3596, "C:\\Src\\Diablo\\Source\\SCROLLRT.CPP");
+			return;
+		}
+	}
+	else
+	{
+
+
+
+		lock_buf_priv();
+		timer* t = new timer("diablo");
+		/*
+		for (int j = 0; j < dwHgt; ++j) {
+		for (int i = 0; i < dwWdt; ++i) {
+		unsigned char srcval = gpBuffer->row[dwX + j].pixels[dwY+i];
+		unsigned char r = rgbBuffer->row[dwX + j].pixels[dwY + i].argb[1];
+		unsigned char g = rgbBuffer->row[dwX + j].pixels[dwY + i].argb[2];
+		unsigned char b = rgbBuffer->row[dwX + j].pixels[dwY + i].argb[3];
+		//rgbBuffer->row[dwX + j].pixels[dwY+i].argb[0] = srcval;
+		rgbBuffer->row[dwX + j].pixels[dwY + i].argb[1] =  (system_palette[srcval].peRed > r ? system_palette[srcval].peRed - r : 0);
+		rgbBuffer->row[dwX + j].pixels[dwY + i].argb[2] =  (system_palette[srcval].peGreen > g ? system_palette[srcval].peGreen - g : 0);
+		rgbBuffer->row[dwX + j].pixels[dwY + i].argb[3] =  (system_palette[srcval].peBlue > b ? system_palette[srcval].peBlue - b : 0);
+		}
+		}
+		*/
+
+		//memset(rgbBuffer, 0, sizeof(RGBScreen));
+
+
+
+
+
+		if (rgb_enabled && currentGameState != 1) {
+
+
+
+
+			std::vector<std::thread> tt;
+			for (int i = 0; i < num_threads; ++i) {
+				tt.push_back(std::thread(call_from_thread, i));
+			}
+			for (int i = 0; i < num_threads; ++i) {
+				tt[i].join();
+			}
+
+
+
+			//for (int j = 0; j < dwHgt; ++j) {
+			//memcpyRGB((unsigned char*)DDS_desc.lpSurface + (dwX + (dwY + j)*DDS_desc.lPitch) * 4, (unsigned char*)&gpBuffer->row[dwX + j].pixels[dwY], (unsigned char*)rgbBuffer->row[dwX + j].pixels[dwY].argb, dwWdt);
+			//memcpy((unsigned char*)DDS_desc.lpSurface + j*DDS_desc.lPitch*4, (unsigned char*)&rgbBuffer->row[dwX + j].pixels[dwY], dwWdt*4);
+			//}
+		}
+		else {
+			for (int j = 0; j < dwHgt; ++j) {
+				memcpy((unsigned char*)DDS_desc.lpSurface + (dwX + (dwY + j)*DDS_desc.lPitch), (unsigned char*)&gpBuffer->row[dwX + j].pixels[dwY], dwWdt);
+			}
+		}
+		/*
+		for (int j = 0; j < dwHgt; ++j) {
+		for (int i = 0; j < dwWdt; ++j) {
+		char val = gpBuffer->row[dwX + j].pixels[dwY];
+		unsigned char r = system_palette[val].peRed;
+		unsigned char g = system_palette[val].peGreen;
+		unsigned char b = system_palette[val].peBlue;
+		unsigned char t = 255;
+		unsigned char* ind = (unsigned char*)DDS_desc.lpSurface + (dwX + (dwY + j)*DDS_desc.lPitch) * 4;
+		memcpy((unsigned char*)DDS_desc.lpSurface + (dwX + i + (dwY + j)*DDS_desc.lPitch) * 4, &t, 1);
+		memcpy((unsigned char*)DDS_desc.lpSurface + (dwX + i + (dwY + j)*DDS_desc.lPitch) * 4+1, &t, 1);
+		memcpy((unsigned char*)DDS_desc.lpSurface + (dwX + i + (dwY + j)*DDS_desc.lPitch) * 4+2, &t, 1);
+		memcpy((unsigned char*)DDS_desc.lpSurface + (dwX + i + (dwY + j)*DDS_desc.lPitch) * 4+3, &t, 1);
+
+		}
+		}*/
+
+		delete t;
+		unlock_buf_priv();
+
 
 		//for (int k = 0; k < 4; ++k) {
 		//	surf[k] = 0;
@@ -3328,7 +3543,6 @@ void __fastcall DoBlitScreen(int dwX, int dwY, int dwWdt, int dwHgt)
 		//}
 	}
 }
-
 bool weaponSwitchIconsLoaded = false;
 void *weaponSwitchIcons;
 
@@ -3375,7 +3589,9 @@ void __cdecl DrawAndBlit()
 			dwHgt = ScreenHeight;//dwHgt = 352;
 		}
 		drawpanflag = 0;
-		memset(rgbBuffer, 0, sizeof(RGBScreen));
+		if (rgb_enabled) {
+			memset(rgbBuffer, 0, sizeof(RGBScreen));
+		}
 		lock_buf_priv();
 		if ( leveltype )
 			DrawView(ViewX, ViewY);
@@ -3395,6 +3611,7 @@ void __cdecl DrawAndBlit()
 			DrawWeaponSwitchIcons();
 		}
 		DrawXpBar();
+		DrawFPS();
 		DrawNumbersOnHealthMana();
 		PrintGameStr(526 + GetWidthDiff() / 2, 436 + GetHeightDiff(), "Spell", COL_ORANGE);
 		PrintGameStr(516 + GetWidthDiff() / 2, 446 + GetHeightDiff(), "Power", COL_ORANGE);

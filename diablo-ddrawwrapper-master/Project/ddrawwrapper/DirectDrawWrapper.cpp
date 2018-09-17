@@ -1308,7 +1308,7 @@ HRESULT IDirectDrawWrapper::Present()
 		// Copy bits to texture by scanline observing pitch
 		for (DWORD y = 0; y < displayModeHeight; y++)
 		{
-			if (gameState == 0 || gameState == 1) {
+			if (gameState%10 == 0 || gameState%10 == 1) {
 				for (DWORD x = 0; x < displayModeWidth; ++x) {
 					UINT32* ptr = (UINT32*)d3dlrect.pBits;
 					int yy = y * 480 / displayModeHeight;
@@ -1316,7 +1316,7 @@ HRESULT IDirectDrawWrapper::Present()
 					ptr[(y * d3dlrect.Pitch) / sizeof(UINT32) + x] = lpAttachedSurface->rgbVideoMem[yy*displayModeWidth + xx];
 				}
 			}
-			else if (gameState == 2) {
+			else if (gameState%10 == 2) {
 				memcpy((BYTE *)d3dlrect.pBits + (y * d3dlrect.Pitch), &lpAttachedSurface->rgbVideoMem[y * displayModeWidth], displayModeWidth * sizeof(UINT32));
 			}
 		}

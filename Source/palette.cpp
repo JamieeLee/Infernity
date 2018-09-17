@@ -14,6 +14,7 @@ const int palette_inf = 0x7F800000; // weak
 
 int gamma_correction = 100; // idb
 int color_cycling_enabled = 1; // idb
+int rgb_enabled = 0;
 bool sgbFadedIn = 1;
 
 struct palette_cpp_init
@@ -30,6 +31,7 @@ void __cdecl SaveGamma()
 {
 	SRegSaveValue("Diablo", "Gamma Correction", 0, gamma_correction);
 	SRegSaveValue("Diablo", "Color Cycling", 0, color_cycling_enabled);
+	SRegSaveValue("Diablo", "RGB Enabled", 0, rgb_enabled);
 }
 
 void __cdecl palette_init()
@@ -71,6 +73,14 @@ void __cdecl LoadGamma()
 	else
 		v3 = 1;
 	color_cycling_enabled = v3;
+
+	if (SRegLoadValue("Diablo", "RGB Enabled", 0, &value))
+		v3 = value;
+	else
+		v3 = 1;
+	rgb_enabled = v3;
+	setGameState(currentGameState);
+
 }
 
 void __cdecl LoadSysPal()
@@ -183,7 +193,6 @@ void __fastcall ApplyGamma(PALETTEENTRY *dst, PALETTEENTRY *src, int n)
 	PALETTEENTRY *v3; // edi
 	PALETTEENTRY *v4; // esi
 	double v5; // [esp+18h] [ebp-Ch]
-
 	v3 = src;
 	v4 = dst;
 	v5 = (double)gamma_correction * 0.01;

@@ -19,18 +19,20 @@ TMenuItem sgMultiMenu[5] =
   { 0x80000000, "Quit Diablo", &gamemenu_quit_game },
   { 0x80000000, NULL, NULL }
 };
-TMenuItem sgOptionMenu[6] =
+TMenuItem sgOptionMenu[7] =
 {
   { 0xC0000000, NULL, (void (__cdecl *)(void))&gamemenu_music_volume },
   { 0xC0000000, NULL, (void (__cdecl *)(void))&gamemenu_sound_volume },
   { 0xC0000000, "Gamma", (void (__cdecl *)(void))&gamemenu_gamma },
   { 0x80000000, NULL, &gamemenu_color_cycling },
+  { 0x80000000, NULL, &gamemenu_rgb },
   { 0x80000000, "Previous Menu", &gamemenu_previous },
   { 0x80000000, NULL, NULL }
 };
 char *music_toggle_names[] = { "Music", "Music Disabled" };
 char *sound_toggle_names[] = { "Sound", "Sound Disabled" };
 char *color_cycling_toggle_names[] = { "Color Cycling Off", "Color Cycling On" };
+char *rgb_toggle_names[] = { "RGB Off", "RGB On" };
 
 void __cdecl gamemenu_previous()
 {
@@ -171,6 +173,7 @@ void __cdecl gamemenu_options()
 	gamemenu_get_sound();
 	gamemenu_get_gamma();
 	gamemenu_get_color_cycling();
+	gamemenu_get_rgb();
 	gmenu_call_proc(sgOptionMenu, 0);
 }
 
@@ -204,6 +207,12 @@ void __cdecl gamemenu_get_color_cycling()
 {
 	sgOptionMenu[3].pszStr = color_cycling_toggle_names[palette_get_colour_cycling()];
 }
+
+void __cdecl gamemenu_get_rgb()
+{
+	sgOptionMenu[4].pszStr = rgb_toggle_names[rgb_enabled];
+}
+
 
 void __cdecl gamemenu_get_gamma()
 {
@@ -325,4 +334,13 @@ void __cdecl gamemenu_color_cycling()
 {
 	palette_set_color_cycling(palette_get_colour_cycling() == 0);
 	sgOptionMenu[3].pszStr = color_cycling_toggle_names[palette_get_colour_cycling() & 1];
+}
+
+void __cdecl gamemenu_rgb()
+{
+	rgb_enabled = rgb_enabled == 0;
+	setGameState(currentGameState);
+
+
+	sgOptionMenu[4].pszStr = rgb_toggle_names[rgb_enabled & 1];
 }

@@ -3,6 +3,10 @@
 #define GLOBAL_HEIGHT 960
 #define MAX_STASH_TABS 100
 #define MEGAPACKETSIZE 92000
+#define GRISWOLD_GOLD_LIMIT 1400000
+#define ADRIA_GOLD_LIMIT 1400000
+#define WIRT_GOLD_LIMIT 900000
+
 class drawingQueue
 {
 public:
@@ -1342,15 +1346,15 @@ struct Screen
 	ScreenRow row_unused_2[16];
 };
 
-struct tripleChar {
-	char rgb[3];
+struct quadChar {
+	char argb[4];
 };
 
 struct RGBScreenRow
 {
-	tripleChar col_unused_1[64];
-	tripleChar pixels[GLOBAL_WIDTH];
-	tripleChar col_unused_2[64];
+	quadChar col_unused_1[64];
+	quadChar pixels[GLOBAL_WIDTH];
+	quadChar col_unused_2[64];
 };
 
 struct RGBScreen

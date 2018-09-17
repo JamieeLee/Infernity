@@ -1066,17 +1066,44 @@ void printInfo(std::string s, int v1, int v2, int v3) {
 
 
 char clamp(int s) {
-	if (s > 255) { return 255; }
+	if (s > 255) { return (char)255; }
 	if (s < 0) { return 0; }
 	return s;
 }
 int RGB2(int v1, int v2, int v3) {
 	return RGB(clamp(v1), clamp(v2), clamp(v3));
 }
+
+#include <chrono>
+int lowest = 999999;
+int highest = 0;
+long long int sum = 0;
+int iter = 0;
+using namespace std::chrono;
+struct timer {
+	high_resolution_clock::time_point timeStart;
+	std::string label;
+	timer(std::string l) { timeStart = high_resolution_clock::now(); label = l; }
+	~timer() {
+		auto duration = duration_cast<microseconds>(high_resolution_clock::now() - timeStart).count();
+		if (gameState%10 == 2) {
+			if (duration < lowest) { lowest = duration; }
+			if (duration > highest) { highest = duration; }
+			iter++;
+			sum += duration;
+			int avg = sum / iter;
+			std::ofstream outfile;
+			outfile.open("test.txt", std::ios_base::app);
+			outfile << label << " - Elapsed time: " << duration << " << game state: " << gameState << " LOW: " << lowest << " HIGH: " << highest << " AVG: " << avg << "\n";
+			outfile.close();
+		}
+	}
+};
+
+
 HRESULT __stdcall IDirectDrawSurfaceWrapper::Unlock(LPVOID lpRect)
 {
 	char message[2048] = "\0";
-
 	// NOTE: Disabled for performance
 	/*if(lpRect != 0)
 	{
@@ -1092,21 +1119,58 @@ HRESULT __stdcall IDirectDrawSurfaceWrapper::Unlock(LPVOID lpRect)
 	// Always unlock full rect(fix)
 
 	// Translate all of raw video memory to rgb video memory with palette
-	if (gameState == 0) {
-		for (long i = 0; i < surfaceWidth * surfaceHeight; ++i) {
+	//timer* t = new timer("ddraw.dll3");
+	if (gameState%10 == 0) {
+		for (int i = 0; i < surfaceWidth * surfaceHeight; ++i) {
 			rgbVideoMem[i] = attachedPalette->rgbPalette[rawVideoMem[i]];
 		}
 	}
 	else {
+		for (int i = 0; i < ((surfaceWidth * surfaceHeight)); i++)
+		{
+			if (gameState == 12 ) {
+				unsigned int ii = i << 2;
+				//if ((rawVideoMem[ii + 1]) != 0 || (rawVideoMem[ii+ 2]) != 0 || (rawVideoMem[ii + 3]) != 0) {
+				rgbVideoMem[i] = RGB(rawVideoMem[ii + 3], rawVideoMem[ii + 2], rawVideoMem[ii + 1]);
 
+			}
+			else {
+				rgbVideoMem[i] = attachedPalette->rgbPalette[rawVideoMem[i]];
+			}
+			//}
+			//else {
+			//	rgbVideoMem[i] = v2;
+			//}
+		}
+	}
+	//delete t;
+	
+	
+	
+	/*
+		timer* t = new timer("ddraw.dll");
+	if (gameState == 0) {
+		for (int i = 0; i < surfaceWidth * surfaceHeight; ++i) {
+			rgbVideoMem[i] = attachedPalette->rgbPalette[rawVideoMem[i]];
+		}
+	}
+	else {
 		for (int i = 0; i < ((surfaceWidth * surfaceHeight)); i++)
 		{
 			int ii = i << 2;
 			int v2 = attachedPalette->rgbPalette[rawVideoMem[ii]];
-			rgbVideoMem[i] = RGB2((-rawVideoMem[ii + 3] + GetRValue(v2)), (-rawVideoMem[ii + 2] + GetGValue(v2)), (-rawVideoMem[ii + 1] + GetBValue(v2)));
+			//rgbVideoMem[i] = v2;
+			if ((rawVideoMem[ii + 1]+ rawVideoMem[ii + 2]+ rawVideoMem[ii + 3]) != 0) {
+				rgbVideoMem[i] = RGB2((-rawVideoMem[ii + 3] + GetRValue(v2)), (-rawVideoMem[ii + 2] + GetGValue(v2)), (-rawVideoMem[ii + 1] + GetBValue(v2)));
+			}
+			else {
+				rgbVideoMem[i] = v2;
+			}
 		}
 	}
-
+	delete t;
+	*/
+	
 
 	/*
 	A pointer to a RECT structure that was used to lock the surface in the corresponding 

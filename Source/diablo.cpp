@@ -334,7 +334,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		BlackPalette();
 #endif
 
-		mainmenu_action(0); /* v11 fix unused arg */
+		mainmenu_action(0); /* v11 fix unused arg */ 
 		UiDestroy(); 
 		SaveGamma();
 		setGameState(0);
@@ -1810,6 +1810,8 @@ LABEL_72:
 					}
 					return;
 				case 'F':
+					EnableFrameCount();
+					return;
 				case 'f':
 					IncreaseGamma();
 					return;

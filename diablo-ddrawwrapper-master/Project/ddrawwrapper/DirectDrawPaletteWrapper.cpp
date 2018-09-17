@@ -70,7 +70,7 @@ HRESULT __stdcall IDirectDrawPaletteWrapper::GetCaps(LPDWORD lpdwCaps)
 
 	return DD_OK;
 }
-
+#include <fstream>
 // Retrieves palette values from a DirectDrawPalette object. 
 HRESULT __stdcall IDirectDrawPaletteWrapper::GetEntries(DWORD dwFlags, DWORD dwBase, DWORD dwNumEntries, LPPALETTEENTRY lpEntries)
 {    
@@ -78,7 +78,9 @@ HRESULT __stdcall IDirectDrawPaletteWrapper::GetEntries(DWORD dwFlags, DWORD dwB
 	if(lpEntries == NULL) return DDERR_INVALIDPARAMS;
 
 	// Copy raw palette entries to lpEntries(size dwNumEntries) starting at dwBase
-	memcpy(lpEntries, &(rawPalette[dwBase]), sizeof(PALETTEENTRY) * min(dwNumEntries, entryCount - dwBase));
+	//memcpy(lpEntries, &(rawPalette[dwBase]), sizeof(PALETTEENTRY) * min(dwNumEntries, entryCount - dwBase));
+
+	memcpy(lpEntries, rgbPalette, sizeof(UINT32) * 256);
 
 	/* 
     // NOTE: Debugging disabled for performance
@@ -96,7 +98,7 @@ HRESULT __stdcall IDirectDrawPaletteWrapper::GetEntries(DWORD dwFlags, DWORD dwB
 
 	return DD_OK;
 }
-
+#include <fstream>
 // Initializes the DirectDrawPalette object.
 HRESULT __stdcall IDirectDrawPaletteWrapper::Initialize(LPDIRECTDRAW lpDDW, DWORD dwFlags, LPPALETTEENTRY lpDDColorTable)
 {
@@ -114,7 +116,6 @@ HRESULT __stdcall IDirectDrawPaletteWrapper::SetEntries(DWORD dwFlags, DWORD dwS
 
 	// Copy raw palette entries from dwStartingEntry and of count dwCount
 	memcpy(&(rawPalette[dwStartingEntry]), lpEntries, sizeof(PALETTEENTRY) * min(dwCount, entryCount - dwStartingEntry));
-
 	// Translate new raw pallete entries to RGB(make sure not to go off the end of the memory)
 	for(int i = dwStartingEntry; i < min(dwStartingEntry + dwCount, entryCount - dwStartingEntry); i++)
 	{
@@ -214,7 +215,6 @@ HRESULT IDirectDrawPaletteWrapper::WrapperInitialize(DWORD dwFlags, LPPALETTEENT
 	{
 		entryCount = 256;
 	}
-
 	// Allocate raw ddraw palette
 	rawPalette = new PALETTEENTRY[entryCount];
 	// Memory failed to allocate, return out of memory
