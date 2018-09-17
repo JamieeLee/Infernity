@@ -3255,72 +3255,6 @@ void __cdecl DrawFPS()
 }
 //#endif
 
-#include <future>
-#include <chrono>
-int lowest = 999999;
-int highest = 0;
-long long int sum = 0;
-int iter = 0;
-int bestAvg = 99999999;
-int num_threads = 1;// std::thread::hardware_concurrency();
-int bestNumThreads = num_threads;
-int autoconfigIter = 0;
-std::set<int> pastThreads;
-bool autoConfigDone = false;
-bool initThread = false;
-int maxThreads = 50;
-
-using namespace std::chrono;
-struct timer {
-	high_resolution_clock::time_point timeStart;
-	std::string label;
-	timer(std::string l) { timeStart = high_resolution_clock::now(); label = l; }
-	~timer() {
-		auto duration = duration_cast<microseconds>(high_resolution_clock::now() - timeStart).count();
-		if (currentGameState == 2) {
-			if (duration < lowest) { lowest = duration; }
-			if (duration > highest) { highest = duration; }
-			iter++;
-			sum += duration;
-			int avg = sum / iter;
-			if (GetConfigBoolVariable("logDrawingDataToFile") == true) {
-				std::ofstream outfile;
-				outfile.open("test.txt", std::ios_base::app);
-				outfile << label << " - Elapsed time: " << duration << " LOW: " << lowest << " HIGH: " << highest << " AVG: " << avg << " DONE WITH THREADS: " << num_threads << " BEST AVG: " << bestAvg << " bestnumt: " << bestNumThreads << "\n";
-				outfile.close();
-			}
-		}
-	}
-};
-#include "..\ctpl_stl.h"
-#include <thread>
-ctpl::thread_pool pp;
-void autoconfig() {
-	if (autoConfigDone) { return; }
-	autoconfigIter++;
-
-	if (autoconfigIter >= 2) {
-		int avg = sum / iter;
-		autoconfigIter = 0;
-		if (avg < bestAvg) {
-			bestNumThreads = num_threads;
-			bestAvg = avg;
-		}
-		sum = 0;
-		iter = 0;
-		lowest = 999999;
-		highest = 0;
-
-		if (num_threads < maxThreads) { num_threads++; }
-		else {
-			autoConfigDone = true;
-			//MessageBox(NULL, "Autoconfig DONE", NULL, NULL);
-			NetSendCmdString(1 << myplr, "Autoconfig finished!");
-			num_threads = bestNumThreads;
-		}
-	}
-}
-
 void memcpyRGB(unsigned char* dest, unsigned char* src, unsigned char* src2, int size)
 {
 	for (int index = 0; index < size; index++)
@@ -3356,15 +3290,14 @@ void memcpyRGB2(unsigned char* dest, unsigned char* src, unsigned char* src2, in
 
 	}
 }
-void call_from_thread(int idm) {
-	int mul = GLOBAL_HEIGHT / num_threads;
+globalData gData;
+void call_from_thread(int id) {
+	int mul = GLOBAL_HEIGHT / gData.num_threads;
 	for (int i = 0; i < mul; ++i) {
-		int tid = idm * mul + i;
-		memcpyRGB((unsigned char*)DDS_desc.lpSurface + tid * DDS_desc.lPitch * 4, (unsigned char*)&gpBuffer->row[tid].pixels[0], (unsigned char*)rgbBuffer->row[tid].pixels[0].argb, GLOBAL_WIDTH);
+		int tid = id * mul + i;
+		memcpyRGB((unsigned char*)DDS_desc.lpSurface + tid * DDS_desc.lPitch * 4, (unsigned char*)gpBuffer->row[tid].pixels, (unsigned char*)rgbBuffer->row[tid].pixels[0].argb, GLOBAL_WIDTH);
 	}
 }
-
-
 
 void __fastcall DoBlitScreen(int dwX, int dwY, int dwWdt, int dwHgt)
 {
@@ -3402,26 +3335,29 @@ void __fastcall DoBlitScreen(int dwX, int dwY, int dwWdt, int dwHgt)
 	{
 		lock_buf_priv();
 		if (rgb_enabled && currentGameState != 1) {
-			timer* t = new timer("diablo");
-
-
-			
-			if (initThread == false) {
-				initThread = true;
-				pp.init();
-				pp.resize(maxThreads);
+			threadedStuff* t = new threadedStuff("diablo", 200, GetConfigBoolVariable("logDrawingDataToFile"),gData);
+			std::vector<std::future<void> > results(t->dd->num_threads);
+			for (int j = 0; j < t->dd->num_threads; ++j) {
+				results[j] = t->dd->pp.push([j,t](int) {
+					int mul = ScreenHeight / t->dd->num_threads;
+					for (int i = 0; i < mul; ++i) {
+						int tid = j * mul + i;
+						memcpyRGB((unsigned char*)DDS_desc.lpSurface + tid * DDS_desc.lPitch * 4, (unsigned char*)&gpBuffer->row[tid].pixels[0], (unsigned char*)rgbBuffer->row[tid].pixels[0].argb, GLOBAL_WIDTH);
+					}
+				});
 			}
-
-
-			std::vector<std::future<void>> results(num_threads);
-				for (int j = 0; j < num_threads; ++j) {
-					results[j] = pp.push([j](int) {call_from_thread(j); });
-				}
-				for (int j = 0; j < num_threads; ++j) {
-					results[j].get();
-				}
+			for (int j = 0; j < t->dd->num_threads; ++j) { results[j].get(); }
+			
+			bool ac = gData.autoConfigDone;
 			delete t;
-			autoconfig();
+			if (!ac && gData.autoConfigDone) {
+				NetSendCmdString(1 << myplr, "Autoconfig finished!");
+			}
+			
+
+			//memcpyRGB((unsigned char*)DDS_desc.lpSurface + (dwX + (dwY + j)*DDS_desc.lPitch) * 4, (unsigned char*)&gpBuffer->row[dwX + j].pixels[dwY], (unsigned char*)rgbBuffer->row[dwX + j].pixels[dwY].argb, dwWdt);
+			//memcpy((unsigned char*)DDS_desc.lpSurface + j*DDS_desc.lPitch*4, (unsigned char*)&rgbBuffer->row[dwX + j].pixels[dwY], dwWdt*4);
+
 
 		}
 		else {
@@ -3470,9 +3406,41 @@ void __fastcall DoBlitScreen2(int dwX, int dwY, int dwWdt, int dwHgt)
 	{
 
 
+		/*
+		
+				if (initThread == false) {
+			initThread = true;
+			pp.init();
+			pp.resize(maxThreads);
+		}
+		timer* t = new timer("diablo");
+		lock_buf_priv();
+		if (rgb_enabled && currentGameState != 1) {
+			std::vector<std::future<void>> results(num_threads);
+				for (int j = 0; j < num_threads; ++j) {
+					results[j] = pp.push([j](int) {call_from_thread(j); });
+				}
+				for (int j = 0; j < num_threads; ++j) {
+					results[j].get();
+				}
+
+		}
+		else {
+			for (int j = 0; j < dwHgt; ++j) {
+				memcpy((unsigned char*)DDS_desc.lpSurface + (dwX + (dwY + j)*DDS_desc.lPitch), (unsigned char*)&gpBuffer->row[dwX + j].pixels[dwY], dwWdt);
+			}
+		}
+		unlock_buf_priv();
+		delete t;
+		if (currentGameState == 2) {
+			autoconfig();
+			
+			*/
+
+
 
 		lock_buf_priv();
-		timer* t = new timer("diablo");
+		//timer* t = new timer("diablo");
 		/*
 		for (int j = 0; j < dwHgt; ++j) {
 		for (int i = 0; i < dwWdt; ++i) {
@@ -3498,7 +3466,7 @@ void __fastcall DoBlitScreen2(int dwX, int dwY, int dwWdt, int dwHgt)
 
 
 
-
+			/*
 			std::vector<std::thread> tt;
 			for (int i = 0; i < num_threads; ++i) {
 				tt.push_back(std::thread(call_from_thread, i));
@@ -3506,7 +3474,7 @@ void __fastcall DoBlitScreen2(int dwX, int dwY, int dwWdt, int dwHgt)
 			for (int i = 0; i < num_threads; ++i) {
 				tt[i].join();
 			}
-
+			*/
 
 
 			//for (int j = 0; j < dwHgt; ++j) {
@@ -3536,7 +3504,7 @@ void __fastcall DoBlitScreen2(int dwX, int dwY, int dwWdt, int dwHgt)
 		}
 		}*/
 
-		delete t;
+		//delete t;
 		unlock_buf_priv();
 
 

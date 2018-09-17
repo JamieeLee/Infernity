@@ -1,11 +1,170 @@
 #include <string>
-#define GLOBAL_WIDTH 2560
-#define GLOBAL_HEIGHT 1440
+#define GLOBAL_WIDTH 1280
+#define GLOBAL_HEIGHT 960
 #define MAX_STASH_TABS 100
 #define MEGAPACKETSIZE 92000
 #define GRISWOLD_GOLD_LIMIT 1400000
 #define ADRIA_GOLD_LIMIT 1400000
 #define WIRT_GOLD_LIMIT 900000
+
+
+#include <sstream>
+#include <chrono>
+#include <fstream>
+#include <future>
+#include <vector>
+#include "..\ctpl_stl.h"
+#include <thread>
+#include <functional>
+
+
+struct globalData {
+	bool initThread;
+	bool autoConfigDone;
+	int num_threads;
+	int maxThreads;
+	int bestNumThreads;
+	int autoConfigIter;
+	int bestAvg;
+	int lowest;
+	int highest;
+	long long int sum;
+	int iter;
+	ctpl::thread_pool pp;
+};
+
+struct threadedStuff {
+	bool ltf;
+	globalData* dd;
+	std::chrono::high_resolution_clock::time_point timeStart;
+	std::string label;
+	threadedStuff(std::string l, int mx, bool logToFile, globalData &d) {
+		dd = &d;
+		timeStart = std::chrono::high_resolution_clock::now();
+		label = l;
+		ltf = logToFile;
+		if (d.initThread == false) {
+			d.lowest = 9999999;
+			d.highest = 0;
+			d.iter = 0;
+			d.sum = 0;
+			d.bestAvg = 9999999;
+			d.maxThreads = mx;
+			d.num_threads = 1;
+			d.bestNumThreads = 1;
+			d.autoConfigIter = 0;
+			d.autoConfigDone = false;
+			d.initThread = true;
+			d.pp.init();
+			d.pp.resize(d.maxThreads);
+		}
+	}
+	~threadedStuff() {
+		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - timeStart).count();
+		if (duration < dd->lowest) { dd->lowest = duration; }
+		if (duration > dd->highest) { dd->highest = duration; }
+		dd->iter++;
+		dd->sum += duration;
+		int avg = dd->sum / (dd->iter + 0.01);
+		if (ltf == true) {
+			std::ofstream outfile;
+			outfile.open("test.txt", std::ios_base::app);
+			outfile << label << " - Elapsed time: " << duration << " LOW: " << dd->lowest << " HIGH: " << dd->highest << " AVG: " << avg << " DONE WITH THREADS: " << dd->num_threads << " BEST AVG: " << dd->bestAvg << " bestnumt: " << dd->bestNumThreads << "\n";
+			outfile.close();
+		}
+		autoConfig();
+	}
+	/*
+	void threadedStuff::call_from_thread(int idm) {
+	int mul = dd->height / dd->num_threads;
+	for (int i = 0; i < mul; ++i) {
+	int tid = idm * mul + i;
+	memcpy((BYTE *)dd->param1 + (tid * dd->param2), &dd->param3[tid * dd->width], dd->width * sizeof(UINT32));
+	}
+	}
+	*/
+	/*
+	void threadedStuff::executeThreaded(std::function< void(int,globalData*)>& lambda) {
+	std::vector<std::future<void> > results(dd->num_threads);
+	for (int j = 0; j < dd->num_threads; ++j) {
+	results[j] = dd->pp.push([&](int) {
+	//myFunc(j, dd);
+	lambda(j,dd);
+	});
+	}
+	for (int j = 0; j < dd->num_threads; ++j) { results[j].get(); }
+
+	}
+	*/
+
+	/*
+	std::vector<std::future<void>> results(dd->num_threads);
+	for (int j = 0; j < dd->num_threads; ++j) {
+
+
+	results[j] = dd->pp.push([j](int) {
+	int mul = dd->height / dd->num_threads;
+	for (int i = 0; i < mul; ++i) {
+	int tid = j * mul + i;
+	memcpy((BYTE *)dd->param1 + (tid * dd->param2), &dd->param3[tid * dd->width], dd->width * sizeof(UINT32));
+	}
+	});
+
+
+	}
+	for (int j = 0; j < dd->num_threads; ++j) { results[j].get(); }
+
+	*/
+
+	/*
+
+	std::vector<std::future<void>> results(dd->num_threads);
+	for (int j = 0; j < dd->num_threads; ++j) {
+	results[j] = dd->pp.push([j, dd](int) {
+	int mul = dd->height / dd->num_threads;
+	for (int i = 0; i < mul; ++i) {
+	int tid = j * mul + i;
+	memcpy((BYTE *)dd->param1 + (tid * dd->param2), &dd->param3[tid * dd->width], dd->width * sizeof(UINT32));
+	}; }
+	}
+	for (int j = 0; j < dd->num_threads; ++j) { results[j].get(); }
+
+
+	*/
+
+	/*
+	std::vector<std::future<void>> results(dd->num_threads);
+	for (int j = 0; j < dd->num_threads; ++j) { results[j] = dd->pp.push([&](int) {
+	call_from_thread(j); }); }
+	for (int j = 0; j < dd->num_threads; ++j) { results[j].get(); }
+	*/
+
+	void threadedStuff::autoConfig() {
+		if (dd->autoConfigDone) { return; }
+		dd->autoConfigIter++;
+
+		if (dd->autoConfigIter >= 2) {
+			int avg = dd->sum / dd->iter;
+			dd->autoConfigIter = 0;
+			if (avg < dd->bestAvg) {
+				dd->bestNumThreads = dd->num_threads;
+				dd->bestAvg = avg;
+			}
+			dd->sum = 0;
+			dd->iter = 0;
+			dd->lowest = 999999;
+			dd->highest = 0;
+
+			if (dd->num_threads < dd->maxThreads) { dd->num_threads++; }
+			else {
+				dd->autoConfigDone = true;
+				//MessageBox(NULL, "Autoconfig DONE", NULL, NULL);
+				dd->num_threads = dd->bestNumThreads;
+			}
+		}
+	}
+};
+
 
 class drawingQueue
 {

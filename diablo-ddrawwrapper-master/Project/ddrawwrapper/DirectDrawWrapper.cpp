@@ -1249,34 +1249,7 @@ HRESULT IDirectDrawWrapper::WrapperInitialize(WNDPROC wp, HMODULE hMod)
 /* Helper function to present the d3d surface
  * 
  */
-#include <sstream>
-extern int gameState;
-
-void memcpy2(void* dest, void* src, int size)
-{
-	UINT32 *pdest = (UINT32*)dest;
-	UINT32 *psrc = (UINT32*)src;
-	/*
-	int loops = (size / sizeof(uint32_t));
-	for (int index = 0; index < loops; ++index)
-	{
-		*((uint32_t*)pdest) = *((uint32_t*)psrc);
-		pdest += sizeof(uint32_t);
-		psrc += sizeof(uint32_t);
-	}
-	*/
-
-	//loops = (size % sizeof(uint32_t));
-	for (int index = 0; index < size/2; index+=sizeof(UINT32))
-	{
-		*pdest = *psrc;
-		++pdest;
-		*pdest = *psrc;
-		++pdest;
-
-		++psrc;
-	}
-}
+globalData gData;
 HRESULT IDirectDrawWrapper::Present()
 {
 	// Make sure the device exists
@@ -1306,6 +1279,7 @@ HRESULT IDirectDrawWrapper::Present()
 			return false;
 		}
 		// Copy bits to texture by scanline observing pitch
+		/*
 		for (DWORD y = 0; y < displayModeHeight; y++)
 		{
 			if (gameState%10 == 0 || gameState%10 == 1) {
@@ -1319,6 +1293,60 @@ HRESULT IDirectDrawWrapper::Present()
 			else if (gameState%10 == 2) {
 				memcpy((BYTE *)d3dlrect.pBits + (y * d3dlrect.Pitch), &lpAttachedSurface->rgbVideoMem[y * displayModeWidth], displayModeWidth * sizeof(UINT32));
 			}
+		}
+		if (gameState % 10 == 2) {
+			delete t;
+		}
+		*/
+		
+		if (gameState % 10 == 0 || gameState % 10 == 1) {
+			for (DWORD y = 0; y < displayModeHeight; y++)
+			{
+				for (DWORD x = 0; x < displayModeWidth; ++x) {
+					UINT32* ptr = (UINT32*)d3dlrect.pBits;
+					int yy = y * 480 / displayModeHeight;
+					int xx = x * 640 / displayModeWidth;
+					ptr[(y * d3dlrect.Pitch) / sizeof(UINT32) + x] = lpAttachedSurface->rgbVideoMem[yy*displayModeWidth + xx];
+				}
+			}
+		} else{
+
+			
+			//for (DWORD y = 0; y < displayModeHeight; y++){
+			//	memcpy((BYTE *)d3dlrect.pBits + (y * d3dlrect.Pitch), &lpAttachedSurface->rgbVideoMem[y * displayModeWidth], displayModeWidth * sizeof(UINT32));}
+			threadedStuff *t = new threadedStuff("ddraw.dll - present", 200, false, gData);
+			std::vector<std::future<void> > results(t->dd->num_threads);
+			int wid = displayModeWidth;
+			int hei = displayModeHeight;
+			int pitch = d3dlrect.Pitch;
+			BYTE* bits = (BYTE*)d3dlrect.pBits;
+			UINT32* vidmem = lpAttachedSurface->rgbVideoMem;
+			for (int j = 0; j < t->dd->num_threads; ++j) {
+				results[j] = t->dd->pp.push([t,j,wid,hei,pitch,bits,vidmem](int) {
+					int mul = hei / t->dd->num_threads;
+					for (int i = 0; i < mul; ++i) {
+						int tid = j * mul + i;
+						memcpy((BYTE *)bits + (tid * pitch), &vidmem[tid * wid], wid * sizeof(UINT32));
+					}
+				});
+			}
+			for (int j = 0; j < t->dd->num_threads; ++j) { results[j].get(); }
+			delete t;
+		
+			/*
+			std::vector<std::future<void> > results(t->dd->num_threads);
+			for (int j = 0; j < t->dd->num_threads; ++j) {
+				results[j] = t->dd->pp.push([j,t](int) {
+					int mul = t->dd->height / t->dd->num_threads;
+					for (int i = 0; i < mul; ++i) {
+						int tid = j * mul + i;
+						memcpy((BYTE *)t->dd->param1 + (tid * t->dd->param2), &t->dd->param3[tid * t->dd->width], t->dd->width * sizeof(UINT32));
+					}
+				});
+			}
+			for (int j = 0; j < t->dd->num_threads; ++j) { results[j].get(); }
+			*/
+
 		}
 		// Unlock dynamic texture
 		if(surfaceTexture->UnlockRect(NULL) != D3D_OK)

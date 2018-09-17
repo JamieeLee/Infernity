@@ -1064,43 +1064,7 @@ void printInfo(std::string s, int v1, int v2, int v3) {
 	MessageBoxA(NULL, ss.str().c_str(), NULL, NULL);
 }
 
-
-char clamp(int s) {
-	if (s > 255) { return (char)255; }
-	if (s < 0) { return 0; }
-	return s;
-}
-int RGB2(int v1, int v2, int v3) {
-	return RGB(clamp(v1), clamp(v2), clamp(v3));
-}
-
-#include <chrono>
-int lowest = 999999;
-int highest = 0;
-long long int sum = 0;
-int iter = 0;
-using namespace std::chrono;
-struct timer {
-	high_resolution_clock::time_point timeStart;
-	std::string label;
-	timer(std::string l) { timeStart = high_resolution_clock::now(); label = l; }
-	~timer() {
-		auto duration = duration_cast<microseconds>(high_resolution_clock::now() - timeStart).count();
-		if (gameState%10 == 2) {
-			if (duration < lowest) { lowest = duration; }
-			if (duration > highest) { highest = duration; }
-			iter++;
-			sum += duration;
-			int avg = sum / iter;
-			std::ofstream outfile;
-			outfile.open("test.txt", std::ios_base::app);
-			outfile << label << " - Elapsed time: " << duration << " << game state: " << gameState << " LOW: " << lowest << " HIGH: " << highest << " AVG: " << avg << "\n";
-			outfile.close();
-		}
-	}
-};
-
-
+globalData gData2;
 HRESULT __stdcall IDirectDrawSurfaceWrapper::Unlock(LPVOID lpRect)
 {
 	char message[2048] = "\0";
@@ -1119,34 +1083,46 @@ HRESULT __stdcall IDirectDrawSurfaceWrapper::Unlock(LPVOID lpRect)
 	// Always unlock full rect(fix)
 
 	// Translate all of raw video memory to rgb video memory with palette
-	//timer* t = new timer("ddraw.dll3");
 	if (gameState%10 == 0) {
 		for (int i = 0; i < surfaceWidth * surfaceHeight; ++i) {
 			rgbVideoMem[i] = attachedPalette->rgbPalette[rawVideoMem[i]];
 		}
 	}
 	else {
-		for (int i = 0; i < ((surfaceWidth * surfaceHeight)); i++)
-		{
-			if (gameState == 12 ) {
+		threadedStuff* t;
+		if (gameState == 12) {
+			/*
+			for (int i = 0; i < ((surfaceWidth * surfaceHeight)); i++) {
 				unsigned int ii = i << 2;
-				//if ((rawVideoMem[ii + 1]) != 0 || (rawVideoMem[ii+ 2]) != 0 || (rawVideoMem[ii + 3]) != 0) {
 				rgbVideoMem[i] = RGB(rawVideoMem[ii + 3], rawVideoMem[ii + 2], rawVideoMem[ii + 1]);
+			}*/
 
+			
+			t = new threadedStuff("ddraw.dll - unlock", 200, false, gData2);
+			std::vector<std::future<void> > results(t->dd->num_threads);
+			int wid = surfaceWidth;
+			int hei = surfaceHeight;
+			UINT32* vidmem = rgbVideoMem;
+			BYTE* rawmem = rawVideoMem;
+			for (int j = 0; j < t->dd->num_threads; ++j) {
+				results[j] = t->dd->pp.push([j,wid,hei,t, vidmem, rawmem](int) {
+					int mul = ((wid * hei)) / t->dd->num_threads;
+					for (int i = j*mul; i < (j+1)*mul; i++)
+					{
+						unsigned int ii = i << 2;
+						vidmem[i] = RGB(rawmem[ii + 3], rawmem[ii + 2], rawmem[ii + 1]);
+					}
+				});
 			}
-			else {
+			for (int j = 0; j < t->dd->num_threads; ++j) { results[j].get(); }
+			delete t;
+		}
+		else {
+			for (int i = 0; i < ((surfaceWidth * surfaceHeight)); i++) {
 				rgbVideoMem[i] = attachedPalette->rgbPalette[rawVideoMem[i]];
 			}
-			//}
-			//else {
-			//	rgbVideoMem[i] = v2;
-			//}
 		}
-	}
-	//delete t;
-	
-	
-	
+	}	
 	/*
 		timer* t = new timer("ddraw.dll");
 	if (gameState == 0) {
