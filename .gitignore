@@ -11,7 +11,7 @@ test.txt
 BnetLog.txt
 
 # PE shared library and associated files.
-*.lib
+#*.lib
 *.exp
 #*.dll
 

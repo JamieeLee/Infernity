@@ -234,7 +234,7 @@ function shouldHighlightBook(args)
 end
 
 function testLootFilter1(args)
-	--printMsg(args.itemSlot.." "..args.itemName)
+	--printMsg(args.itemSlot.." "..args.itemName)	
 	if (args.itemRarity <= RARITY_MAGIC and args.itemType ~= ITYPE_GOLD and args.itemType ~= ITYPE_MISC) or (shouldHighlightBook(args) == false) or isScroll(args) == true then
 		return showNoItem()
 	end
@@ -254,9 +254,10 @@ function testLootFilter1(args)
 	
 
 	if args.itemType == ITYPE_GOLD then
-	    local out = string.gsub(args.itemName, "gold", "$$$")
+	    local out = string.gsub(args.itemName, "gold", "CASH")
 		return out,1,stripBlue(args.itemColor)
 	end
+	
 	return args.itemName,1,args.itemColor,0,0,0
 end
 
