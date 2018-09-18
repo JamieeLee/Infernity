@@ -79,14 +79,14 @@ I will order a pizza and think about you while eating ;)
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
-![Screenshot 1: Inferno activated](https://cdn.discordapp.com/attachments/474387916043321364/474565168777658369/unknown.png "Inferno activated")
+![Screenshot 1: Rare items](https://i.imgur.com/bMdCWf1.jpg "rare item")
+![Screenshot 2: Superunique items](hhttps://i.imgur.com/ALDfiEH.jpg "superunique item")
+![Screenshot 3: Stash](hhttps://i.imgur.com/jMJBhRp.png "stash")
+![Screenshot 4: Swapping weapons](hhttps://i.imgur.com/mEzQpyF.jpg "swapping weapons")
+![Screenshot 5: Health bar](hhttps://i.imgur.com/4y2DdyX.jpg "health bar and highlighing in combat")
+![Screenshot 6: Highlighting items](hhttps://i.imgur.com/xQrMDFA.jpg "highlighting items with alt")
+![Screenshot 7: Loot filters](hhttps://i.imgur.com/cPSnknD.jpg "loot filters to customize names and colors")
 
-![Screenshot 2: Three affixes](https://cdn.discordapp.com/attachments/474387916043321364/474426181106794516/unknown.png "Three affixes")
-
-![Screenshot 3: Shrines revealed](https://media.discordapp.net/attachments/474387916043321364/477974757116215306/unknown.png?width=460&height=936 "Shrines revealed!")
-![Screenshot 4: Bonus affixes](https://i.imgur.com/py6Ibzi.gif "Bonus affix!")
-![Screenshot 5: Frame colors](https://i.imgur.com/TqMLJx3.png "Frame colors!")
-![Screenshot 6: Stash!](https://i.imgur.com/hnTJ5N0.jpg "Stash!")
 
 
 # Credits
