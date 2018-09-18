@@ -2939,12 +2939,13 @@ LABEL_37:
 	}
 }
 
+#endif
+
 void __cdecl EnableFrameCount()
 {
 	frameflag = frameflag == 0;
 	framestart = GetTickCount();
 }
-#endif
 
 void __fastcall scrollrt_draw_game_screen(bool draw_cursor)
 {

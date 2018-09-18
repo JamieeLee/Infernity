@@ -57,6 +57,10 @@ int frameend;
 int framerate;
 int framestart;
 #endif
+int frameflag;
+int frameend;
+int framerate;
+int framestart;
 int FriendlyMode = 1; // weak
 char *spszMsgTbl[4] =
 {

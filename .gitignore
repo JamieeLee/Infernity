@@ -9,6 +9,7 @@ README.md
 DiabloGame/
 test.txt
 BnetLog.txt
+ddraw_settings.ini
 
 # PE shared library and associated files.
 #*.lib
