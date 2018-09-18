@@ -80,12 +80,12 @@ I will order a pizza and think about you while eating ;)
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
 ![Screenshot 1: Rare items](https://i.imgur.com/bMdCWf1.jpg "rare item")
-![Screenshot 2: Superunique items](hhttps://i.imgur.com/ALDfiEH.jpg "superunique item")
-![Screenshot 3: Stash](hhttps://i.imgur.com/jMJBhRp.png "stash")
-![Screenshot 4: Swapping weapons](hhttps://i.imgur.com/mEzQpyF.jpg "swapping weapons")
-![Screenshot 5: Health bar](hhttps://i.imgur.com/4y2DdyX.jpg "health bar and highlighing in combat")
-![Screenshot 6: Highlighting items](hhttps://i.imgur.com/xQrMDFA.jpg "highlighting items with alt")
-![Screenshot 7: Loot filters](hhttps://i.imgur.com/cPSnknD.jpg "loot filters to customize names and colors")
+![Screenshot 2: Superunique items](https://i.imgur.com/ALDfiEH.jpg "superunique item")
+![Screenshot 3: Stash](https://i.imgur.com/jMJBhRp.png "stash")
+![Screenshot 4: Swapping weapons](https://i.imgur.com/mEzQpyF.jpg "swapping weapons")
+![Screenshot 5: Health bar](https://i.imgur.com/4y2DdyX.jpg "health bar and highlighing in combat")
+![Screenshot 6: Highlighting items](https://i.imgur.com/xQrMDFA.jpg "highlighting items with alt")
+![Screenshot 7: Loot filters](https://i.imgur.com/cPSnknD.jpg "loot filters to customize names and colors")
 
 
 
