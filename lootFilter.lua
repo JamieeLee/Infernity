@@ -254,7 +254,7 @@ function testLootFilter1(args)
 	
 
 	if args.itemType == ITYPE_GOLD then
-	    local out = string.gsub(args.itemName, "gold", "CASH")
+	    local out = string.gsub(args.itemName, "gold", "$$$")
 		return out,1,stripBlue(args.itemColor)
 	end
 	

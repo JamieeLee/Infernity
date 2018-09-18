@@ -1898,7 +1898,7 @@ void PrintDebugInfo() {
 		std::stringstream ss;
 		int isActivated = -1;
 		if (pcursmonst != -1) { isActivated = monster[pcursmonst].isActivated; }
-		ss << "debuginfo: " << MouseX << " " << MouseY << " " << sizeof(BOOL) << " " << sizeof(int);
+		ss << "debuginfo: " << MouseX << " " << MouseY << " " << ScrollInfo._sdir;
 		if (played == false) {
 			PlaySFX(num++);
 			played = true;

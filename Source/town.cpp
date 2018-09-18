@@ -1056,20 +1056,15 @@ void DrawGame(int x, int y, bool isTown)
 
 	int yofs = 175;
 	int yofs2 = heightDiff / 6;
-	int posx = x - ScreenWidth / 64;
+	int posx = x - ceil(ScreenWidth / 64);
 	int posy = y - 1;
 	int offsetX = ScrollInfo._sxoff + 64;
 	int offsetY = ScrollInfo._syoff + yofs;
-	int HorCellDrawCount = ScreenWidth / 64;
+	int HorCellDrawCount = ceil(ScreenWidth / 64);
 	switch (ScrollInfo._sdir)
 	{
+	case DIR_W:
 	case DIR_SW: {
-		offsetY = ScrollInfo._syoff + yofs - 32;
-		--posx;
-		--posy;
-		break;
-	}
-	case DIR_W: {
 		offsetY = ScrollInfo._syoff + yofs - 32;
 		--posx;
 		--posy;
@@ -1081,6 +1076,7 @@ void DrawGame(int x, int y, bool isTown)
 	case DIR_NE:
 	{
 		++HorCellDrawCount;
+		++HorCellDrawCount;
 		break;
 	}
 	case DIR_E:
@@ -1089,12 +1085,14 @@ void DrawGame(int x, int y, bool isTown)
 		--posx;
 		++posy;
 		++HorCellDrawCount;
+		++HorCellDrawCount;
 		break;
 	}
 	case DIR_OMNI: {
 		offsetX -= 64;
 		offsetY = ScrollInfo._syoff + yofs - 32;
 		posx -= 2;
+		++HorCellDrawCount;
 		++HorCellDrawCount;
 		break;
 	}
