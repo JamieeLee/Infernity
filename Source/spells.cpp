@@ -102,7 +102,6 @@ int __fastcall GetManaAmount(int id, int sn)
 		ma = spelldata[sn].sMinMana << 6;
 	}
 
-
 	int mindmg;
 	int maxdmg;
 	GetDamageAmt(sn, &mindmg, &maxdmg);

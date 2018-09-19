@@ -48,7 +48,6 @@ I will order a pizza and think about you while eating ;)
 - Fixing possible overflows in monster AC/to hit/etc. on difficulties above normal.
 
 ![Too much text? Here's a cat to keep you going](https://laughingsquid.com/wp-content/uploads/2013/05/57136754_o1.jpg "Can has kitten")
-
 # Installing
 - Get `Infernity.zip` [here](https://github.com/qndel/Infernity/raw/master/Infernity.zip)
 - Unpack it in your Diablo folder

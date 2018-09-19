@@ -322,7 +322,6 @@ char *shrinestrs[NUM_SHRINETYPE] =
   "Glimmering",
   "Tainted"
 };
-
 char *shrinedesc[NUM_SHRINETYPE] =
 {
 	"+5 to one attribute",

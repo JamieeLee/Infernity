@@ -579,6 +579,7 @@ void __cdecl GetLevelMTypes()
 
 }
 
+
 void __fastcall InitMonsterGFX(int monst)
 {
 	int mtype = (unsigned char)Monsters[monst].mtype;
@@ -870,10 +871,10 @@ void __cdecl ClrAllMonsters()
 
 BOOL __fastcall MonstPlace(int xp, int yp)
 {
-	if ( xp < 0 || xp >= 112
+	if (xp < 0 || xp >= 112
 		|| yp < 0 || yp >= 112
 		|| dMonster[xp][yp]
-		|| dPlayer[xp][yp] )
+		|| dPlayer[xp][yp])
 	{
 		return FALSE;
 	}
@@ -881,12 +882,12 @@ BOOL __fastcall MonstPlace(int xp, int yp)
 	char f = dFlags[xp][yp];
 
 	// TODO: Add enum values here
-	if ( f & 2 )
+	if (f & 2)
 	{
 		return FALSE;
 	}
 
-	if ( f & 8 )
+	if (f & 8)
 	{
 		return FALSE;
 	}
@@ -1168,20 +1169,20 @@ void __cdecl PlaceQuestMonsters()
 	int skeltype;
 	unsigned char *setp;
 
-	if ( !setlevel )
+	if (!setlevel)
 	{
-		if ( QuestStatus(QTYPE_BUTCH) )
+		if (QuestStatus(QTYPE_BUTCH))
 		{
 			PlaceUniqueMonst(9, 0, 0);
 		}
 
-		if ( currlevel == quests[12]._qlevel && gbMaxPlayers != 1 )
+		if (currlevel == quests[12]._qlevel && gbMaxPlayers != 1)
 		{
 			skeltype = 0;
 
-			for ( skeltype = 0; skeltype < nummtypes; skeltype++ )
+			for (skeltype = 0; skeltype < nummtypes; skeltype++)
 			{
-				if ( IsSkel(Monsters[skeltype].mtype) )
+				if (IsSkel(Monsters[skeltype].mtype))
 				{
 					break;
 				}
@@ -1190,47 +1191,47 @@ void __cdecl PlaceQuestMonsters()
 			PlaceUniqueMonst(1, skeltype, 30);
 		}
 
-		if ( QuestStatus(QTYPE_BOL) )
+		if (QuestStatus(QTYPE_BOL))
 		{
 			setp = LoadFileInMem("Levels\\L1Data\\Banner1.DUN", 0);
 			SetMapMonsters(setp, 2 * setpc_x, 2 * setpc_y);
 			mem_free_dbg(setp);
 		}
-		if ( QuestStatus(QTYPE_BLOOD) )
+		if (QuestStatus(QTYPE_BLOOD))
 		{
 			setp = LoadFileInMem("Levels\\L2Data\\Blood2.DUN", 0);
 			SetMapMonsters(setp, 2 * setpc_x, 2 * setpc_y);
 			mem_free_dbg(setp);
 		}
-		if ( QuestStatus(QTYPE_BLIND) )
+		if (QuestStatus(QTYPE_BLIND))
 		{
 			setp = LoadFileInMem("Levels\\L2Data\\Blind2.DUN", 0);
 			SetMapMonsters(setp, 2 * setpc_x, 2 * setpc_y);
 			mem_free_dbg(setp);
 		}
-		if ( QuestStatus(QTYPE_ANVIL) )
+		if (QuestStatus(QTYPE_ANVIL))
 		{
 			setp = LoadFileInMem("Levels\\L3Data\\Anvil.DUN", 0);
 			SetMapMonsters(setp, 2 * setpc_x + 2, 2 * setpc_y + 2);
 			mem_free_dbg(setp);
 		}
-		if ( QuestStatus(QTYPE_WARLRD) )
+		if (QuestStatus(QTYPE_WARLRD))
 		{
 			setp = LoadFileInMem("Levels\\L4Data\\Warlord.DUN", 0);
 			SetMapMonsters(setp, 2 * setpc_x, 2 * setpc_y);
 			mem_free_dbg(setp);
 			AddMonsterType(UniqMonst[8].mtype, 1);
 		}
-		if ( QuestStatus(QTYPE_VEIL) )
+		if (QuestStatus(QTYPE_VEIL))
 		{
 			AddMonsterType(UniqMonst[7].mtype, 1);
 		}
-		if ( QuestStatus(QTYPE_ZHAR) && zharlib == -1 )
+		if (QuestStatus(QTYPE_ZHAR) && zharlib == -1)
 		{
 			quests[3]._qactive = 0;
 		}
 
-		if ( currlevel == quests[15]._qlevel && gbMaxPlayers != 1 )
+		if (currlevel == quests[15]._qlevel && gbMaxPlayers != 1)
 		{
 			AddMonsterType(UniqMonst[4].mtype, 4);
 			AddMonsterType(UniqMonst[5].mtype, 4);
@@ -1244,12 +1245,13 @@ void __cdecl PlaceQuestMonsters()
 	}
 	else
 	{
-		if ( setlvlnum == SL_SKELKING )
+		if (setlvlnum == SL_SKELKING)
 		{
 			PlaceUniqueMonst(1, 0, 0);
 		}
 	}
 }
+
 
 void __fastcall PlaceGroup(int mtype, int num, int leaderf, int leader)
 {

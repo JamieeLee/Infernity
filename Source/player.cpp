@@ -970,7 +970,6 @@ void __fastcall CreatePlayer(int pnum, char c)
 		plr[pnum].NewSpellHotkeys[i] = -1;
 		plr[pnum].NewSpellTHotkeys[i] = -1;
 	}
-
 	SetRndSeed(0);
 }
 
@@ -1234,9 +1233,6 @@ void __fastcall InitPlayer(int pnum, BOOL FirstTime)
 		ScrollInfo._sdir = 0;
 	}
 }
-// 44B83C: could not find valid save-restore pair for edi
-// 52572C: using guessed type int leveldebug;
-// 69B7C4: using guessed type int deathdelay;
 
 void __cdecl InitMultiView()
 {
@@ -1568,7 +1564,7 @@ void __fastcall StartWalk(int pnum, int xvel, int yvel, int xadd, int yadd, int 
 		return;
 	}
 
-	if (true){//zoomflag) {
+	if (true) {//zoomflag) {
 		if (abs(ScrollInfo._sdx) >= 3 || abs(ScrollInfo._sdy) >= 3) {
 			ScrollInfo._sdir = 0;
 		}
@@ -1649,7 +1645,7 @@ void __fastcall StartWalk2(int pnum, int xvel, int yvel, int xoff, int yoff, int
 		return;
 	}
 
-	if (true){//zoomflag) {
+	if (true) {//zoomflag) {
 		if (abs(ScrollInfo._sdx) >= 3 || abs(ScrollInfo._sdy) >= 3) {
 			ScrollInfo._sdir = 0;
 		}
@@ -1729,7 +1725,7 @@ void __fastcall StartWalk3(int pnum, int xvel, int yvel, int xoff, int yoff, int
 		return;
 	}
 
-	if (true){//zoomflag) {
+	if (true) {//zoomflag) {
 		if (abs(ScrollInfo._sdx) >= 3 || abs(ScrollInfo._sdy) >= 3) {
 			ScrollInfo._sdir = 0;
 		}
@@ -1859,7 +1855,6 @@ void __fastcall StartSpell(int pnum, int d, int cx, int cy)
 	plr[pnum]._pVar4 = GetSpellLevel(pnum, plr[pnum]._pSpell);
 	plr[pnum]._pVar8 = 1;
 }
-// 5BB1ED: using guessed type char leveltype;
 
 void __fastcall FixPlrWalkTags(int pnum)
 {
@@ -1977,7 +1972,6 @@ void __fastcall StartPlrHit(int pnum, int dam, BOOL forcehit)
 		SetPlayerOld(pnum);
 	}
 }
-
 void __fastcall RespawnDeadItem(ItemStruct *itm, int x, int y)
 {
 	ItemStruct *v3; // ebx
@@ -2773,6 +2767,7 @@ BOOL __fastcall PM_DoWalk3(int pnum)
 	return FALSE;
 }
 // 5BB1ED: using guessed type char leveltype;
+
 
 BOOL __fastcall WeaponDur(int pnum, int durrnd)
 {

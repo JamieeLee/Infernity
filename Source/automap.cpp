@@ -489,16 +489,10 @@ void HighlightItemsNameOnMap()
 	
 	if (highlightItem == false) {
 		HighlightedItemID = -1;
+
 	}
 }
 
-
-
-// 4B84B8: using guessed type int AutoMapPosBits;
-// 4B84BC: using guessed type int AutoMapXPos;
-// 4B84C0: using guessed type int AutoMapYPos;
-// 4B84C4: using guessed type int AMPlayerX;
-// 4B84C8: using guessed type int AMPlayerY;
 
 void __cdecl DrawAutomap()
 {
@@ -1133,7 +1127,6 @@ void __fastcall SetAutomapView(int x, int y)
 {
 	int xx = (x - 16) >> 1;
 	int yy = (y - 16) >> 1;
-
 	if (xx < 0 || xx >= DMAXX || yy < 0 || yy >= DMAXY) {
 		return;
 	}

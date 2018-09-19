@@ -1692,20 +1692,20 @@ void __fastcall CheckInvSwap(int pnum, BYTE bLoc, int idx, WORD wCI, int seed, B
 
 	PlayerStruct *p = &plr[pnum];
 	p->HoldItem = item[MAXITEMS];
-	if ( bId )
+	if (bId)
 	{
 		p->HoldItem._iIdentified = TRUE;
 	}
 
-	if ( bLoc < NUM_INVLOC )
+	if (bLoc < NUM_INVLOC)
 	{
 		p->InvBody[bLoc] = p->HoldItem;
 
-		if ( bLoc == INVLOC_HAND_LEFT && p->HoldItem._iLoc == ILOC_TWOHAND )
+		if (bLoc == INVLOC_HAND_LEFT && p->HoldItem._iLoc == ILOC_TWOHAND)
 		{
 			p->InvBody[INVLOC_HAND_RIGHT]._itype = ITYPE_NONE;
 		}
-		else if ( bLoc == INVLOC_HAND_RIGHT && p->HoldItem._iLoc == ILOC_TWOHAND )
+		else if (bLoc == INVLOC_HAND_RIGHT && p->HoldItem._iLoc == ILOC_TWOHAND)
 		{
 			p->InvBody[INVLOC_HAND_LEFT]._itype = ITYPE_NONE;
 		}
@@ -1899,14 +1899,14 @@ void __fastcall CheckInvCut(int pnum, int mx, int my, bool shift)
 }
 void __fastcall inv_update_rem_item(int pnum, BYTE iv)
 {
-	if ( iv < NUM_INVLOC )
+	if (iv < NUM_INVLOC)
 	{
 		plr[pnum].InvBody[iv]._itype = ITYPE_NONE;
 	}
 
 	BOOL Loadgfx = FALSE;
 
-	if ( plr[pnum]._pmode != PM_DEATH )
+	if (plr[pnum]._pmode != PM_DEATH)
 	{
 		Loadgfx = TRUE;
 	}
@@ -1990,7 +1990,6 @@ void __fastcall RemoveSpdBarItem(int pnum, int iv)
 	drawpanflag = 255;
 }
 
-
 bool CanPutToBelt(int miscId)
 {
 	std::set<int> canPutToBelt = { IMISC_FULLHEAL ,IMISC_HEAL ,IMISC_MANA,IMISC_FULLMANA,IMISC_REJUV,IMISC_FULLREJUV,IMISC_SCROLL,IMISC_SCROLLT };
@@ -2017,18 +2016,19 @@ void __cdecl CheckInvItem()
 		if (GetAsyncKeyState(VK_SHIFT) < 0 && plr[myplr]._pmode <= PM_WALK3 && MouseY <= 340 && MouseY >= 221 && MouseX >= 337 + GetWidthDiff() && MouseX <= 624 + GetWidthDiff() && FreeSlotOnBelt() != -1) {
 			if (plr[myplr].HoldItem._itype != ITYPE_NONE && CanPutToBelt(plr[myplr].HoldItem._iMiscId)) {
 				//CheckInvCut(myplr, MouseX, MouseY, true);
-				CheckInvPaste(myplr, 200 + FreeSlotOnBelt() * 30+GetWidthDiff()/2, 359+GetHeightDiff(), true);
+				CheckInvPaste(myplr, 200 + FreeSlotOnBelt() * 30 + GetWidthDiff() / 2, 359 + GetHeightDiff(), true);
 				CalcPlrInv(myplr, 1);
 			}
 		}
 	}
 	else {
-			CheckInvPaste(myplr, MouseX, MouseY);
-		}
+		CheckInvPaste(myplr, MouseX, MouseY);
 	}
+}
+
 void __cdecl CheckInvScrn()
 {
-	if ( MouseX > 190+GetWidthDiff()/2 && MouseX < 437 + GetWidthDiff()/2 && MouseY > 352+GetHeightDiff() && MouseY < 385 + GetHeightDiff()){
+	if (MouseX > 190 + GetWidthDiff() / 2 && MouseX < 437 + GetWidthDiff() / 2 && MouseY > 352 + GetHeightDiff() && MouseY < 385 + GetHeightDiff()) {
 		CheckInvItem();
 	}
 }

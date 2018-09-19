@@ -3240,7 +3240,6 @@ void __cdecl DrawFPS()
 		}
 		if ( framerate > 99 )
 			framerate = 99;
-
 		std::stringstream ss;
 		ss << "FPS: " << framerate;
 		PrintGameStr(200, 200, (char*)ss.str().c_str(), COL_ORANGE);

@@ -1596,6 +1596,8 @@ void __fastcall SetPlrHandItem(ItemStruct *h, int idata)
 	ItemDataStruct *pAllItem;
 
 	pAllItem = &AllItemsList[idata];
+
+	// zero-initialize struct
 	memset(h, 0, sizeof(*h));
 	h->_itype = pAllItem->itype;
 	h->_iCurs = pAllItem->iCurs;
