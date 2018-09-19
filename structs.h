@@ -391,7 +391,7 @@ struct ItemStruct
 //////////////////////////////////////////////////
 // player
 //////////////////////////////////////////////////
-
+#define LATEST_PLAYERSTRUCT PlayerStruct6
 struct PlayerStruct
 {
 	int _pmode;
@@ -584,21 +584,45 @@ struct PlayerStruct
 	unsigned char *_pDData;
 	unsigned char *_pBData;
 	unsigned int version;
+};
+
+struct PlayerStruct2 :PlayerStruct
+{
 	ItemStruct InvListExpanded[4][40];
 	char InvGridExpanded[4][40];
 	int NumInvExpanded[4];
 	int currentInventoryIndex;
+};
+
+struct PlayerStruct3 :PlayerStruct2
+{
 	ItemStruct alternateWeapons[2];
 	int currentWeaponSet;
 	char walkpath2[100];
+};
+
+struct PlayerStruct4 :PlayerStruct3
+{
 	ItemStruct StashInvList[MAX_STASH_TABS][40];
 	char StashInvGrid[MAX_STASH_TABS][40];
 	int StashNumInv[MAX_STASH_TABS];
 	char StashNames[MAX_STASH_TABS][16];
 	int lastTab;
+};
+struct PlayerStruct5 :PlayerStruct4
+{
 	int NewSpellHotkeys[12];
 	int NewSpellTHotkeys[12];
 };
+
+struct PlayerStruct6 :PlayerStruct5
+{
+	float cooldowns[100];
+};
+
+
+
+
 
 //////////////////////////////////////////////////
 // textdat

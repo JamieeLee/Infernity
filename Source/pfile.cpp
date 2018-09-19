@@ -229,7 +229,7 @@ int __fastcall pfile_create_save_file(char *name_1, char *name_2)
 	v7 = plr[0]._pName;
 	while ( _strcmpi(v3, v7) )
 	{
-		v7 += StructSize<PlayerStruct>();
+		v7 += StructSize<LATEST_PLAYERSTRUCT>();
 		++v4;
 		if ( v7 == plr[4]._pName )
 			return 0;
@@ -255,10 +255,10 @@ void __cdecl pfile_flush_W()
 	pfile_flush(1, v0);
 }
 
-void __fastcall game_2_ui_player(PlayerStruct *p, _uiheroinfo *heroinfo, bool bHasSaveFile)
+void __fastcall game_2_ui_player(LATEST_PLAYERSTRUCT *p, _uiheroinfo *heroinfo, bool bHasSaveFile)
 {
 	_uiheroinfo *v3; // esi
-	PlayerStruct *v4; // edi
+	LATEST_PLAYERSTRUCT *v4; // edi
 	char v5; // al
 
 	v3 = heroinfo;
@@ -279,7 +279,7 @@ void __fastcall game_2_ui_player(PlayerStruct *p, _uiheroinfo *heroinfo, bool bH
 	v3->herorank = v5;
 }
 
-char __fastcall game_2_ui_class(PlayerStruct *p)
+char __fastcall game_2_ui_class(LATEST_PLAYERSTRUCT *p)
 {
 	char result; // al
 
@@ -454,33 +454,13 @@ bool __fastcall pfile_read_hero(void *archive, LATEST_PKPLAYER_STRUCT *pPack)
 					if ( SFileReadFile(file, v6, v4, (unsigned long *)&dwBytes, 0) )
 					{
 						dwBytes = codec_decode(v6, v4, password);
-LABEL_11:
-						if ( dwBytes == sizeof(PkPlayerStruct))
+					LABEL_11:
+						std::set<int> structSizes = { sizeof(PkPlayerStruct) ,sizeof(PkPlayerStruct2) ,sizeof(PkPlayerStruct3) ,sizeof(PkPlayerStruct4) ,sizeof(PkPlayerStruct5) };
+						if (structSizes.find(dwBytes) != structSizes.end())
 						{
-							memcpy(v11, v6, sizeof(PkPlayerStruct));
+							memcpy(v11, v6, dwBytes);
 							v13 = 1;
-						}
-
-						else if (dwBytes == sizeof(PkPlayerStruct2))
-						{
-							memcpy(v11, v6, sizeof(PkPlayerStruct2));
-							v13 = 1;
-						}
-						else if (dwBytes == sizeof(PkPlayerStruct3))
-						{
-							memcpy(v11, v6, sizeof(PkPlayerStruct3));
-							v13 = 1;
-						}
-						else if (dwBytes == sizeof(PkPlayerStruct4))
-						{
-							memcpy(v11, v6, sizeof(PkPlayerStruct4));
-							v13 = 1;
-						}
-						else if (dwBytes == sizeof(PkPlayerStruct5))
-						{
-							memcpy(v11, v6, sizeof(PkPlayerStruct5));
-							v13 = 1;
-						}
+						}					
 						goto LABEL_13;
 					}
 				}

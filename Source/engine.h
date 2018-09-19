@@ -138,7 +138,7 @@ template<typename T> size_t StructSize(int version = -1) { return sizeof(T); }
 	for( int i = 0; i < countof(s); i+=2 ) if( size_t(version) > s[i] ) return size; else size = s[i+1]; return size; }
 
 SS(ItemStruct, 0, 368);
-SS(PlayerStruct, 4, 1559624, 3, 81620, 2, 81520, 1, 80780, 0, 21720); // 3, 81620, 
+SS(LATEST_PLAYERSTRUCT, 5, sizeof(PlayerStruct5),4, sizeof(PlayerStruct4), 3, sizeof(PlayerStruct3), 2, sizeof(PlayerStruct3)-100, 1, sizeof(PlayerStruct2), 0, sizeof(PlayerStruct)); // 3, 81620, 
 #undef SS
 
 int __fastcall random(BYTE idx, int v);

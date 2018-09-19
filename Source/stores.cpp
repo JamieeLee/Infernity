@@ -1164,7 +1164,7 @@ void __cdecl S_StartSRepair()
 		AddStoreHoldRepair(&plr[v6].InvBody[5], -4);
 		v2 = myplr;
 	}
-	v7 = StructSize<PlayerStruct>() * v2;
+	v7 = StructSize<LATEST_PLAYERSTRUCT>() * v2;
 	if ( plr[v2]._pNumInv > 0 )
 	{
 		v13 = 0;
@@ -1178,7 +1178,7 @@ void __cdecl S_StartSRepair()
 				v2 = myplr;
 			}
 			++v13;
-			v7 = StructSize<PlayerStruct>() * v2;
+			v7 = StructSize<LATEST_PLAYERSTRUCT>() * v2;
 			++v0;
 		}
 		while ( v0 < plr[v2]._pNumInv );
@@ -2591,7 +2591,7 @@ void __fastcall TakePlrsMoney(int cost)
 	plr[myplr]._pGold = v2 - v1;
 	while ( v1 > 0 )
 	{
-		v5 = StructSize<ItemStruct>() * v4 + StructSize<PlayerStruct>() * v3;
+		v5 = StructSize<ItemStruct>() * v4 + StructSize<LATEST_PLAYERSTRUCT>() * v3;
 		if ( *(int *)((char *)&plr[0].SpdList[0]._itype + v5) == ITYPE_GOLD )
 		{
 			v6 = (unsigned int *)((char *)&plr[0].SpdList[0]._ivalue + v5);
@@ -2622,7 +2622,7 @@ void __fastcall TakePlrsMoney(int cost)
 				{
 					if ( v1 <= 0 )
 						break;
-					v9 = StructSize<ItemStruct>() * v8 + StructSize<PlayerStruct>() * v3;
+					v9 = StructSize<ItemStruct>() * v8 + StructSize<LATEST_PLAYERSTRUCT>() * v3;
 					if ( *(int *)((char *)&plr[0].SpdList[0]._itype + v9) == ITYPE_GOLD )
 					{
 						v10 = (unsigned int *)((char *)&plr[0].SpdList[0]._ivalue + v9);
@@ -2652,14 +2652,14 @@ void __fastcall TakePlrsMoney(int cost)
 	drawpanflag = 255;
 	if ( v1 > 0 )
 	{
-		v13 = StructSize<PlayerStruct>() * v3;
+		v13 = StructSize<LATEST_PLAYERSTRUCT>() * v3;
 		if ( plr[v3]._pNumInv <= 0 )
 		{
 LABEL_26:
 			v17 = 0;
 			if ( v1 > 0 )
 			{
-				v18 = StructSize<PlayerStruct>() * v3;
+				v18 = StructSize<LATEST_PLAYERSTRUCT>() * v3;
 				if ( plr[v3]._pNumInv > 0 )
 				{
 					do
@@ -2686,7 +2686,7 @@ LABEL_26:
 							}
 						}
 						++v17;
-						v18 = StructSize<PlayerStruct>() * v3;
+						v18 = StructSize<LATEST_PLAYERSTRUCT>() * v3;
 					}
 					while ( v17 < plr[v3]._pNumInv );
 				}
@@ -2719,7 +2719,7 @@ LABEL_26:
 					}
 				}
 				++v12;
-				v13 = StructSize<PlayerStruct>() * v3;
+				v13 = StructSize<LATEST_PLAYERSTRUCT>() * v3;
 				if ( v12 >= plr[v3]._pNumInv )
 					goto LABEL_26;
 			}

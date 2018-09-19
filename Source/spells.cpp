@@ -43,6 +43,19 @@ SpellData spelldata[37] =
 	{ SPL_BONESPIRIT,  24,  STYPE_MAGIC,     "Bone Spirit",     NULL,             9,  7,  0, 0, 34,  IS_CAST2, { MIS_BONESPIRIT,  0,          0 }, 1, 12,  20, 60, 11500, 800 }
 };
 
+float GetSpellCooldown(int spell) {
+	switch (spell) {
+	case SPL_RECHARGE:
+	case SPL_REPAIR:
+		return 120-plr[myplr]._pLevel;
+	case SPL_FIREWALL:
+		return 10;
+	case SPL_CHAIN:
+		return 0.5;
+	default: return 0;
+	}
+}
+
 int __fastcall GetManaAmount(int id, int sn)
 {
 	int i; // "raw" mana cost
@@ -123,9 +136,11 @@ int __fastcall GetManaAmount(int id, int sn)
 void __fastcall UseMana(int id, int sn)
 {
 	int ma; // mana cost
-
 	if ( id == myplr )
 	{
+		if (plr[id]._pSplType == RSPLTYPE_SPELL || plr[id]._pSplType == RSPLTYPE_SKILL) {
+			plr[id].cooldowns[sn] += GetSpellCooldown(sn);
+		}
 		switch ( plr[id]._pSplType )
 		{
 		case RSPLTYPE_SPELL:

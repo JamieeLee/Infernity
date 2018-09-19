@@ -52,10 +52,6 @@ int dbgplr;
 int dbgqst;
 int dbgmon;
 int arrowdebug;
-int frameflag;
-int frameend;
-int framerate;
-int framestart;
 #endif
 int frameflag;
 int frameend;
@@ -207,6 +203,14 @@ void __fastcall run_game_loop(int uMsg)
 			msgcmd_send_chat();
 			gbGameLoopStartup = 0;
 			DrawAndBlit();
+			for (int i = 0; i < 100; ++i) {
+				if (plr[myplr].cooldowns[i] > 0) {
+					plr[myplr].cooldowns[i] -= 0.05;
+				}
+				else {
+					plr[myplr].cooldowns[i] = 0;
+				}
+			}
 		}
 #ifdef SLEEP
 		Sleep(1);
@@ -990,7 +994,7 @@ LABEL_48:
 		SetCursor(CURSOR_HAND);
 		return 0;
 	}
-	v3 = StructSize<PlayerStruct>() * myplr;
+	v3 = StructSize<LATEST_PLAYERSTRUCT>() * myplr;
 	if ( plr[myplr]._pStatPts && !spselflag )
 		CheckLvlBtn();
 	if ( lvlbtndown )
@@ -1166,7 +1170,7 @@ LABEL_26:
 				if ( pcursplr == -1 )
 				{
 					v4 = GetSpellLevel(myplr, v1);
-					v5 = StructSize<PlayerStruct>() * myplr;
+					v5 = StructSize<LATEST_PLAYERSTRUCT>() * myplr;
 					_LOWORD(v5) = plr[myplr]._pTSpell;
 					NetSendCmdLocParam2(1u, CMD_TSPELLXY, cursmx, cursmy, v5, v4);
 				}
@@ -1502,31 +1506,6 @@ LABEL_59:
 								return;
 							case VK_TAB:
 							{
-			/*
-								for (int i = 0; i < 40; ++i) {
-									ItemStruct wtf = plr[myplr].InvListExpanded[0][i];
-								}*/
-
-								//std::stringstream ss;
-								//ss << sizeof(PkPlayerStruct);
-								//MessageBox(NULL, ss.str().c_str(), NULL, NULL);
-								/*
-								plr[myplr].NumInvExpanded[1] = 0;
-								plr[myplr].NumInvExpanded[2] = 0;
-								for (int i = 0; i < 40; ++i) {
-									memset(&plr[myplr].InvListExpanded[1][i], 0, sizeof(ItemStruct));
-									memset(&plr[myplr].InvListExpanded[2][i], 0, sizeof(ItemStruct));
-									plr[myplr].InvListExpanded[1][i]._itype = -1;
-									plr[myplr].InvListExpanded[2][i]._itype = -1;
-									plr[myplr].InvGridExpanded[1][i] = 0;
-									plr[myplr].InvGridExpanded[2][i] = 0;
-								}*/
-								//plr[myplr].NumInvExpanded[0] = 24;
-								//plr[myplr].NumInvExpanded[1] = 5;
-								//plr[myplr].NumInvExpanded[2] = 0;
-								//plr[myplr].NumInvExpanded[3] = 18;
-								//plr[myplr]._pNumInv = plr[myplr].NumInvExpanded[0];
-								//*/
 								DoAutoMap();
 								return;
 							}

@@ -1041,7 +1041,7 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 	signed int v18; // ebx
 	int v19; // ebx
 	unsigned int v20; // ecx
-	PlayerStruct *v21; // esi
+	LATEST_PLAYERSTRUCT *v21; // esi
 	int v22; // esi
 	int v23; // eax
 	MonsterStruct *v24; // esi
@@ -1049,7 +1049,7 @@ void __fastcall scrollrt_draw_clipped_dungeon(char *a1, int sx, int sy, int a4, 
 	int v26; // ebx
 	int v27; // edi
 	unsigned int v28; // ecx
-	PlayerStruct *v29; // esi
+	LATEST_PLAYERSTRUCT *v29; // esi
 	int v30; // esi
 	int v31; // eax
 	MonsterStruct *v32; // esi
@@ -1727,7 +1727,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 	signed int v21; // ebx
 	int v22; // ebx
 	unsigned int v23; // ecx
-	PlayerStruct *v24; // esi
+	LATEST_PLAYERSTRUCT *v24; // esi
 	int v25; // esi
 	int v26; // eax
 	MonsterStruct *v27; // esi
@@ -1735,7 +1735,7 @@ void __fastcall scrollrt_draw_clipped_dungeon_2(char *buffer, int x, int y, int 
 	int v29; // ebx
 	int v30; // edi
 	unsigned int v31; // ecx
-	PlayerStruct *v32; // esi
+	LATEST_PLAYERSTRUCT *v32; // esi
 	int v33; // esi
 	int v34; // eax
 	MonsterStruct *v35; // esi
@@ -2342,7 +2342,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 	signed int v20; // ebx
 	int v21; // ebx
 	unsigned int v22; // ecx
-	PlayerStruct *v23; // esi
+	LATEST_PLAYERSTRUCT *v23; // esi
 	int v24; // esi
 	int v25; // eax
 	MonsterStruct *v26; // esi
@@ -2350,7 +2350,7 @@ void __fastcall scrollrt_draw_dungeon(char *buffer, int x, int y, int a4, int a5
 	int v28; // ebx
 	int v29; // edi
 	unsigned int v30; // ecx
-	PlayerStruct *v31; // esi
+	LATEST_PLAYERSTRUCT *v31; // esi
 	int v32; // esi
 	int v33; // eax
 	MonsterStruct *v34; // esi

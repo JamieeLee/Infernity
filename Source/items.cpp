@@ -1403,7 +1403,7 @@ void __fastcall CalcPlrStaff(int pnum)
 
 void __fastcall CalcSelfItems(int pnum)
 {
-	PlayerStruct *v1; // ecx
+	LATEST_PLAYERSTRUCT *v1; // ecx
 	int v2; // edx
 	int v3; // esi
 	int v4; // edi
@@ -1496,7 +1496,7 @@ void __fastcall CalcPlrItemMin(int pnum)
 	}
 }
 
-bool __fastcall ItemMinStats(PlayerStruct *p, ItemStruct *x)
+bool __fastcall ItemMinStats(LATEST_PLAYERSTRUCT *p, ItemStruct *x)
 {
 	if ( p->_pStrength < x->_iMinStr || p->_pMagic < x->_iMinMag || p->_pDexterity < x->_iMinDex )
 		return 0;
@@ -1548,8 +1548,8 @@ void __fastcall CalcPlrBookVals(int p)
 				v7 = *v6;
 				v8 = spelldata[*v6].sMinInt;
 				*((_BYTE *)v6 + 129) = v8;
-				v13 = plr[0]._pSplLvl[v7 + v5 * StructSize<PlayerStruct>()];
-				if ( plr[0]._pSplLvl[v7 + v5 * StructSize<PlayerStruct>()] )
+				v13 = plr[0]._pSplLvl[v7 + v5 * StructSize<LATEST_PLAYERSTRUCT>()];
+				if ( plr[0]._pSplLvl[v7 + v5 * StructSize<LATEST_PLAYERSTRUCT>()] )
 				{
 					do
 					{
@@ -3902,14 +3902,15 @@ void __fastcall CheckIdentify(int pnum, int cii)
 
 void __fastcall DoRepair(int pnum, int cii)
 {
-	PlayerStruct *p; // eax
+	LATEST_PLAYERSTRUCT *p; // eax
 	ItemStruct *pi; // esi
 
 	p = &plr[pnum];
 	pi = &p->InvBody[cii];
 
 	PlaySfxLoc(IS_REPAIR, p->WorldX, p->WorldY);
-	RepairItem(pi, p->_pLevel);
+	//RepairItem(pi, p->_pLevel);
+	pi->_iDurability = pi->_iMaxDur;
 	CalcPlrInv(pnum, 1);
 
 	if ( pnum == myplr )
@@ -3953,7 +3954,7 @@ void __fastcall RepairItem(ItemStruct *i, int lvl)
 
 void __fastcall DoRecharge(int pnum, int cii)
 {
-	PlayerStruct *p; // eax
+	LATEST_PLAYERSTRUCT *p; // eax
 	ItemStruct *pi; // esi
 
 	p = &plr[pnum];
@@ -3961,7 +3962,8 @@ void __fastcall DoRecharge(int pnum, int cii)
 
 	if ( pi->_itype == ITYPE_STAFF && pi->_iSpell )
 	{
-		RechargeItem(pi, random(38, p->_pLevel / spelldata[pi->_iSpell].sBookLvl) + 1);
+		//RechargeItem(pi, random(38, p->_pLevel / spelldata[pi->_iSpell].sBookLvl) + 1);
+		pi->_iCharges=pi->_iMaxCharges;
 		CalcPlrInv(pnum, 1);
 	}
 

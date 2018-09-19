@@ -1981,7 +1981,7 @@ bool __fastcall i_own_level(int nReqLevel)
 	{
 		if ( *(v2 - 290) && !*v2 && *(_DWORD *)(v2 - 267) == nReqLevel && (v1 != myplr || !gbBufferMsgs) )
 			break;
-		v2 += StructSize<PlayerStruct>();
+		v2 += StructSize<LATEST_PLAYERSTRUCT>();
 		++v1;
 	}
 	while ( (signed int)v2 < (signed int)&plr[4]._pLvlChanging );
@@ -3114,7 +3114,7 @@ int __fastcall On_AWAKEGOLEM(struct TCmdGolem *pCmd, int pnum)
 	}
 	else
 	{
-		v3 = StructSize<PlayerStruct>() * pnum;
+		v3 = StructSize<LATEST_PLAYERSTRUCT>() * pnum;
 		if ( currlevel == plr[pnum].plrlevel )
 		{
 			if ( pnum != myplr )

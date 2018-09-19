@@ -959,7 +959,7 @@ ItemStruct *__fastcall PlrHasItem(int pnum, int item, int *i)
 	unsigned int v3; // eax
 	int v4; // ecx
 
-	v3 = StructSize<PlayerStruct>() * pnum;
+	v3 = StructSize<LATEST_PLAYERSTRUCT>() * pnum;
 	*i = 0;
 	if ( plr[pnum]._pNumInv <= 0 )
 		return 0;
@@ -967,7 +967,7 @@ ItemStruct *__fastcall PlrHasItem(int pnum, int item, int *i)
 	{
 		v4 = *i + 1;
 		*i = v4;
-		if ( v4 >= plr[v3 / StructSize<PlayerStruct>()]._pNumInv )
+		if ( v4 >= plr[v3 / StructSize<LATEST_PLAYERSTRUCT>()]._pNumInv )
 			return 0;
 	}
 	return (ItemStruct *)((char *)&plr[0].InvList[*i] + v3);

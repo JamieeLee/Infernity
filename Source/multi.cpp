@@ -872,7 +872,7 @@ int __fastcall NetInit(int bSinglePlayer, int *pfExitProgram)
 		memset(sgdwPlayerLeftReasonTbl, 0, 0x10u);
 		memset(sgbSendDeltaTbl, 0, 4u);
 		//memset(plr, 0, 0x15360u);
-		memset(plr, 0, StructSize<PlayerStruct>()*4);
+		memset(plr, 0, StructSize<LATEST_PLAYERSTRUCT>()*4);
 		memset(sgwPackPlrOffsetTbl, 0, 8u);
 		SNetSetBasePlayer(0);
 		if ( v14 )

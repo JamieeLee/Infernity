@@ -3443,7 +3443,7 @@ void __fastcall AddGuardian(int mi, int sx, int sy, int dx, int dy, int midir, i
 	int v36; // [esp+3Ch] [ebp-4h]
 
 	CrawlNum[0] = 0;
-	v9 = StructSize<PlayerStruct>() * id;
+	v9 = StructSize<LATEST_PLAYERSTRUCT>() * id;
 	x1 = sx;
 	v10 = mi;
 	CrawlNum[1] = 3;
@@ -3451,7 +3451,7 @@ void __fastcall AddGuardian(int mi, int sx, int sy, int dx, int dy, int midir, i
 	CrawlNum[3] = 45;
 	CrawlNum[4] = 94;
 	CrawlNum[5] = 159;
-	v33 = StructSize<PlayerStruct>() * id;
+	v33 = StructSize<LATEST_PLAYERSTRUCT>() * id;
 	v11 = v10;
 	v12 = random(62, 10) + (plr[id]._pLevel >> 1) + 1;
 	v13 = missile[v11]._mispllvl;

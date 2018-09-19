@@ -1,7 +1,7 @@
 //HEADER_GOES_HERE
 #include "../types.h"
 
-int bullshitStructSize = StructSize<PlayerStruct>() / 4;
+int bullshitStructSize = StructSize<LATEST_PLAYERSTRUCT>() / 4;
 
 int plr_lframe_size; // idb
 int plr_wframe_size; // idb
@@ -9,7 +9,7 @@ char plr_gfx_flag; // weak
 int player_cpp_init_value; // weak
 int plr_aframe_size; // idb
 int myplr;
-PlayerStruct plr[MAX_PLRS];
+LATEST_PLAYERSTRUCT plr[MAX_PLRS];
 int plr_fframe_size; // idb
 int plr_qframe_size; // idb
 int deathflag; // idb
@@ -109,7 +109,7 @@ char *ClassStrTbl[3] = { "Warrior", "Rogue", "Sorceror" };
 
 void AutoPickGold(int pnum) {
 	if (GetConfigBoolVariable("autoPickGold") == false) { return; }
-	PlayerStruct& player = plr[pnum];
+	LATEST_PLAYERSTRUCT& player = plr[pnum];
 	if (currlevel == 0 || (gbMaxPlayers > 1 && gbActivePlayers > 1) || invflag) return;
 	for (int orient = 0; orient < 9; ++orient) {
 		int row = player.WorldX + pathxdir[orient];
@@ -305,7 +305,7 @@ void DrawFloatingTextAbovePlayer() {
 void DrawFloatingExp(int xpGain, int row, int col) {
 	if (GetConfigBoolVariable("showFloatingExp")) {
 		if (GetConfigBoolVariable("showFloatingExpPercentGain")) {
-			PlayerStruct* player = &plr[myplr];
+			LATEST_PLAYERSTRUCT* player = &plr[myplr];
 			float levelProgress = 0;
 			int charLevel = player->_pLevel;
 			if (charLevel != 50) {
@@ -352,7 +352,7 @@ bool CanRun(int pnum) {
 void MakePlayerRun(int pnum) {
 
 	if (CanRun(pnum)) {
-		PlayerStruct* player = &plr[pnum];
+		LATEST_PLAYERSTRUCT* player = &plr[pnum];
 		if (!(player->_pAnimFrame % 2)) {
 			player->_pAnimFrame++;
 			++player->_pVar8;
@@ -391,7 +391,7 @@ void __fastcall LoadPlrGFX(int pnum, player_graphic gfxflag)
 	char prefix[16];
 	char pszName[256];
 	char *szCel;
-	PlayerStruct *p = &plr[pnum];
+	LATEST_PLAYERSTRUCT *p = &plr[pnum];
 	sprintf(prefix, "%c%c%c", CharChar[p->_pClass], ArmourChar[p->_pgfxnum >> 4], WepChar[p->_pgfxnum & 0xF]);
 	char *cs = ClassStrTbl[p->_pClass];
 	UCHAR *pData;
@@ -754,7 +754,7 @@ void __fastcall SetPlrAnims(int pnum)
 }
 // 5BB1ED: using guessed type char leveltype;
 
-void __fastcall ClearPlrRVars(PlayerStruct *p)
+void __fastcall ClearPlrRVars(LATEST_PLAYERSTRUCT *p)
 {
 	// TODO: Missing debug assert p != NULL
 	p->bReserved[0] = 0;
@@ -2266,7 +2266,7 @@ void __fastcall DropHalfPlayersGold(int pnum)
 	i = 0;
 	while ( v3 > 0 )
 	{
-		v4 = StructSize<ItemStruct>() * i + v2 * StructSize<PlayerStruct>();
+		v4 = StructSize<ItemStruct>() * i + v2 * StructSize<LATEST_PLAYERSTRUCT>();
 		v14 = v4;
 		if ( *(int *)((char *)&plr[0].SpdList[0]._itype + v4) == ITYPE_GOLD )
 		{
@@ -2306,7 +2306,7 @@ void __fastcall DropHalfPlayersGold(int pnum)
 				{
 					if ( v3 <= 0 )
 						break;
-					v6 = StructSize<ItemStruct>() * ia + v2 * StructSize<PlayerStruct>();
+					v6 = StructSize<ItemStruct>() * ia + v2 * StructSize<LATEST_PLAYERSTRUCT>();
 					v15 = v6;
 					if ( *(int *)((char *)&plr[0].SpdList[0]._itype + v6) == ITYPE_GOLD )
 					{
@@ -2356,7 +2356,7 @@ LABEL_28:
 				{
 					if ( v3 <= 0 )
 						break;
-					v12 = StructSize<ItemStruct>() * v11 + v2 * StructSize<PlayerStruct>();
+					v12 = StructSize<ItemStruct>() * v11 + v2 * StructSize<LATEST_PLAYERSTRUCT>();
 					v17 = v12;
 					if ( *(int *)((char *)&plr[0].InvList[0]._itype + v12) == ITYPE_GOLD )
 					{
@@ -2391,7 +2391,7 @@ LABEL_28:
 		{
 			while ( v3 > 0 )
 			{
-				v9 = StructSize<ItemStruct>() * v8 + v2 * StructSize<PlayerStruct>();
+				v9 = StructSize<ItemStruct>() * v8 + v2 * StructSize<LATEST_PLAYERSTRUCT>();
 				v16 = v9;
 				if ( *(int *)((char *)&plr[0].InvList[0]._itype + v9) == ITYPE_GOLD )
 				{
@@ -3503,7 +3503,7 @@ void __fastcall ArmorDur(int pnum)
 {
 	int v1; // ebp
 	//int v2; // ST04_4
-	PlayerStruct *v3; // esi
+	LATEST_PLAYERSTRUCT *v3; // esi
 	int v4; // eax
 	int v5; // edi
 	int v6; // esi
@@ -4225,7 +4225,7 @@ void __cdecl ProcessPlayers()
 	ValidatePlayer();
 
 	for (int playerIndex = 0; playerIndex < 4; playerIndex++) {
-		PlayerStruct& player = plr[playerIndex]; {
+		LATEST_PLAYERSTRUCT& player = plr[playerIndex]; {
 			if (player.plractive && player.plrlevel == currlevel && (playerIndex == myplr || !player._pLvlChanging))
 			{
 				CheckCheatStats(playerIndex);
@@ -4253,7 +4253,7 @@ void __cdecl ProcessPlayers()
 					SyncPlrKill(playerIndex, 0);
 					drawhpflag = 1;
 					}
-					if (*((_BYTE *)v5 + 21179) & 8)     // sizeof(PlayerStruct)
+					if (*((_BYTE *)v5 + 21179) & 8)     // sizeof(LATEST_PLAYERSTRUCT)
 					{
 					v9 = v5[3];
 					if (v9 > 0)
@@ -4493,11 +4493,11 @@ void __fastcall CheckPlrSpell()
 		TermMsg("CheckPlrSpell: illegal player %d", myplr);
 		v0 = myplr;
 	}
-	v1 = StructSize<PlayerStruct>() * v0;
+	v1 = StructSize<LATEST_PLAYERSTRUCT>() * v0;
 	v2 = plr[v0]._pRSpell;
 	if ( v2 != -1 )
 	{
-		if ( leveltype == DTYPE_TOWN && !*(_DWORD *)&spelldata[v2].sTownSpell )
+		if ( (leveltype == DTYPE_TOWN && !*(_DWORD *)&spelldata[v2].sTownSpell) || plr[myplr].cooldowns[v2] > 0)
 		{
 			v5 = *((_BYTE *)&plr[0]._pClass + v1);
 			switch ( v5 )
@@ -4571,7 +4571,7 @@ LABEL_36:
 			{
 				v8 = GetDirection(plr[myplr].WorldX, plr[myplr].WorldY, cursmx, cursmy);
 				v9 = GetSpellLevel(myplr, plr[myplr]._pRSpell);
-				v10 = StructSize<PlayerStruct>() * myplr;
+				v10 = StructSize<LATEST_PLAYERSTRUCT>() * myplr;
 				_LOWORD(v10) = plr[myplr]._pRSpell;
 				NetSendCmdLocParam3(1u, CMD_SPELLXYD, cursmx, cursmy, v10, v8, v9);
 			}
@@ -4580,7 +4580,7 @@ LABEL_36:
 				if ( pcursplr == -1 )
 				{
 					v13 = GetSpellLevel(myplr, v7);
-					v14 = StructSize<PlayerStruct>() * myplr;
+					v14 = StructSize<LATEST_PLAYERSTRUCT>() * myplr;
 					_LOWORD(v14) = plr[myplr]._pRSpell;
 					NetSendCmdLocParam2(1u, CMD_SPELLXY, cursmx, cursmy, v14, v13);
 				}

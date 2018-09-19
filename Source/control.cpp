@@ -428,10 +428,48 @@ void __cdecl DrawSpell()
 	if ( plr[v0]._pRSpell < 0 )
 		v2 = 4;
 	SetSpellTrans(v2);
-	if ( v6 == -1 )
-		DrawSpellCel(629+GetWidthDiff()/2, 631 + GetHeightDiff(), (char *)pSpellCels, 27, 56);
-	else
-		DrawSpellCel(629 + GetWidthDiff() / 2, 631+GetHeightDiff(), (char *)pSpellCels, (char)SpellITbl[v3], 56);
+	if (v6 == -1) {
+		DrawSpellCel(629 + GetWidthDiff() / 2, 631 + GetHeightDiff(), (char *)pSpellCels, 27, 56);
+	}
+	else {
+		DrawSpellCel(629 + GetWidthDiff() / 2, 631 + GetHeightDiff(), (char *)pSpellCels, (char)SpellITbl[v3], 56);
+		if (plr[myplr].cooldowns[plr[myplr]._pRSpell] > 0) {
+			std::string s;
+			sprintf((char*)s.c_str(), "%.1f", plr[myplr].cooldowns[plr[myplr]._pRSpell]);
+			PrintGameStrAccurate(572 + GetWidthDiff() / 2, 430 + GetHeightDiff(), (char*)s.c_str(), COL_WHITE, true, 150, 0, 150);
+		}
+
+		if (plr[myplr]._pRSplType == RSPLTYPE_CHARGES) {
+			std::stringstream ss;
+			ss << plr[myplr].InvBody[4]._iCharges;
+			PrintGameStrAccurate(618 + GetWidthDiff() / 2 - GetTextWidth((char*)ss.str().c_str()), 430 + GetHeightDiff(), (char*)ss.str().c_str(), COL_WHITE, true, 255 ,60, 0);
+		}
+
+		else if (plr[myplr]._pRSplType == RSPLTYPE_SCROLL) {
+			int iter = plr[myplr]._pNumInv;
+			int scrollnum = 0;
+			while (iter--) {
+				if (plr[myplr].InvList[iter]._itype != -1
+					&& (plr[myplr].InvList[iter]._iMiscId == IMISC_SCROLL || plr[myplr].InvList[iter]._iMiscId == IMISC_SCROLLT)
+					&& plr[myplr].InvList[iter]._iSpell == plr[myplr]._pRSpell) {
+					scrollnum++;
+				}
+			}
+			iter = 8;
+			while (iter--) {
+				if (plr[myplr].SpdList[iter]._itype != -1
+					&& (plr[myplr].SpdList[iter]._iMiscId == IMISC_SCROLL || plr[myplr].SpdList[iter]._iMiscId == IMISC_SCROLLT)
+					&& plr[myplr].SpdList[iter]._iSpell == plr[myplr]._pRSpell) {
+					scrollnum++;
+				}
+			}
+				std::stringstream ss;
+				ss << scrollnum;
+				PrintGameStrAccurate(618 + GetWidthDiff() / 2 - GetTextWidth((char*)ss.str().c_str()), 430 + GetHeightDiff(), (char*)ss.str().c_str(), COL_WHITE, true, 255, 60, 0);
+			}
+	}
+
+
 }
 
 void __cdecl DrawSpellList()
@@ -533,6 +571,11 @@ LABEL_10:
 			if ( !currlevel && !*(_DWORD *)v20 )
 				SetSpellTrans(4);
 			DrawSpellCel(v17+GetWidthDiff()/2, xp+GetHeightDiff()/2, (char *)pSpellCels, (char)SpellITbl[v4], 56);
+			if (plr[myplr].cooldowns[v4] > 0) {
+				std::string s;
+				sprintf((char*)s.c_str(), "%.1f", plr[myplr].cooldowns[v4]);
+				PrintGameStrAccurate(v17 + GetWidthDiff() / 2 - 58, xp + GetHeightDiff() / 2 - 198, (char*)s.c_str(), COL_WHITE, true, 150, 0, 150);
+			}
 			if ( MouseX >= v17 - 64 + GetWidthDiff() / 2 && MouseX < v17 - 64 + 56 + GetWidthDiff() / 2 && MouseY >= v22 + GetHeightDiff() / 2 && MouseY < v22 + 56 + GetHeightDiff() / 2)
 			{
 				pSpell = v4;
@@ -3045,7 +3088,7 @@ LABEL_16:
 void __cdecl DrawDurIcon()
 {
 	int v0; // edx
-	PlayerStruct *v1; // esi
+	LATEST_PLAYERSTRUCT *v1; // esi
 	int v2; // eax
 	int v3; // eax
 	int v4; // eax
@@ -3215,7 +3258,7 @@ int __fastcall GetSBookTrans(int ii, unsigned char townok)
 	{
 		if ( !CheckSpell(myplr, ii, 1, 1) )
 			v6 = 4;
-		result = StructSize<PlayerStruct>() * myplr;
+		result = StructSize<LATEST_PLAYERSTRUCT>() * myplr;
 		if ( (char)(plr[myplr]._pISplLvlAdd + plr[myplr]._pSplLvl[v2]) <= 0 )
 			v6 = 4;
 	}
@@ -3621,7 +3664,7 @@ void __fastcall control_remove_gold(int pnum, int gold_index)
 	if ( gold_index > 46 )
 	{
 		v6 = gold_index - 47;
-		v7 = (unsigned int *)((char *)&plr[0].SpdList[v6]._ivalue + v3 * StructSize<PlayerStruct>());
+		v7 = (unsigned int *)((char *)&plr[0].SpdList[v6]._ivalue + v3 * StructSize<LATEST_PLAYERSTRUCT>());
 		*v7 -= dropGoldValue;
 		if ( *v7 <= 0 )
 			RemoveSpdBarItem(pnum, v6);
@@ -3631,7 +3674,7 @@ void __fastcall control_remove_gold(int pnum, int gold_index)
 	else
 	{
 		v4 = gold_index - 7;
-		v5 = (unsigned int *)((char *)&plr[0].InvList[v4]._ivalue + v3 * StructSize<PlayerStruct>());
+		v5 = (unsigned int *)((char *)&plr[0].InvList[v4]._ivalue + v3 * StructSize<LATEST_PLAYERSTRUCT>());
 		*v5 -= dropGoldValue;
 		if ( *v5 <= 0 )
 			RemoveInvItem(pnum, v4);
@@ -3734,7 +3777,7 @@ LABEL_10:
 		while ( v10 == myplr )
 		{
 LABEL_21:
-			a1 += StructSize<PlayerStruct>();
+			a1 += StructSize<LATEST_PLAYERSTRUCT>();
 			++v10;
 			if ( (signed int)a1 >= (signed int)&plr[4]._pName )
 				return;

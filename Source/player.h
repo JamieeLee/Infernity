@@ -8,7 +8,7 @@ extern char plr_gfx_flag; // weak
 extern int player_cpp_init_value; // weak
 extern int plr_aframe_size; // idb
 extern int myplr;
-extern PlayerStruct plr[MAX_PLRS];
+extern LATEST_PLAYERSTRUCT plr[MAX_PLRS];
 extern int plr_fframe_size; // idb
 extern int plr_qframe_size; // idb
 extern int deathflag; // idb
@@ -29,7 +29,7 @@ void __fastcall FreePlayerGFX(int pnum);
 void __fastcall NewPlrAnim(int pnum, unsigned char *Peq, int numFrames, int Delay, int width);
 void __fastcall ClearPlrPVars(int pnum);
 void __fastcall SetPlrAnims(int pnum);
-void __fastcall ClearPlrRVars(PlayerStruct *p);
+void __fastcall ClearPlrRVars(LATEST_PLAYERSTRUCT *p);
 void __fastcall CreatePlayer(int pnum, char c);
 int __fastcall CalcStatDiff(int pnum);
 void __fastcall NextPlrLevel(int pnum);

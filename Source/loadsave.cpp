@@ -484,8 +484,8 @@ void __fastcall LoadPlayer(int i)
 
 	//memcpy(&plr[i], tbuff, 0x54B0u);
 	//tbuff = (char *)tbuff + 21680;
-	int wtfsize = 21680;// StructSize<PlayerStruct>();
-	int size2 = StructSize<PlayerStruct>() - 21720;
+	int wtfsize = 21680;// StructSize<LATEST_PLAYERSTRUCT>();
+	int size2 = StructSize<LATEST_PLAYERSTRUCT>() - 21720;
 
 	memcpy(&plr[i], tbuff, wtfsize);
 	tbuff = (char *)tbuff + wtfsize;
@@ -652,7 +652,7 @@ void __cdecl SaveGame()
 	//v0 = codec_get_encoded_len(262147); /* FILEBUFF */
 	//37632 for changing dMissile[112][112] from char to int
 	//96 for hotkeys
-	v0 = codec_get_encoded_len(262147 + 96 + 37632 + (1 + 1 + 176)*(MAXMISSILES - 125) +StructSize<PlayerStruct>() - 21720); /* FILEBUFF *///sizeof(PlayerStruct)-21720
+	v0 = codec_get_encoded_len(262147 + 96 + 37632 + (1 + 1 + 176)*(MAXMISSILES - 125) +StructSize<LATEST_PLAYERSTRUCT>() - 21720); /* FILEBUFF *///sizeof(LATEST_PLAYERSTRUCT)-21720
 	ptr = DiabloAllocPtr(v0);
 	tbuff = ptr;
 	SaveVersion = CurVersion; // for buffer save/load 
@@ -1026,9 +1026,9 @@ void __fastcall SavePlayer(int i)
 	//memcpy(tbuff, &plr[i], 0x54B0u);
 	//tbuff = (char *)tbuff + 21680;
 
-	int size1 = 21680;// StructSize<PlayerStruct>();
-	//int size2 = StructSize<PlayerStruct>() - 21720;
-	int size2 = StructSize<PlayerStruct>() - 21720;
+	int size1 = 21680;// StructSize<LATEST_PLAYERSTRUCT>();
+	//int size2 = StructSize<LATEST_PLAYERSTRUCT>() - 21720;
+	int size2 = StructSize<LATEST_PLAYERSTRUCT>() - 21720;
 	memcpy(tbuff, &plr[i], size1);
 	tbuff = (char *)tbuff + size1;
 	memcpy(tbuff, &plr[i].InvListExpanded, size2);
@@ -1061,10 +1061,10 @@ void __fastcall SavePlayer(int i)
 	//memcpy(tbuff, &plr[i], 0x54B0u);
 	//tbuff = (char *)tbuff + 21680;
 
-	int size1 = 21680;// StructSize<PlayerStruct>();
-	//int size2 = StructSize<PlayerStruct>() - 21720;
+	int size1 = 21680;// StructSize<LATEST_PLAYERSTRUCT>();
+	//int size2 = StructSize<LATEST_PLAYERSTRUCT>() - 21720;
 	int size2 = 81620 - 21720;
-	int size3 = StructSize<PlayerStruct>() - 81620;
+	int size3 = StructSize<LATEST_PLAYERSTRUCT>() - 81620;
 	memcpy(tbuff, &plr[i], size1);
 	tbuff = (char *)tbuff + size1;
 	memcpy(tbuff, &plr[i].InvListExpanded, size2);
@@ -1161,7 +1161,7 @@ void __cdecl SaveLevel()
 	//v0 = codec_get_encoded_len(262147); /* FILEBUFF */
     //37632 for changing dMissile[112][112] from char to int
 	//96 for hotkeys
-	v0 = codec_get_encoded_len(262147+ 96 + 37632+ (1 + 1 + 176)*(MAXMISSILES - 125)+ StructSize<PlayerStruct>()-21720); /* FILEBUFF */ //sizeof(PlayerStruct)- 21720
+	v0 = codec_get_encoded_len(262147+ 96 + 37632+ (1 + 1 + 176)*(MAXMISSILES - 125)+ StructSize<LATEST_PLAYERSTRUCT>()-21720); /* FILEBUFF */ //sizeof(LATEST_PLAYERSTRUCT)- 21720
 	SaveBuff = DiabloAllocPtr(v0);
 	SaveVersion = CurVersion; // for buffer save/load 
 	tbuff = SaveBuff;

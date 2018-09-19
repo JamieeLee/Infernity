@@ -18,7 +18,7 @@ struct pack_cpp_init
 
 void __fastcall PackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool manashield)
 {
-	PlayerStruct *pPlayer; // edi
+	LATEST_PLAYERSTRUCT *pPlayer; // edi
 	int i; // [esp+8h] [ebp-Ch]
 	ItemStruct *pi; // [esp+Ch] [ebp-8h]
 	PkItemStruct *pki; // [esp+10h] [ebp-4h]
@@ -179,7 +179,7 @@ void __fastcall PackItem(PkItemStruct *id, ItemStruct *is)
 	}
 }
 
-void __fastcall VerifyGoldSeeds(PlayerStruct *pPlayer)
+void __fastcall VerifyGoldSeeds(LATEST_PLAYERSTRUCT *pPlayer)
 {
 	int i; // ebp
 	int j; // ecx
@@ -205,7 +205,7 @@ void __fastcall VerifyGoldSeeds(PlayerStruct *pPlayer)
 
 void __fastcall UnPackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool killok)
 {
-	PlayerStruct *pPlayer; // esi
+	LATEST_PLAYERSTRUCT *pPlayer; // esi
 	signed int v6; // eax
 	int i; // [esp+10h] [ebp-8h]
 	ItemStruct *pi; // [esp+14h] [ebp-4h]

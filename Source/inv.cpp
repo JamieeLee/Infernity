@@ -567,7 +567,7 @@ void __cdecl DrawInvBelt()
 				v1 = v11;
 				InvDrawSlotBack(InvRect[v11 + 65].X + 64, InvRect[v11 + 65].Y + 159, 28, 28);
 				v2 = myplr;
-				v3 = v0 + StructSize<PlayerStruct>() * myplr;
+				v3 = v0 + StructSize<LATEST_PLAYERSTRUCT>() * myplr;
 				v4 = *(int *)((char *)&plr[0].SpdList[0]._iCurs + v3) + 12;
 				frame_width = InvItemWidth[v4];
 				if ( pcursinvitem == v11 + 47 )
@@ -596,7 +596,7 @@ void __cdecl DrawInvBelt()
 					CelDrawHdrLightRed(v8 + 64, v6, (char *)pCursCels, v4, frame_width, 0, 8, 1);
 				else
 					CelDrawHdrOnly(v8 + 64, v6, (char *)pCursCels, v4, frame_width, 0, 8);
-				v9 = v13 + StructSize<PlayerStruct>() * myplr;
+				v9 = v13 + StructSize<LATEST_PLAYERSTRUCT>() * myplr;
 				if ( AllItemsList[*(int *)((char *)&plr[0].SpdList[0].IDidx + v9)].iUsable
 				  && *(int *)((char *)&plr[0].SpdList[0]._iStatFlag + v9)
 				  && *(int *)((char *)&plr[0].SpdList[0]._itype + v9) != 11 )
@@ -862,10 +862,10 @@ LABEL_28:
 			{
 				if ( v3 )
 					break;
-				v10 = &plr[0].InvGrid[10 * (v9 / 10) + v1 * StructSize<PlayerStruct>() + v9 % 10];
+				v10 = &plr[0].InvGrid[10 * (v9 / 10) + v1 * StructSize<LATEST_PLAYERSTRUCT>() + v9 % 10];
 				if ( !*v10 )
 				{
-					v11 = v1 * StructSize<PlayerStruct>() + StructSize<ItemStruct>() * plr[v1]._pNumInv;
+					v11 = v1 * StructSize<LATEST_PLAYERSTRUCT>() + StructSize<ItemStruct>() * plr[v1]._pNumInv;
 					qmemcpy((char *)plr[0].InvList + v11, &plr[v1].HoldItem, StructSize<ItemStruct>());
 					++plr[v1]._pNumInv;
 					*v10 = plr[v1]._pNumInv;
@@ -1168,7 +1168,7 @@ LABEL_50:
 		v13 = (v68 - 25) / 10;
 		if ( plr[v3].HoldItem._itype == ITYPE_GOLD )
 		{
-			_LOBYTE(v13) = plr[0].InvGrid[10 * v13 + v3 * StructSize<PlayerStruct>() + (v68 - 25) % 10];
+			_LOBYTE(v13) = plr[0].InvGrid[10 * v13 + v3 * StructSize<LATEST_PLAYERSTRUCT>() + (v68 - 25) % 10];
 			if ( !(_BYTE)v13 )
 				goto LABEL_93;
 			v13 = (char)v13;
@@ -1176,7 +1176,7 @@ LABEL_50:
 			{
 				v13 = -v13;
 			}
-			else if ( *(int *)((char *)&plr[0].InvBody[v13 + 6]._itype + v3 * StructSize<PlayerStruct>()) == ITYPE_GOLD )
+			else if ( *(int *)((char *)&plr[0].InvBody[v13 + 6]._itype + v3 * StructSize<LATEST_PLAYERSTRUCT>()) == ITYPE_GOLD )
 			{
 				goto LABEL_93;
 			}
@@ -1379,10 +1379,10 @@ LABEL_149:
 					{
 						if ( !v66 )
 						{
-							v36 = &plr[0].InvGrid[10 * ((v68 - 25) / 10) + v3 * StructSize<PlayerStruct>() + (v68 - 25) % 10];
+							v36 = &plr[0].InvGrid[10 * ((v68 - 25) / 10) + v3 * StructSize<LATEST_PLAYERSTRUCT>() + (v68 - 25) % 10];
 							if ( *v36 <= 0 )
 							{
-								v42 = StructSize<ItemStruct>() * plr[v3]._pNumInv + v3 * StructSize<PlayerStruct>();
+								v42 = StructSize<ItemStruct>() * plr[v3]._pNumInv + v3 * StructSize<LATEST_PLAYERSTRUCT>();
 								qmemcpy((char *)plr[0].InvList + v42, &plr[v3].HoldItem, StructSize<ItemStruct>());
 								++plr[v3]._pNumInv;
 								*v36 = plr[v3]._pNumInv;
@@ -1405,7 +1405,7 @@ LABEL_149:
 								goto LABEL_226;
 							}
 							v37 = plr[v3].HoldItem._ivalue;
-							v38 = StructSize<ItemStruct>() * (*v36 - 1) + v3 * StructSize<PlayerStruct>();
+							v38 = StructSize<ItemStruct>() * (*v36 - 1) + v3 * StructSize<LATEST_PLAYERSTRUCT>();
 							v39 = *(int *)((char *)&plr[0].InvList[0]._ivalue + v38);
 							v40 = v37 + v39;
 							if ( v37 + v39 <= maxGoldPile)
@@ -1441,7 +1441,7 @@ LABEL_149:
 					}
 					else if ( !v66 )
 					{
-						qmemcpy((char *)&plr[0].InvList[plr[v3]._pNumInv++] + v3 * StructSize<PlayerStruct>(), &plr[v3].HoldItem, StructSize<ItemStruct>());
+						qmemcpy((char *)&plr[0].InvList[plr[v3]._pNumInv++] + v3 * StructSize<LATEST_PLAYERSTRUCT>(), &plr[v3].HoldItem, StructSize<ItemStruct>());
 						v66 = plr[v3]._pNumInv;
 LABEL_191:
 						v48 = v67;
@@ -1482,7 +1482,7 @@ LABEL_191:
 					v44 = v66 - 1;
 					if ( v35 == 11 )
 						plr[v3]._pGold += plr[v3].HoldItem._ivalue;
-					cursor_ida = SwapItem((ItemStruct *)((char *)&plr[0].InvList[v44] + v3 * StructSize<PlayerStruct>()), &plr[v3].HoldItem);
+					cursor_ida = SwapItem((ItemStruct *)((char *)&plr[0].InvList[v44] + v3 * StructSize<LATEST_PLAYERSTRUCT>()), &plr[v3].HoldItem);
 					if ( plr[v3].HoldItem._itype == ITYPE_GOLD )
 						plr[v3]._pGold = CalculateGold(v21);
 					v45 = 0;
@@ -1499,7 +1499,7 @@ LABEL_191:
 					while ( v45 < 40 );
 					goto LABEL_191;
 				case ILOC_BELT:
-					v53 = v3 * StructSize<PlayerStruct>() + StructSize<ItemStruct>() * (v68 - 65);
+					v53 = v3 * StructSize<LATEST_PLAYERSTRUCT>() + StructSize<ItemStruct>() * (v68 - 65);
 					if ( plr[v3].HoldItem._itype != ITYPE_GOLD )
 					{
 						if ( *(int *)((char *)&plr[0].SpdList[0]._itype + v53) == ITYPE_NONE )
@@ -1690,7 +1690,7 @@ void __fastcall CheckInvSwap(int pnum, BYTE bLoc, int idx, WORD wCI, int seed, B
 {
 	RecreateItem(MAXITEMS, idx, wCI, seed, 0, rare);
 
-	PlayerStruct *p = &plr[pnum];
+	LATEST_PLAYERSTRUCT *p = &plr[pnum];
 	p->HoldItem = item[MAXITEMS];
 	if (bId)
 	{
@@ -1998,7 +1998,7 @@ bool CanPutToBelt(int miscId)
 
 int FreeSlotOnBelt() {
 
-	PlayerStruct& player = plr[myplr];
+	LATEST_PLAYERSTRUCT& player = plr[myplr];
 	//int countOfItems = 0;
 	for (int beltIndex = 0; beltIndex < 8; beltIndex++) {
 		if (player.SpdList[beltIndex]._itype == ITYPE_NONE) {
@@ -2035,7 +2035,7 @@ void __cdecl CheckInvScrn()
 
 void __fastcall CheckItemStats(int pnum)
 {
-	PlayerStruct *p = &plr[pnum];
+	LATEST_PLAYERSTRUCT *p = &plr[pnum];
 
 	p->HoldItem._iStatFlag = FALSE;
 
@@ -2060,8 +2060,8 @@ void __fastcall CheckBookLevel(int pnum)
 		v2 = plr[v1].HoldItem._iSpell;
 		v3 = spelldata[plr[v1].HoldItem._iSpell].sMinInt;
 		plr[v1].HoldItem._iMinMag = v3;
-		v4 = plr[0]._pSplLvl[v2 + v1 * StructSize<PlayerStruct>()];
-		if ( plr[0]._pSplLvl[v2 + v1 * StructSize<PlayerStruct>()] )
+		v4 = plr[0]._pSplLvl[v2 + v1 * StructSize<LATEST_PLAYERSTRUCT>()];
+		if ( plr[0]._pSplLvl[v2 + v1 * StructSize<LATEST_PLAYERSTRUCT>()] )
 		{
 			do
 			{
@@ -2965,7 +2965,7 @@ int __cdecl CheckInvHLight()
 	signed int v0; // ebx
 	int result; // eax
 	ItemStruct *v2; // edi
-	PlayerStruct *v3; // esi
+	LATEST_PLAYERSTRUCT *v3; // esi
 	int v4; // eax
 	int v5; // ebx
 	int v6; // edi
@@ -3284,14 +3284,14 @@ int __fastcall UseInvItem(int pnum, int cii)
 				return result;
 			v4 = cii - 47;
 			v14 = 1;
-			v5 = StructSize<ItemStruct>() * (cii - 47) + v2 * StructSize<PlayerStruct>();
+			v5 = StructSize<ItemStruct>() * (cii - 47) + v2 * StructSize<LATEST_PLAYERSTRUCT>();
 			v6 = (_DWORD *)((char *)plr[0].SpdList + v5);
 		}
 		else
 		{
 			v4 = cii - 7;
 			v14 = 0;
-			v5 = StructSize<ItemStruct>() * (cii - 7) + v2 * StructSize<PlayerStruct>();
+			v5 = StructSize<ItemStruct>() * (cii - 7) + v2 * StructSize<LATEST_PLAYERSTRUCT>();
 			v6 = (_DWORD *)((char *)plr[0].InvList + v5);
 		}
 		if ( v6[90] == 17 )
