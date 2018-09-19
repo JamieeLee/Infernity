@@ -106,12 +106,11 @@ LABEL_6:
 // 5256E8: using guessed type int dword_5256E8;
 // 679660: using guessed type char gbMaxPlayers;
 
-void __fastcall mainmenu_action(int option)
+void __cdecl mainmenu_loop()
 {
 	int v1; // eax
 	int a2; // [esp+0h] [ebp-4h]
 
-	a2 = option;
 	mainmenu_refresh_music();
 	do
 	{
@@ -175,7 +174,7 @@ int __fastcall mainmenu_init_menu(int a1)
 
 int __cdecl mainmenu_multi_player()
 {
-	gbMaxPlayers = 4;
+	gbMaxPlayers = MAX_PLRS;
 	return mainmenu_init_menu(3);
 }
 // 679660: using guessed type char gbMaxPlayers;

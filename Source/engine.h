@@ -36,7 +36,7 @@ void __fastcall Cel2DecodeHdrLight(int screen_x, int screen_y, char *pCelBuff, i
 void __fastcall Cel2DecodeLightTrans(char *dst_buf, char *pCelBuff, int frame, int frame_width, int a5, int direction);
 void __fastcall Cel2DrawHdrLightRed(int screen_x, int screen_y, char *pCelBuff, int frame, int frame_width, int always_0, int direction, char always_1);
 void __fastcall CelDecodeRect(char *pBuff, int always_0, int dst_height, int dst_width, char *pCelBuff, int frame, int frame_width);
-void __fastcall CelDecodeClr(unsigned char colour, int screen_x, int screen_y, char *pCelBuff, int frame, int frame_width, int a7, int direction);
+void __fastcall CelDecodeClr(BYTE colour, int screen_x, int screen_y, char *pCelBuff, int frame, int frame_width, int a7, int direction);
 void __fastcall CelDrawHdrClrHL(char colour, int screen_x, int screen_y, char *pCelBuff, int frame, int frame_width, int a7, int direction);
 void __fastcall ENG_set_pixel(int screen_x, int screen_y, char pixel);
 void __fastcall engine_draw_pixel(int x, int y);
@@ -44,7 +44,6 @@ void __fastcall DrawLine(int x0, int y0, int x1, int y1, char col);
 int __fastcall GetDirection(int x1, int y1, int x2, int y2);
 void __fastcall SetRndSeed(int s);
 int __cdecl GetRndSeed();
-int __fastcall random(int idx, int v);
 
 #include <string>
 #include <vector>
@@ -64,7 +63,7 @@ bool GetConfigBoolVariable(std::string s);
 int GetConfigIntVariable(std::string s, int def);
 void DrawXpBar();
 void DrawNumbersOnHealthMana();
-char GetAutomapTypeColor(int tx, int ty, bool view);
+char GetAutomapTypeColor(int tx, int ty, BOOL view);
 void SetAutomapViewByOtherPlayer(int x, int y, int playerNum);
 void RevealMapByOtherPlayers(int x,int y,int playerNum);
 void ColorPixel(int x, int y, int color);
@@ -142,6 +141,7 @@ SS(ItemStruct, 0, 368);
 SS(PlayerStruct, 4, 1559624, 3, 81620, 2, 81520, 1, 80780, 0, 21720); // 3, 81620, 
 #undef SS
 
+int __fastcall random(BYTE idx, int v);
 void __cdecl engine_cpp_init_2();
 void __cdecl mem_init_mutex();
 void __cdecl mem_atexit_mutex();
@@ -150,7 +150,7 @@ unsigned char *__fastcall DiabloAllocPtr(int dwBytes);
 void __fastcall mem_free_dbg(void *p);
 unsigned char *__fastcall LoadFileInMem(char *pszName, int *pdwFileLen);
 void __fastcall LoadFileWithMem(char *pszName, void *buf);
-void __fastcall Cl2ApplyTrans(char *p, char *ttbl, int last_frame);
+void __fastcall Cl2ApplyTrans(unsigned char *p, unsigned char *ttbl, int last_frame);
 void __fastcall Cl2DecodeFrm1(int x, int y, char *pCelBuff, int nCel, int width, int dir1, int dir2);
 void __fastcall Cl2DecDatFrm1(char *buffer, char *frame_content, int a3, int width);
 void __fastcall Cl2DecodeFrm2(char colour, int screen_x, int screen_y, char *pCelBuff, int nCel, int frame_width, int a7, int a8);

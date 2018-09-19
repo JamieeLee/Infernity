@@ -1286,7 +1286,7 @@ LABEL_14:
 	}
 }
 
-void __fastcall CelDecodeClr(unsigned char colour, int screen_x, int screen_y, char *pCelBuff, int frame, int frame_width, int a7, int direction)
+void __fastcall CelDecodeClr(BYTE colour, int screen_x, int screen_y, char *pCelBuff, int frame, int frame_width, int a7, int direction)
 {
 	char *v8; // ebx
 	int v9; // eax
@@ -1858,9 +1858,6 @@ int __cdecl GetRndSeed()
 // 52B97C: using guessed type int sglGameSeed;
 // 52B998: using guessed type int SeedCount;
 
-using namespace std;
-
-
 void ReloadConfig() {
 	BoolConfig.clear();
 	IntConfig.clear();
@@ -1901,7 +1898,7 @@ void PrintDebugInfo() {
 		std::stringstream ss;
 		int isActivated = -1;
 		if (pcursmonst != -1) { isActivated = monster[pcursmonst].isActivated; }
-		ss << "debuginfo: " << MouseX << " " << MouseY << " " << rgb_enabled;
+		ss << "debuginfo: " << MouseX << " " << MouseY << " " << sizeof(BOOL) << " " << sizeof(int);
 		if (played == false) {
 			PlaySFX(num++);
 			played = true;
@@ -1925,10 +1922,10 @@ void DrawNumbersOnHealthMana() {
 	//int ScreenWidth = 640;
 	//int ScreenHeight = 480;
 	if (GetConfigBoolVariable("showNumbersOnHealth")) {
-		string separator = "/";
-		stringstream curHP;
+		std::string separator = "/";
+		std::stringstream curHP;
 		curHP << (plr[myplr]._pHitPoints >> 6);
-		stringstream maxHP;
+		std::stringstream maxHP;
 		maxHP << (plr[myplr]._pMaxHP >> 6);
 		int color = COL_WHITE;
 		if (plr[myplr]._pMaxHP == plr[myplr]._pHitPoints) {
@@ -1939,10 +1936,10 @@ void DrawNumbersOnHealthMana() {
 		PrintGameStr(ScreenWidth / 2 - 182 - GetTextWidth((char*)curHP.str().c_str()), ScreenHeight - 80, (char*)curHP.str().c_str(), color);
 	}
 	if (GetConfigBoolVariable("showNumbersOnMana")) {
-		string separator = "/";
-		stringstream s_curMana;
+		std::string separator = "/";
+		std::stringstream s_curMana;
 		s_curMana << (plr[myplr]._pMana >> 6);
-		stringstream s_maxMana;
+		std::stringstream s_maxMana;
 		s_maxMana << (plr[myplr]._pMaxMana >> 6);
 		int offset = 182;
 		int color = COL_WHITE;
@@ -2058,7 +2055,7 @@ bool AreAffixesGoodForItem(int i, char affix) {
 
 bool AreAffixesGood(char p1, char p2) {
 	if (p1 == p2) { return false; }
-	map<int, set<int> > sadAffix;
+	std::map<int, std::set<int> > sadAffix;
 	sadAffix[IPL_ATTRIBS] = { IPL_STR,IPL_DEX,IPL_VIT,IPL_MAG,IPL_ATTRIBS_CURSE};
 	sadAffix[IPL_ALLRES] = { IPL_FIRERES ,IPL_MAGICRES, IPL_LIGHTRES };
 	sadAffix[IPL_TOHIT] = { IPL_TOHIT_DAMP,IPL_TOHIT_CURSE,IPL_TOHIT_DAMP_CURSE };
@@ -2088,7 +2085,7 @@ bool AreAffixesGood(char p1, char p2) {
 
 	for (auto const& x : sadAffix) {
 		int tmpAffix = x.first;
-		set<int> tmpSet = x.second;
+		std::set<int> tmpSet = x.second;
 		if ((tmpAffix == p1 && tmpSet.find(p2) != tmpSet.end()) || (tmpAffix == p2 && tmpSet.find(p1) != tmpSet.end())) {
 			return false;
 		}
@@ -2259,8 +2256,8 @@ void GenerateRareAffix(int i,int x, int y, int minlvl, int maxlvl, char prefPowe
 }
 
 int GetConfigIntVariable(std::string s, int def) {
-	string line;
-	ifstream myfile("infernity_config.ini");
+	std::string line;
+	std::ifstream myfile("infernity_config.ini");
 	if (myfile.is_open())
 	{
 		while (getline(myfile, line))
@@ -2269,7 +2266,7 @@ int GetConfigIntVariable(std::string s, int def) {
 			if (found != std::string::npos) {
 				myfile.close();
 				int num = 0;
-				stringstream ss2;
+				std::stringstream ss2;
 				ss2 << s << " %d ";
 				sscanf(line.c_str(), ss2.str().c_str(), &num);
 				return num;
@@ -2285,15 +2282,15 @@ int GetConfigIntVariable(std::string s, int def) {
 bool GetConfigBoolVariable(std::string s) {
 	if (BoolConfig.find(s) != BoolConfig.end()) { return BoolConfig[s]; }
 	else {
-		string line;
-		ifstream myfile("infernity_config.ini");
+		std::string line;
+		std::ifstream myfile("infernity_config.ini");
 		if (myfile.is_open())
 		{
 			while (getline(myfile, line))
 			{
-				stringstream ss;
+				std::stringstream ss;
 				ss << s << " on";
-				stringstream ss2;
+				std::stringstream ss2;
 				ss2 << s << " off";
 				std::size_t found = line.find(ss.str());
 				std::size_t found2 = line.find(ss2.str());
@@ -2342,7 +2339,7 @@ bool IsInfernoEnabled() {
 	return (enabled && gnDifficulty == DIFF_HELL);// || gbMaxPlayers == 1;
 }
 
-int __fastcall random(int idx, int v)
+int __fastcall random(BYTE idx, int v)
 {
 	if ( v <= 0 )
 		return 0;
@@ -2451,12 +2448,12 @@ void __fastcall LoadFileWithMem(char *pszName, void *buf)
 	WCloseFile(a1);
 }
 
-void __fastcall Cl2ApplyTrans(char *p, char *ttbl, int last_frame)
+void __fastcall Cl2ApplyTrans(unsigned char *p, unsigned char *ttbl, int last_frame)
 {
 	int v3; // eax
 	int v4; // edi
 	int v5; // esi
-	char *v6; // eax
+	unsigned char *v6; // eax
 	char v7; // bl
 	unsigned char v8; // bl
 	int v9; // edi
@@ -2483,7 +2480,7 @@ void __fastcall Cl2ApplyTrans(char *p, char *ttbl, int last_frame)
 						v9 = v8;
 						do
 						{
-							*v6 = ttbl[(unsigned char)*v6];
+							*v6 = ttbl[*v6];
 							++v6;
 							--v9;
 						}
@@ -2493,7 +2490,7 @@ void __fastcall Cl2ApplyTrans(char *p, char *ttbl, int last_frame)
 				else
 				{
 					--v5;
-					*v6 = ttbl[(unsigned char)*v6];
+					*v6 = ttbl[*v6];
 					++v6;
 				}
 			}

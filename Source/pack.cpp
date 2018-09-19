@@ -224,7 +224,7 @@ void __fastcall UnPackPlayer(LATEST_PKPLAYER_STRUCT *pPack, int pnum, bool killo
 	pPlayer->destAction = -1;
 	strcpy(pPlayer->_pName, pPack->pName);
 	_LOBYTE(pPlayer->_pClass) = pPack->pClass;
-	InitPlayer(pnum, 1);
+	InitPlayer(pnum, TRUE);
 	pPlayer->_pBaseStr = (unsigned char)pPack->pBaseStr;
 	pPlayer->_pStrength = (unsigned char)pPack->pBaseStr;
 	pPlayer->_pBaseMag = (unsigned char)pPack->pBaseMag;

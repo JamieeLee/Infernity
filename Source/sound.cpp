@@ -16,8 +16,8 @@ const int sound_inf = 0x7F800000; // weak
 
 /* data */
 
-char gbMusicOn = 1; // weak
-char gbSoundOn = 1; // weak
+UCHAR gbMusicOn = 1; // weak
+UCHAR gbSoundOn = 1; // weak
 char gbDupSounds = 1; // weak
 int sgnMusicTrack = 6;
 char *sgszMusicTracks[6] =
@@ -393,7 +393,7 @@ int __fastcall sound_DirectSoundCreate(GUID *guid, IDirectSound **DS, int always
 	v8 = guid;
 	if ( !hDsound_dll )
 	{
-		hDsound_dll = LoadLibraryA("dsound.dll");
+		hDsound_dll = LoadLibrary("dsound.dll");
 		if ( !hDsound_dll )
 		{
 			v4 = GetLastError();

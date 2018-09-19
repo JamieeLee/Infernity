@@ -24,12 +24,12 @@ void __cdecl interface_msg_pump()
 {
 	MSG Msg; // [esp+8h] [ebp-1Ch]
 
-	while ( PeekMessageA(&Msg, NULL, 0, 0, PM_REMOVE) )
+	while ( PeekMessage(&Msg, NULL, 0, 0, PM_REMOVE) )
 	{
 		if ( Msg.message != WM_QUIT )
 		{
 			TranslateMessage(&Msg);
-			DispatchMessageA(&Msg);
+			DispatchMessage(&Msg);
 		}
 	}
 }
@@ -86,7 +86,7 @@ void __fastcall DrawProgress(int screen_x, int screen_y, int progress_id)
 void __fastcall ShowProgress(int uMsg)
 {
 	WNDPROC saveProc; // edi
-	bool v3; // cl
+	BOOL v3; // cl
 	int v4; // eax
 	int v5; // edx
 	signed int v7; // [esp-4h] [ebp-10h]
@@ -188,7 +188,7 @@ void __fastcall ShowProgress(int uMsg)
 LABEL_32:
 			v5 = v7;
 LABEL_33:
-			v3 = 0;
+			v3 = FALSE;
 			goto LABEL_40;
 		case WM_DIABRETOWN:
 			IncProgress();
@@ -202,14 +202,14 @@ LABEL_33:
 LABEL_38:
 			leveltype = gnLevelTypeTbl[v4];
 			IncProgress();
-			v3 = 0;
+			v3 = FALSE;
 			goto LABEL_39;
 		case WM_DIABNEWGAME:
 			IncProgress();
 			FreeGameMem();
 			IncProgress();
 			pfile_remove_temp_files();
-			v3 = 1;
+			v3 = TRUE;
 LABEL_39:
 			v5 = 0;
 LABEL_40:
@@ -217,7 +217,7 @@ LABEL_40:
 			goto LABEL_41;
 		case WM_DIABLOADGAME:
 			IncProgress();
-			LoadGame(1);
+			LoadGame(TRUE);
 LABEL_41:
 			IncProgress();
 			if (IsInfernoEnabled())

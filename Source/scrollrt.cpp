@@ -3247,10 +3247,9 @@ void __cdecl DrawFPS()
 		wsprintfA(String, "%2d", framerate);
 		if ( !lpDDSPrimary->GetDC(&hdc) )
 		{
-			TextOutA(hdc, 0, 400, String, strlen(String));
+			TextOut(hdc, 0, 400, String, strlen(String));
 			lpDDSPrimary->ReleaseDC(hdc);
-		}
-		*/
+		}*/
 	}
 }
 //#endif

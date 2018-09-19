@@ -4,7 +4,7 @@
 
 void *tbuff;
 
-void __fastcall LoadGame(bool firstflag)
+void __fastcall LoadGame(BOOL firstflag)
 {
 	int v1; // esi
 	int v2; // edi
@@ -479,6 +479,9 @@ bool __cdecl OLoad()
 
 void __fastcall LoadPlayer(int i)
 {
+
+
+
 	//memcpy(&plr[i], tbuff, 0x54B0u);
 	//tbuff = (char *)tbuff + 21680;
 	int wtfsize = 21680;// StructSize<PlayerStruct>();
@@ -1019,7 +1022,41 @@ void __fastcall OSave(unsigned char v)
 }
 
 void __fastcall SavePlayer(int i)
-{
+{	
+	//memcpy(tbuff, &plr[i], 0x54B0u);
+	//tbuff = (char *)tbuff + 21680;
+
+	int size1 = 21680;// StructSize<PlayerStruct>();
+	//int size2 = StructSize<PlayerStruct>() - 21720;
+	int size2 = StructSize<PlayerStruct>() - 21720;
+	memcpy(tbuff, &plr[i], size1);
+	tbuff = (char *)tbuff + size1;
+	memcpy(tbuff, &plr[i].InvListExpanded, size2);
+	tbuff = (char *)tbuff + size2;
+	/*
+	unsigned char* startcpy = (unsigned char*)&plr[i].StashInvList;
+	int left = size3;
+	do{
+		int localsize = 100000;
+		if (localsize >= left) {
+			localsize = left;
+		}
+		memcpy(tbuff, startcpy, localsize);
+		tbuff = (char *)tbuff + localsize;
+		left -= localsize;
+	} while (left > 0);
+	//memcpy(tbuff, &plr[i].StashInvList, size3);
+	//tbuff = (char *)tbuff + size3;
+	*/
+
+
+
+	/*
+
+		MessageBox(NULL, "savePlayer", NULL, NULL);
+	std::stringstream ss;
+	ss << plr[myplr].StashNames[0];
+	MessageBox(NULL, ss.str().c_str(), NULL, NULL);
 	
 	//memcpy(tbuff, &plr[i], 0x54B0u);
 	//tbuff = (char *)tbuff + 21680;
@@ -1035,7 +1072,7 @@ void __fastcall SavePlayer(int i)
 	unsigned char* startcpy = (unsigned char*)&plr[i].StashInvList;
 	int left = size3;
 	do{
-		int localsize = 1000;
+		int localsize = 100000;
 		if (localsize >= left) {
 			localsize = left;
 		}
@@ -1045,6 +1082,8 @@ void __fastcall SavePlayer(int i)
 	} while (left > 0);
 	//memcpy(tbuff, &plr[i].StashInvList, size3);
 	//tbuff = (char *)tbuff + size3;
+
+	*/
 }
 
 void __fastcall SaveMonster(int i)

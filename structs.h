@@ -293,8 +293,11 @@ struct ItemDataStruct
 	char iMinStr;
 	char iMinMag;
 	char iMinDex;
+	// item_special_effect
 	int iFlags;
+	// item_misc_id
 	int iMiscId;
+	// spell_id
 	int iSpell;
 	int iUsable;
 	int iValue;
@@ -325,11 +328,12 @@ struct ItemStruct
 	int isRare; // set when item is flagged for deletion, deprecated in 1.02
 	char _iSelFlag;
 	int _iPostDraw;
-	int _iIdentified;
+	BOOL _iIdentified;
 	char _iMagical;
 	char _iName[64];
 	char _iIName[64];
 	char _iLoc;
+	// item_class enum
 	char _iClass;
 	int _iCurs;
 	int _ivalue;
@@ -337,8 +341,11 @@ struct ItemStruct
 	int _iMinDam;
 	int _iMaxDam;
 	int _iAC;
+	// item_special_effect
 	int _iFlags;
+	// item_misc_id
 	int _iMiscId;
+	// spell_id
 	int _iSpell;
 	int _iCharges;
 	int _iMaxCharges;
@@ -376,7 +383,7 @@ struct ItemStruct
 	char _iMinStr;
 	unsigned char _iMinMag;
 	char _iMinDex;
-	int _iStatFlag;
+	BOOL _iStatFlag;
 	int IDidx;
 	int rareAffix;
 };
@@ -429,7 +436,8 @@ struct PlayerStruct
 	int _pTSpell;
 	int _pTSplType;
 	int _pRSpell;
-	int _pRSplType;
+	// enum spell_type
+	char _pRSplType;
 	int _pSBkSpell;
 	char _pSBkSplType;
 	char _pSplLvl[64];
@@ -454,6 +462,12 @@ struct PlayerStruct
 	char _pLightRad;
 	unsigned char _pLvlChanging;
 	char _pName[32];
+	// plr_class enum value.
+	// TODO: this could very well be `enum plr_class _pClass`
+	// since there are 3 bytes of alingment after this field.
+	// it could just be that the compiler optimized away all accesses to
+	// the higher bytes by using byte instructions, since all possible values
+	// of plr_class fit into one byte.
 	char _pClass;
 	int _pStrength;
 	int _pBaseStr;
@@ -523,10 +537,10 @@ struct PlayerStruct
 	unsigned char *_pBAnim[8];
 	int _pBFrames;
 	int _pBWidth;
-	ItemStruct InvBody[7];
-	ItemStruct InvList[40];
+	ItemStruct InvBody[NUM_INVLOC];
+	ItemStruct InvList[NUM_INV_GRID_ELEM];
 	int _pNumInv;
-	char InvGrid[40];
+	char InvGrid[NUM_INV_GRID_ELEM];
 	ItemStruct SpdList[8];
 	ItemStruct HoldItem;
 	int _pIMinDam;
@@ -713,7 +727,7 @@ struct TSFX
 
 struct AnimStruct // note: wrong names
 {
-	int CMem; // [unsigned] char * ??
+	unsigned char *CMem;
 	unsigned char *Frames[8]; // probably Data[8]
 	int Rate;
 	int Delay;
@@ -724,7 +738,7 @@ struct MonsterData
 	int flags; // width?
 	int mType;
 	char *GraphicType;
-	int has_special;
+	BOOL has_special;
 	char *sndfile;
 	int snd_special;
 	int has_trans;
@@ -760,6 +774,7 @@ struct MonsterData
 struct CMonster
 {
 	unsigned char mtype;
+	// TODO: Add enum for place flags
 	unsigned char mPlaceFlags;
 	AnimStruct Anims[6];
 	TSnd *Snds[8];
@@ -771,19 +786,21 @@ struct CMonster
 	unsigned char mAFNum;
 	char mdeadval;
 	MonsterData *MData;
-	void *trans_file;
+	// A TRN file contains a sequence of colour transitions, represented
+	// as indexes into a palette. (a 256 byte array of palette indices)
+	unsigned char *trans_file;
 };
 
 struct MonsterStruct // note: missing field _mAFNum
 {
 	int _mMTidx;
-	int _mmode;
-	int _mgoal;
+	int _mmode; /* MON_MODE */
+	unsigned char _mgoal;
 	int _mgoalvar1;
 	int _mgoalvar2;
 	int _mgoalvar3;
 	int isActivated;
-	int _pathcount;
+	unsigned char _pathcount;
 	int _mx;
 	int _my;
 	int _mfutx;
@@ -831,7 +848,7 @@ struct MonsterStruct // note: missing field _mAFNum
 	unsigned char _uniqtrans;
 	char _udeadval;
 	char mWhoHit;
-	short mLevel; /* char */
+	char mLevel;
 	unsigned short mExp;
 	unsigned char mHit;
 	unsigned char mMinDamage;
@@ -841,7 +858,7 @@ struct MonsterStruct // note: missing field _mAFNum
 	unsigned char mMaxDamage2;
 	char mArmorClass;
 	char falign_CB;
-	int mMagicRes; /* ushort */
+	unsigned short mMagicRes;
 	int mtalkmsg;
 	unsigned char leader;
 	unsigned char leaderflag;

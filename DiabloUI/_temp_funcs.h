@@ -1,16 +1,17 @@
-void UNKCALL artfont_10001058(char *arg);
-int artfont_10001098();
-int artfont_100010C8();
-int UNKCALL artfont_10001120(_DWORD *arg);
-signed int artfont_10001159();
-void __fastcall artfont_100011FB(int ecx0, int edx0, const char *a1);
-int artfont_100012F6();
-int artfont_10001310();
-int __fastcall artfont_10001329(unsigned char *a1);
-signed int artfont_1000136C();
-int __fastcall artfont_10001377(unsigned char *a1);
-BOOL __cdecl artfont_100013B3(void *location);
-void __fastcall artfont_100013CD(unsigned char *a1, _DWORD *a2, int a3, int a4);
+void __fastcall artfont_SetArtFont(int nFont);
+void __cdecl artfont_InitAllFonts();
+void __cdecl artfont_FreeAllFonts();
+void __fastcall artfont_FreeArtFont(FontStruct *pFont);
+BOOL __cdecl artfont_LoadAllFonts();
+void __fastcall artfont_LoadArtFont(FontStruct *pFont, const char *pszBinFile, const char *pszFileName);
+int __cdecl artfont_GetFontMaxHeight();
+int __cdecl artfont_GetFontDefWidth();
+int __fastcall artfont_GetFontWidth(char *str);
+void __cdecl j_artfont_cpp_init();
+void __cdecl artfont_cpp_init();
+int __fastcall artfont_GetFontBreak(char *str);
+void __cdecl artfont_delete_operator(void *ptr);
+void __fastcall artfont_PrintFontStr(char *str, DWORD **pSurface, int sx, int sy);
 
 
 signed int bn_prof_100014E8();
@@ -142,27 +143,30 @@ signed int __fastcall credits_10005736(_BYTE *a1);
 int __fastcall credits_10005755(int a1, int a2);
 
 
-BOOL UNKCALL DiabEdit_10005765(HWND hWnd);
-signed int DiabEdit_1000579B();
-ATOM DiabEdit_100057A6();
-HANDLE __fastcall DiabEdit_100057E8(int a1, int a2, HWND hWnd, UINT Msg, HANDLE hData, LPARAM lParam);
-LRESULT __fastcall DiabEdit_1000591C(LPARAM lParam, unsigned short a2);
-LRESULT UNKCALL DiabEdit_1000594E(LPARAM lParam);
-char *__fastcall DiabEdit_10005A0A(HWND a1, unsigned char a2, int a3);
-int __fastcall DiabEdit_10005AF4(LPARAM lParam, int a2, int a3);
-char *__fastcall DiabEdit_10005B70(HWND hWnd, char *a2);
-BOOL __fastcall DiabEdit_10005B9F(HWND hWnd, int a2);
-HANDLE UNKCALL DiabEdit_10005BE7(HWND hWnd);
+void __fastcall DiabEdit_DoPaintBMP(HWND hWnd);
+void __cdecl j_DiabEdit_cpp_init();
+void __cdecl DiabEdit_cpp_init();
+void __cdecl DiabEdit_SetupWindow();
+LRESULT __stdcall DiabEdit_WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam);
+void __fastcall DiabEdit_SendWndCommand(HWND hWnd, WORD a2);
+void __fastcall DiabEdit_GetCursorProp(HWND hWnd);
+void __fastcall DiabEdit_RestrictAndLimit(HWND hWnd, WPARAM wParam, LPARAM lParam);
+void __fastcall DiabEdit_SetTextAndProp(HWND hWnd, WPARAM wParam, LPARAM lParam);
+void __fastcall DiabEdit_SetRestrictString(HWND hWnd, LPARAM lParam);
+void __fastcall DiabEdit_SetRestrictTimer(HWND hWnd);
+void __fastcall DiabEdit_RemoveAllProps(HWND hWnd);
 
 
-int DiabloUI_10005C2A();
-//int __stdcall UiSetBackgroundBitmap(int a1, int a2, int a3, int a4, int a5);
-//int __stdcall UiSetSpawned(int a1);
-//BOOL UiInitialize();
-//void *UiDestroy();
-//int __stdcall UiAppActivate(int a1);
+int __cdecl DiabloUI_GetSpawned();
+void __stdcall UiOnPaint(int a1);
+void __stdcall UiSetBackgroundBitmap(int a1, PALETTEENTRY *a2, int a3, int a4, int a5);
+void __stdcall UiSetSpawned(BOOL bSpawned);
+void __cdecl UiInitialize();
+void __cdecl UiDestroy();
+void __stdcall UiAppActivate(BOOL bActive);
 BOOL __stdcall DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved);
-signed int DiabloUI_10005CEA();
+void __cdecl j_DiabloUI_cpp_init();
+void __cdecl DiabloUI_cpp_init();
 
 
 signed int DirLink_10005CFA();
@@ -189,25 +193,26 @@ int UNKCALL disclaim_10006552(void *arg);
 signed int disclaim_10006571();
 
 
-signed int Doom_10006581();
-int __fastcall Doom_1000658C(HWND hWnd, int *a2, int a3, int a4);
-void __fastcall Doom_100065BB(HWND hWnd, HWND a2, int a3, int a4);
-_DWORD *__fastcall Doom_1000663F(HWND hWnd, int a2);
-BOOL __fastcall Doom_10006719(int a1, HWND a2, int flags);
-_DWORD *__fastcall Doom_1000678A(HWND hWnd, HWND a2);
-int __fastcall Doom_1000680A(HWND hDlg, int *a2, int a3, int a4);
-void __fastcall Doom_10006839(HWND a1, HWND a2, char *a3, int a4);
-int __fastcall Doom_100068AB(HWND hWnd, int *a2, int a3);
-void __fastcall Doom_100068D6(HWND hWnd, HWND a2, int a3);
-_DWORD *__fastcall Doom_1000695D(HWND hWnd, int a2);
-int __fastcall Doom_10006A13(HWND hDlg, int *a2, int a3);
-void __fastcall Doom_10006A3E(HWND a1, HWND a2, char *a3);
-int __fastcall Doom_10006AB8(HWND hWnd, int *a2, int a3);
-void __fastcall Doom_10006AE3(HWND hWnd, HWND a2, int a3);
-void UNKCALL Doom_10006B12(HWND hWnd);
-int __fastcall Doom_10006C08(HWND hDlg, int *a2, int a3);
-void __fastcall Doom_10006C33(HWND a1, HWND a2, char *a3);
-int __fastcall Doom_10006C53(HWND hDlg, int *a2);
+void __cdecl j_Doom_cpp_init();
+void __cdecl Doom_cpp_init();
+void __fastcall Doom_ParseWndProcs(HWND hWnd, int *msgtbl, int a3, int a4);
+void __fastcall Doom_GetSetWndText(HWND hWnd, int msg, int nFont, int a4);
+void __fastcall Doom_PrintStrWithSpin(HWND hWnd, BOOL a2);
+void __fastcall Doom_AllocAndSetBMP(HWND hWnd, int bmp_flags);
+void __fastcall Doom_GetWindowROP3(HWND hWnd1, HWND hWnd2);
+void __fastcall Doom_ParseWndProc2(HWND hWnd, int *msgtbl, int a3, int a4);
+void __fastcall Doom_GetSetWndTxt2(HWND hWnd, int msg, int nFont, int a4);
+void __fastcall Doom_ParseWndProc3(HWND hWnd, int *msgtbl, int a3);
+void __fastcall Doom_GetSetWndTxt3(HWND hWnd, int msg, int nFont);
+void __fastcall Doom_PrintStrWithSpn2(HWND hWnd, int justify_type);
+void __fastcall Doom_ParseWndProc4(HWND hWnd, int *msgtbl, int a3);
+void __fastcall Doom_GetSetWndTxt4(HWND hWnd, int msg, int nFont);
+void __fastcall Doom_ParseWndProc5(HWND hWnd, int *msgtbl, int a3);
+void __fastcall Doom_GetSetWndTxt5(HWND hWnd, int msg, int nFont);
+void __fastcall Doom_PrintTextMsg403(HWND hWnd);
+void __fastcall Doom_ParseWndProc6(HWND hWnd, int *msgtbl, int a3);
+void __fastcall Doom_GetSetWndTxt6(HWND hWnd, int msg, int nFont);
+void __fastcall Doom_DeleteFreeProcs(HWND hWnd, int *msgtbl);
 
 
 int __stdcall EntDial_10006C96(HWND hDlg, UINT Msg, WPARAM wParam, LPARAM lParam); // idb
@@ -227,30 +232,32 @@ void __fastcall EntName_100071ED(HWND hWnd, unsigned int a2, int a3);
 signed int EntName_10007220();
 
 
-int __fastcall Fade_1000722B(int a1, int a2);
-int __fastcall Fade_100072BE(int a1);
-signed int Fade_1000739F();
-signed int Fade_100073B4();
-void __fastcall Fade_100073C5(HWND hWnd, int a2);
-BOOL UNKCALL Fade_100073EF(HWND hWnd);
-int __fastcall Fade_100073FD(int a1, int a2, int a3);
-int __stdcall Fade_10007420(int a1, int a2, int a3, int a4);
-signed int Fade_1000744D();
+void __fastcall Fade_ApplyPaletteRange(int range1, int range2);
+void __fastcall Fade_UpdatePaletteRange(int range);
+BOOL __cdecl Fade_CheckRange5();
+void __cdecl Fade_Range5SetZero();
+void __fastcall Fade_NoInputAndArt(HWND hWnd, BOOL bShowCurs);
+void __fastcall Fade_SetInputWindow(HWND hWnd);
+void __fastcall Fade_SetFadeTimer(int nTime);
+void __stdcall Fade_TimerFunctionDlg(int a1, int a2, int a3, int a4);
+void __cdecl j_Fade_cpp_init();
+void __cdecl Fade_cpp_init();
 
 
-int (__stdcall *UNKCALL Focus_10007458(void *arg))(_DWORD);
-int Focus_10007482();
-_DWORD *__fastcall Focus_10007492(HWND hWnd, HWND a2);
-BOOL UNKCALL Focus_10007566(HWND hWnd);
-_DWORD *__fastcall Focus_100075B7(HWND hWnd, HWND a2);
-int __fastcall Focus_100075DC(HWND hWnd, HWND a2); // idb
-int Focus_100076C3();
-void Focus_100076FA();
-signed int Focus_1000770E();
-void UNKCALL Focus_10007719(const char *arg);
-int __fastcall Focus_100077E9(int a1, const char *a2, HWND hWnd);
-int __stdcall Focus_10007804(HWND hWnd, int a2, int a3, int a4);
-int UNKCALL Focus_10007818(void *arg);
+void __fastcall Focus_CheckPlayMove(LPARAM lParam);
+int __cdecl Focus_GetSpinWidthOrZero();
+void __fastcall Focus_BlitSpinner(HWND hWnd1, HWND hWnd2);
+void __fastcall Focus_CenterSpinFromSide(HWND hWnd);
+void __fastcall Focus_GetAndBlitSpin(HWND hWnd, LPARAM lParam);
+BOOL __fastcall Focus_DoBlitSpinIncFrame(HWND hWnd1, HWND hWnd2);
+void __cdecl Focus_DeleteSpinners();
+void __cdecl Focus_ResetSpinToZero();
+void __cdecl j_Focus_cpp_init();
+void __cdecl Focus_cpp_init();
+void __fastcall Focus_LoadSpinner(const char *pszFileName);
+void __fastcall Focus_SetFocusTimer(HWND hWnd, const char *pszFileName);
+void __stdcall Focus_SetFocusAndBlit(int hWnd, int a2, int a3, int a4);
+void __fastcall Focus_KillFocusTimer(HWND hWnd);
 
 
 void __cdecl local_InitUiPalette();
@@ -591,24 +598,26 @@ int __fastcall SelYesNo_1000FD77(int a1, UINT a2, int a3);
 signed int SelYesNo_1000FDE3();
 
 
-_DWORD *UNKCALL Title_1000FDEE(HWND hWnd);
-int Title_1000FEED();
-void **UNKCALL Title_1000FF0F(HWND hWnd);
-HWND UNKCALL Title_1000FF51(HWND arg);
-_DWORD *__fastcall Title_1000FFE8(HWND hWnd, const char *edx0);
-int __fastcall Title_1001009E(HWND hWnd, const char *a2, HWND hWnda);
-_DWORD *__stdcall Title_100100CB(HWND hWnd, int a2, int a3, int a4);
-signed int Title_100100DC();
-void **UNKCALL Title_100100E7(HWND hWnd);
-//signed int __stdcall UiTitleDialog(int a1);
-int __stdcall Title_10010126(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam); // idb
-void UNKCALL Title_10010235(HWND hDlg);
-int __fastcall Title_1001025A(HWND hWnd, int a2);
-int UNKCALL Title_100102D7(void *arg);
+void __fastcall Title_BlitTitleBuffer(HWND hWnd);
+void __cdecl Title_DeletePhTrans();
+void __fastcall Title_FreeTransMem(HWND hWnd);
+void __fastcall Title_SetTitleBMP(HWND hWnd);
+void __fastcall Title_LoadTitleImage(HWND hWnd, const char *pszFileName);
+void __fastcall Title_LoadImgSetTimer(HWND hWnd, const char *pszFileName);
+void __stdcall Title_BlitTitleBufFnc(int hWnd, int a2, int a3, int a4);
+void __cdecl j_Title_cpp_init();
+void __cdecl Title_cpp_init();
+void __fastcall Title_KillTitleTimer(HWND hWnd);
+BOOL __stdcall UiTitleDialog(int a1);
+LRESULT __stdcall Title_MainProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+void __fastcall Title_KillTimerAndFree(HWND hWnd);
+void __fastcall Title_LoadAllTitleImgs(HWND hWnd, int time);
+void __fastcall Title_KillAndFadeDlg(HWND hWnd);
 
 
-void UNKCALL TitleSnd_10010306(void *arg);
-void TitleSnd_1001030D();
-int (__stdcall *TitleSnd_10010315())(_DWORD);
-int (__stdcall *TitleSnd_1001031F())(_DWORD);
-signed int TitleSnd_1001032E();
+void __fastcall TitleSnd_SetSoundFunction(void (__stdcall *func)(char *file));
+void __cdecl TitleSnd_InitSoundFunc();
+void __cdecl TitleSnd_PlayMoveSound();
+void __cdecl TitleSnd_PlaySelectSound();
+void __cdecl j_TitleSnd_cpp_init();
+void __cdecl TitleSnd_cpp_init();

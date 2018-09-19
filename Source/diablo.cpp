@@ -23,7 +23,7 @@ char cineflag; // weak
 int drawpanflag; // weak
 int visiondebug; // weak
 int scrollflag; /* unused */
-int light4flag; // weak
+BOOL light4flag;
 int leveldebug; // weak
 int monstdebug; // weak
 int trigdebug; /* unused */
@@ -172,10 +172,10 @@ void __fastcall run_game_loop(int uMsg)
 	while ( gbRunGame )
 	{
 		diablo_color_cyc_logic();
-		if ( PeekMessageA(&msg, NULL, 0, 0, PM_NOREMOVE) )
+		if ( PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE) )
 		{
 			SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_ABOVE_NORMAL);
-			while ( PeekMessageA(&msg, NULL, 0, 0, PM_REMOVE) )
+			while ( PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) )
 			{
 				if ( msg.message == WM_QUIT )
 				{
@@ -184,7 +184,7 @@ void __fastcall run_game_loop(int uMsg)
 					break;
 				}
 				TranslateMessage(&msg);
-				DispatchMessageA(&msg);
+				DispatchMessage(&msg);
 			}
 			if ( !gbRunGame || (v7 = 1, !nthread_has_500ms_passed()) )
 				v7 = 0;
@@ -271,7 +271,7 @@ void __cdecl free_game()
 bool __cdecl diablo_get_not_running()
 {
 	SetLastError(0);
-	CreateEventA(NULL, FALSE, FALSE, "DiabloEvent");
+	CreateEvent(NULL, FALSE, FALSE, "DiabloEvent");
 	return GetLastError() != ERROR_ALREADY_EXISTS;
 }
 
@@ -281,7 +281,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	HINSTANCE v4; // esi
-	//int v11; // ecx
 	char Filename[260]; // [esp+8h] [ebp-10Ch]
 	char value_name[8]; // [esp+10Ch] [ebp-8h]
 
@@ -295,7 +294,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		1; // Disable that bullshit popup
 	if ( ReadOnlyTest() )
 	{
-		if ( !GetModuleFileNameA(ghInst, Filename, 0x104u) )
+		if ( !GetModuleFileName(ghInst, Filename, 0x104u) )
 			*Filename = '\0';
 		DirErrorDlg(Filename);
 	}
@@ -333,10 +332,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		UiTitleDialog(7);
 		BlackPalette();
 #endif
-
-
-		mainmenu_action(0); /* v11 fix unused arg */ 
-		UiDestroy(); 
+		mainmenu_loop();
+		UiDestroy();
 		SaveGamma();
 		setGameState(0);
 		if ( ghMainWnd )
@@ -506,7 +503,7 @@ BOOL __fastcall diablo_find_window(LPCSTR lpClassName)
 	HWND v3; // eax
 	HWND v4; // edi
 
-	result = FindWindowA(lpClassName, 0);
+	result = FindWindow(lpClassName, 0);
 	v2 = result;
 	if ( !result )
 		return 0;
@@ -543,8 +540,8 @@ void __fastcall diablo_reload_process(HMODULE hModule)
 	memset(Filename + 1, 0, sizeof(Filename) - 1);
 //	*(_WORD *)&Filename[257] = 0;
 //	Filename[259] = 0;
-	GetModuleFileNameA(hModule, Filename, 0x104u);
-	wsprintfA(Name, "Reload-%s", Filename);
+	GetModuleFileName(hModule, Filename, 0x104u);
+	wsprintf(Name, "Reload-%s", Filename);
 	for ( i = Name; *i; ++i )
 	{
 		if ( *i == '\\' )
@@ -554,7 +551,7 @@ void __fastcall diablo_reload_process(HMODULE hModule)
 	dwSize = sinf.dwPageSize;
 	if ( sinf.dwPageSize < 4096 )
 		dwSize = 4096;
-	hMap = CreateFileMappingA((HANDLE)0xFFFFFFFF, NULL, SEC_COMMIT|PAGE_READWRITE, 0, dwSize, Name);
+	hMap = CreateFileMapping((HANDLE)0xFFFFFFFF, NULL, SEC_COMMIT|PAGE_READWRITE, 0, dwSize, Name);
 	v3 = GetLastError() != ERROR_ALREADY_EXISTS;
 	if ( hMap )
 	{
@@ -568,7 +565,7 @@ void __fastcall diablo_reload_process(HMODULE hModule)
 				v4[1] = 0;
 				memset(&si, 0, sizeof(si));
 				si.cb = sizeof(si);
-				CreateProcessA(Filename, NULL, NULL, NULL, FALSE, CREATE_NEW_PROCESS_GROUP, NULL, NULL, &si, &pi);
+				CreateProcess(Filename, NULL, NULL, NULL, FALSE, CREATE_NEW_PROCESS_GROUP, NULL, NULL, &si, &pi);
 				WaitForInputIdle(pi.hProcess, 0xFFFFFFFF);
 				CloseHandle(pi.hThread);
 				CloseHandle(pi.hProcess);
@@ -1265,13 +1262,13 @@ void __fastcall diablo_hotkey_msg(int dwMsg)
 	v1 = dwMsg;
 	if ( gbMaxPlayers != 1 )
 	{
-		if ( !GetModuleFileNameA(ghInst, Filename, 0x104u) )
+		if ( !GetModuleFileName(ghInst, Filename, 0x104u) )
 			TermMsg("Can't get program name");
 		v2 = strrchr(Filename, '\\');
 		if ( v2 )
 			*v2 = 0;
 		strcat(Filename, "\\Diablo.ini");
-		GetPrivateProfileStringA("NetMsg", spszMsgKeyTbl[v1], spszMsgTbl[v1], ReturnedString, 0x50u, Filename);
+		GetPrivateProfileString("NetMsg", spszMsgKeyTbl[v1], spszMsgTbl[v1], ReturnedString, 0x50u, Filename);
 		NetSendCmdString(-1, ReturnedString);
 	}
 }
@@ -2095,7 +2092,7 @@ void __fastcall CreateLevel(int lvldir)
 }
 // 5BB1ED: using guessed type char leveltype;
 
-void __fastcall LoadGameLevel(bool firstflag, int lvldir)
+void __fastcall LoadGameLevel(BOOL firstflag, int lvldir)
 {
 	int v2; // ebp
 	bool visited; // edx
