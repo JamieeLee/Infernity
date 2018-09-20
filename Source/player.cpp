@@ -2789,7 +2789,7 @@ BOOL __fastcall WeaponDur(int pnum, int durrnd)
 		}
 
 		plr[pnum].InvBody[INVLOC_HAND_LEFT]._iDurability--;
-		if ( plr[pnum].InvBody[INVLOC_HAND_LEFT]._iDurability != 0) {
+		if ( plr[pnum].InvBody[INVLOC_HAND_LEFT]._iDurability == 0) {
 			NetSendCmdDelItem(TRUE, INVLOC_HAND_LEFT);
 			plr[pnum].InvBody[INVLOC_HAND_LEFT]._itype = ITYPE_NONE;
 			CalcPlrInv(pnum, TRUE);
@@ -2803,7 +2803,7 @@ BOOL __fastcall WeaponDur(int pnum, int durrnd)
 		}
 
 		plr[pnum].InvBody[INVLOC_HAND_RIGHT]._iDurability--;
-		if ( plr[pnum].InvBody[INVLOC_HAND_RIGHT]._iDurability != 0 ) {
+		if ( plr[pnum].InvBody[INVLOC_HAND_RIGHT]._iDurability == 0 ) {
 			NetSendCmdDelItem(TRUE, INVLOC_HAND_RIGHT);
 			plr[pnum].InvBody[INVLOC_HAND_RIGHT]._itype = ITYPE_NONE;
 			CalcPlrInv(pnum, TRUE);
@@ -2817,7 +2817,7 @@ BOOL __fastcall WeaponDur(int pnum, int durrnd)
 		}
 
 		plr[pnum].InvBody[INVLOC_HAND_RIGHT]._iDurability--;
-		if ( plr[pnum].InvBody[INVLOC_HAND_RIGHT]._iDurability != 0 ) {
+		if ( plr[pnum].InvBody[INVLOC_HAND_RIGHT]._iDurability == 0 ) {
 			NetSendCmdDelItem(TRUE, INVLOC_HAND_RIGHT);
 			plr[pnum].InvBody[INVLOC_HAND_RIGHT]._itype = ITYPE_NONE;
 			CalcPlrInv(pnum, TRUE);
@@ -2826,14 +2826,16 @@ BOOL __fastcall WeaponDur(int pnum, int durrnd)
 	}
 
 	if ( plr[pnum].InvBody[INVLOC_HAND_RIGHT]._itype == ITYPE_NONE && plr[pnum].InvBody[INVLOC_HAND_LEFT]._itype == ITYPE_SHIELD ) {
-		if ( plr[pnum].InvBody[INVLOC_HAND_LEFT]._iDurability != 255 ) {
-			plr[pnum].InvBody[INVLOC_HAND_LEFT]._iDurability--;
-			if ( plr[pnum].InvBody[INVLOC_HAND_LEFT]._iDurability != 0 ) {
-				NetSendCmdDelItem(TRUE, INVLOC_HAND_LEFT);
-				plr[pnum].InvBody[INVLOC_HAND_LEFT]._itype = ITYPE_NONE;
-				CalcPlrInv(pnum, TRUE);
-				return TRUE;
-			}
+		if ( plr[pnum].InvBody[INVLOC_HAND_LEFT]._iDurability == 255 ) {
+			return FALSE;
+		}
+
+		plr[pnum].InvBody[INVLOC_HAND_LEFT]._iDurability--;
+		if ( plr[pnum].InvBody[INVLOC_HAND_LEFT]._iDurability == 0 ) {
+			NetSendCmdDelItem(TRUE, INVLOC_HAND_LEFT);
+			plr[pnum].InvBody[INVLOC_HAND_LEFT]._itype = ITYPE_NONE;
+			CalcPlrInv(pnum, TRUE);
+			return TRUE;
 		}
 	}
 
@@ -3432,7 +3434,7 @@ BOOL __fastcall PM_DoSpell(int pnum)
 		if ( !plr[pnum]._pSplFrom ) {
 			if ( plr[pnum]._pRSplType == RSPLTYPE_SCROLL) {
 				if ( !(plr[pnum]._pScrlSpells64
-					& (UINT64)1 << (plr[pnum]._pRSpell - 1))
+					& (unsigned __int64)1 << (plr[pnum]._pRSpell - 1))
 				) {
 					plr[pnum]._pRSpell = SPL_INVALID;
 					plr[pnum]._pRSplType = RSPLTYPE_INVALID;
@@ -3442,7 +3444,7 @@ BOOL __fastcall PM_DoSpell(int pnum)
 
 			if ( plr[pnum]._pRSplType == RSPLTYPE_CHARGES) {
 				if ( !(plr[pnum]._pISpells64
-					& (UINT64)1 << (plr[pnum]._pRSpell - 1))
+					& (unsigned __int64)1 << (plr[pnum]._pRSpell - 1))
 				) {
 					plr[pnum]._pRSpell = SPL_INVALID;
 					plr[pnum]._pRSplType = RSPLTYPE_INVALID;
