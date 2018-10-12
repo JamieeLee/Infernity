@@ -4986,7 +4986,6 @@ void __fastcall OperateShrine(int pnum, int i, int sType)
 			v5 = deltaload;
 		}
 		v7 = object[v3]._oVar1;
-		v7 = SHRINE_SECLUDED;
 		switch ( v7 )
 		{
 			case SHRINE_MYSTERIOUS://Mysterious	+5 points to one random attribute
