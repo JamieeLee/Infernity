@@ -164,7 +164,7 @@ void DrawStashButtons() {
 
 	int stashtab = plr[myplr].currentInventoryIndex - 4;
 	if (stashtab <= 0) { colors[0] = 0; colors[1] = 0;}
-	if (stashtab >= 99) { colors[3] = 0; colors[4] = 0; }
+	if (stashtab > MAX_STASH_TABS) { colors[3] = 0; colors[4] = 0; }
 	std::string texts[5] = { "<<","<","o",">",">>" };
 
 	if (stashtab >= 0) {

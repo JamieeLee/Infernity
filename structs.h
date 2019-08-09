@@ -1,8 +1,8 @@
 #include <string>
 #define GLOBAL_WIDTH 1280
 #define GLOBAL_HEIGHT 960
-#define MAX_STASH_TABS 100
-#define MEGAPACKETSIZE 92000
+#define MAX_STASH_TABS 25
+#define MEGAPACKETSIZE 32000
 #define GRISWOLD_GOLD_LIMIT 1400000
 #define ADRIA_GOLD_LIMIT 1400000
 #define WIRT_GOLD_LIMIT 900000
@@ -1136,9 +1136,9 @@ struct TCmdDamage
 struct TCmdPlrInfoHdr
 {
 	unsigned char bCmd;
-	//unsigned short wOffset;
+	unsigned short wOffset;
 	unsigned short wBytes;
-	int wOffset;
+	//int wOffset;
 };
 
 struct TCmdString

@@ -3446,12 +3446,14 @@ int __fastcall On_SEND_PLRINFO(struct TCmdPlrInfoHdr *pCmd, int pnum)
 			outfile << "SENDING " << pCmd->wOffset << " offset! BYTES: " << (int)pCmd->wBytes + sizeof(TCmdPlrInfoHdr) << "! FULL SIZE = " << sizeof(LATEST_PKPLAYER_STRUCT) << "\n";
 			outfile.close();
 		}
-		msg_send_packet(pnum, pCmd, pCmd->wBytes + sizeof(TCmdPlrInfoHdr));
+		//msg_send_packet(pnum, pCmd, pCmd->wBytes + sizeof(TCmdPlrInfoHdr));
+		msg_send_packet(pnum, pCmd, (unsigned short)pCmd->wBytes + 5);
 	}
 	else {
 		multi_player_joins(pnum, pCmd, pCmd->bCmd == 2);
 	}
-	return v2->wBytes + sizeof(TCmdPlrInfoHdr);
+	//return v2->wBytes + sizeof(TCmdPlrInfoHdr);
+	return (unsigned short)v2->wBytes + 5;
 }
 // 676194: using guessed type char gbBufferMsgs;
 

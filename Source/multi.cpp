@@ -1111,8 +1111,8 @@ void __fastcall multi_player_joins(int pnum, TCmdPlrInfoHdr *cmd, int a3)
 {
 	int v3; // ebx
 	TCmdPlrInfoHdr *v4; // edi
-	//short *v5; // esi
-	int *v5;
+	short *v5; // esi
+	//int *v5;
 	int v6; // esi
 	bool v7; // zf
 	char *v8; // eax
@@ -1126,14 +1126,15 @@ void __fastcall multi_player_joins(int pnum, TCmdPlrInfoHdr *cmd, int a3)
 	v4 = cmd;
 	if ( myplr != pnum )
 	{
-		v5 = (int*)&sgwPackPlrOffsetTbl[pnum];
+		v5 = &sgwPackPlrOffsetTbl[pnum];
 		if ( *v5 == cmd->wOffset || (*v5 = 0, !cmd->wOffset) )
 		{
 			if ( !a3 && !*v5 )
 			{
 				multi_send_pinfo(pnum, CMD_ACK_PLRINFO);
 			}
-			memcpy((char *)&netplr[v3] + (int)v4->wOffset, &v4[1], v4->wBytes);
+			//memcpy((char *)&netplr[v3] + (int)v4->wOffset, &v4[1], v4->wBytes);
+			memcpy((char*)& netplr[v3] + (unsigned short)v4->wOffset, &v4[1], (unsigned short)v4->wBytes);
 			*v5 += v4->wBytes;
 			//if ( *v5 == 1266 )
 
