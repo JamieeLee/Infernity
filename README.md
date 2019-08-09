@@ -75,6 +75,8 @@ I will order a pizza and think about you while eating ;)
 - 1.18 - Hotkeys F1-F12, they save in multiplayer
 - 1.19 - Loot Filters
 - 1.20 - Spell power! Make mage normal again.
+- 1.21 - Spell cooldowns!
+- 1.22 - Multiplayer fixed, Stash size reduced from 100 to 25, items in tabs above 25 will be lost!
 
 # Screenshots
 Some screenshots from the mod (You can find more screenshots on discord):
