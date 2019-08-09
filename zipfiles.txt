@@ -1,7 +1,7 @@
-E:\MY_D1_MOD\Infernity\Source\DiabloGame\Infernity.exe
-E:\MY_D1_MOD\Infernity\Source\DiabloGame\ddraw.dll
-E:\MY_D1_MOD\Infernity\Source\DiabloGame\infernity_config.ini
-E:\MY_D1_MOD\Infernity\Source\DiabloGame\pvpgngateway.reg
-E:\MY_D1_MOD\Infernity\Source\DiabloGame\enable_inferno
-E:\MY_D1_MOD\Infernity\Source\DiabloGame\lootFilter.lua
-E:\MY_D1_MOD\Infernity\Source\DiabloGame\InfernityReadme.txt
+G:\LATEST_STUFF\MY_D1_MOD\Infernity\Source\DiabloGame\Infernity.exe
+G:\LATEST_STUFF\MY_D1_MOD\Infernity\Source\DiabloGame\ddraw.dll
+G:\LATEST_STUFF\MY_D1_MOD\Infernity\Source\DiabloGame\infernity_config.ini
+G:\LATEST_STUFF\MY_D1_MOD\Infernity\Source\DiabloGame\pvpgngateway.reg
+G:\LATEST_STUFF\MY_D1_MOD\Infernity\Source\DiabloGame\enable_inferno
+G:\LATEST_STUFF\MY_D1_MOD\Infernity\Source\DiabloGame\lootFilter.lua
+G:\LATEST_STUFF\MY_D1_MOD\Infernity\Source\DiabloGame\InfernityReadme.txt
