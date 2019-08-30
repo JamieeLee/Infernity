@@ -2047,7 +2047,11 @@ void RestartTownLvl(int pnum)
 	SetPlayerHitPoints(pnum, 64);
 
 	plr[pnum]._pMana = 0;
+#ifdef HELLFIRE
+	plr[pnum]._pManaBase = plr[pnum]._pMaxManaBase + plr[pnum]._pMana - plr[pnum]._pMaxMana;
+#else
 	plr[pnum]._pManaBase = plr[pnum]._pMaxManaBase - plr[pnum]._pMaxMana;
+#endif
 
 	CalcPlrInv(pnum, FALSE);
 
