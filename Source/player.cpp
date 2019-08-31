@@ -3835,6 +3835,15 @@ void CheckStats(int p)
 	} else if (plr[p]._pClass == PC_SORCERER) {
 		c = PC_SORCERER;
 	}
+#ifdef HELLFIRE
+	else if (plr[p]._pClass == PC_MONK) {
+		c = PC_MONK;
+	} else if (plr[p]._pClass == PC_BARD) {
+		c = PC_BARD;
+	} else if (plr[p]._pClass == PC_BARBARIAN) {
+		c = PC_BARBARIAN;
+	}
+#endif
 
 	for (i = 0; i < 4; i++) {
 		switch (i) {
@@ -3886,11 +3895,13 @@ void ModifyPlrStr(int p, int l)
 	plr[p]._pStrength += l;
 	plr[p]._pBaseStr += l;
 
+#ifndef HELLFIRE
 	if (plr[p]._pClass == PC_ROGUE) {
 		plr[p]._pDamageMod = plr[p]._pLevel * (plr[p]._pStrength + plr[p]._pDexterity) / 200;
 	} else {
 		plr[p]._pDamageMod = plr[p]._pLevel * plr[p]._pStrength / 100;
 	}
+#endif
 
 	CalcPlrInv(p, TRUE);
 
@@ -3917,8 +3928,13 @@ void ModifyPlrMag(int p, int l)
 
 	ms = l << 6;
 	if (plr[p]._pClass == PC_SORCERER) {
-		ms *= 2;
+		ms <<= 1;
 	}
+#ifdef HELLFIRE
+	else if (plr[p]._pClass == PC_BARD) {
+		ms += ms >> 1;
+	}
+#endif
 
 	plr[p]._pMaxManaBase += ms;
 	plr[p]._pMaxMana += ms;
@@ -3951,9 +3967,11 @@ void ModifyPlrDex(int p, int l)
 	plr[p]._pBaseDex += l;
 	CalcPlrInv(p, TRUE);
 
+#ifndef HELLFIRE
 	if (plr[p]._pClass == PC_ROGUE) {
 		plr[p]._pDamageMod = plr[p]._pLevel * (plr[p]._pDexterity + plr[p]._pStrength) / 200;
 	}
+#endif
 
 	if (p == myplr) {
 		NetSendCmdParam1(FALSE, CMD_SETDEX, plr[p]._pBaseDex);
@@ -3978,8 +3996,13 @@ void ModifyPlrVit(int p, int l)
 
 	ms = l << 6;
 	if (plr[p]._pClass == PC_WARRIOR) {
-		ms *= 2;
+		ms <<= 1;
 	}
+#ifdef HELLFIRE
+	else if (plr[p]._pClass == PC_BARBARIAN) {
+		ms <<= 1;
+	}
+#endif
 
 	plr[p]._pHPBase += ms;
 	plr[p]._pMaxHPBase += ms;
@@ -4018,6 +4041,7 @@ void SetPlrStr(int p, int v)
 	plr[p]._pBaseStr = v;
 	CalcPlrInv(p, TRUE);
 
+#ifndef HELLFIRE
 	if (plr[p]._pClass == PC_ROGUE) {
 		dm = plr[p]._pLevel * (plr[p]._pStrength + plr[p]._pDexterity) / 200;
 	} else {
@@ -4025,6 +4049,7 @@ void SetPlrStr(int p, int v)
 	}
 
 	plr[p]._pDamageMod = dm;
+#endif
 }
 
 void SetPlrMag(int p, int v)
@@ -4039,8 +4064,13 @@ void SetPlrMag(int p, int v)
 
 	m = v << 6;
 	if (plr[p]._pClass == PC_SORCERER) {
-		m *= 2;
+		m <<= 1;
 	}
+#ifdef HELLFIRE
+	else if (plr[p]._pClass == PC_BARD) {
+		m += m >> 1;
+	}
+#endif
 
 	plr[p]._pMaxManaBase = m;
 	plr[p]._pMaxMana = m;
@@ -4058,6 +4088,7 @@ void SetPlrDex(int p, int v)
 	plr[p]._pBaseDex = v;
 	CalcPlrInv(p, TRUE);
 
+#ifndef HELLFIRE
 	if (plr[p]._pClass == PC_ROGUE) {
 		dm = plr[p]._pLevel * (plr[p]._pStrength + plr[p]._pDexterity) / 200;
 	} else {
@@ -4065,6 +4096,7 @@ void SetPlrDex(int p, int v)
 	}
 
 	plr[p]._pDamageMod = dm;
+#endif
 }
 
 void SetPlrVit(int p, int v)
@@ -4079,8 +4111,13 @@ void SetPlrVit(int p, int v)
 
 	hp = v << 6;
 	if (plr[p]._pClass == PC_WARRIOR) {
-		hp *= 2;
+		hp <<= 1;
 	}
+#ifdef HELLFIRE
+	else if (plr[p]._pClass == PC_BARBARIAN) {
+		hp <<= 1;
+	}
+#endif
 
 	plr[p]._pHPBase = hp;
 	plr[p]._pMaxHPBase = hp;
@@ -4094,6 +4131,9 @@ void InitDungMsgs(int pnum)
 	}
 
 	plr[pnum].pDungMsgs = 0;
+#ifdef HELLFIRE
+	plr[pnum].pBattleNet = 0;
+#endif
 }
 
 void PlayDungMsgs()
