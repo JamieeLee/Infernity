@@ -2017,8 +2017,8 @@ void SmithBuyItem()
 		myfile << "i: " << i << " VAL: " << storebuy[i] << "\n";
 	}
 	int val = 1;
-	for (int i = 0; i < 32; i++) {
-		myfile << (plr[myplr].dwReserved[0] & val) ? 1 : 0;
+	for (int i = 0; i < 20; i++) {
+		myfile << ((plr[myplr].dwReserved[0] & val) ? 1 : 0);
 		val <<= 1;
 	}
 	myfile << "\n";
