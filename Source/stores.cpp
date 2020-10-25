@@ -109,7 +109,7 @@ void SetupTownStores()
 {
 	int i, l;
 
-	SetRndSeed(glSeedTbl[currlevel] * GetTickCount());
+	SetRndSeed(glSeedTbl[currlevel]);
 	if (gbMaxPlayers == 1) {
 		l = 0;
 		for (i = 0; i < NUMLEVELS; i++) {
@@ -1960,6 +1960,19 @@ void TakePlrsMoney(int cost)
 	}
 }
 
+std::vector<int> storebuy;
+void FakeBuy(int idx)
+{
+	if (idx == SMITH_ITEMS - 1) {
+		smithitem[SMITH_ITEMS - 1]._itype = ITYPE_NONE;
+	} else {
+		for (; smithitem[idx + 1]._itype != ITYPE_NONE; idx++) {
+			smithitem[idx] = smithitem[idx + 1];
+		}
+		smithitem[idx]._itype = ITYPE_NONE;
+	}
+}
+
 void SmithBuyItem()
 {
 	int idx;
@@ -1978,6 +1991,38 @@ void SmithBuyItem()
 		smithitem[idx]._itype = ITYPE_NONE;
 	}
 	CalcPlrInv(myplr, TRUE);
+
+	std::ofstream myfile;
+	myfile.open("example.txt");
+
+	int v = stextvhold + ((stextlhold - stextup) >> 2);
+	storebuy.push_back(v);
+	myfile << "BUYING REL INDEX " << v << "\n";
+	for (int i = 0; i < storebuy.size(); i++) {
+		for (int j = i; j < storebuy.size(); j++) {
+			if (i == j) {
+				continue;
+			}
+			if (storebuy[j] >= storebuy[i])
+				storebuy[j]++;
+		}
+	}
+
+	for (int i = 0; i < storebuy.size();i++){
+		plr[myplr].dwReserved[0] |= (1 << storebuy[i]);
+	}
+
+	myfile << "VALUES IN VECTOR: \n";
+	for (int i = 0; i < storebuy.size(); i++) {
+		myfile << "i: " << i << " VAL: " << storebuy[i] << "\n";
+	}
+	int val = 1;
+	for (int i = 0; i < 32; i++) {
+		myfile << (plr[myplr].dwReserved[0] & val) ? 1 : 0;
+		val <<= 1;
+	}
+	myfile << "\n";
+	myfile.close();
 }
 
 void S_SBuyEnter()

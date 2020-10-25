@@ -11,6 +11,8 @@
 #include "resource.h"
 
 #include <windows.h>
+#include <fstream>
+#include <vector>
 #include <mmsystem.h>
 #include <stdio.h>
 #include <stdlib.h>

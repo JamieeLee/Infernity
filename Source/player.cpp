@@ -691,6 +691,7 @@ void SetPlrAnims(int pnum)
 
 void ClearPlrRVars(PlayerStruct *p)
 {
+	return;
 	// TODO: Missing debug assert p != NULL
 #ifdef HELLFIRE
 	p->pManaShield = 0;

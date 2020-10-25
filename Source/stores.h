@@ -6,6 +6,8 @@
 #ifndef __STORES_H__
 #define __STORES_H__
 
+extern std::vector<int> storebuy;
+void FakeBuy(int idx);
 extern int stextup;
 extern int storenumh;
 extern int stextlhold;

@@ -375,7 +375,7 @@ void delta_leave_sync(BYTE bLevel)
 
 	if (gbMaxPlayers != 1) {
 		if (currlevel == 0) {
-			glSeedTbl[0] = GetRndSeed();
+			//glSeedTbl[0] = GetRndSeed();
 		}
 		if (currlevel > 0) {
 			for (i = 0; i < nummonsters; ++i) {

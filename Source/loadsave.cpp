@@ -52,6 +52,24 @@ void LoadGame(BOOL firstflag)
 
 	LoadPlayer(myplr);
 
+	storebuy.clear();
+	int val = 1;
+	for (int i = 19; i >= 0; i--) {
+		if (plr[myplr].dwReserved[0] & (1 << i))
+			storebuy.push_back(i);
+	}
+
+		std::ofstream myfile;
+	myfile.open("example.txt");
+
+	myfile << "LOADED " << plr[myplr].dwReserved[0] << "\n";
+	myfile << "VALS INSIDE VECTOR:\n";
+	for (int i = 0; i < storebuy.size();i++){
+		myfile << "I: " << i << " VAL: " << storebuy[i] << "\n";
+	}
+	myfile << "\n";
+	myfile.close();
+
 #ifdef HELLFIRE
 	gnDifficulty = plr[myplr].pDifficulty;
 	if (gnDifficulty < DIFF_NORMAL || gnDifficulty > DIFF_HELL)
@@ -541,8 +559,8 @@ void SaveLevel()
 	int dwLen;
 	BYTE *SaveBuff;
 
-	if (currlevel == 0)
-		glSeedTbl[0] = GetRndSeed();
+	//if (currlevel == 0)
+	//	glSeedTbl[0] = GetRndSeed();
 
 	dwLen = codec_get_encoded_len(FILEBUFF);
 	SaveBuff = DiabloAllocPtr(dwLen);

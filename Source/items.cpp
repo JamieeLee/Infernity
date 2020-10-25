@@ -4868,6 +4868,9 @@ void SpawnSmith(int lvl)
 #ifdef HELLFIRE
 	item[0] = holditem;
 #endif
+	for (int i = 0; i < storebuy.size(); i++) {
+		FakeBuy(storebuy[i]);
+	}
 }
 
 BOOL PremiumItemOk(int i)
