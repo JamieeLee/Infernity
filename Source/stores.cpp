@@ -1993,7 +1993,7 @@ void SmithBuyItem()
 	CalcPlrInv(myplr, TRUE);
 
 	std::ofstream myfile;
-	myfile.open("example.txt");
+	myfile.open("example.txt", std::ios::app);
 
 	int v = stextvhold + ((stextlhold - stextup) >> 2);
 	storebuy.push_back(v);

@@ -691,6 +691,7 @@ void SetPlrAnims(int pnum)
 
 void ClearPlrRVars(PlayerStruct *p)
 {
+	storebuy.clear();
 	return;
 	// TODO: Missing debug assert p != NULL
 #ifdef HELLFIRE

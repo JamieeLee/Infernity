@@ -60,7 +60,7 @@ void LoadGame(BOOL firstflag)
 	}
 
 		std::ofstream myfile;
-	myfile.open("example.txt");
+	myfile.open("example.txt", std::ios::app);
 
 	myfile << "LOADED " << plr[myplr].dwReserved[0] << "\n";
 	myfile << "VALS INSIDE VECTOR:\n";
