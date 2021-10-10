@@ -1,11 +1,4 @@
-# Discord&Moddb!
-[Discord](https://discord.gg/rejUw5b)  <----- Don't miss this link! A lot of cool stuff on the discord, screenshots etc. You can even suggest stuff to add and have a cool chat with me : )
 
-[Moddb](https://www.moddb.com/mods/diablo-infernity-lets-make-diablo1-great-again)
-# Pay me :D
-If you like my work, you can donate
-`Paypal:` stefan551@o2.pl
-I will order a pizza and think about you while eating ;)
 # Features
 ## DONE:
 - A new difficulty called Inferno.
